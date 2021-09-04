@@ -1,0 +1,9 @@
+@use "sass:math";
+
+@function vw($size) {
+  @return math.div($size, 1280) * 100vw;
+}
+
+@function vw_sp($size) {
+  @return math.div($size, 750) * 100vw;
+}

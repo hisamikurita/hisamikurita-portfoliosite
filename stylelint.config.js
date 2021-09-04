@@ -3,7 +3,8 @@ module.exports = {
     'stylelint-config-standard',
     'stylelint-config-prettier'
   ],
-  // add your custom config here
-  // https://stylelint.io/user-guide/configuration
-  rules: {}
+  ignoreFiles: ["./assets/scss/reset/**/*"],
+  rules: {
+    "at-rule-no-unknown": [true, { "ignoreAtRules": ["include", "use", "function", "return", "mixin", "each"] }],
+  }
 }

@@ -1,0 +1,13 @@
+//constants
+@import './constants/color.scss';
+
+//functions
+@import './functions/function';
+
+// reset
+@import './reset/sanitize';
+@import './reset/reset';
+@import './reset/sanitize-extra';
+
+//global
+@import './global/base';

@@ -1,7 +1,19 @@
 <template>
-  <Tutorial/>
+  <div>
+    <Hero/>
+    <About/>
+  </div>
 </template>
 
 <script>
-export default {}
+import Hero from '~/components/index/Hero.vue'
+import About from '~/components/index/About.vue'
+
+export default {
+  name: 'Index',
+  components: {
+    Hero,
+    About,
+  },
+}
 </script>
