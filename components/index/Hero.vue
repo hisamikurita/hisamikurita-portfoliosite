@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import TextSegment from '../common/TextSgment.vue'
+import TextSegment from '../common/TextSegment.vue'
 
 export default {
   components: {
