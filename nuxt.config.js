@@ -41,13 +41,20 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/style-resources'
+    'nuxt-webfontloader',
+    '@nuxtjs/style-resources',
   ],
 
   styleResources: {
     scss: [
       '~/assets/scss/single-file-common.scss'
     ]
+  },
+
+  webfontloader: {
+    google: {
+      families: ['Six+Caps'] 
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -3,14 +3,25 @@
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
-          <span>FOLIO OF HISAMI KURITA</span>
-          <span>19/AUG.1996 BASED IN TOKYO</span>
-          <span>JAPANESE CREATIVE DEVELOPER</span>
+          <TextSegment start="0" text="FOLIO OF HISAMI KURITA"></TextSegment>
+          <TextSegment start="1.32" text="19/Aug.1996"></TextSegment>
+          <TextSegment start="1.98" text="CREATIVE DEVELOPER"></TextSegment>
+          <TextSegment start="3.06" text="AT LIG INC"></TextSegment>
         </h1>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import TextSegment from '../common/TextSgment.vue'
+
+export default {
+  components: {
+    TextSegment,
+  },
+}
+</script>
 
 <style scoped lang="scss">
 .hero-inner{
@@ -18,7 +29,8 @@
 }
 
 .hero-title {
-  font-size: vw(100);
-  letter-spacing: 0.1em;
+  font-size: vw(160);
+  font-family: 'Six Caps', sans-serif;
+  letter-spacing: 0.02em;
 }
 </style>
