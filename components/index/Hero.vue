@@ -4,9 +4,9 @@
       <div class="l-container">
         <h1 class="hero-title">
           <TextSegment start="0" text="FOLIO OF HISAMI KURITA"></TextSegment>
-          <TextSegment start="1.32" text="19/Aug.1996"></TextSegment>
-          <TextSegment start="1.98" text="CREATIVE DEVELOPER"></TextSegment>
-          <TextSegment start="3.06" text="AT LIG INC"></TextSegment>
+          <TextSegment start="0.176" text="19/Aug.1996"></TextSegment>
+          <TextSegment start="0.264" text="CREATIVE DEVELOPER"></TextSegment>
+          <TextSegment start="0.408" text="AT LIG INC"></TextSegment>
         </h1>
       </div>
     </div>
