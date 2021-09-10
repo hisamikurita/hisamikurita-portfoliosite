@@ -3,10 +3,10 @@
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
-          <TextSegment start="0" text="FOLIO OF HISAMI KURITA"></TextSegment>
-          <TextSegment start="0.176" text="19/Aug.1996"></TextSegment>
-          <TextSegment start="0.264" text="CREATIVE DEVELOPER"></TextSegment>
-          <TextSegment start="0.408" text="AT LIG INC"></TextSegment>
+          <TextSegment start="0" rotate="rotate-right" text="FOLIO OF HISAMI KURITA"></TextSegment>
+          <TextSegment start="0.176" rotate="rotate-left" text="19/Aug.1996"></TextSegment>
+          <TextSegment start="0.264" rotate="rotate-right" text="CREATIVE DEVELOPER"></TextSegment>
+          <TextSegment start="0.408" rotate="rotate-left" text="AT LIG INC"></TextSegment>
         </h1>
       </div>
     </div>

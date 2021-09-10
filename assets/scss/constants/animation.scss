@@ -1,4 +1,5 @@
-$base-duration: 0.5s;
+$base-duration: 0.8s;
+$base-rotate: 2deg;
 $colorAndOpacity-easing: cubic-bezier(0.26, 0.16, 0.1, 1);
 $transform-easing: cubic-bezier(0.43, 0.05, 0.17, 1);
 
@@ -10,5 +11,23 @@ $transform-easing: cubic-bezier(0.43, 0.05, 0.17, 1);
   100% {
     opacity: 1;
     transform: translate3d(0, 0%, 0);
+  }
+}
+
+@keyframes rotateRightInit {
+  0% {
+    transform: rotate($base-rotate);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rotateLeftInit {
+  0% {
+    transform: rotate(-$base-rotate);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
