@@ -1,6 +1,5 @@
 <template>
   <span
-    ref="cmnTextSegmentWrapper"
     :class="rotate"
     :style="{ animationDelay: Number(start) + 's' }"
     class="cmn-text-segment-wrapper"
@@ -35,9 +34,6 @@ export default {
       default: 0,
     },
   },
-  mounted() {
-    this.$refs.cmnTextSegmentWrapper.classList.add('is-active')
-  },
 }
 </script>
 
@@ -45,6 +41,7 @@ export default {
 .cmn-text-segment-wrapper {
   display: block;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .cmn-text-segment-wrapper.rotate-right {
@@ -57,11 +54,11 @@ export default {
   transform: rotate(-$base-rotate);
 }
 
-.is-active.cmn-text-segment-wrapper.rotate-right {
+.is-op-complete .cmn-text-segment-wrapper.rotate-right {
   animation: rotateRightInit $base-duration * 2.0 $transform-easing forwards;
 }
 
-.is-active.cmn-text-segment-wrapper.rotate-left {
+.is-op-complete .cmn-text-segment-wrapper.rotate-left {
   animation: rotateLeftInit $base-duration * 2.0 $transform-easing forwards;
 }
 
@@ -73,7 +70,7 @@ export default {
   white-space: break-spaces;
 }
 
-.is-active .cmn-text-segment {
+.is-op-complete .cmn-text-segment {
   animation: SlideUp $base-duration $transform-easing forwards;
 }
 </style>

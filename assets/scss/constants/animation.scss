@@ -31,3 +31,12 @@ $transform-easing: cubic-bezier(0.43, 0.05, 0.17, 1);
     transform: rotate(0deg);
   }
 }
+
+@keyframes scaleX {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
