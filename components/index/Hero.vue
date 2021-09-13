@@ -141,7 +141,7 @@ export default {
 }
 
 .is-op-complete .hero-title-line {
-  animation: scaleX $base-duration * 2 $transform-easing forwards;
+  animation: scaleX $base-duration * 1.8 $transform-easing forwards;
 }
 
 .hero-title-wrapper-01 {
