@@ -1,20 +1,20 @@
 <template>
-  <div class="about">
-    <div class="l-container">
-      <h1 class="about-title">About</h1>
-    </div>
+  <div>
+    <Header></Header>
   </div>
 </template>
 
 <script>
+import Header from '~/components/common/Header.vue'
+
 export default {
   name: 'About',
+  components: {
+    Header,
+  },
 }
 </script>
 
 <style lang="scss">
-.about-title {
-  font-size: vw(50);
-  letter-spacing: 0.1em;
-}
+  //
 </style>

@@ -95,8 +95,8 @@ export default {
     return {
       TextSegmentDelay01: 0,
       TextSegmentDelay02: 0.176,
-      TextSegmentDelay03: 0.512,
-      TextSegmentDelay04: 0.656,
+      TextSegmentDelay03: 0.504,
+      TextSegmentDelay04: 0.64,
     }
   },
   mounted() {
