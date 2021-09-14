@@ -5,7 +5,7 @@
 <style lang="scss">
 .header-logo{
   position: fixed;
-  top: 24px;
+  top: 20px;
   left: 40px;
   color: $black;
   font-size: 50px;
