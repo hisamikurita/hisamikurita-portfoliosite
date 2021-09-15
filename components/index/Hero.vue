@@ -4,46 +4,7 @@
       <div class="l-container">
         <h1 class="hero-title">
           <span class="hero-title-read-area">
-            <span class="hero-title-read-text hero-title-read-text-01">
-              <TextSegment
-                :start="0"
-                rotate="rotate-right"
-                text="・"
-              >
-              </TextSegment>
-            </span>
-            <span class="hero-title-read-text hero-title-read-text-02">
-              <TextSegment
-                :start="0.016"
-                rotate="rotate-left"
-                text="HI, THANKS FOR COMING"
-              >
-              </TextSegment>
-            </span>
-            <span class="hero-title-read-text hero-title-read-text-03">
-              <TextSegment
-                :start="0.184"
-                rotate="rotate-right"
-                text="TO MY SITE！！"
-              >
-              </TextSegment>
-            </span>
-            <span class="hero-title-read-text hero-title-read-text-04">
-              <TextSegment
-                :start="0.28"
-                rotate="rotate-left"
-                text="THIS SITE IS BUILT WITH"
-              >
-              </TextSegment>
-            </span>
-            <span class="hero-title-read-text hero-title-read-text-05">
-              <TextSegment
-                :start="0.464"
-                rotate="rotate-right"
-                text="NUXT.JS AND THREE.JS"
-              >
-              </TextSegment>
-            </span>
+            <SectionReadTitle :text="['・','HI, THANKS FOR COMING','TO MY SITE！！','THIS SITE IS BUILT WITH','NUXT.JS AND THREE.JS']"></SectionReadTitle>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-01">
             <span
@@ -127,10 +88,12 @@
 </template>
 
 <script>
+import SectionReadTitle from '../common/SectionReadTitle.vue'
 import TextSegment from '../common/TextSegment.vue'
 
 export default {
   components: {
+    SectionReadTitle,
     TextSegment,
   },
   data: () => {
@@ -163,16 +126,6 @@ export default {
   position: absolute;
   top: 8px;
   left: 2px;
-  font-size: 12px;
-  font-family: Helvetica, sans-serif;
-  letter-spacing: 0.02em;
-  line-height: 1.3;
-}
-
-.hero-title-read-text-01{
-  font-size: 36px;
-  text-indent: -2px;
-  line-height: 0.8;
 }
 
 .hero-title-wrapper {
