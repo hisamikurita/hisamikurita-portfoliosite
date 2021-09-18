@@ -26,7 +26,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/locomotive.client.js',
+    '~/plugins/asscroll.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -54,7 +54,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Six+Caps'] 
+      families: ['Six+Caps']
     }
   },
 
