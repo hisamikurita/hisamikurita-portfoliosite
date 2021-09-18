@@ -17,7 +17,9 @@
     "*.{css,vue}": "stylelint"
   },
   "dependencies": {
+    "@ashthornton/asscroll": "^2.0.2",
     "core-js": "^3.15.1",
+    "locomotive-scroll": "^4.1.2",
     "nuxt": "^2.15.7",
     "nuxt-webfontloader": "^1.1.0"
   },
