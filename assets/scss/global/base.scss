@@ -6,7 +6,12 @@ body {
   font-feature-settings: "palt";
 }
 
-.l-container{
+.l-container {
   width: 100%;
   padding: 0 40px;
+}
+
+span::selection {
+  background: $darkBlack;
+  color: $white;
 }
