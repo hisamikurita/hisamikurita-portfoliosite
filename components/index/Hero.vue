@@ -1,85 +1,90 @@
 <template>
-  <div ref="heroSec" class="hero">
+  <div class="hero">
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
           <span class="hero-title-read-area">
-            <SectionReadTitle :text="['・','HI, THANKS FOR COMING','TO MY SITE！！','THIS SITE IS BUILT WITH','NUXT.JS AND THREE.JS']"></SectionReadTitle>
+            <CommonSectionReadTitle
+              :text="[
+                '・',
+                'HI, THANKS FOR COMING',
+                'TO MY SITE！！',
+                'THIS SITE IS BUILT WITH',
+                'NUXT.JS AND THREE.JS',
+              ]"
+            ></CommonSectionReadTitle>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-01">
             <span
+              ref="HeroTitleLine-01"
               class="hero-title-line hero-title-line-right"
-              :style="{ animationDelay: TextSegmentDelay01 + 's' }"
             ></span>
-            <TextSegment
-              :start="TextSegmentDelay01"
+            <CommonTextSegment
+              :start="delay[0]"
               rotate="rotate-right"
               text="FOLIO OF HISAMI KURITA"
             >
-            </TextSegment>
+            </CommonTextSegment>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-02">
             <span
+              ref="HeroTitleLine-02"
               class="hero-title-line hero-title-line-left"
-              :style="{ animationDelay: TextSegmentDelay02 + 's' }"
             ></span>
-            <TextSegment
-              :start="TextSegmentDelay02"
+            <CommonTextSegment
+              :start="delay[1]"
               rotate="rotate-left"
               text="19/Aug.1996"
             >
-            </TextSegment>
+            </CommonTextSegment>
             <span class="hero-title-wrapper-02-base-area">
-              <TextSegment
+              <CommonTextSegment
                 start="0.264"
                 rotate="rotate-left"
                 text="( BASED IN TOKYO AND KAWASAKI )"
-              ></TextSegment>
+              ></CommonTextSegment>
               <span
                 class="
                   hero-title-wrapper-02-base-area-helvetica
                   hero-title-wrapper-02-base-area-helvetica-sometimes
                 "
-                ><TextSegment
+                ><CommonTextSegment
                   start="0.352"
                   rotate="rotate-left"
                   text="SOMETIMES"
-                ></TextSegment
+                ></CommonTextSegment
               ></span>
               <span
                 class="
                   hero-title-wrapper-02-base-area-helvetica
                   hero-title-wrapper-02-base-area-helvetica-allways
                 "
-                ><TextSegment
+                ><CommonTextSegment
                   start="0.432"
                   rotate="rotate-left"
                   text="ALLWAYS"
-                ></TextSegment
+                ></CommonTextSegment
               ></span>
             </span>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-03">
             <span
+              ref="HeroTitleLine-03"
               class="hero-title-line hero-title-line-right"
-              :style="{ animationDelay: TextSegmentDelay03 + 's' }"
             ></span>
-            <TextSegment
-              :start="TextSegmentDelay03"
+            <CommonTextSegment
+              :start="delay[2]"
               rotate="rotate-right"
               text="CREATIVE DEVELOPER"
-            ></TextSegment>
+            ></CommonTextSegment>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-04">
-            <span
-              class="hero-title-line hero-title-line-left"
-              :style="{ animationDelay: TextSegmentDelay04 + 's' }"
-            ></span>
-            <TextSegment
-              :start="TextSegmentDelay04"
+            <span ref="HeroTitleLine-04" class="hero-title-line hero-title-line-left"></span>
+            <CommonTextSegment
+              :start="delay[3]"
               rotate="rotate-left"
               text="AT LIG INC"
-            ></TextSegment>
+            ></CommonTextSegment>
           </span>
         </h1>
       </div>
@@ -88,24 +93,26 @@
 </template>
 
 <script>
-import SectionReadTitle from '../common/SectionReadTitle.vue'
-import TextSegment from '../common/TextSegment.vue'
-
 export default {
-  components: {
-    SectionReadTitle,
-    TextSegment,
-  },
   data: () => {
     return {
-      TextSegmentDelay01: 0,
-      TextSegmentDelay02: 0.176,
-      TextSegmentDelay03: 0.4,
-      TextSegmentDelay04: 0.42,
+      delay: [0, 0.176, 0.4, 0.42],
     }
   },
   mounted() {
-    this.$refs.heroSec.classList.add('is-op-complete')
+    const heroTitleLineArray = [];
+    for (let i = 1; i < this.delay.length + 1; i++) {
+      heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
+    }
+
+    for (let i = 0; i < heroTitleLineArray.length; i++) {
+      this.$gsap.to(heroTitleLineArray[i], {
+        duration: this.$duration * 1.8,
+        ease: this.$easing.transform,
+        delay: this.delay[i],
+        scaleX: 1,
+      })
+    }
   },
 }
 </script>
@@ -122,7 +129,7 @@ export default {
   letter-spacing: -0.002em;
 }
 
-.hero-title-read-area{
+.hero-title-read-area {
   position: absolute;
   top: 8px;
   left: 2px;
@@ -140,8 +147,7 @@ export default {
   width: 100%;
   height: 1px;
   background-color: $white;
-  transform: scale(0);
-  animation-delay: inherit;
+  transform: scaleX(0);
 }
 
 .hero-title-line-right {
@@ -150,10 +156,6 @@ export default {
 
 .hero-title-line-left {
   transform-origin: right;
-}
-
-.is-op-complete .hero-title-line {
-  animation: scaleX $base-duration * 1.8 $transform-easing forwards;
 }
 
 .hero-title-wrapper-01 {

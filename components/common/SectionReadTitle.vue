@@ -1,18 +1,13 @@
 <template>
   <span class="cmn-title-read-text-wrapper">
     <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="'cmn-title-read-text-0' + index">
-      <TextSegment :start="index * 0.08" :rotate="index % 2 != 0 ? 'rotate-left' : 'rotate-right'" :text="char"></TextSegment>
+      <CommonTextSegment :start="index * 0.08" :rotate="index % 2 != 0 ? 'rotate-left' : 'rotate-right'" :text="char"></CommonTextSegment>
     </span>
   </span>
 </template>
 
 <script>
-import TextSegment from './TextSegment.vue'
-
 export default {
-  components: {
-    TextSegment,
-  },
   props: {
     text: {
       type: Array,

@@ -4,55 +4,55 @@
       <div class="l-container">
         <h2 class="about-title">
           <span class="about-title-read-area">
-            <SectionReadTitle
+            <CommonSectionReadTitle
               :text="[
                 '・',
                 'ABOUT',
               ]"
-            ></SectionReadTitle>
+            ></CommonSectionReadTitle>
           </span>
           <span class="about-title-wrapper about-title-wrapper-01">
-            <TextSegment
+            <CommonTextSegment
               :start="0"
               rotate="rotate-right"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing"
             >
-            </TextSegment>
+            </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-02">
-            <TextSegment
+            <CommonTextSegment
               :start="0"
               rotate="rotate-left"
               text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
             >
-            </TextSegment>
+            </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-03">
-            <TextSegment
+            <CommonTextSegment
               :start="0"
               rotate="rotate-right"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
             >
-            </TextSegment>
+            </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-04">
-            <TextSegment
+            <CommonTextSegment
               :start="0"
               rotate="rotate-left"
               text="m ipsum dolor sit amet, consectetur adipiscing elit,"
             >
-            </TextSegment>
+            </CommonTextSegment>
           </span>
         </h2>
         <p class="">
-          <SectionReadTitle
+          <CommonSectionReadTitle
             :text="[
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
               'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim',
               'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
               'commodo consequat. Duis aute ir',
             ]"
-          ></SectionReadTitle>
+          ></CommonSectionReadTitle>
         </p>
       </div>
     </div>
@@ -60,14 +60,7 @@
 </template>
 
 <script>
-import SectionReadTitle from '../common/SectionReadTitle.vue'
-import TextSegment from '../common/TextSegment.vue'
-
 export default {
-  components: {
-    SectionReadTitle,
-    TextSegment,
-  },
   mounted() {
     this.$refs.aboutSec.classList.add('is-op-complete')
   },

@@ -1,14 +1,14 @@
 <template>
   <span
+    ref="CmnTextSegmentWrapper"
     :class="rotate"
-    :style="{ animationDelay: Number(start) + 's' }"
     class="cmn-text-segment-wrapper"
   >
     <span
       v-for="(char, index) of text"
       :key="index"
+      ref="CmnTextSegment"
       class="cmn-text-segment"
-      :style="{ animationDelay: Number(start) + index * 0.008 + 's' }"
       v-text="char"
     >
     </span>
@@ -34,6 +34,23 @@ export default {
       default: 0,
     },
   },
+  mounted() {
+    this.$gsap.to(this.$refs.CmnTextSegmentWrapper, {
+      duration: this.$duration * 2.0,
+      ease: this.$easing.transform,
+      delay: Number(this.start),
+      rotate: 0,
+    })
+
+    for (let i = 0; i < this.$refs.CmnTextSegment.length; i++) {
+      this.$gsap.to(this.$refs.CmnTextSegment[i], {
+        duration: this.$duration,
+        ease: this.$easing.transform,
+        delay: Number(this.start) + i * 0.008,
+        y: 0,
+      })
+    }
+  },
 }
 </script>
 
@@ -54,23 +71,10 @@ export default {
   transform: rotate(-$base-rotate);
 }
 
-.is-op-complete .cmn-text-segment-wrapper.rotate-right {
-  animation: rotateRightInit $base-duration * 2.0 $transform-easing forwards;
-}
-
-.is-op-complete .cmn-text-segment-wrapper.rotate-left {
-  animation: rotateLeftInit $base-duration * 2.0 $transform-easing forwards;
-}
-
-
 .cmn-text-segment {
   display: inline-block;
-  transform: translate3d(0, 100%, 0);
-  opacity: 0;
+  transform: translateY(100%);
   white-space: break-spaces;
 }
 
-.is-op-complete .cmn-text-segment {
-  animation: SlideUp $base-duration $transform-easing forwards;
-}
 </style>

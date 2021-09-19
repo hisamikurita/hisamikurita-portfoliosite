@@ -1,23 +1,15 @@
 <template>
   <div>
-    <Hero></Hero>
-    <About></About>
+    <IndexHero></IndexHero>
+    <IndexAbout></IndexAbout>
+    <IndexPickup></IndexPickup>
+    <IndexProject></IndexProject>
+    <IndexContact></IndexContact>
   </div>
 </template>
 
 <script>
-import Hero from '~/components/index/Hero.vue'
-import About from '~/components/index/About.vue'
-
 export default {
   name: 'Index',
-  components: {
-    Hero,
-    About,
-  },
-  mounted(){
-    //     this.$asscroll.enable();
-    // console.log(this.$asscroll)
-  }
 }
 </script>
