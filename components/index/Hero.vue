@@ -1,7 +1,7 @@
 <template>
-  <div class="hero">
+  <div ref="Hero" class="hero">
     <div class="hero-bg-circle-01"></div>
-    <div class="hero-bg-circle-02"></div>
+    <div ref="HeroBgCircle02" class="hero-bg-circle-02"></div>
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
@@ -10,7 +10,7 @@
               :text="[
                 '・',
                 'HI, THANKS FOR COMING',
-                'TO MY SITE！！',
+                'TO MY SITE ！！',
                 'THIS SITE IS BUILT WITH',
                 'NUXT.JS AND THREE.JS',
               ]"
@@ -81,7 +81,10 @@
             ></CommonTextSegment>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-04">
-            <span ref="HeroTitleLine-04" class="hero-title-line hero-title-line-left"></span>
+            <span
+              ref="HeroTitleLine-04"
+              class="hero-title-line hero-title-line-left"
+            ></span>
             <CommonTextSegment
               :start="delay[3]"
               rotate="rotate-left"
@@ -102,7 +105,8 @@ export default {
     }
   },
   mounted() {
-    const heroTitleLineArray = [];
+    /* text-animation */
+    const heroTitleLineArray = []
     for (let i = 1; i < this.delay.length + 1; i++) {
       heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
     }
@@ -115,16 +119,49 @@ export default {
         scaleX: 1,
       })
     }
+
+    /* scroll-animation */
+    const observe = this.$refs.Hero
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$asscroll.on('scroll', this.bgCircleScaleChangeScroll)
+          } else {
+            this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    ).observe(observe)
+  },
+  beforeDestroy() {
+    this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
+  },
+  methods: {
+    bgCircleScaleChangeScroll() {
+      this.$gsap.to(this.$refs.HeroBgCircle02, {
+        duration: this.$duration / 2,
+        ease: 'none',
+        scale: ((this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 2.2) + 1.0,
+      });
+      // console.log(
+      //   this.$asscroll.currentPos / this.$refs.Hero.clientHeight + 1.0
+      // )
+    },
   },
 }
 </script>
 
 <style scoped lang="scss">
-.hero{
+.hero {
+  border: solid 1px #000;
   position: relative;
 }
 
-.hero-bg-circle-01{
+.hero-bg-circle-01 {
   position: absolute;
   top: vw(-184);
   right: vw(-90);
@@ -135,7 +172,7 @@ export default {
   pointer-events: none;
 }
 
-.hero-bg-circle-02{
+.hero-bg-circle-02 {
   position: absolute;
   top: 0;
   left: vw(-216);
