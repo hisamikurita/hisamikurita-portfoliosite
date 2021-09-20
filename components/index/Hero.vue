@@ -1,7 +1,5 @@
 <template>
-  <div ref="Hero" class="hero">
-    <div class="hero-bg-circle-01"></div>
-    <div ref="HeroBgCircle02" class="hero-bg-circle-02"></div>
+  <div class="hero">
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
@@ -119,70 +117,11 @@ export default {
         scaleX: 1,
       })
     }
-
-    /* scroll-animation */
-    const observe = this.$refs.Hero
-    new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$asscroll.on('scroll', this.bgCircleScaleChangeScroll)
-          } else {
-            this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
-          }
-        })
-      },
-      {
-        rootMargin: '0%',
-      }
-    ).observe(observe)
-  },
-  beforeDestroy() {
-    this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
-  },
-  methods: {
-    bgCircleScaleChangeScroll() {
-      this.$gsap.to(this.$refs.HeroBgCircle02, {
-        duration: this.$duration / 2,
-        ease: 'none',
-        scale: ((this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 2.2) + 1.0,
-      });
-      // console.log(
-      //   this.$asscroll.currentPos / this.$refs.Hero.clientHeight + 1.0
-      // )
-    },
   },
 }
 </script>
 
-<style scoped lang="scss">
-.hero {
-  border: solid 1px #000;
-  position: relative;
-}
-
-.hero-bg-circle-01 {
-  position: absolute;
-  top: vw(-184);
-  right: vw(-90);
-  width: vw(820);
-  height: vw(820);
-  background-color: $yellow;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.hero-bg-circle-02 {
-  position: absolute;
-  top: 0;
-  left: vw(-216);
-  width: vw(1034);
-  height: vw(1034);
-  background-color: $lightBlue;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
+<style lang="scss" scoped>
 .hero-inner {
   padding: 92px 0;
 }

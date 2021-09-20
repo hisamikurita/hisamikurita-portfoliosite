@@ -1,7 +1,6 @@
 <template>
   <div>
-    <IndexHero></IndexHero>
-    <IndexAbout></IndexAbout>
+    <IndexHeroAndAbout></IndexHeroAndAbout>
     <IndexPickup></IndexPickup>
     <IndexProject></IndexProject>
     <IndexContact></IndexContact>
