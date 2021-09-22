@@ -5,7 +5,7 @@
         <div class="l-container">
           <h2 class="pickup-title">
             <span class="pickup-title-01">
-              <CommonTextSegment
+              <!-- <CommonTextSegment
                 start="0"
                 rotate="rotate-right"
                 text="M-TRUST CO.,LTD. IS"
@@ -34,7 +34,7 @@
                 rotate="rotate-right"
                 text="THE REAL ESTATE BUSINESS."
               >
-              </CommonTextSegment>
+              </CommonTextSegment> -->
             </span>
           </h2>
         </div>
@@ -54,7 +54,7 @@ export default {
   },
   watch: {
     pickupSectionCurrentNum(){
-      console.log('発火')
+      // console.log('発火')
       // this.pickupSectionCurrentNum = 2.0;
     }
   },
@@ -64,13 +64,13 @@ export default {
     window.addEventListener('wheel', (e) => {
       e.preventDefault();
 
-      console.log(e.deltaY)
+      // console.log(e.deltaY)
     }, { passive: false })
   },
   methods: {
     pickupEnterScroll() {
-      console.log(this.$asscroll.targetPos)
-      console.log(this.$refs.Pickup.offsetTop - window.innerHeight)
+      // console.log(this.$asscroll.targetPos)
+      // console.log(this.$refs.Pickup.offsetTop - window.innerHeight)
 
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -111,5 +111,9 @@ export default {
   font-family: 'Six Caps', sans-serif;
   text-align: center;
   letter-spacing: -0.002em;
+}
+
+.pickup-title-01{
+  color: $darkBlue;
 }
 </style>

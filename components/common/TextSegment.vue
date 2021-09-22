@@ -18,6 +18,10 @@
 <script>
 export default {
   props: {
+    status: {
+      type: String,
+      required: true,
+    },
     text: {
       type: String,
       required: true,
@@ -34,22 +38,66 @@ export default {
       default: 0,
     },
   },
+  watch: {
+    status() {
+      switch (this.status) {
+        case 'isCenter':
+          this.$gsap.to(this.wrapper, {
+            duration: this.$duration * 2.0,
+            ease: this.$easing.transform,
+            delay: Number(this.start),
+            rotate: 0,
+          })
+          this.$gsap.to(this.textArray, {
+            duration: this.$duration,
+            delay: Number(this.start),
+            ease: this.$easing.transform,
+            stagger: {
+              each: 0.008,
+            },
+            y: 0,
+          })
+          break
+        case 'isTop':
+          this.$gsap.to(this.wrapper, {
+            duration: this.$duration * 2.0,
+            ease: this.$easing.transform,
+            delay: Number(this.start),
+            rotate: 0,
+          })
+          this.$gsap.to(this.textArray, {
+            duration: this.$duration,
+            delay: Number(this.start),
+            ease: this.$easing.transform,
+            stagger: {
+              each: 0.008,
+            },
+            y: -300,
+          })
+          break
+        case 'isBottom':
+          this.$gsap.to(this.wrapper, {
+            duration: this.$duration * 2.0,
+            ease: this.$easing.transform,
+            delay: Number(this.start),
+            rotate: 0,
+          })
+          this.$gsap.to(this.textArray, {
+            duration: this.$duration,
+            delay: Number(this.start),
+            ease: this.$easing.transform,
+            stagger: {
+              each: 0.008,
+            },
+            y: 300,
+          })
+          break
+      }
+    },
+  },
   mounted() {
-    this.$gsap.to(this.$refs.CmnTextSegmentWrapper, {
-      duration: this.$duration * 2.0,
-      ease: this.$easing.transform,
-      delay: Number(this.start),
-      rotate: 0,
-    })
-
-    for (let i = 0; i < this.$refs.CmnTextSegment.length; i++) {
-      this.$gsap.to(this.$refs.CmnTextSegment[i], {
-        duration: this.$duration,
-        ease: this.$easing.transform,
-        delay: Number(this.start) + i * 0.008,
-        y: 0,
-      })
-    }
+    this.wrapper = this.$refs.CmnTextSegmentWrapper
+    this.textArray = this.$refs.CmnTextSegment
   },
 }
 </script>
@@ -73,8 +121,7 @@ export default {
 
 .cmn-text-segment {
   display: inline-block;
-  transform: translateY(100%);
+  transform: translateY(-100%);
   white-space: break-spaces;
 }
-
 </style>

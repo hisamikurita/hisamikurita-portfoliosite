@@ -5,6 +5,7 @@
         <h1 class="hero-title">
           <span class="hero-title-read-area">
             <CommonSectionReadTitle
+              :status="status"
               :text="[
                 '・',
                 'HI, THANKS FOR COMING',
@@ -20,6 +21,7 @@
               class="hero-title-line hero-title-line-right"
             ></span>
             <CommonTextSegment
+              :status="status"
               :start="delay[0]"
               rotate="rotate-right"
               text="FOLIO OF HISAMI KURITA"
@@ -32,6 +34,7 @@
               class="hero-title-line hero-title-line-left"
             ></span>
             <CommonTextSegment
+              :status="status"
               :start="delay[1]"
               rotate="rotate-left"
               text="19/Aug.1996"
@@ -39,6 +42,7 @@
             </CommonTextSegment>
             <span class="hero-title-wrapper-02-base-area">
               <CommonTextSegment
+                :status="status"
                 start="0.264"
                 rotate="rotate-left"
                 text="( BASED IN TOKYO AND KAWASAKI )"
@@ -49,6 +53,7 @@
                   hero-title-wrapper-02-base-area-helvetica-sometimes
                 "
                 ><CommonTextSegment
+                  :status="status"
                   start="0.352"
                   rotate="rotate-left"
                   text="SOMETIMES"
@@ -60,6 +65,7 @@
                   hero-title-wrapper-02-base-area-helvetica-allways
                 "
                 ><CommonTextSegment
+                  :status="status"
                   start="0.432"
                   rotate="rotate-left"
                   text="ALLWAYS"
@@ -73,6 +79,7 @@
               class="hero-title-line hero-title-line-right"
             ></span>
             <CommonTextSegment
+              :status="status"
               :start="delay[2]"
               rotate="rotate-right"
               text="CREATIVE DEVELOPER"
@@ -84,6 +91,7 @@
               class="hero-title-line hero-title-line-left"
             ></span>
             <CommonTextSegment
+              :status="status"
               :start="delay[3]"
               rotate="rotate-left"
               text="AT LIG INC"
@@ -100,23 +108,38 @@ export default {
   data: () => {
     return {
       delay: [0, 0.176, 0.4, 0.42],
+      status: '',
     }
   },
   mounted() {
-    /* text-animation */
-    const heroTitleLineArray = []
-    for (let i = 1; i < this.delay.length + 1; i++) {
-      heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
-    }
+    this.status = 'isCenter'
 
-    for (let i = 0; i < heroTitleLineArray.length; i++) {
-      this.$gsap.to(heroTitleLineArray[i], {
-        duration: this.$duration * 1.8,
-        ease: this.$easing.transform,
-        delay: this.delay[i],
-        scaleX: 1,
-      })
-    }
+    setTimeout(() => {
+      this.status = 'isBottom'
+    }, 3000);
+
+    setTimeout(() => {
+      this.status = 'isCenter'
+    }, 6000);
+
+    setTimeout(() => {
+      this.status = 'isTop'
+    }, 9000);
+
+    /* text-animation */
+    // const heroTitleLineArray = []
+    // for (let i = 1; i < this.delay.length + 1; i++) {
+    //   heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
+    // }
+
+    // for (let i = 0; i < heroTitleLineArray.length; i++) {
+    //   this.$gsap.to(heroTitleLineArray[i], {
+    //     duration: this.$duration * 1.8,
+    //     ease: this.$easing.transform,
+    //     delay: this.delay[i],
+    //     scaleX: 1,
+    //   })
+    // }
   },
 }
 </script>

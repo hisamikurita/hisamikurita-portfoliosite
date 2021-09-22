@@ -2,7 +2,7 @@
   <div ref="aboutSec" class="about">
     <div class="about-inner">
       <div class="l-container">
-        <h2 class="about-title">
+        <!-- <h2 class="about-title">
           <span class="about-title-read-area">
             <CommonSectionReadTitle
               :text="[
@@ -53,7 +53,7 @@
               'commodo consequat. Duis aute ir',
             ]"
           ></CommonSectionReadTitle>
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
