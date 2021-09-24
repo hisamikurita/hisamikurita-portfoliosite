@@ -133,7 +133,7 @@ export default {
       pickupSectionCurrentNum: 0,
       isWheelAnimation: false,
       wheelInterval: 1.1,
-      wheelRatio: 10,
+      wheelRatio: 5,
       scroll: { value: 0 },
     }
   },
@@ -154,24 +154,25 @@ export default {
 
       if(this.isWheelAnimation || !this.isPickupSection) return;
 
+      // console.log(e.deltaY)
+
       if(e.deltaY > this.wheelRatio){
         this.pickupSectionCurrentNum += 1.0;
         this.pickupSceneManager();
       // console.log(this.pickupSectionCurrentNum)
-        // this.disable();
+        this.disable();
       }
       else if(e.deltaY < -this.wheelRatio){
         this.pickupSectionCurrentNum += -1.0;
         this.pickupSceneManager();
       // console.log(this.pickupSectionCurrentNum)
-        // this.disable();
+        this.disable();
       }
-  
 
-      this.isWheelAnimation = true;
-      setTimeout(() =>{
-        this.isWheelAnimation = false;
-      },this.pickupSectionCurrentNum === 1 ? this.wheelInterval * 1000 : this.wheelInterval * 2000);
+      // this.isWheelAnimation = true;
+      // setTimeout(() =>{
+      //   this.isWheelAnimation = false;
+      // },this.pickupSectionCurrentNum === 1 ? this.wheelInterval * 1000 : this.wheelInterval * 2000);
     }, { passive: false })
   },
   methods: {
@@ -218,7 +219,9 @@ export default {
           },
           onComplete:() =>{
             this.isPickupSection = true;
-            // this.pickupSceneManager();
+            this.pickupSectionCurrentNum = 1.0;
+            this.pickupSceneManager();
+            this.disable();
           }
         });
         this.isPickupSectionEnter = true;
@@ -256,9 +259,9 @@ export default {
     },
 
     disable(){
-      this.isAnimtion = true;
+      this.isWheelAnimation = true;
       setTimeout(() =>{
-        this.isAnimtion = false;
+        this.isWheelAnimation = false;
       },this.pickupSectionCurrentNum === 1 ? this.wheelInterval * 1000 : this.wheelInterval * 2000);
     }
   },
