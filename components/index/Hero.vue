@@ -5,7 +5,8 @@
         <h1 class="hero-title">
           <span class="hero-title-read-area">
             <CommonSectionReadTitle
-              :status="status"
+              ref="commonSectionReadTitle"
+              :start="delay[0]"
               :text="[
                 '・',
                 'HI, THANKS FOR COMING',
@@ -21,9 +22,9 @@
               class="hero-title-line hero-title-line-right"
             ></span>
             <CommonTextSegment
-              :status="status"
+              ref="commonTextSegment-01"
               :start="delay[0]"
-              rotate="rotate-right"
+              :rotate="rotateRight"
               text="FOLIO OF HISAMI KURITA"
             >
             </CommonTextSegment>
@@ -34,17 +35,17 @@
               class="hero-title-line hero-title-line-left"
             ></span>
             <CommonTextSegment
-              :status="status"
+              ref="commonTextSegment-02"
               :start="delay[1]"
-              rotate="rotate-left"
-              text="19/Aug.1996"
+              :rotate="rotateLeft"
+              text="19/AUG.1996"
             >
             </CommonTextSegment>
             <span class="hero-title-wrapper-02-base-area">
               <CommonTextSegment
-                :status="status"
+                ref="commonTextSegment-03"
                 start="0.264"
-                rotate="rotate-left"
+                :rotate="rotateLeft"
                 text="( BASED IN TOKYO AND KAWASAKI )"
               ></CommonTextSegment>
               <span
@@ -53,9 +54,9 @@
                   hero-title-wrapper-02-base-area-helvetica-sometimes
                 "
                 ><CommonTextSegment
-                  :status="status"
+                  ref="commonTextSegment-04"
                   start="0.352"
-                  rotate="rotate-left"
+                  :rotate="rotateLeft"
                   text="SOMETIMES"
                 ></CommonTextSegment
               ></span>
@@ -65,9 +66,9 @@
                   hero-title-wrapper-02-base-area-helvetica-allways
                 "
                 ><CommonTextSegment
-                  :status="status"
+                  ref="commonTextSegment-05"
                   start="0.432"
-                  rotate="rotate-left"
+                  :rotate="rotateLeft"
                   text="ALLWAYS"
                 ></CommonTextSegment
               ></span>
@@ -79,9 +80,9 @@
               class="hero-title-line hero-title-line-right"
             ></span>
             <CommonTextSegment
-              :status="status"
+              ref="commonTextSegment-06"
               :start="delay[2]"
-              rotate="rotate-right"
+              :rotate="rotateRight"
               text="CREATIVE DEVELOPER"
             ></CommonTextSegment>
           </span>
@@ -91,9 +92,9 @@
               class="hero-title-line hero-title-line-left"
             ></span>
             <CommonTextSegment
-              :status="status"
+              ref="commonTextSegment-07"
               :start="delay[3]"
-              rotate="rotate-left"
+              :rotate="rotateLeft"
               text="AT LIG INC"
             ></CommonTextSegment>
           </span>
@@ -108,39 +109,50 @@ export default {
   data: () => {
     return {
       delay: [0, 0.176, 0.4, 0.42],
-      status: '',
+      rotateRight: 0,
+      rotateLeft: 0,
     }
   },
-  mounted() {
-    this.status = 'isCenter'
-
-    setTimeout(() => {
-      this.status = 'isBottom'
-    }, 3000);
-
-    setTimeout(() => {
-      this.status = 'isCenter'
-    }, 6000);
-
-    setTimeout(() => {
-      this.status = 'isTop'
-    }, 9000);
-
-    /* text-animation */
-    // const heroTitleLineArray = []
-    // for (let i = 1; i < this.delay.length + 1; i++) {
-    //   heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
-    // }
-
-    // for (let i = 0; i < heroTitleLineArray.length; i++) {
-    //   this.$gsap.to(heroTitleLineArray[i], {
-    //     duration: this.$duration * 1.8,
-    //     ease: this.$easing.transform,
-    //     delay: this.delay[i],
-    //     scaleX: 1,
-    //   })
-    // }
+  beforeMount(){
+    this.rotateRight = this.$baseAnimationConfig.rotate;
+    this.rotateLeft = -this.$baseAnimationConfig.rotate;
   },
+  mounted() {
+    this.init();
+
+    for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
+      this.commonTextSegmentArray[i].toCenter()
+    }
+
+    for (let i = 0; i < this.heroTitleLineArray.length; i++) {
+      this.$gsap.to(this.heroTitleLineArray[i], {
+        duration: this.$baseAnimationConfig.duration * 1.8,
+        ease: this.$easing.transform,
+        delay: this.delay[i],
+        scaleX: 1,
+      })
+    }
+  },
+
+  methods: {
+    init: function() {
+      this.commonTextSegmentArray = [];
+      for (let i = 0; i < this.$refs.commonSectionReadTitle.$children.length; i++) {
+        this.commonTextSegmentArray.push(this.$refs.commonSectionReadTitle.$children[i]);
+      }
+      for (let i = 1; i < 7 + 1; i++) {
+        this.commonTextSegmentArray.push(this.$refs['commonTextSegment-0' + i])
+      }
+      for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
+        this.commonTextSegmentArray[i].init()
+      }
+
+      this.heroTitleLineArray = []
+      for (let i = 1; i < this.delay.length + 1; i++) {
+        this.heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
+      }
+    },
+  }
 }
 </script>
 

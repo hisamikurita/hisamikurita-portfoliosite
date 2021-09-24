@@ -1,7 +1,7 @@
 <template>
   <span class="cmn-title-read-text-wrapper">
     <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="'cmn-title-read-text-0' + index">
-      <CommonTextSegment :status="status" :start="index * 0.08" :rotate="index % 2 != 0 ? 'rotate-left' : 'rotate-right'" :text="char"></CommonTextSegment>
+      <CommonTextSegment :start="Number(start) + index * 0.12" :rotate="index % 2 != 0 ? rotateLeft : rotateRight" :text="char"></CommonTextSegment>
     </span>
   </span>
 </template>
@@ -9,14 +9,24 @@
 <script>
 export default {
   props: {
-    status: {
-      type: String,
-      required: true,
-    },
     text: {
       type: Array,
       required: true,
     },
+    start: {
+      type: [String, Number],
+      required: true,
+    },
+  },
+  data: () => {
+    return {
+      rotateRight: 0,
+      rotateLeft: 0,
+    }
+  },
+  beforeMount(){
+    this.rotateRight = this.$baseAnimationConfig.rotate;
+    this.rotateLeft = -this.$baseAnimationConfig.rotate;
   },
 }
 </script>

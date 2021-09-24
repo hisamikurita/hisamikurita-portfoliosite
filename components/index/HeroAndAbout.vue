@@ -18,9 +18,9 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.$asscroll.on('scroll', this.bgCircleScaleChangeScroll)
+            this.$asscroll.on('update', this.bgCircleScaleChangeScroll)
           } else {
-            this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
+            this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
           }
         })
       },
@@ -30,12 +30,12 @@ export default {
     ).observe(observe)
   },
   beforeDestroy() {
-    this.$asscroll.off('scroll', this.bgCircleScaleChangeScroll)
+    this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
   },
   methods: {
     bgCircleScaleChangeScroll() {
       this.$gsap.to(this.$refs.HeroAndAboutBgCircle02, {
-        duration: this.$duration / 2.0,
+        duration: this.$baseAnimationConfig.duration / 2.0,
         ease: 'none',
         scale: (this.$asscroll.currentPos / this.$refs.HeroAndAboutCircleTrigger.clientHeight) * 3.0 + 1.0,
       })

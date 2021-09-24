@@ -2,43 +2,46 @@
   <div ref="aboutSec" class="about">
     <div class="about-inner">
       <div class="l-container">
-        <!-- <h2 class="about-title">
+        <h2 ref="AboutTitleTrigger" class="about-title">
           <span class="about-title-read-area">
             <CommonSectionReadTitle
-              :text="[
-                '・',
-                'ABOUT',
-              ]"
+              ref="commonSectionReadTitle-01"
+              :start="0"
+              :text="['・', 'ABOUT']"
             ></CommonSectionReadTitle>
           </span>
           <span class="about-title-wrapper about-title-wrapper-01">
             <CommonTextSegment
+              ref="commonTextSegment-01"
               :start="0"
-              rotate="rotate-right"
+              :rotate="rotateRight"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing"
             >
             </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-02">
             <CommonTextSegment
-              :start="0"
-              rotate="rotate-left"
+              ref="commonTextSegment-02"
+              :start="0.12"
+              :rotate="rotateLeft"
               text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
             >
             </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-03">
             <CommonTextSegment
-              :start="0"
-              rotate="rotate-right"
+              ref="commonTextSegment-03"
+              :start="0.24"
+              :rotate="rotateRight"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
             >
             </CommonTextSegment>
           </span>
           <span class="about-title-wrapper about-title-wrapper-04">
             <CommonTextSegment
-              :start="0"
-              rotate="rotate-left"
+              ref="commonTextSegment-04"
+              :start="0.36"
+              :rotate="rotateLeft"
               text="m ipsum dolor sit amet, consectetur adipiscing elit,"
             >
             </CommonTextSegment>
@@ -46,6 +49,8 @@
         </h2>
         <p class="">
           <CommonSectionReadTitle
+              ref="commonSectionReadTitle-02"
+            :start="0.48"
             :text="[
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
               'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim',
@@ -53,7 +58,7 @@
               'commodo consequat. Duis aute ir',
             ]"
           ></CommonSectionReadTitle>
-        </p> -->
+        </p>
       </div>
     </div>
   </div>
@@ -61,8 +66,52 @@
 
 <script>
 export default {
+  data: () => {
+    return {
+      rotateRight: 0,
+      rotateLeft: 0,
+    }
+  },
+  beforeMount() {
+    this.rotateRight = this.$baseAnimationConfig.rotate
+    this.rotateLeft = -this.$baseAnimationConfig.rotate
+  },
   mounted() {
-    this.$refs.aboutSec.classList.add('is-op-complete')
+    this.init()
+
+    const observe = this.$refs.AboutTitleTrigger;
+    const iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
+              this.commonTextSegmentArray[i].toCenter()
+            }
+            iObserver.unobserve(observe)
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    iObserver.observe(observe)
+  },
+
+  methods: {
+    init: function () {
+      this.commonTextSegmentArray = [];
+      for (let i = 1; i < 2 + 1; i++) {
+        const commonSectionReadTitleArray = this.$refs['commonSectionReadTitle-0' + i];
+        for (let i = 0; i < commonSectionReadTitleArray.$children.length; i++) {
+          this.commonTextSegmentArray.push(commonSectionReadTitleArray.$children[i]);
+        }
+      }
+      for (let i = 1; i < 4 + 1; i++) {
+        this.commonTextSegmentArray.push(this.$refs['commonTextSegment-0' + i])
+      }
+      for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
+        this.commonTextSegmentArray[i].init()
+      }
+    },
   },
 }
 </script>
