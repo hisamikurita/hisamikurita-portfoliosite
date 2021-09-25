@@ -35,9 +35,9 @@ export default {
   methods: {
     bgCircleScaleChangeScroll() {
       this.$gsap.to(this.$refs.HeroAndAboutBgCircle02, {
-        duration: this.$baseAnimationConfig.duration / 2.0,
+        duration: this.$baseAnimationConfig.duration / 3.0,
         ease: 'none',
-        scale: (this.$asscroll.currentPos / this.$refs.HeroAndAboutCircleTrigger.clientHeight) * 3.0 + 1.0,
+        scale: (this.$asscroll.currentPos / this.$refs.HeroAndAboutCircleTrigger.clientHeight) * 4.0 + 1.0,
       })
     },
   },

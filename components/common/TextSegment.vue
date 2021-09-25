@@ -44,7 +44,7 @@ export default {
       });
       this.$gsap.set(this.textArray, {
         opacity: 1.0,
-        yPercent: 100,
+        yPercent: 103,
       });
     },
 
@@ -80,7 +80,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        yPercent: -100,
+        yPercent: -103,
       })
     },
 
@@ -98,7 +98,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        yPercent: 100,
+        yPercent: 103,
       })
     },
   },

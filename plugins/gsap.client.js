@@ -3,12 +3,12 @@ import { CustomEase } from '../vendor/CustomEase'
 gsap.registerPlugin(CustomEase);
 
 const baseAnimationConfig = {
-  duration: 0.8,
+  duration: 1.0,
   rotate: 3,
 }
 
 const easing = {
-  transfrom: CustomEase.create('transform', 'M0,0 C0.44,0.05 0.17,1 1,1'),
+  transform: CustomEase.create('transform', 'M0,0 C0.44,0.05 0.17,1 1,1'),
   colorAndOpacity: CustomEase.create('colorAndOpacity', 'M0,0 C0.26,0.16 0.1,1 1,1 '),
 }
 

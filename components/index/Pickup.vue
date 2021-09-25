@@ -132,7 +132,7 @@ export default {
       isPickupSection: false,
       pickupSectionCurrentNum: 0,
       isWheelAnimation: false,
-      wheelInterval: 1.1,
+      wheelInterval: 1.0,
       wheelRatio: 5,
       scroll: { value: 0 },
     }
