@@ -143,10 +143,14 @@ export default {
   },
   mounted() {
     this.init();
-    this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
+    this.$asscroll.on('update', this.pickupToTopEnterScroll);
+
+    window.addEventListener('wheel',(e)=>{
+      e.preventDefault();
+    }, { passive: false })
   },
   beforeDestroy() {
-    this.$asscroll.off('scroll', this.pickupToTopEnterScroll);
+    this.$asscroll.off('update', this.pickupToTopEnterScroll);
     window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
   },
   methods: {
@@ -181,8 +185,8 @@ export default {
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
 
-      if (this.$asscroll.targetPos >= pickupTopPos) {
-        this.$asscroll.off('scroll', this.pickupToTopEnterScroll);
+      if (this.$asscroll.targetPos > pickupTopPos) {
+        this.$asscroll.off('update', this.pickupToTopEnterScroll);
         this.$asscroll.disable({ inputOnly: true });
 
         this.$gsap.to(this.scroll, {
@@ -215,19 +219,22 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete:() =>{
-          this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
-          this.$asscroll.enable();
+          setTimeout(()=>{
+            this.$asscroll.on('update', this.pickupToTopEnterScroll);
+            this.$asscroll.enable();
+          },100)
         }
       });
     },
 
     pickupToBottomEnterScroll() {
+
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
 
-      if (this.$asscroll.targetPos <= pickupBottomPos) {
-        this.$asscroll.off('scroll', this.pickupToBottomEnterScroll);
+      if (this.$asscroll.targetPos < pickupBottomPos) {
+        this.$asscroll.off('update', this.pickupToBottomEnterScroll);
         this.$asscroll.disable({ inputOnly: true });
 
         this.$gsap.to(this.scroll, {
@@ -239,7 +246,7 @@ export default {
           },
           onComplete:() =>{
             this.pickupScenePrev();
-            this.disable(2000);
+            this.disable(1000);
 
             window.addEventListener('wheel', this.pickupSceneManager, { passive: false });
           }
@@ -248,6 +255,8 @@ export default {
     },
 
     pickupToBottomLeaveScroll() {
+      // console.log(this.$asscroll.targetPos)
+      // console.log(this.$asscroll.currentPos)
       window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
 
       const pickupPos = this.$refs.Pickup.offsetTop;
@@ -260,8 +269,10 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete:() =>{
-          this.$asscroll.on('scroll', this.pickupToBottomEnterScroll);
-          this.$asscroll.enable();
+          setTimeout(()=>{
+            this.$asscroll.enable();
+            this.$asscroll.on('update', this.pickupToBottomEnterScroll);
+          },100)
         }
       });
     },
@@ -319,8 +330,6 @@ export default {
     },
 
     pickupSceneManager(e){
-      e.preventDefault();
-
       if(this.isWheelAnimation) return;
 
       if(e.deltaY > this.wheelRatio){
