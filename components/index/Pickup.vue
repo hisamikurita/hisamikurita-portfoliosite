@@ -143,42 +143,11 @@ export default {
   },
   mounted() {
     this.init();
-    this.$asscroll.on('scroll', this.pickupEnterScroll);
-
-    // let isAnimtion = false;
-    // const interval = 1.2;
-    // const wheelRatio = 20;
-
-    window.addEventListener('wheel', (e) => {
-      e.preventDefault();
-
-      // console.log(this.isWheelAnimation )
-
-      if(this.isWheelAnimation || !this.isPickupSection) return;
-
-      // console.log(e.deltaY)
-
-      if(e.deltaY > this.wheelRatio){
-        // this.pickupSectionCurrentNum += 1.0;
-        this.pickupSceneManagerNext();
-        this.disable();
-      // console.log(this.pickupSectionCurrentNum)
-        // this.disable();
-      }
-      else if(e.deltaY < -this.wheelRatio){
-        // this.pickupSectionCurrentNum += -1.0;
-        this.pickupSceneManagerPrev();
-        this.disable();
-
-      // console.log(this.pickupSectionCurrentNum)
-        // this.disable();
-      }
-
-      // this.isWheelAnimation = true;
-      // setTimeout(() =>{
-      //   this.isWheelAnimation = false;
-      // },this.pickupSectionCurrentNum === 1 ? this.wheelInterval * 1000 : this.wheelInterval * 2000);
-    }, { passive: false })
+    this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
+  },
+  beforeDestroy() {
+    this.$asscroll.off('scroll', this.pickupToTopEnterScroll);
+    window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
   },
   methods: {
     init(){
@@ -207,33 +176,59 @@ export default {
       }
     },
 
-    pickupEnterScroll() {
-      if (this.isPickupSectionEnter) return
-
+    pickupToTopEnterScroll() {
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
+
       if (this.$asscroll.targetPos >= pickupTopPos) {
+        this.$asscroll.off('scroll', this.pickupToTopEnterScroll);
         this.$asscroll.disable({ inputOnly: true });
+
         this.$gsap.to(this.scroll, {
           value: pickupPos,
           duration: this.$baseAnimationConfig.duration,
-          ease: 'none',
+          ease: this.$easing.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
           },
           onComplete:() =>{
-            this.isPickupSection = true;
-            // this.pickupSectionCurrentNum = 1.0;
-            this.pickupSceneManagerNext();
+            this.pickupSceneNext();
             this.disable(1000);
+
+            window.addEventListener('wheel', this.pickupSceneManager, { passive: false });
           }
         });
-        this.isPickupSectionEnter = true;
       }
     },
 
-    pickupSceneManagerNext(){
+    pickupToBottomEnterScroll() {
+      this.scroll.value = this.$asscroll.targetPos
+      const pickupPos = this.$refs.Pickup.offsetTop
+      const pickupBottomPos = pickupPos + window.innerHeight
+
+      if (this.$asscroll.targetPos <= pickupBottomPos) {
+        this.$asscroll.off('scroll', this.pickupToBottomEnterScroll);
+        this.$asscroll.disable({ inputOnly: true });
+
+        this.$gsap.to(this.scroll, {
+          value: pickupPos,
+          duration: this.$baseAnimationConfig.duration,
+          ease: this.$easing.transform,
+          onUpdate: () => {
+            this.$asscroll.scrollTo(this.scroll.value)
+          },
+          onComplete:() =>{
+            this.pickupScenePrev();
+            this.disable(1000);
+
+            window.addEventListener('wheel', this.pickupSceneManager, { passive: false });
+          }
+        });
+      }
+    },
+
+    pickupSceneNext(){
       this.pickupSectionCurrentNum += 1.0;
 
       switch (this.pickupSectionCurrentNum) {
@@ -262,13 +257,58 @@ export default {
             }
           },this.wheelInterval * 1000);
           break;
+        case 4.0:{
+            window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
+            const pickupPos = this.$refs.Pickup.offsetTop;
+            const pickupBottomPos = pickupPos + window.innerHeight;
+            this.$gsap.to(this.scroll, {
+              value: pickupBottomPos,
+              duration: this.$baseAnimationConfig.duration,
+              ease: this.$easing.transform,
+              onUpdate: () => {
+                this.$asscroll.scrollTo(this.scroll.value)
+              },
+              onComplete:() =>{
+                this.$asscroll.on('scroll', this.pickupToBottomEnterScroll);
+                this.$asscroll.enable();
+              }
+            });
+
+            for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
+              this.commonTextSegmentArray03[i].toTop();
+            }
+          }
+          break;
       }
     },
 
-    pickupSceneManagerPrev(){
+    pickupScenePrev(){
       this.pickupSectionCurrentNum += -1.0;
 
       switch (this.pickupSectionCurrentNum) {
+        case 0.0:{
+            window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
+
+            const pickupPos = this.$refs.Pickup.offsetTop;
+            const pickupTopPos = pickupPos - window.innerHeight;
+            this.$gsap.to(this.scroll, {
+              value: pickupTopPos,
+              duration: this.$baseAnimationConfig.duration,
+              ease: this.$easing.transform,
+              onUpdate: () => {
+                this.$asscroll.scrollTo(this.scroll.value)
+              },
+              onComplete:() =>{
+                this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
+                this.$asscroll.enable();
+              }
+            });
+
+            for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
+              this.commonTextSegmentArray01[i].toBottom()
+            }
+          }
+          break;
         case 1.0:
           for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
             this.commonTextSegmentArray02[i].toBottom()
@@ -294,6 +334,21 @@ export default {
             this.commonTextSegmentArray03[i].toCenter()
           }
           break;
+      }
+    },
+
+    pickupSceneManager(e){
+      e.preventDefault();
+
+      if(this.isWheelAnimation) return;
+
+      if(e.deltaY > this.wheelRatio){
+        this.pickupSceneNext();
+        this.disable();
+      }
+      else if(e.deltaY < -this.wheelRatio){
+        this.pickupScenePrev();
+        this.disable();
       }
     },
 
