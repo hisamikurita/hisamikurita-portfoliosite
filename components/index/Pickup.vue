@@ -202,6 +202,25 @@ export default {
       }
     },
 
+    pickupToTopLeaveScroll(){
+      window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
+
+      const pickupPos = this.$refs.Pickup.offsetTop;
+      const pickupTopPos = pickupPos - window.innerHeight;
+      this.$gsap.to(this.scroll, {
+        value: pickupTopPos,
+        duration: this.$baseAnimationConfig.duration,
+        ease: this.$easing.transform,
+        onUpdate: () => {
+          this.$asscroll.scrollTo(this.scroll.value)
+        },
+        onComplete:() =>{
+          this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
+          this.$asscroll.enable();
+        }
+      });
+    },
+
     pickupToBottomEnterScroll() {
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -220,7 +239,7 @@ export default {
           },
           onComplete:() =>{
             this.pickupScenePrev();
-            this.disable(1000);
+            this.disable(2000);
 
             window.addEventListener('wheel', this.pickupSceneManager, { passive: false });
           }
@@ -228,56 +247,47 @@ export default {
       }
     },
 
+    pickupToBottomLeaveScroll() {
+      window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
+
+      const pickupPos = this.$refs.Pickup.offsetTop;
+      const pickupBottomPos = pickupPos + window.innerHeight;
+      this.$gsap.to(this.scroll, {
+        value: pickupBottomPos,
+        duration: this.$baseAnimationConfig.duration,
+        ease: this.$easing.transform,
+        onUpdate: () => {
+          this.$asscroll.scrollTo(this.scroll.value)
+        },
+        onComplete:() =>{
+          this.$asscroll.on('scroll', this.pickupToBottomEnterScroll);
+          this.$asscroll.enable();
+        }
+      });
+    },
+
     pickupSceneNext(){
       this.pickupSectionCurrentNum += 1.0;
 
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
-          for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
-            this.commonTextSegmentArray01[i].toCenter()
-          }
+          this.commonTextSegmentArray01.map((text) => text.toCenter());
           break;
         case 2.0:
-          for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
-            this.commonTextSegmentArray01[i].toTop()
-          }
+          this.commonTextSegmentArray01.map((text) => text.toTop());
           setTimeout(()=>{
-            for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
-              this.commonTextSegmentArray02[i].toCenter()
-            }
+            this.commonTextSegmentArray02.map((text) => text.toCenter());
           },this.wheelInterval * 1000);
           break;
         case 3.0:
-          for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
-            this.commonTextSegmentArray02[i].toTop()
-          }
+          this.commonTextSegmentArray02.map((text) => text.toTop());
           setTimeout(()=>{
-            for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
-              this.commonTextSegmentArray03[i].toCenter()
-            }
+            this.commonTextSegmentArray03.map((text) => text.toCenter());
           },this.wheelInterval * 1000);
           break;
-        case 4.0:{
-            window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
-            const pickupPos = this.$refs.Pickup.offsetTop;
-            const pickupBottomPos = pickupPos + window.innerHeight;
-            this.$gsap.to(this.scroll, {
-              value: pickupBottomPos,
-              duration: this.$baseAnimationConfig.duration,
-              ease: this.$easing.transform,
-              onUpdate: () => {
-                this.$asscroll.scrollTo(this.scroll.value)
-              },
-              onComplete:() =>{
-                this.$asscroll.on('scroll', this.pickupToBottomEnterScroll);
-                this.$asscroll.enable();
-              }
-            });
-
-            for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
-              this.commonTextSegmentArray03[i].toTop();
-            }
-          }
+        case 4.0:
+            this.pickupToBottomLeaveScroll();
+            this.commonTextSegmentArray03.map((text) => text.toTop());
           break;
       }
     },
@@ -286,53 +296,24 @@ export default {
       this.pickupSectionCurrentNum += -1.0;
 
       switch (this.pickupSectionCurrentNum) {
-        case 0.0:{
-            window.removeEventListener('wheel', this.pickupSceneManager, { passive: false });
-
-            const pickupPos = this.$refs.Pickup.offsetTop;
-            const pickupTopPos = pickupPos - window.innerHeight;
-            this.$gsap.to(this.scroll, {
-              value: pickupTopPos,
-              duration: this.$baseAnimationConfig.duration,
-              ease: this.$easing.transform,
-              onUpdate: () => {
-                this.$asscroll.scrollTo(this.scroll.value)
-              },
-              onComplete:() =>{
-                this.$asscroll.on('scroll', this.pickupToTopEnterScroll);
-                this.$asscroll.enable();
-              }
-            });
-
-            for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
-              this.commonTextSegmentArray01[i].toBottom()
-            }
-          }
+        case 0.0:
+            this.pickupToTopLeaveScroll();
+            this.commonTextSegmentArray01.map((text) => text.toBottom());
           break;
         case 1.0:
-          for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
-            this.commonTextSegmentArray02[i].toBottom()
-          }
+          this.commonTextSegmentArray02.map((text) => text.toBottom());
           setTimeout(()=>{
-            for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
-              this.commonTextSegmentArray01[i].toCenter()
-            }
+            this.commonTextSegmentArray01.map((text) => text.toCenter());
           },this.wheelInterval * 1000);
           break;
         case 2.0:
-          for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
-            this.commonTextSegmentArray03[i].toBottom()
-          }
+          this.commonTextSegmentArray03.map((text) => text.toBottom());
           setTimeout(()=>{
-            for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
-              this.commonTextSegmentArray02[i].toCenter()
-            }
+            this.commonTextSegmentArray02.map((text) => text.toCenter());
           },this.wheelInterval * 1000);
           break;
         case 3.0:
-          for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
-            this.commonTextSegmentArray03[i].toCenter()
-          }
+          this.commonTextSegmentArray03.map((text) => text.toCenter());
           break;
       }
     },

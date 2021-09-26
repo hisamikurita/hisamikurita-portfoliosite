@@ -84,9 +84,7 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
-              this.commonTextSegmentArray[i].toCenter()
-            }
+            this.commonTextSegmentArray.map((text) => text.toCenter());
             iObserver.unobserve(observe)
           }
         })

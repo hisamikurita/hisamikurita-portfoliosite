@@ -120,9 +120,7 @@ export default {
   mounted() {
     this.init();
 
-    for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
-      this.commonTextSegmentArray[i].toCenter()
-    }
+    this.commonTextSegmentArray.map((text) => text.toCenter());
 
     for (let i = 0; i < this.heroTitleLineArray.length; i++) {
       this.$gsap.to(this.heroTitleLineArray[i], {
