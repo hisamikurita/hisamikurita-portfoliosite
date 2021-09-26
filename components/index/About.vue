@@ -118,7 +118,7 @@ export default {
 
 <style scoped lang="scss">
 .about-inner {
-  padding: 633px 0 248px 0;
+  padding: 533px 0 248px 0;
 }
 
 .about-title {

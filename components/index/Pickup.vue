@@ -152,21 +152,26 @@ export default {
     window.addEventListener('wheel', (e) => {
       e.preventDefault();
 
+      // console.log(this.isWheelAnimation )
+
       if(this.isWheelAnimation || !this.isPickupSection) return;
 
       // console.log(e.deltaY)
 
       if(e.deltaY > this.wheelRatio){
-        this.pickupSectionCurrentNum += 1.0;
-        this.pickupSceneManager();
-      // console.log(this.pickupSectionCurrentNum)
+        // this.pickupSectionCurrentNum += 1.0;
+        this.pickupSceneManagerNext();
         this.disable();
+      // console.log(this.pickupSectionCurrentNum)
+        // this.disable();
       }
       else if(e.deltaY < -this.wheelRatio){
-        this.pickupSectionCurrentNum += -1.0;
-        this.pickupSceneManager();
-      // console.log(this.pickupSectionCurrentNum)
+        // this.pickupSectionCurrentNum += -1.0;
+        this.pickupSceneManagerPrev();
         this.disable();
+
+      // console.log(this.pickupSectionCurrentNum)
+        // this.disable();
       }
 
       // this.isWheelAnimation = true;
@@ -219,16 +224,18 @@ export default {
           },
           onComplete:() =>{
             this.isPickupSection = true;
-            this.pickupSectionCurrentNum = 1.0;
-            this.pickupSceneManager();
-            this.disable();
+            // this.pickupSectionCurrentNum = 1.0;
+            this.pickupSceneManagerNext();
+            this.disable(1000);
           }
         });
         this.isPickupSectionEnter = true;
       }
     },
 
-    pickupSceneManager(){
+    pickupSceneManagerNext(){
+      this.pickupSectionCurrentNum += 1.0;
+
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
           for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
@@ -243,7 +250,7 @@ export default {
             for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
               this.commonTextSegmentArray02[i].toCenter()
             }
-          },1000);
+          },this.wheelInterval * 1000);
           break;
         case 3.0:
           for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
@@ -253,16 +260,48 @@ export default {
             for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
               this.commonTextSegmentArray03[i].toCenter()
             }
-          },1000);
+          },this.wheelInterval * 1000);
           break;
       }
     },
 
-    disable(){
+    pickupSceneManagerPrev(){
+      this.pickupSectionCurrentNum += -1.0;
+
+      switch (this.pickupSectionCurrentNum) {
+        case 1.0:
+          for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
+            this.commonTextSegmentArray02[i].toBottom()
+          }
+          setTimeout(()=>{
+            for (let i = 0; i < this.commonTextSegmentArray01.length; i++) {
+              this.commonTextSegmentArray01[i].toCenter()
+            }
+          },this.wheelInterval * 1000);
+          break;
+        case 2.0:
+          for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
+            this.commonTextSegmentArray03[i].toBottom()
+          }
+          setTimeout(()=>{
+            for (let i = 0; i < this.commonTextSegmentArray02.length; i++) {
+              this.commonTextSegmentArray02[i].toCenter()
+            }
+          },this.wheelInterval * 1000);
+          break;
+        case 3.0:
+          for (let i = 0; i < this.commonTextSegmentArray03.length; i++) {
+            this.commonTextSegmentArray03[i].toCenter()
+          }
+          break;
+      }
+    },
+
+    disable(interval = 2000){
       this.isWheelAnimation = true;
       setTimeout(() =>{
         this.isWheelAnimation = false;
-      },this.pickupSectionCurrentNum === 1 ? this.wheelInterval * 1000 : this.wheelInterval * 2000);
+      },interval);
     }
   },
 }
