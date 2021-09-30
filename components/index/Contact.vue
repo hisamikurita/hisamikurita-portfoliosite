@@ -137,6 +137,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.contact{
+  position: relative;
+  overflow: hidden;
+}
+
 .contact-bg {
   background-color: $thinPink;
 }
