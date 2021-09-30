@@ -354,7 +354,7 @@ export default {
 
 <style scoped lang="scss">
 .pickup-bg {
-  background-color: #55b1ff;
+  background-color: #000;
 }
 .pickup-inner {
   position: relative;

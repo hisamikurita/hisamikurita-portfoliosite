@@ -1,11 +1,14 @@
 <template>
-  <div class="hero">
+  <div ref="Hero" class="hero">
+    <div class="hero-bg-circle-01"></div>
+    <div ref="HeroBgCircle02" class="hero-bg-circle-02"></div>
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
           <span class="hero-title-read-area">
             <CommonSectionReadTitle
               ref="commonSectionReadTitle"
+              modifier="section"
               :start="delay[0]"
               :text="[
                 '・',
@@ -17,10 +20,12 @@
             ></CommonSectionReadTitle>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-01">
-            <span
+            <CommonTextUnderline
               ref="HeroTitleLine-01"
-              class="hero-title-line hero-title-line-right"
-            ></span>
+              modifier="hero"
+              :start="delay[0]"
+              :rotate="rotateRight"
+            ></CommonTextUnderline>
             <CommonTextSegment
               ref="commonTextSegment-01"
               :start="delay[0]"
@@ -30,10 +35,12 @@
             </CommonTextSegment>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-02">
-            <span
+            <CommonTextUnderline
               ref="HeroTitleLine-02"
-              class="hero-title-line hero-title-line-left"
-            ></span>
+              modifier="hero"
+              :start="delay[1]"
+              :rotate="rotateLeft"
+            ></CommonTextUnderline>
             <CommonTextSegment
               ref="commonTextSegment-02"
               :start="delay[1]"
@@ -75,10 +82,12 @@
             </span>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-03">
-            <span
+            <CommonTextUnderline
               ref="HeroTitleLine-03"
-              class="hero-title-line hero-title-line-right"
-            ></span>
+              modifier="hero"
+              :start="delay[2]"
+              :rotate="rotateRight"
+            ></CommonTextUnderline>
             <CommonTextSegment
               ref="commonTextSegment-06"
               :start="delay[2]"
@@ -87,10 +96,12 @@
             ></CommonTextSegment>
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-04">
-            <span
+            <CommonTextUnderline
               ref="HeroTitleLine-04"
-              class="hero-title-line hero-title-line-left"
-            ></span>
+              modifier="hero"
+              :start="delay[3]"
+              :rotate="rotateLeft"
+            ></CommonTextUnderline>
             <CommonTextSegment
               ref="commonTextSegment-07"
               :start="delay[3]"
@@ -120,16 +131,32 @@ export default {
   mounted() {
     this.init();
 
+    /* scroll-animation */
+    const observe = this.$refs.Hero
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$asscroll.on('update', this.bgCircleScaleChangeScroll)
+          } else {
+            this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    ).observe(observe)
+
+    /* text-animation */
     this.commonTextSegmentArray.map((text) => text.toCenter());
 
-    for (let i = 0; i < this.heroTitleLineArray.length; i++) {
-      this.$gsap.to(this.heroTitleLineArray[i], {
-        duration: this.$baseAnimationConfig.duration * 1.8,
-        ease: this.$easing.transform,
-        delay: this.delay[i],
-        scaleX: 1,
-      })
-    }
+    /* line-animation */
+    this.heroTitleLineArray.map((line) => line.extend());
+  },
+
+  beforeDestroy() {
+    this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
   },
 
   methods: {
@@ -147,8 +174,19 @@ export default {
 
       this.heroTitleLineArray = []
       for (let i = 1; i < this.delay.length + 1; i++) {
-        this.heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i])
+        this.heroTitleLineArray.push(this.$refs['HeroTitleLine-0' + i]);
       }
+      for (let i = 0; i < this.heroTitleLineArray.length; i++) {
+        this.heroTitleLineArray[i].init()
+      }
+    },
+
+    bgCircleScaleChangeScroll() {
+      this.$gsap.to(this.$refs.HeroBgCircle02, {
+        duration: this.$baseAnimationConfig.duration / 3.0,
+        ease: 'none',
+        scale: (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 4.0 + 1.0,
+      })
     },
   }
 }
@@ -177,23 +215,23 @@ export default {
   position: relative;
 }
 
-.hero-title-line {
-  position: absolute;
-  top: -12px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: $white;
-  transform: scaleX(0);
-}
+// .hero-title-line {
+//   position: absolute;
+//   top: -12px;
+//   left: 0;
+//   width: 100%;
+//   height: 1px;
+//   background-color: $white;
+//   transform: scaleX(0);
+// }
 
-.hero-title-line-right {
-  transform-origin: left;
-}
+// .hero-title-line-right {
+//   transform-origin: left;
+// }
 
-.hero-title-line-left {
-  transform-origin: right;
-}
+// .hero-title-line-left {
+//   transform-origin: right;
+// }
 
 .hero-title-wrapper-01 {
   width: vw(783);
@@ -237,5 +275,27 @@ export default {
 
 .hero-title-wrapper-02-base-area-helvetica-allways {
   left: vw(380);
+}
+
+.hero-bg-circle-01 {
+  position: absolute;
+  top: vw(-184);
+  right: vw(-90);
+  width: vw(820);
+  height: vw(820);
+  background-color: $yellow;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-bg-circle-02 {
+  position: absolute;
+  top: 0;
+  left: vw(-216);
+  width: vw(1034);
+  height: vw(1034);
+  background-color: $lightBlue;
+  border-radius: 50%;
+  pointer-events: none;
 }
 </style>

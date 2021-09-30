@@ -1,0 +1,11 @@
+@mixin sp() {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tab() {
+  @media (max-width: 1280px) {
+    @content;
+  }
+}

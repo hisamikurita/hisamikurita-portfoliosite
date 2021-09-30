@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div ref="IndexHeroAndAbout">
-      <IndexHeroAndAbout></IndexHeroAndAbout>
+    <div class="hero-and-about">
+      <IndexHero></IndexHero>
+      <IndexAbout></IndexAbout>
     </div>
-    <IndexPickup :hero-and-about-dom="aa"></IndexPickup>
+    <IndexPickup></IndexPickup>
     <IndexProject></IndexProject>
     <IndexContact></IndexContact>
   </div>
@@ -12,16 +13,12 @@
 <script>
 export default {
   name: 'Index',
-  // data: () => {
-  //   return {
-  //     a: this.$refs.IndexHeroAndAbout,
-  //   }
-  // },
-  computed:{
-    aa(){
-      console.log()
-      return this.$refs.IndexHeroAndAbout;
-    }
-  }
 }
 </script>
+
+<style lang="scss" scoped>
+.hero-and-about {
+  position: relative;
+  overflow: hidden;
+}
+</style>

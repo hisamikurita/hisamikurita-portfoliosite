@@ -17,3 +17,6 @@ export default (context, inject) => {
   inject('easing', easing);
   inject('baseAnimationConfig', baseAnimationConfig);
 }
+
+
+

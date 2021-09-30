@@ -1,11 +1,18 @@
 <template>
-  <div ref="aboutSec" class="about">
+  <div class="about">
     <div class="about-inner">
       <div class="l-container">
         <h2 ref="AboutTitleTrigger" class="about-title">
+          <CommonTextUnderline
+            ref="AboutTitleLine-01"
+            modifier="about"
+            :start="0.60"
+            :rotate="rotateLeft"
+          ></CommonTextUnderline>
           <span class="about-title-read-area">
             <CommonSectionReadTitle
               ref="commonSectionReadTitle-01"
+              modifier="section"
               :start="0"
               :text="['・', 'ABOUT']"
             ></CommonSectionReadTitle>
@@ -47,9 +54,9 @@
             </CommonTextSegment>
           </span>
         </h2>
-        <p class="">
+        <p class="about-read-text">
           <CommonSectionReadTitle
-              ref="commonSectionReadTitle-02"
+            ref="commonSectionReadTitle-02"
             :start="0.48"
             :text="[
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
@@ -79,12 +86,14 @@ export default {
   mounted() {
     this.init()
 
+    /* text-animation */
     const observe = this.$refs.AboutTitleTrigger;
     const iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.commonTextSegmentArray.map((text) => text.toCenter());
+            this.aboutTitleLineArray.map((line) => line.extend());
             iObserver.unobserve(observe)
           }
         })
@@ -109,6 +118,14 @@ export default {
       for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
         this.commonTextSegmentArray[i].init()
       }
+
+      this.aboutTitleLineArray = []
+      for (let i = 1; i < 1 + 1; i++) {
+        this.aboutTitleLineArray.push(this.$refs['AboutTitleLine-0' + i]);
+      }
+      for (let i = 0; i < this.aboutTitleLineArray.length; i++) {
+        this.aboutTitleLineArray[i].init()
+      }
     },
   },
 }
@@ -116,31 +133,50 @@ export default {
 
 <style scoped lang="scss">
 .about-inner {
-  padding: 333px 0 248px 0;
+  padding: 333px 0 258px 0;
 }
 
 .about-title {
   position: relative;
   width: vw(1090);
-  margin: 0 0 0 40px;
+  margin: 0 0 85px 0;
+  padding: 0 56px 0 40px;
   color: $darkBlue;
   font-size: vw(80);
   font-family: 'Six Caps', sans-serif;
   text-transform: uppercase;
+
+  @include tab {
+    padding: 0 vw(56) 0 vw(40);
+  }
 }
 
 .about-title-read-area {
   position: absolute;
-  top: 8px;
-  left: 2px;
+  top: -4px;
+  left: 42px;
   color: $white;
 }
 
 .about-title-wrapper {
   display: block;
+  text-align: right;
 }
 
 .about-title-wrapper-01 {
   padding: 0 0 0 vw(156);
+}
+
+.about-read-text{
+  width: vw(1090);
+  color: $darkBlue;
+  padding: 0 56px 0 40px;
+  font-size: 12px;
+  text-align: right;
+  letter-spacing: 0.02em;
+
+  @include tab {
+    padding: 0 vw(56) 0 vw(40);
+  }
 }
 </style>

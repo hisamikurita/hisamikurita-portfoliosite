@@ -112,16 +112,6 @@ export default {
   white-space: nowrap;
 }
 
-.cmn-text-segment-wrapper.rotate-right {
-  transform-origin: left;
-  transform: rotate($base-rotate);
-}
-
-.cmn-text-segment-wrapper.rotate-left {
-  transform-origin: right;
-  transform: rotate(-$base-rotate);
-}
-
 .cmn-text-segment {
   display: inline-block;
   opacity: 0;
