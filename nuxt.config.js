@@ -28,6 +28,7 @@ export default {
   plugins: [
     '~/plugins/asscroll.client.js',
     '~/plugins/gsap.client.js',
+    '~/plugins/mixin.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

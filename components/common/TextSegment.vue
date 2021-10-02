@@ -1,15 +1,14 @@
 <template>
-  <span
-    ref="CmnTextSegmentWrapper"
-    class="cmn-text-segment-wrapper"
-  >
-    <span
-      v-for="(char, index) of text"
-      :key="index"
-      ref="CmnTextSegment"
-      class="cmn-text-segment"
-      v-text="char"
-    >
+  <span class="cmn-text-segment-block">
+    <span ref="CmnTextSegmentWrapper" class="cmn-text-segment-wrapper">
+      <span
+        v-for="(char, index) of text"
+        :key="index"
+        ref="CmnTextSegment"
+        class="cmn-text-segment"
+        v-text="char"
+      >
+      </span>
     </span>
   </span>
 </template>
@@ -22,33 +21,54 @@ export default {
       required: true,
     },
     rotate: {
-      type: Number,
+      type: [String, Number],
       required: true,
     },
     start: {
       type: [String, Number],
       required: true,
     },
+    state: {
+      type: String,
+      required: true,
+    },
+  },
+
+  watch: {
+    state: function () {
+      switch (this.state) {
+        case 'center':
+          this.toCenter()
+          break
+        case 'top':
+          this.toTop()
+          break
+        case 'bottom':
+          this.toBottom()
+          break
+      }
+    },
   },
 
   mounted() {
     this.wrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
+    this.init()
   },
 
   methods: {
-    init: function() {
+    init: function () {
       this.$gsap.set(this.wrapper, {
         rotate: this.rotate,
         transformOrigin: this.rotate > 0 ? 'left' : 'right',
-      });
+      })
       this.$gsap.set(this.textArray, {
         opacity: 1.0,
         yPercent: 103,
-      });
+      })
     },
 
-    toCenter: function() {
+    toCenter: function () {
       this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -66,7 +86,7 @@ export default {
       })
     },
 
-    toTop: function() {
+    toTop: function () {
       this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -84,7 +104,7 @@ export default {
       })
     },
 
-    toBottom: function() {
+    toBottom: function () {
       this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -106,8 +126,12 @@ export default {
 </script>
 
 <style lang="scss">
-.cmn-text-segment-wrapper {
+.cmn-text-segment-block{
   display: block;
+}
+
+.cmn-text-segment-wrapper {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
 }

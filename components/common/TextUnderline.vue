@@ -1,23 +1,46 @@
 <template>
-  <span ref="TextUnderline" class="text-under-line" :class="'text-under-line--' + modifier"></span>
+  <span
+    ref="TextUnderline"
+    class="text-under-line"
+    :class="'text-under-line--' + modifier"
+  ></span>
 </template>
 
 <script>
 export default {
   props: {
     rotate: {
-      type: Number,
+      type: [String, Number],
       required: true,
     },
     start: {
       type: [String, Number],
       required: true,
     },
-    modifier:{
+    state: {
+      type: [String, Number],
+      required: true,
+    },
+    modifier: {
       type: String,
       default: '',
-    }
+    },
   },
+
+  watch: {
+    state: function () {
+      switch (this.state) {
+        case 'extend':
+          this.toExtend()
+          break
+      }
+    },
+  },
+
+  mounted() {
+    this.init()
+  },
+
   methods: {
     init: function () {
       this.$gsap.set(this.$refs.TextUnderline, {
@@ -25,7 +48,7 @@ export default {
       })
     },
 
-    extend: function () {
+    toExtend: function () {
       this.$gsap.to(this.$refs.TextUnderline, {
         duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
@@ -43,6 +66,8 @@ export default {
   height: 1px;
   transform: scaleX(0);
 }
+
+//modifier
 
 .text-under-line--hero {
   position: absolute;

@@ -6,15 +6,15 @@
           <h2 class="contact-title">
             <span class="contact-title-read-area">
               <CommonSectionReadTitle
-                ref="commonSectionReadTitle-01"
                 modifier="section"
+                :state="isTextSegmentState"
                 :start="0"
                 :text="['・', 'SAY HI']"
               ></CommonSectionReadTitle>
             </span>
             <span class="contact-title-wrapper contact-title-wrapper-01">
               <CommonTextSegment
-                ref="commonTextSegment-01"
+                :state="isTextSegmentState"
                 :start="0"
                 :rotate="rotateRight"
                 text="I AM CREATIVE DEVELOPER"
@@ -23,7 +23,7 @@
             </span>
             <span class="contact-title-wrapper contact-title-wrapper-02">
               <CommonTextSegment
-                ref="commonTextSegment-02"
+                :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="rotateLeft"
                 text="FOCUSED ON CREATING THINGS"
@@ -32,7 +32,7 @@
             </span>
             <span class="contact-title-wrapper contact-title-wrapper-03">
               <CommonTextSegment
-                ref="commonTextSegment-03"
+                :state="isTextSegmentState"
                 :start="0.24"
                 :rotate="rotateRight"
                 text="WITH INTERACTION & ANIMATION"
@@ -41,7 +41,7 @@
             </span>
             <span class="contact-title-wrapper contact-title-wrapper-04">
               <CommonTextSegment
-                ref="commonTextSegment-04"
+                :state="isTextSegmentState"
                 :start="0.36"
                 :rotate="rotateLeft"
                 text="AS MY MAIN FOCUS."
@@ -53,15 +53,15 @@
             <div class="contact-info-index-area">
               <span class="contact-info-index">
                 <CommonSectionReadTitle
-                  ref="commonSectionReadTitle-02"
                   modifier="contact-section"
+                  :state="isTextSegmentState"
                   :start="0.48"
                   :text="['・', 'INDEX']"
                 ></CommonSectionReadTitle>
               </span>
               <span class="">
                 <CommonSectionReadTitle
-                  ref="commonSectionReadTitle-03"
+                  :state="isTextSegmentState"
                   :start="0.48"
                   :text="['M-TRUST', 'KETAMUKUMA', 'NLPLUS', 'REDANDGREEN', 'ASOVISION', 'BASTA', 'FRONTIER' ,'YAKUDOU','ARCHIVE']"
                 ></CommonSectionReadTitle>
@@ -70,7 +70,7 @@
             <div class="contact-info-name-area">
               <p class="contact-name">
                 <CommonTextSegment
-                  ref="commonTextSegment-05"
+                  :state="isTextSegmentState"
                   :start="0.48"
                   :rotate="rotateRight"
                   text="HISAMI KURITA"
@@ -89,49 +89,29 @@
 export default {
   data: () => {
     return {
-      delay: [0, 0.176, 0.4, 0.42],
-      rotateRight: 0,
-      rotateLeft: 0,
+      isTextSegmentState: '',
     }
   },
-  beforeMount(){
-    this.rotateRight = this.$baseAnimationConfig.rotate;
-    this.rotateLeft = -this.$baseAnimationConfig.rotate;
-  },
-    mounted() {
-    this.init()
 
+  mounted() {
     /* text-animation */
-    const observe = this.$refs.Contact;
-    const iObserver = new IntersectionObserver(
+    this.observe = this.$refs.Contact;
+    this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.commonTextSegmentArray.map((text) => text.toCenter());
-            iObserver.unobserve(observe)
+            this.isTextSegmentState = 'center';
+            this.iObserver.unobserve(this.observe)
           }
         })
       },
       { rootMargin: '0%' }
     )
-    iObserver.observe(observe)
+    this.iObserver.observe(this.observe)
   },
-  methods: {
-    init: function () {
-      this.commonTextSegmentArray = [];
-      for (let i = 1; i < 3 + 1; i++) {
-        const commonSectionReadTitleArray = this.$refs['commonSectionReadTitle-0' + i];
-        for (let i = 0; i < commonSectionReadTitleArray.$children.length; i++) {
-          this.commonTextSegmentArray.push(commonSectionReadTitleArray.$children[i]);
-        }
-      }
-      for (let i = 1; i < 5 + 1; i++) {
-        this.commonTextSegmentArray.push(this.$refs['commonTextSegment-0' + i])
-      }
-      for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
-        this.commonTextSegmentArray[i].init()
-      }
-    },
+
+  beforeDestroy() {
+    this.iObserver.unobserve(this.observe)
   },
 }
 </script>

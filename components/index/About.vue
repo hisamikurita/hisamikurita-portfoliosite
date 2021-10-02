@@ -4,22 +4,22 @@
       <div class="l-container">
         <h2 ref="AboutTitleTrigger" class="about-title">
           <CommonTextUnderline
-            ref="AboutTitleLine-01"
             modifier="about"
-            :start="0.60"
+            :state="isTextUnderlineState"
+            :start="0.6"
             :rotate="rotateLeft"
           ></CommonTextUnderline>
           <span class="about-title-read-area">
             <CommonSectionReadTitle
-              ref="commonSectionReadTitle-01"
               modifier="section"
+              :state="isTextSegmentState"
               :start="0"
               :text="['・', 'ABOUT']"
             ></CommonSectionReadTitle>
           </span>
           <span class="about-title-wrapper about-title-wrapper-01">
             <CommonTextSegment
-              ref="commonTextSegment-01"
+              :state="isTextSegmentState"
               :start="0"
               :rotate="rotateRight"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing"
@@ -28,7 +28,7 @@
           </span>
           <span class="about-title-wrapper about-title-wrapper-02">
             <CommonTextSegment
-              ref="commonTextSegment-02"
+              :state="isTextSegmentState"
               :start="0.12"
               :rotate="rotateLeft"
               text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
@@ -37,7 +37,7 @@
           </span>
           <span class="about-title-wrapper about-title-wrapper-03">
             <CommonTextSegment
-              ref="commonTextSegment-03"
+              :state="isTextSegmentState"
               :start="0.24"
               :rotate="rotateRight"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
@@ -46,7 +46,7 @@
           </span>
           <span class="about-title-wrapper about-title-wrapper-04">
             <CommonTextSegment
-              ref="commonTextSegment-04"
+              :state="isTextSegmentState"
               :start="0.36"
               :rotate="rotateLeft"
               text="m ipsum dolor sit amet, consectetur adipiscing elit,"
@@ -56,7 +56,7 @@
         </h2>
         <p class="about-read-text">
           <CommonSectionReadTitle
-            ref="commonSectionReadTitle-02"
+            :state="isTextSegmentState"
             :start="0.48"
             :text="[
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
@@ -75,58 +75,30 @@
 export default {
   data: () => {
     return {
-      rotateRight: 0,
-      rotateLeft: 0,
+      isTextSegmentState: '',
+      isTextUnderlineState: '',
     }
   },
-  beforeMount() {
-    this.rotateRight = this.$baseAnimationConfig.rotate
-    this.rotateLeft = -this.$baseAnimationConfig.rotate
-  },
   mounted() {
-    this.init()
-
     /* text-animation */
-    const observe = this.$refs.AboutTitleTrigger;
-    const iObserver = new IntersectionObserver(
+    this.observe = this.$refs.AboutTitleTrigger
+    this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.commonTextSegmentArray.map((text) => text.toCenter());
-            this.aboutTitleLineArray.map((line) => line.extend());
-            iObserver.unobserve(observe)
+            this.isTextSegmentState = 'center'
+            this.isTextUnderlineState = 'extend'
+            this.iObserver.unobserve(this.observe)
           }
         })
       },
       { rootMargin: '0%' }
     )
-    iObserver.observe(observe)
+    this.iObserver.observe(this.observe)
   },
 
-  methods: {
-    init: function () {
-      this.commonTextSegmentArray = [];
-      for (let i = 1; i < 2 + 1; i++) {
-        const commonSectionReadTitleArray = this.$refs['commonSectionReadTitle-0' + i];
-        for (let i = 0; i < commonSectionReadTitleArray.$children.length; i++) {
-          this.commonTextSegmentArray.push(commonSectionReadTitleArray.$children[i]);
-        }
-      }
-      for (let i = 1; i < 4 + 1; i++) {
-        this.commonTextSegmentArray.push(this.$refs['commonTextSegment-0' + i])
-      }
-      for (let i = 0; i < this.commonTextSegmentArray.length; i++) {
-        this.commonTextSegmentArray[i].init()
-      }
-
-      this.aboutTitleLineArray = []
-      for (let i = 1; i < 1 + 1; i++) {
-        this.aboutTitleLineArray.push(this.$refs['AboutTitleLine-0' + i]);
-      }
-      for (let i = 0; i < this.aboutTitleLineArray.length; i++) {
-        this.aboutTitleLineArray[i].init()
-      }
-    },
+  beforeDestroy() {
+    this.iObserver.unobserve(this.observe)
   },
 }
 </script>
@@ -145,6 +117,7 @@ export default {
   font-size: vw(80);
   font-family: 'Six Caps', sans-serif;
   text-transform: uppercase;
+  line-height: 0.964;
 
   @include tab {
     padding: 0 vw(56) 0 vw(40);
@@ -167,7 +140,11 @@ export default {
   padding: 0 0 0 vw(156);
 }
 
-.about-read-text{
+.about-title-wrapper-04 {
+  padding: 0 vw(150) 0 0;
+}
+
+.about-read-text {
   width: vw(1090);
   color: $darkBlue;
   padding: 0 56px 0 40px;
