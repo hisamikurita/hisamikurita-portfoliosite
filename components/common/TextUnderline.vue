@@ -88,4 +88,22 @@ export default {
     width: calc(100% - #{vw(56)} - 40px);
   }
 }
+
+.text-under-line--project-01 {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: calc(100% - 200px);
+  background-color: $black;
+}
+
+.text-under-line--project-02 {
+  position: absolute;
+  bottom: 0;
+  left: 40px;
+  width: calc(100% - 200px);
+  background-color: $black;
+}
+
+
 </style>

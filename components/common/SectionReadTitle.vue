@@ -53,6 +53,16 @@ export default {
   }
 }
 
+.cmn-title-read-text-wrapper--project-section{
+  & .cmn-title-read-text-00{
+    position: relative;
+    right: -6px;
+    font-size: 36px;
+    text-indent: -2px;
+    line-height: 0.79;
+  }
+}
+
 .cmn-title-read-text-wrapper--contact-section{
   & .cmn-title-read-text-00{
     display: block;
