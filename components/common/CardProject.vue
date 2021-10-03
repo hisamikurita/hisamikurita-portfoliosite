@@ -1,75 +1,75 @@
 <template>
   <div ref="CardProject" class="card-project">
     <article ref="CardProjectArticle" class="card-project-article">
-      <a href="#">
-      <div class="card-project-inner">
-        <!-- <a href="#"> -->
-          <span class="card-project-title-wrapper-01">
-            <CommonSectionReadTitle
-              modifier="card-section"
-              :state="state"
-              :start="0"
-              :text="[
-                '・',
-                'M-TRUST',
-              ]"
-            ></CommonSectionReadTitle>
-          </span>
-          <span class="card-project-title-wrapper-02">
-            <CommonSectionReadTitle
-              :state="state"
-              :start="0.36"
-              :text="[
-                'M-TRSUT IS A COMPANY WITH',
-                'HIGH-SKILLED PROFESSIONALS',
-                'WHO SOLVE SOCIAL ISSUES',
-                'FROM THE REAL ESTATE BUSINESS',
-              ]"
-            ></CommonSectionReadTitle>
-          </span>
-          <span class="card-project-title-wrapper-03">
-            <CommonTextSegment
-              :state="state"
-              :start="0.72"
-              :rotate="rotateLeft"
-              text="M-TRUST"
-            ></CommonTextSegment>
-          </span>
-        <!-- </a> -->
-      </div>
-      </a>
+      <NuxtLink to="#">
+        <div class="card-project-inner">
+            <span class="card-project-title-wrapper-01">
+              <CommonSectionReadTitle
+                modifier="card-section"
+                :state="state"
+                :start="0"
+                :text="[
+                  '・',
+                  'M-TRUST',
+                ]"
+              ></CommonSectionReadTitle>
+            </span>
+            <span class="card-project-title-wrapper-02">
+              <CommonSectionReadTitle
+                :state="state"
+                :start="0.36"
+                :text="[
+                  'M-TRSUT IS A COMPANY WITH',
+                  'HIGH-SKILLED PROFESSIONALS',
+                  'WHO SOLVE SOCIAL ISSUES',
+                  'FROM THE REAL ESTATE BUSINESS',
+                ]"
+              ></CommonSectionReadTitle>
+            </span>
+            <span class="card-project-title-wrapper-03">
+              <CommonTextSegment
+                :state="state"
+                :start="0.72"
+                :rotate="rotateLeft"
+                text="M-TRUST"
+              ></CommonTextSegment>
+            </span>
+        </div>
+      </NuxtLink>
     </article>
+    <div ref="CardProjectObserver" class="card-project-observer"></div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    container: {
-      type: null,
-      required: true,
-    },
-  },
+  // props: {
+  //   container: {
+  //     type: null,
+  //     required: true,
+  //   },
+  // },
   data: () => {
     return {
       state: '',
     }
   },
   mounted() {
-    this.d = this.$Draggable.create(this.$refs.CardProjectArticle,{
+    this.drag = this.$Draggable.create(this.$refs.CardProjectArticle,{
       type:"x,y",
       bounds:this.$parent.$el,
       edgeResistance: 0.9,
       inertia:true,
-      throwProps:true,
 
-      // onThrowUpdate:() =>{
-      //   console.log(this.d.deltaX )
-      //   console.log(this.d.deltaY )
-      // }
+      onThrowUpdate:() =>{
+        this.$gsap.set(this.$refs.CardProjectObserver,{
+          x: this.drag[0].x,
+          y: this.drag[0].y,
+        })
+      }
     })
 
-    this.observe = this.$refs.CardProject;
+    this.observe = this.$refs.CardProjectObserver;
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -116,6 +116,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.card-project{
+  position: relative;
+}
+
+.card-project-observer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .card-project-article{
   width: 293px;
   height: 400px;

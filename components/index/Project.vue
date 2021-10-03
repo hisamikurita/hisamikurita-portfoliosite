@@ -62,22 +62,34 @@
         <div class="project-card-area">
           <div class="l-container">
             <div ref="projectCardAreaClip" class="project-card-area-clip">
-              <div class="project-card-item project-card-item-01">
-                <CommonCardProject :container="container"></CommonCardProject>
-              </div>
-              <div ref="box" class="box"></div>
+              <!-- <div v-for="(data, index) in projectData" :key="data.id">
+                <div class="project-card-item" :class="'project-card-item-' + index">
+                  <CommonCardProject
+                  ></CommonCardProject>
+                </div>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
+        <ul>
+            <li v-for="user in posts" :key="user.id">{{ user.name }}</li>
+        </ul>
   </div>
 </template>
 
 <script>
 export default {
+    async asyncData({ $axios }) {
+      const posts = await $axios.$get('https://jsonplaceholder.typicode.com/posts/')
+      return { posts }
+    },
+
   data: () => {
     return {
+      // projectData: [],
+      posts: {},
       isTextSegmentState: '',
       isTextUnderlineState: '',
       isLoopTextState: '',
@@ -89,14 +101,7 @@ export default {
   },
 
   mounted() {
-    this.container = this.$refs.Project;
-    // console.log(this.container)
-
-    this.$Draggable.create(this.$refs.box,{
-      bounds:this.$refs.Project,
-      type:"x,y",
-      inertia:true,
-    })
+    // console.log(this.posts)
 
     /* text-animation */
     this.observe = this.$refs.ProjectLoopTitle;

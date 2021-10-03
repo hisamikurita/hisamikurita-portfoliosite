@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@ashthornton/asscroll": "^2.0.2",
+    "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
     "gsap": "^3.7.1",
     "nuxt": "^2.15.7",
