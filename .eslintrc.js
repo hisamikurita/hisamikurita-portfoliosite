@@ -18,5 +18,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     "object-shorthand": "off",
+    "no-void": "off",
   }
 }

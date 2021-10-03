@@ -1,6 +1,10 @@
 import { gsap } from 'gsap'
 import { CustomEase } from '../vendor/CustomEase'
+import { Draggable } from '../vendor/Draggable'
+import { InertiaPlugin } from '../vendor/InertiaPlugin'
 gsap.registerPlugin(CustomEase);
+gsap.registerPlugin(Draggable);
+gsap.registerPlugin(InertiaPlugin);
 
 const baseAnimationConfig = {
   duration: 1.0,
@@ -14,6 +18,7 @@ const easing = {
 
 export default (context, inject) => {
   inject('gsap', gsap);
+  inject('Draggable', Draggable);
   inject('easing', easing);
   inject('baseAnimationConfig', baseAnimationConfig);
 }

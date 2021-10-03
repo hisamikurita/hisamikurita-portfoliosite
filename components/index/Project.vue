@@ -1,5 +1,5 @@
 <template>
-  <div class="project">
+  <div ref="Project" class="project">
     <div class="project-bg">
       <div class="project-inner">
         <h2 ref="ProjectLoopTitle" class="project-loop-title">
@@ -44,7 +44,7 @@
             <CommonTextUnderline
               modifier="project-02"
               :state="isTextUnderlineState"
-              :start="0"
+              :start="0.24"
               :rotate="rotateLeft"
             >
             </CommonTextUnderline>
@@ -59,9 +59,16 @@
             </CommonTextLoop>
           </span>
         </h2>
-        <!-- <div class="l-container">
-          <h1 class="project-title">PROJECT</h1>
-        </div> -->
+        <div class="project-card-area">
+          <div class="l-container">
+            <div ref="projectCardAreaClip" class="project-card-area-clip">
+              <div class="project-card-item project-card-item-01">
+                <CommonCardProject :container="container"></CommonCardProject>
+              </div>
+              <div ref="box" class="box"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,10 +81,23 @@ export default {
       isTextSegmentState: '',
       isTextUnderlineState: '',
       isLoopTextState: '',
+      container: {},
     }
   },
 
+  beforeMount(){
+  },
+
   mounted() {
+    this.container = this.$refs.Project;
+    // console.log(this.container)
+
+    this.$Draggable.create(this.$refs.box,{
+      bounds:this.$refs.Project,
+      type:"x,y",
+      inertia:true,
+    })
+
     /* text-animation */
     this.observe = this.$refs.ProjectLoopTitle;
     this.iObserverTextSegment = new IntersectionObserver(
@@ -120,7 +140,6 @@ export default {
 <style scoped lang="scss">
 .project-inner {
   padding: 206px 0 0 0;
-  height: 100vh;
 }
 
 .project-loop-title{
@@ -143,4 +162,37 @@ export default {
   right: 160px;
   text-align: right;
 }
+
+.project-card-area{
+  position: relative;
+  height: 1000px;
+}
+
+.project .l-container{
+  height: 100%;
+  padding: 0 160px 0 40px;
+}
+
+.project-card-area-clip{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 160px 0 0;
+}
+
+.project-card-item{
+  position: absolute;
+}
+
+.project-card-item-01{
+  top: -8%;
+  right: 7.6%;
+}
+
+.box{
+  width: 200px;
+  height: 100px;
+  background-color: #fff;
+}
+
 </style>
