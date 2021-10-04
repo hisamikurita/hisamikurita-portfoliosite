@@ -1,7 +1,7 @@
 <template>
   <div ref="CardProject" class="card-project">
     <article ref="CardProjectArticle" class="card-project-article">
-      <NuxtLink to="#">
+      <NuxtLink :to="link">
         <div class="card-project-inner">
             <span class="card-project-title-wrapper-01">
               <CommonSectionReadTitle
@@ -10,7 +10,7 @@
                 :start="0"
                 :text="[
                   '・',
-                  'M-TRUST',
+                  name,
                 ]"
               ></CommonSectionReadTitle>
             </span>
@@ -18,12 +18,7 @@
               <CommonSectionReadTitle
                 :state="state"
                 :start="0.36"
-                :text="[
-                  'M-TRSUT IS A COMPANY WITH',
-                  'HIGH-SKILLED PROFESSIONALS',
-                  'WHO SOLVE SOCIAL ISSUES',
-                  'FROM THE REAL ESTATE BUSINESS',
-                ]"
+                :text="text"
               ></CommonSectionReadTitle>
             </span>
             <span class="card-project-title-wrapper-03">
@@ -31,7 +26,7 @@
                 :state="state"
                 :start="0.72"
                 :rotate="rotateLeft"
-                text="M-TRUST"
+                :text="title"
               ></CommonTextSegment>
             </span>
         </div>
@@ -43,12 +38,28 @@
 
 <script>
 export default {
-  // props: {
-  //   container: {
-  //     type: null,
-  //     required: true,
-  //   },
-  // },
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    link: {
+      type: String,
+      required: true,
+    },
+    text: {
+      type: Array,
+      required: true,
+    },
+    speed: {
+      type: Number,
+      default: 0.10,
+    },
+  },
   data: () => {
     return {
       state: '',
@@ -108,7 +119,7 @@ export default {
       this.$gsap.to(this.$refs.CardProject, {
         duration: this.$baseAnimationConfig.duration / 3.0,
         ease: 'none',
-        y: this.$refs.CardProject.getBoundingClientRect().top * 0.12,
+        y: this.$refs.CardProject.getBoundingClientRect().top * this.speed,
       })
     },
   }

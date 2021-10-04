@@ -62,33 +62,32 @@
         <div class="project-card-area">
           <div class="l-container">
             <div ref="projectCardAreaClip" class="project-card-area-clip">
-              <!-- <div v-for="(data, index) in projectData" :key="data.id">
-                <div class="project-card-item" :class="'project-card-item-' + index">
+              <div v-for="(data, index) in projectData" :key="data.id">
+                <div class="project-card-item" :class="'project-card-item-0' + index">
                   <CommonCardProject
+                    :name="data.name"
+                    :title="data.title"
+                    :link="data.link"
+                    :text="data.text"
+                    :speed="data.speed"
                   ></CommonCardProject>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-        <ul>
-            <li v-for="user in posts" :key="user.id">{{ user.name }}</li>
-        </ul>
   </div>
 </template>
 
 <script>
-export default {
-    async asyncData({ $axios }) {
-      const posts = await $axios.$get('https://jsonplaceholder.typicode.com/posts/')
-      return { posts }
-    },
+import projectData from '@/assets/json/project.json'
 
+export default {
   data: () => {
     return {
-      // projectData: [],
+      projectData: projectData,
       posts: {},
       isTextSegmentState: '',
       isTextUnderlineState: '',
@@ -170,7 +169,7 @@ export default {
 
 .project-card-area{
   position: relative;
-  height: 1000px;
+  height: 2000px;
 }
 
 .project .l-container{
@@ -187,12 +186,55 @@ export default {
 
 .project-card-item{
   position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.project-card-item-00{
+  top: -5.2%;
+  right: 34.6%;
 }
 
 .project-card-item-01{
-  top: -8%;
-  right: 7.6%;
+  top: 8.3%;
+  left: 34.5%;
 }
+
+.project-card-item-02{
+  top: 24%;
+  left: 11%;
+}
+
+.project-card-item-03{
+  top: 2%;
+  left: 3.4%;
+}
+
+.project-card-item-04{
+  top: 23%;
+  right: 27%;
+}
+
+.project-card-item-05{
+  top: 35%;
+  right: 58%;
+}
+
+.project-card-item-06{
+  top: 49%;
+  right: 32.8%;
+}
+
+.project-card-item-07{
+  top: 53%;
+  left: 22.4%;
+}
+
+.project-card-item-08{
+  top: 66%;
+  left: 4%;
+}
+
 
 .box{
   width: 200px;

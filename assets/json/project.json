@@ -8,6 +8,105 @@
       "HIGH-SKILLED PROFESSIONALS",
       "WHO SOLVE SOCIAL ISSUES",
       "FROM THE REAL ESTATE BUSINESS"
-    ]
+    ],
+    "speed": 0.10
+  },
+  {
+    "name": "KETAKUMA",
+    "link": "#",
+    "title": "KTKM",
+    "text": [
+      "JAPANESE CHARACTER KETA",
+      "KUMA, A BEAR WHO LIVES FOR",
+      "MOVING AGGRESSIVELY, AND",
+      "HIS FRIEND KETAWAN."
+    ],
+    "speed": 0.12
+  },
+  {
+    "name": "NL PLUS",
+    "link": "#",
+    "title": "NL PLUS",
+    "text": [
+      "NLPLUS IS A SOLUTIONS COM",
+      "PANY THAT PROVIDES SER",
+      "VICES SUCH AS “FIRST WEB”",
+      "AND “LO CCO” TO SOLVE PROB",
+      "LEMS USING ICT."
+    ],
+    "speed": 0.08
+  },
+  {
+    "name": "RED&GREEN",
+    "link": "#",
+    "title": "R&G",
+    "text": [
+      "RED AND GREEN CO.,LTD IS",
+      "THE TOTAL COORDINATOR OF",
+      "THE PRODUCT PLANNING,",
+      "BRANDING, AND CIRCULATION",
+      "TO SALES."
+    ],
+    "speed": 0.06
+  },
+  {
+    "name": "ASOVISION",
+    "link": "#",
+    "title": "ASVSON",
+    "text": [
+      "ASOVISION IS A COMPANY THAT",
+      "MAKES A GAME CHANGE TO A",
+      "SOCIETY WHERE EVERYONE",
+      "CAN PLAY A LEADING ROLE."
+    ],
+    "speed": 0.14
+  },
+  {
+    "name": "BASTA",
+    "link": "#",
+    "title": "BST",
+    "text": [
+      "BASTA IS A PRODUCT OF BASF,",
+      "AN INTERNATIONAL CHEMICAL",
+      "MANUFACTURER HEADQUAR",
+      "TERED IN GERMANY."
+    ],
+    "speed": 0.09
+  },
+  {
+    "name": "FRONTIER",
+    "link": "#",
+    "title": "FRNTR",
+    "text": [
+      "LOREM IPSUM DOLOR SIT",
+      "AMET, CONSECTETUR",
+      "ADIPISCING ELIT, SED DO",
+      "EIUSMOD TEMPOR INCIDI"
+    ],
+    "speed": 0.07
+  },
+  {
+    "name": "YAKUDOH",
+    "link": "#",
+    "title": "YKDH",
+    "text": [
+      "YAKUDO MEANS DYNAMISM IN",
+      "JAPANESE. YAKUDO IS COMPA",
+      "NY WANT TO OFFER MORE",
+      "DYNAMISM TO PEOPLE."
+    ],
+    "speed": 0.11
+  },
+  {
+    "name": "ARCHIVE",
+    "link": "#",
+    "title": "ARCVE",
+    "text": [
+      "I'M PUTTING TOGETHER A",
+      "DYNAMIC ARCHIVE PAGE OF",
+      "THE WORK I'M SUBMITTING TO",
+      "CODEPEN."
+    ],
+    "speed": 0.10
   }
 ]
