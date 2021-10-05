@@ -1,7 +1,7 @@
 <template>
   <div ref="CardProject" class="card-project">
     <article ref="CardProjectArticle" class="card-project-article">
-      <NuxtLink :to="link">
+      <NuxtLink :to="link" class="card-project-link">
         <div class="card-project-inner">
             <span class="card-project-title-wrapper-01">
               <CommonSectionReadTitle
@@ -71,6 +71,7 @@ export default {
       bounds:this.$parent.$el,
       edgeResistance: 0.9,
       inertia:true,
+      allowEventDefault: true,
 
       onThrowUpdate:() =>{
         this.$gsap.set(this.$refs.CardProjectObserver,{
@@ -151,6 +152,12 @@ export default {
 
 .card-project-inner{
   position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-project-link{
+  display: block;
   width: 100%;
   height: 100%;
 }
