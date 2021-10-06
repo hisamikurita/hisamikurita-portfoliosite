@@ -79,6 +79,56 @@
               </p>
             </div>
           </div>
+          <span class="contact-card-item-01">
+            <CommonCardProject
+              :name="['・','DESIGNED BY','(KENTO ISHIDUKA)']"
+              :info="[
+                {
+                  link : 'https://twitter.com/kentiy1229',
+                  text : 'TWITTER @KENTIY1229',
+                },
+                {
+                  link : '#',
+                  text : 'DRIBBBLE @KEEEEENTISI',
+                },
+                {
+                  link : '#',
+                  text : 'LINKED IN @KENTOISHIDUKA',
+                },
+              ]"
+              :title="{
+                text: 'KNTISDK',
+                link: 'https://www.awwwards.com/',
+                subtext: '(VISIT SITE)',
+              }"
+              :speed="0.2"
+            ></CommonCardProject>
+          </span>
+          <span class="contact-card-item-02">
+            <CommonCardProject
+              :name="['・','CODED BY','(HISAMI KIRITA)']"
+              :info="[
+                {
+                  link : 'https://twitter.com/AAA00832745',
+                  text : 'TWITTER @AAA00832745',
+                },
+                {
+                  link : 'https://github.com/hisamikurita',
+                  text : 'GITHUB @HISAMIKURITA',
+                },
+                {
+                  link : 'https://codepen.io/hisamikurita',
+                  text : 'CODEPEN @HISAMIKURITA',
+                },
+              ]"
+              :title="{
+                text: 'HSMKRT',
+                link: 'mailto:kuritahisami@gmail.com',
+                subtext: '(CONTACT)',
+              }"
+              :speed="0.1"
+            ></CommonCardProject>
+          </span>
         </div>
       </div>
     </div>
@@ -183,6 +233,20 @@ export default {
   font-size: vw(400);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.02em;
+}
+
+.contact-card-item-01{
+  position: absolute;
+  top: 55.5%;
+  left: 30%;
+  transform: rotate(-10deg);
+}
+
+.contact-card-item-02{
+  position: absolute;
+  top: 39%;
+  right: 15%;
+  transform: rotate(10deg);
 }
 
 </style>

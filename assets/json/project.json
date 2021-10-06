@@ -1,6 +1,9 @@
 [
   {
-    "name": "M-TRUST",
+    "name": [
+      "・",
+      "M-TRSUT"
+    ],
     "link": "mtrust",
     "title": "M-TRUST",
     "text": [
@@ -9,10 +12,13 @@
       "WHO SOLVE SOCIAL ISSUES",
       "FROM THE REAL ESTATE BUSINESS"
     ],
-    "speed": 0.10
+    "speed": 0.21
   },
   {
-    "name": "KETAKUMA",
+    "name": [
+      "・",
+      "KETAKUMA"
+    ],
     "link": "#",
     "title": "KTKM",
     "text": [
@@ -21,10 +27,13 @@
       "MOVING AGGRESSIVELY, AND",
       "HIS FRIEND KETAWAN."
     ],
-    "speed": 0.12
+    "speed": 0.23
   },
   {
-    "name": "NL PLUS",
+    "name": [
+      "・",
+      "NL PLUS"
+    ],
     "link": "#",
     "title": "NL PLUS",
     "text": [
@@ -34,10 +43,13 @@
       "AND “LO CCO” TO SOLVE PROB",
       "LEMS USING ICT."
     ],
-    "speed": 0.08
+    "speed": 0.19
   },
   {
-    "name": "RED&GREEN",
+    "name": [
+      "・",
+      "RED&GREEN"
+    ],
     "link": "#",
     "title": "R&G",
     "text": [
@@ -47,10 +59,13 @@
       "BRANDING, AND CIRCULATION",
       "TO SALES."
     ],
-    "speed": 0.06
+    "speed": 0.17
   },
   {
-    "name": "ASOVISION",
+    "name": [
+      "・",
+      "ASOVISION"
+    ],
     "link": "#",
     "title": "ASVSON",
     "text": [
@@ -59,10 +74,13 @@
       "SOCIETY WHERE EVERYONE",
       "CAN PLAY A LEADING ROLE."
     ],
-    "speed": 0.14
+    "speed": 0.25
   },
   {
-    "name": "BASTA",
+    "name": [
+      "・",
+      "BASTA"
+    ],
     "link": "#",
     "title": "BST",
     "text": [
@@ -71,10 +89,13 @@
       "MANUFACTURER HEADQUAR",
       "TERED IN GERMANY."
     ],
-    "speed": 0.09
+    "speed": 0.2
   },
   {
-    "name": "FRONTIER",
+    "name": [
+      "・",
+      "FRONTIER"
+    ],
     "link": "#",
     "title": "FRNTR",
     "text": [
@@ -83,10 +104,13 @@
       "ADIPISCING ELIT, SED DO",
       "EIUSMOD TEMPOR INCIDI"
     ],
-    "speed": 0.07
+    "speed": 0.18
   },
   {
-    "name": "YAKUDOH",
+    "name": [
+      "・",
+      "YAKUDOH"
+    ],
     "link": "#",
     "title": "YKDH",
     "text": [
@@ -95,10 +119,13 @@
       "NY WANT TO OFFER MORE",
       "DYNAMISM TO PEOPLE."
     ],
-    "speed": 0.11
+    "speed": 0.22
   },
   {
-    "name": "ARCHIVE",
+    "name": [
+      "・",
+      "ARCHIVE"
+    ],
     "link": "#",
     "title": "ARCVE",
     "text": [
@@ -107,6 +134,6 @@
       "THE WORK I'M SUBMITTING TO",
       "CODEPEN."
     ],
-    "speed": 0.10
+    "speed": 0.21
   }
 ]

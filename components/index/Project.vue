@@ -89,10 +89,10 @@ export default {
     return {
       projectData: projectData,
       posts: {},
+      isCardSegmentState: '',
       isTextSegmentState: '',
       isTextUnderlineState: '',
       isLoopTextState: '',
-      container: {},
     }
   },
 
@@ -100,7 +100,25 @@ export default {
   },
 
   mounted() {
-    // console.log(this.posts)
+    /* card-animation */
+    // this.CardTextSegment = new IntersectionObserver(
+    //   (entries) => {
+    //     entries.forEach((entry) => {
+    //       if (entry.isIntersecting) {
+    //         const index = CommonCardProjectArray.indexOf(entry.target);
+
+    //         this.$refs.CommonCardProject[index].state = 'center';
+    //         this.CardTextSegment.unobserve(entry.target)
+    //       }
+    //     })
+    //   },
+    //   { rootMargin: '0%' }
+    // )
+    // const CommonCardProjectArray = [];
+    // for (let i = 0; i < this.$refs.CommonCardProject.length; i++) {
+    //   CommonCardProjectArray.push(this.$refs.CommonCardProject[i].observe);
+    //   this.CardTextSegment.observe(this.$refs.CommonCardProject[i].observe);
+    // }
 
     /* text-animation */
     this.observe = this.$refs.ProjectLoopTitle;
@@ -118,6 +136,7 @@ export default {
     )
     this.iObserverTextSegment.observe(this.observe)
 
+    /* loop-text-animation */
     this.iObserverLoopText = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

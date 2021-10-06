@@ -1,25 +1,22 @@
 <template>
   <div ref="CardProject" class="card-project">
     <article ref="CardProjectArticle" class="card-project-article">
-      <NuxtLink :to="link" class="card-project-link">
-        <div class="card-project-inner">
+      <span v-if="link">
+        <NuxtLink :to="link" class="card-project-link">
+          <div class="card-project-inner">
             <span class="card-project-title-wrapper-01">
-              <CommonSectionReadTitle
-                modifier="card-section"
-                :state="state"
-                :start="0"
-                :text="[
-                  '・',
-                  name,
-                ]"
-              ></CommonSectionReadTitle>
+              <span
+                v-for="(char, index) of name"
+                :key="index"
+                v-text="char"
+              ></span>
             </span>
             <span class="card-project-title-wrapper-02">
-              <CommonSectionReadTitle
-                :state="state"
-                :start="0.36"
-                :text="text"
-              ></CommonSectionReadTitle>
+                <span
+                  v-for="(char, index) of text"
+                  :key="index"
+                  v-text="char"
+                ></span>
             </span>
             <span class="card-project-title-wrapper-03">
               <CommonTextSegment
@@ -29,8 +26,45 @@
                 :text="title"
               ></CommonTextSegment>
             </span>
-        </div>
-      </NuxtLink>
+          </div>
+        </NuxtLink>
+      </span>
+      <span v-else>
+        <div class="card-project-inner">
+            <span class="card-project-title-wrapper-01">
+              <span
+                v-for="(char, index) of name"
+                :key="index"
+                v-text="char"
+              ></span>
+            </span>
+            <span class="card-project-title-wrapper-02">
+              <span v-if="info">
+                <span v-for="(char, index) of info" :key="index">
+                  <a :href="char.link" target="_blank" rel="noopener">{{ char.text }}</a>
+                </span>
+              </span>
+            </span>
+            <span class="card-project-title-wrapper-03">
+              <a :href="title.link" target="_blank" rel="noopener">
+                <CommonTextSegment
+                  :state="state"
+                  :start="0.72"
+                  :rotate="rotateLeft"
+                  :text="title.text"
+                ></CommonTextSegment>
+                <span v-if="title.subtext" class="card-project-sub-title">
+                  <CommonTextSegment
+                    :state="state"
+                    :start="1.0"
+                    :rotate="rotateLeft"
+                    :text="title.subtext"
+                  ></CommonTextSegment>
+                </span>
+              </a>
+            </span>
+          </div>
+      </span>
     </article>
     <div ref="CardProjectObserver" class="card-project-observer"></div>
   </div>
@@ -40,7 +74,7 @@
 export default {
   props: {
     name: {
-      type: String,
+      type: Array,
       required: true,
     },
     title: {
@@ -49,15 +83,19 @@ export default {
     },
     link: {
       type: String,
-      required: true,
+      default: null,
     },
     text: {
       type: Array,
-      required: true,
+      default: null,
+    },
+    info: {
+      type: Array,
+      default: null,
     },
     speed: {
       type: Number,
-      default: 0.10,
+      default: 0.1,
     },
   },
   data: () => {
@@ -66,22 +104,22 @@ export default {
     }
   },
   mounted() {
-    this.drag = this.$Draggable.create(this.$refs.CardProjectArticle,{
-      type:"x,y",
-      bounds:this.$parent.$el,
+    this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
+      type: 'x,y',
+      bounds: this.$parent.$el,
       edgeResistance: 0.9,
-      inertia:true,
+      inertia: true,
       allowEventDefault: true,
 
-      onThrowUpdate:() =>{
-        this.$gsap.set(this.$refs.CardProjectObserver,{
+      onThrowUpdate: () => {
+        this.$gsap.set(this.$refs.CardProjectObserver, {
           x: this.drag[0].x,
           y: this.drag[0].y,
         })
-      }
+      },
     })
 
-    this.observe = this.$refs.CardProjectObserver;
+    this.observe = this.$refs.CardProjectObserver
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -123,16 +161,16 @@ export default {
         y: this.$refs.CardProject.getBoundingClientRect().top * this.speed,
       })
     },
-  }
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.card-project{
+.card-project {
   position: relative;
 }
 
-.card-project-observer{
+.card-project-observer {
   position: absolute;
   top: 0;
   left: 0;
@@ -141,38 +179,73 @@ export default {
   pointer-events: none;
 }
 
-.card-project-article{
+.card-project-article {
   width: 293px;
   height: 400px;
-  padding: 33px 20px;
+  padding: 28px 18px;
   background-color: $white;
   color: $black;
   border-radius: 14px;
 }
 
-.card-project-inner{
+.card-project-inner {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.card-project-link{
+.card-project-link {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.card-project-title-wrapper-01{
-  display: block;
-  margin: 0 0 60px 0;
-}
-
-.card-project-title-wrapper-03{
+.card-project-title-wrapper-03 {
   position: absolute;
   bottom: -11px;
   left: 0;
+  width: 100%;
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
+
+  & a{
+    display: block;
+  }
+
+  & .card-project-sub-title{
+    position: absolute;
+    top: 12px;
+    right: -4px;
+    font-size: 12px;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.02em;
+  }
 }
 
+.card-project-title-wrapper-02 {
+  & span {
+    display: block;
+    font-size: 12px;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.02em;
+    line-height: 1.24;
+  }
+}
+
+.card-project-title-wrapper-01 {
+  display: block;
+  margin: 0 0 60px 0;
+
+  & span {
+    display: block;
+    font-size: 20px;
+    line-height: 1.2;
+
+    &:first-of-type {
+      font-size: 36px;
+      text-indent: -4px;
+      line-height: 1;
+    }
+  }
+}
 </style>
