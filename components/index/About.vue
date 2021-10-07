@@ -4,7 +4,7 @@
       <div class="l-container">
         <h2 ref="AboutTitleTrigger" class="about-title">
           <CommonTextUnderline
-            modifier="about"
+            modifier="index-about"
             :state="isTextUnderlineState"
             :start="0.6"
             :rotate="rotateLeft"

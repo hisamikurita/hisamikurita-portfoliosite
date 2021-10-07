@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AboutHero></AboutHero>
   </div>
 </template>
 

@@ -17,14 +17,14 @@
           </span>
           <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
             <CommonTextUnderline
-              modifier="project-01"
+              modifier="index-project-01"
               :state="isTextUnderlineState"
               :start="0"
               :rotate="rotateLeft"
             >
             </CommonTextUnderline>
             <CommonTextUnderline
-              modifier="project-02"
+              modifier="index-project-02"
               :state="isTextUnderlineState"
               :start="0.12"
               :rotate="rotateRight"
@@ -42,7 +42,7 @@
           </span>
           <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
             <CommonTextUnderline
-              modifier="project-02"
+              modifier="index-project-02"
               :state="isTextUnderlineState"
               :start="0.24"
               :rotate="rotateLeft"

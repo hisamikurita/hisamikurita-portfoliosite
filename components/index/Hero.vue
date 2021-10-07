@@ -21,7 +21,7 @@
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-01">
             <CommonTextUnderline
-              modifier="hero"
+              modifier="index-hero"
               :state="isTextUnderlineState"
               :start="delay[0]"
               :rotate="rotateRight"
@@ -36,7 +36,7 @@
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-02">
             <CommonTextUnderline
-              modifier="hero"
+              modifier="index-hero"
               :state="isTextUnderlineState"
               :start="delay[1]"
               :rotate="rotateLeft"
@@ -75,7 +75,7 @@
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-03">
             <CommonTextUnderline
-              modifier="hero"
+              modifier="index-hero"
               :state="isTextUnderlineState"
               :start="delay[2]"
               :rotate="rotateRight"
@@ -89,7 +89,7 @@
           </span>
           <span class="hero-title-wrapper hero-title-wrapper-04">
             <CommonTextUnderline
-              modifier="hero"
+              modifier="index-hero"
               :state="isTextUnderlineState"
               :start="delay[3]"
               :rotate="rotateLeft"

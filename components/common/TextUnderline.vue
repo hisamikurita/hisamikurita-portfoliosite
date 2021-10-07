@@ -69,14 +69,14 @@ export default {
 
 //modifier
 
-.text-under-line--hero {
+.text-under-line--index-hero {
   position: absolute;
   top: -12px;
   left: 0;
   background-color: $white;
 }
 
-.text-under-line--about {
+.text-under-line--index-about {
   position: absolute;
   bottom: -48px;
   right: 56px;
@@ -89,7 +89,7 @@ export default {
   }
 }
 
-.text-under-line--project-01 {
+.text-under-line--index-project-01 {
   position: absolute;
   top: 0;
   left: 40px;
@@ -97,7 +97,7 @@ export default {
   background-color: $black;
 }
 
-.text-under-line--project-02 {
+.text-under-line--index-project-02 {
   position: absolute;
   bottom: 0;
   left: 40px;
@@ -105,5 +105,11 @@ export default {
   background-color: $black;
 }
 
+.text-under-line--about-hero {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  background-color: $black;
+}
 
 </style>
