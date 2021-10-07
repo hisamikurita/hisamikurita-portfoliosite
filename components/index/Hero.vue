@@ -102,6 +102,22 @@
             ></CommonTextSegment>
           </span>
         </h1>
+        <div class="hero-card-item">
+          <CommonCardProject
+            :name="['・','HISAMIKURITA']"
+            :title="'HSMKRT'"
+            :subtitle="'(ABOUT ME)'"
+            :link="'about'"
+            :text="[
+              'LOREM IPSUM DOLOR SIT',
+              'AMET, CONSECTETUR',
+              'ADIPISCING ELIT, SED DO',
+              'EIUSMOD TEMPOR INCIDI'
+            ]"
+            :speed="0.14"
+            modifier="hero"
+          ></CommonCardProject>
+        </div>
       </div>
     </div>
   </div>
@@ -242,5 +258,12 @@ export default {
   background-color: $lightBlue;
   border-radius: 50%;
   pointer-events: none;
+}
+
+.hero-card-item{
+  position: absolute;
+  top: 19.8%;
+  left: 9%;
+  transform: rotate(10deg);
 }
 </style>

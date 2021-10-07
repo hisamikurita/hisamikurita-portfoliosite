@@ -59,12 +59,18 @@
                   :text="['・', 'INDEX']"
                 ></CommonSectionReadTitle>
               </span>
-              <span class="">
-                <CommonSectionReadTitle
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :text="['M-TRUST', 'KETAMUKUMA', 'NLPLUS', 'REDANDGREEN', 'ASOVISION', 'BASTA', 'FRONTIER' ,'YAKUDOU','ARCHIVE']"
-                ></CommonSectionReadTitle>
+              <span class="contact-info-list">
+                <span v-for="(data, index) in projectData" :key="data.id">
+                  <NuxtLink :to="data.link">
+                    <CommonTextSegment
+                      :state="isTextSegmentState"
+                      :start="0.48 + index * 0.12"
+                      :rotate="rotateLeft"
+                      :text="data.name[1]"
+                    >
+                    </CommonTextSegment>
+                  </NuxtLink>
+                </span>
               </span>
             </div>
             <div class="contact-info-name-area">
@@ -106,7 +112,7 @@
           </span>
           <span class="contact-card-item-02">
             <CommonCardProject
-              :name="['・','CODED BY','(HISAMI KIRITA)']"
+              :name="['・','CODED BY','(HISAMI KURITA)']"
               :info="[
                 {
                   link : 'https://twitter.com/AAA00832745',
@@ -136,9 +142,12 @@
 </template>
 
 <script>
+import projectData from '@/assets/json/project.json'
+
 export default {
   data: () => {
     return {
+      projectData: projectData,
       isTextSegmentState: '',
     }
   },
@@ -174,9 +183,6 @@ export default {
 
 .contact-bg {
   background-color: $thinPink;
-}
-.contact-inner {
-  //
 }
 
 .contact-title{
@@ -225,6 +231,10 @@ export default {
 .contact-info-index{
   display: block;
   margin: 0 0 56px 0;
+}
+
+.contact-info-list{
+  font-size: 12px;
 }
 
 .contact-name{

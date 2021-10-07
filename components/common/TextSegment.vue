@@ -17,7 +17,7 @@
 export default {
   props: {
     text: {
-      type: String,
+      type: [Object, String],
       required: true,
     },
     rotate: {
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style lang="scss">
-.cmn-text-segment-block{
+.cmn-text-segment-block {
   display: block;
 }
 

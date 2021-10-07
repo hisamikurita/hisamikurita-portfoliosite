@@ -1,5 +1,5 @@
 <template>
-  <div ref="CardProject" class="card-project">
+  <div ref="CardProject" class="card-project" :class='`card-project-${modifier}`'>
     <article ref="CardProjectArticle" class="card-project-article">
       <span v-if="link">
         <NuxtLink :to="link" class="card-project-link">
@@ -25,6 +25,14 @@
                 :rotate="rotateLeft"
                 :text="title"
               ></CommonTextSegment>
+              <span v-if="subtitle" class="card-project-sub-title">
+                  <CommonTextSegment
+                    :state="state"
+                    :start="1.0"
+                    :rotate="rotateLeft"
+                    :text="subtitle"
+                  ></CommonTextSegment>
+                </span>
             </span>
           </div>
         </NuxtLink>
@@ -78,8 +86,12 @@ export default {
       required: true,
     },
     title: {
-      type: String,
+      type: [Object, String],
       required: true,
+    },
+    subtitle: {
+      type: [Object, String],
+      default: null,
     },
     link: {
       type: String,
@@ -97,6 +109,10 @@ export default {
       type: Number,
       default: 0.1,
     },
+    modifier: {
+      type: String,
+      default: '',
+    }
   },
   data: () => {
     return {
@@ -248,4 +264,22 @@ export default {
     }
   }
 }
+
+//modifier
+.card-project-hero .card-project-article{
+  background-color: $thinPink;
+}
+
+.card-project-hero .card-project-title-wrapper-01{
+  color: $white;
+}
+
+.card-project-hero .card-project-title-wrapper-02{
+  color: $darkPink;
+}
+
+.card-project-hero .card-project-title-wrapper-03{
+  color: $darkPink;
+}
+
 </style>
