@@ -115,7 +115,7 @@
               'EIUSMOD TEMPOR INCIDI'
             ]"
             :speed="0.14"
-            modifier="hero"
+            modifier="index-hero"
           ></CommonCardProject>
         </div>
       </div>

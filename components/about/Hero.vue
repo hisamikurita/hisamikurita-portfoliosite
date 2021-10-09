@@ -3,6 +3,19 @@
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
+          <span class="hero-title-read-area">
+            <CommonSectionReadTitle
+              modifier="section"
+              :state="isTextSegmentState"
+              :start="delay[0]"
+              :text="[
+                '・',
+                'ABOUT',
+                'ABOUTABOUTABOUTABOUT',
+                'ABOUT',
+              ]"
+            ></CommonSectionReadTitle>
+          </span>
           <span class="hero-title-wrapper hero-title-wrapper-01">
             <CommonTextUnderline
               modifier="about-hero"
@@ -62,7 +75,39 @@
             >
             </CommonTextSegment>
           </span>
+          <span class="hero-title-wrapper hero-title-wrapper-04">
+            <CommonTextUnderline
+              modifier="about-hero"
+              :state="isTextUnderlineState"
+              :start="delay[5]"
+              :rotate="rotateLeft"
+            ></CommonTextUnderline>
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="delay[5]"
+              :rotate="rotateLeft"
+              text="DEVELOPER AT LIG INC SINCE 2020"
+            >
+            </CommonTextSegment>
+          </span>
         </h1>
+        <div class="hero-card-item">
+          <CommonCardProject
+            :name="['・','LIG INC']"
+            :title="'LIG INC.'"
+            :subtitle="'(VISIT SITE)'"
+            :blank="true"
+            :link="'https://liginc.co.jp'"
+            :text="[
+              'LOREM IPSUM DOLOR SIT',
+              'AMET, CONSECTETUR',
+              'ADIPISCING ELIT, SED DO',
+              'EIUSMOD TEMPOR INCIDI'
+            ]"
+            :speed="0.14"
+            modifier="about-hero"
+          ></CommonCardProject>
+        </div>
       </div>
     </div>
   </div>
@@ -72,7 +117,7 @@
 export default {
   data: () => {
     return {
-      delay: [0, 0.176, 0.4, 0.42],
+      delay: [0, 0.176, 0.4, 0.42, 0.6],
       isTextSegmentState: '',
       isTextUnderlineState: '',
     }
@@ -86,7 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .hero-inner {
-  padding: 92px 0;
+  padding: 92px 0 333px;
 }
 
 .hero-title {
@@ -95,6 +140,12 @@ export default {
   font-size: vw(180);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+}
+
+.hero-title-read-area {
+  position: absolute;
+  top: 6px;
+  left: 40px;
 }
 
 .hero-title-wrapper{
@@ -120,5 +171,16 @@ export default {
   justify-content: space-between;
   width: vw(860);
   margin: 0 0 24px vw(112);
+}
+
+.hero-title-wrapper-04{
+  width: vw(1077);
+}
+
+.hero-card-item{
+  position: absolute;
+  top: 63.8%;
+  left: 33%;
+  transform: rotate(-10deg);
 }
 </style>

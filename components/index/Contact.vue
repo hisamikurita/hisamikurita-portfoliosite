@@ -94,11 +94,11 @@
                   text : 'TWITTER @KENTIY1229',
                 },
                 {
-                  link : '#',
+                  link : 'https://dribbble.com/keeeeentisi',
                   text : 'DRIBBBLE @KEEEEENTISI',
                 },
                 {
-                  link : '#',
+                  link : 'https://www.linkedin.com/in/kento-ishiduka-84bb26135',
                   text : 'LINKED IN @KENTOISHIDUKA',
                 },
               ]"

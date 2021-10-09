@@ -2,40 +2,78 @@
   <div ref="CardProject" class="card-project" :class='`card-project-${modifier}`'>
     <article ref="CardProjectArticle" class="card-project-article">
       <span v-if="link">
-        <NuxtLink :to="link" class="card-project-link">
-          <div class="card-project-inner">
-            <span class="card-project-title-wrapper-01">
-              <span
-                v-for="(char, index) of name"
-                :key="index"
-                v-text="char"
-              ></span>
-            </span>
-            <span class="card-project-title-wrapper-02">
+        <span v-if="blank">
+          <a :href="link" target="_blank" rel="noopener" class="card-project-link">
+            <div class="card-project-inner">
+              <span class="card-project-title-wrapper-01">
                 <span
-                  v-for="(char, index) of text"
+                  v-for="(char, index) of name"
                   :key="index"
                   v-text="char"
                 ></span>
-            </span>
-            <span class="card-project-title-wrapper-03">
-              <CommonTextSegment
-                :state="state"
-                :start="0.72"
-                :rotate="rotateLeft"
-                :text="title"
-              ></CommonTextSegment>
-              <span v-if="subtitle" class="card-project-sub-title">
-                  <CommonTextSegment
-                    :state="state"
-                    :start="1.0"
-                    :rotate="rotateLeft"
-                    :text="subtitle"
-                  ></CommonTextSegment>
-                </span>
-            </span>
-          </div>
-        </NuxtLink>
+              </span>
+              <span class="card-project-title-wrapper-02">
+                  <span
+                    v-for="(char, index) of text"
+                    :key="index"
+                    v-text="char"
+                  ></span>
+              </span>
+              <span class="card-project-title-wrapper-03">
+                <CommonTextSegment
+                  :state="state"
+                  :start="0.72"
+                  :rotate="rotateLeft"
+                  :text="title"
+                ></CommonTextSegment>
+                <span v-if="subtitle" class="card-project-sub-title">
+                    <CommonTextSegment
+                      :state="state"
+                      :start="1.0"
+                      :rotate="rotateLeft"
+                      :text="subtitle"
+                    ></CommonTextSegment>
+                  </span>
+              </span>
+            </div>
+          </a>
+        </span>
+        <span v-else>
+          <NuxtLink :to="link" class="card-project-link">
+            <div class="card-project-inner">
+              <span class="card-project-title-wrapper-01">
+                <span
+                  v-for="(char, index) of name"
+                  :key="index"
+                  v-text="char"
+                ></span>
+              </span>
+              <span class="card-project-title-wrapper-02">
+                  <span
+                    v-for="(char, index) of text"
+                    :key="index"
+                    v-text="char"
+                  ></span>
+              </span>
+              <span class="card-project-title-wrapper-03">
+                <CommonTextSegment
+                  :state="state"
+                  :start="0.72"
+                  :rotate="rotateLeft"
+                  :text="title"
+                ></CommonTextSegment>
+                <span v-if="subtitle" class="card-project-sub-title">
+                    <CommonTextSegment
+                      :state="state"
+                      :start="1.0"
+                      :rotate="rotateLeft"
+                      :text="subtitle"
+                    ></CommonTextSegment>
+                  </span>
+              </span>
+            </div>
+          </NuxtLink>
+        </span>
       </span>
       <span v-else>
         <div class="card-project-inner">
@@ -96,6 +134,10 @@ export default {
     link: {
       type: String,
       default: null,
+    },
+    blank: {
+      type: Boolean,
+      default: false,
     },
     text: {
       type: Array,
@@ -266,20 +308,36 @@ export default {
 }
 
 //modifier
-.card-project-hero .card-project-article{
+.card-project-index-hero .card-project-article{
   background-color: $thinPink;
 }
 
-.card-project-hero .card-project-title-wrapper-01{
+.card-project-index-hero .card-project-title-wrapper-01{
   color: $white;
 }
 
-.card-project-hero .card-project-title-wrapper-02{
+.card-project-index-hero .card-project-title-wrapper-02{
   color: $darkPink;
 }
 
-.card-project-hero .card-project-title-wrapper-03{
+.card-project-index-hero .card-project-title-wrapper-03{
   color: $darkPink;
+}
+
+.card-project-about-hero .card-project-article{
+  background-color: #d9d9d9;
+}
+
+.card-project-about-hero .card-project-title-wrapper-01{
+  color: $darkBlack;
+}
+
+.card-project-about-hero .card-project-title-wrapper-02{
+  color: $darkBlack;
+}
+
+.card-project-about-hero .card-project-title-wrapper-03{
+  color: $darkBlack;
 }
 
 </style>
