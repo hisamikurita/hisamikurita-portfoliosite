@@ -1,6 +1,6 @@
 <template>
   <div ref="CardProject" class="card-project" :class='`card-project-${modifier}`'>
-    <article ref="CardProjectArticle" class="card-project-article">
+    <article ref="CardProjectArticle" :style="{ transform: 'rotate(' + rotate + 'deg' + ')' }" class="card-project-article">
       <span v-if="link">
         <span v-if="blank">
           <a :href="link" target="_blank" rel="noopener" class="card-project-link">
@@ -147,9 +147,17 @@ export default {
       type: Array,
       default: null,
     },
-    speed: {
+    xspeed: {
       type: Number,
       default: 0.1,
+    },
+    yspeed: {
+      type: Number,
+      default: 0.1,
+    },
+    rotate: {
+      type: Number,
+      default: 8,
     },
     modifier: {
       type: String,
@@ -183,6 +191,11 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.state = 'center'
+            this.$gsap.to(this.$refs.CardProjectArticle, {
+              duration: this.$baseAnimationConfig.duration * 2.0,
+              ease: this.$easing.transform,
+              rotate: 0,
+            })
             this.iObserverTextSegment.unobserve(this.observe)
           }
         })
@@ -216,7 +229,8 @@ export default {
       this.$gsap.to(this.$refs.CardProject, {
         duration: this.$baseAnimationConfig.duration / 3.0,
         ease: 'none',
-        y: this.$refs.CardProject.getBoundingClientRect().top * this.speed,
+        x: this.$refs.CardProject.getBoundingClientRect().top * this.xspeed,
+        y: this.$refs.CardProject.getBoundingClientRect().top * this.yspeed,
       })
     },
   },
@@ -244,6 +258,7 @@ export default {
   background-color: $white;
   color: $black;
   border-radius: 14px;
+  // transform: rotate(8deg);
 }
 
 .card-project-inner {

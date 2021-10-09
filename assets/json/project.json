@@ -12,7 +12,9 @@
       "WHO SOLVE SOCIAL ISSUES",
       "FROM THE REAL ESTATE BUSINESS"
     ],
-    "speed": 0.21
+    "rotate": 8,
+    "xspeed": 0.021,
+    "yspeed": 0.21
   },
   {
     "name": [
@@ -27,7 +29,9 @@
       "MOVING AGGRESSIVELY, AND",
       "HIS FRIEND KETAWAN."
     ],
-    "speed": 0.23
+    "rotate": -7,
+    "xspeed": -0.011,
+    "yspeed": 0.23
   },
   {
     "name": [
@@ -43,7 +47,9 @@
       "AND “LO CCO” TO SOLVE PROB",
       "LEMS USING ICT."
     ],
-    "speed": 0.19
+    "rotate": -5,
+    "xspeed": -0.01,
+    "yspeed": 0.19
   },
   {
     "name": [
@@ -59,7 +65,9 @@
       "BRANDING, AND CIRCULATION",
       "TO SALES."
     ],
-    "speed": 0.17
+    "rotate": -6,
+    "xspeed": -0.014,
+    "yspeed": 0.17
   },
   {
     "name": [
@@ -74,7 +82,9 @@
       "SOCIETY WHERE EVERYONE",
       "CAN PLAY A LEADING ROLE."
     ],
-    "speed": 0.25
+    "rotate": -9,
+    "xspeed": 0.02,
+    "yspeed": 0.25
   },
   {
     "name": [
@@ -89,7 +99,9 @@
       "MANUFACTURER HEADQUAR",
       "TERED IN GERMANY."
     ],
-    "speed": 0.2
+    "rotate": 6,
+    "xspeed": 0.0001,
+    "yspeed": 0.2
   },
   {
     "name": [
@@ -104,7 +116,9 @@
       "ADIPISCING ELIT, SED DO",
       "EIUSMOD TEMPOR INCIDI"
     ],
-    "speed": 0.18
+    "rotate": 7,
+    "xspeed": 0.018,
+    "yspeed": 0.18
   },
   {
     "name": [
@@ -119,7 +133,9 @@
       "NY WANT TO OFFER MORE",
       "DYNAMISM TO PEOPLE."
     ],
-    "speed": 0.22
+    "rotate": -5,
+    "xspeed": -0.016,
+    "yspeed": 0.22
   },
   {
     "name": [
@@ -134,6 +150,8 @@
       "THE WORK I'M SUBMITTING TO",
       "CODEPEN."
     ],
-    "speed": 0.21
+    "rotate": -7,
+    "xspeed": -0.02,
+    "yspeed": 0.21
   }
 ]

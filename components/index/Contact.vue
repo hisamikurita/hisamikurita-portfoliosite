@@ -107,7 +107,9 @@
                 link: 'https://www.awwwards.com/',
                 subtext: '(VISIT SITE)',
               }"
-              :speed="0.2"
+              :rotate="-10"
+              :xspeed="-0.08"
+              :yspeed="0.2"
             ></CommonCardProject>
           </span>
           <span class="contact-card-item-02">
@@ -132,7 +134,9 @@
                 link: 'mailto:kuritahisami@gmail.com',
                 subtext: '(CONTACT)',
               }"
-              :speed="0.1"
+              :rotate="8"
+              :xspeed="0.051"
+              :yspeed="0.1"
             ></CommonCardProject>
           </span>
         </div>

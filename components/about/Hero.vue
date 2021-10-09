@@ -104,7 +104,9 @@
               'ADIPISCING ELIT, SED DO',
               'EIUSMOD TEMPOR INCIDI'
             ]"
-            :speed="0.14"
+            :rotate="8"
+            :xspeed="0.01"
+            :yspeed="0.14"
             modifier="about-hero"
           ></CommonCardProject>
         </div>

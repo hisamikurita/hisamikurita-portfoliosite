@@ -22,16 +22,29 @@ export default {
 </script>
 
 <style lang="scss">
+.header-logo.is-top {
+  width: 154px;
+  transition-delay: 0s;
+}
+
 .header-logo {
   position: fixed;
   top: 20px;
   left: 40px;
+  width: 80px;
   color: $black;
   font-size: 50px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: 0.04em;
   z-index: 10;
   overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.01s linear;
+  transition-delay: $base-duration;
+
+  & a{
+    display: block;
+  }
 }
 
 .header-logo-text{

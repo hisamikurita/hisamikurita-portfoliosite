@@ -69,7 +69,9 @@
                     :title="data.title"
                     :link="data.link"
                     :text="data.text"
-                    :speed="data.speed"
+                    :rotate="data.rotate"
+                    :xspeed="data.xspeed"
+                    :yspeed="data.yspeed"
                   ></CommonCardProject>
                 </div>
               </div>
