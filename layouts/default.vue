@@ -5,7 +5,7 @@
         <nuxt />
       </div>
     </div>
-    <CommonHeader></CommonHeader>
-    <CommonHambergerMenu></CommonHambergerMenu>
+    <LayoutHeader></LayoutHeader>
+    <LayoutHambergerMenu></LayoutHambergerMenu>
   </div>
 </template>

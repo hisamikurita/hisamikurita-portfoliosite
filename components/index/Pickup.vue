@@ -1,5 +1,16 @@
 <template>
-  <div ref="Pickup" class="pickup">
+  <div
+    ref="Pickup"
+    class="pickup"
+    :class="{ 'is-enter': isPickupSectionEnter }"
+  >
+    <span ref="PickupCircleEnter" class="pickup-circle-bg-enter"></span>
+    <CommonCircleBg :state="isCircleBgState02" modifier="pickup-02">
+    </CommonCircleBg>
+    <CommonCircleBg :state="isCircleBgState03" modifier="pickup-03">
+    </CommonCircleBg>
+    <CommonCircleBg :state="isCircleBgState04" modifier="pickup-04">
+    </CommonCircleBg>
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
@@ -134,18 +145,29 @@ export default {
       isTextSegmentState01: '',
       isTextSegmentState02: '',
       isTextSegmentState03: '',
+      isCircleBgState02: '',
+      isCircleBgState03: '',
+      isCircleBgState04: '',
       scroll: { value: 0 },
     }
   },
 
   mounted() {
     this.$asscroll.on('update', this.pickupToTopEnterScroll)
-    window.addEventListener('wheel',(e) => {e.preventDefault()},{ passive: false });
+    window.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault()
+      },
+      { passive: false }
+    )
   },
 
   beforeDestroy() {
     this.$asscroll.off('update', this.pickupToTopEnterScroll)
-    window.removeEventListener('wheel', this.pickupSceneManager, {passive: false,});
+    window.removeEventListener('wheel', this.pickupSceneManager, {
+      passive: false,
+    })
   },
 
   methods: {
@@ -168,16 +190,28 @@ export default {
           onComplete: () => {
             this.pickupSceneNext()
             this.disable(1000)
+            setTimeout(() => {
+              this.isPickupSectionEnter = true
+            }, 500)
 
             window.addEventListener('wheel', this.pickupSceneManager, {
               passive: false,
             })
           },
         })
+
+        this.$gsap.to(this.$refs.PickupCircleEnter, {
+          duration: this.$baseAnimationConfig.duration * 1.2,
+          ease: this.$easing.transform,
+          delay: 0.2,
+          y: window.innerHeight / 2,
+          scale: Math.max(window.innerWidth, window.innerHeight) / 64.0,
+        })
       }
     },
 
     pickupToTopLeaveScroll() {
+      this.isPickupSectionEnter = false
       window.removeEventListener('wheel', this.pickupSceneManager, {
         passive: false,
       })
@@ -197,6 +231,14 @@ export default {
             this.$asscroll.enable()
           }, 100)
         },
+      })
+
+      this.$gsap.to(this.$refs.PickupCircleEnter, {
+        duration: this.$baseAnimationConfig.duration * 1.2,
+        ease: this.$easing.transform,
+        delay: 0.2,
+        y: 0,
+        scale: 1,
       })
     },
 
@@ -262,17 +304,22 @@ export default {
           this.isTextSegmentState01 = 'top'
           setTimeout(() => {
             this.isTextSegmentState02 = 'center'
+            this.isCircleBgState02 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
           this.isTextSegmentState02 = 'top'
           setTimeout(() => {
             this.isTextSegmentState03 = 'center'
+            this.isCircleBgState03 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 4.0:
-          this.pickupToBottomLeaveScroll()
           this.isTextSegmentState03 = 'top'
+          this.isCircleBgState04 = 'extend'
+          setTimeout(() => {
+            this.pickupToBottomLeaveScroll()
+          }, this.wheelInterval * 1000)
           break
       }
     },
@@ -289,16 +336,19 @@ export default {
           this.isTextSegmentState02 = 'bottom'
           setTimeout(() => {
             this.isTextSegmentState01 = 'center'
+            this.isCircleBgState02 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 2.0:
           this.isTextSegmentState03 = 'bottom'
           setTimeout(() => {
             this.isTextSegmentState02 = 'center'
+            this.isCircleBgState03 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
           this.isTextSegmentState03 = 'center'
+          this.isCircleBgState04 = 'shrink'
           break
       }
     },
@@ -326,9 +376,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.pickup-bg {
-  background-color: #000;
+.pickup {
+  position: relative;
 }
+
+.pickup.is-enter {
+  overflow: hidden;
+}
+
+.pickup-bg {
+  background-color: $lightBlue;
+}
+
 .pickup-inner {
   position: relative;
   height: 100vh;
@@ -354,5 +413,19 @@ export default {
 
 .pickup-title-wrapper-03 {
   color: $darkPink;
+}
+
+.pickup-circle-bg-enter {
+  display: block;
+  position: absolute;
+  top: -120px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  background-color: $blue;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  pointer-events: none;
 }
 </style>

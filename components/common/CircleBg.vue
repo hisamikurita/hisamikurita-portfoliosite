@@ -1,0 +1,81 @@
+<template>
+  <span class="circle-bg"><span ref="CircleBgElement" class="circle-bg-element" :class="'circle-bg-element-' + modifier"></span></span>
+</template>
+
+<script>
+export default {
+  props: {
+    state: {
+      type: String,
+      required: true,
+    },
+    modifier: {
+      type: String,
+      default: '',
+    },
+  },
+  watch: {
+    state: function () {
+      switch (this.state) {
+        case 'extend':
+          this.toExtend()
+          break
+        case 'shrink':
+          this.toShrink()
+          break
+      }
+    },
+  },
+  methods: {
+    toExtend: function (){
+      this.$gsap.to(this.$refs.CircleBgElement, {
+        duration: this.$baseAnimationConfig.duration * 1.2,
+        ease: this.$easing.transform,
+        scale: 1,
+      })
+    },
+    toShrink: function(){
+      this.$gsap.to(this.$refs.CircleBgElement, {
+        duration: this.$baseAnimationConfig.duration * 1.2,
+        ease: this.$easing.transform,
+        scale: 0,
+      })
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.circle-bg{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 120vmax;
+  height: 120vmax;
+  pointer-events: none;
+}
+
+.circle-bg-element{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(0);
+}
+
+.circle-bg-element-pickup-02{
+  background-color: $thinPurple;
+}
+
+.circle-bg-element-pickup-03{
+  background-color: $thinPink;
+}
+
+.circle-bg-element-pickup-04{
+  background-color: $skinColor;
+}
+</style>
