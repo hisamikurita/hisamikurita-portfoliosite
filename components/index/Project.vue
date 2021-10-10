@@ -163,6 +163,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.project-bg{
+  // background-color: $thinPink;
+}
+
 .project-inner {
   padding: 206px 0 0 0;
 }

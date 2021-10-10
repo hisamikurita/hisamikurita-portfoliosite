@@ -316,10 +316,12 @@ export default {
           break
         case 4.0:
           this.isTextSegmentState03 = 'top'
-          this.isCircleBgState04 = 'extend'
           setTimeout(() => {
-            this.pickupToBottomLeaveScroll()
+            this.isCircleBgState04 = 'extend'
           }, this.wheelInterval * 1000)
+          setTimeout(()=>{
+            this.pickupToBottomLeaveScroll()
+          }, this.wheelInterval * 2000)
           break
       }
     },

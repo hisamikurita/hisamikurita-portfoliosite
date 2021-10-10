@@ -1,5 +1,7 @@
 <template>
   <div ref="Contact" class="contact">
+    <CommonCircleBg :state="isCircleBgState" modifier="index-contact">
+    </CommonCircleBg>
     <div class="contact-bg">
       <div class="contact-inner">
         <div class="l-container">
@@ -153,6 +155,7 @@ export default {
     return {
       projectData: projectData,
       isTextSegmentState: '',
+      isCircleBgState: '',
     }
   },
 
@@ -164,6 +167,7 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.isTextSegmentState = 'center';
+            this.isCircleBgState = 'extend';
             this.iObserver.unobserve(this.observe)
           }
         })
@@ -186,7 +190,7 @@ export default {
 }
 
 .contact-bg {
-  background-color: $thinPink;
+  padding: 450px 0 0 0;
 }
 
 .contact-title{
