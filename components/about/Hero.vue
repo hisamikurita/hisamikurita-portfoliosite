@@ -119,7 +119,7 @@
 export default {
   data: () => {
     return {
-      delay: [0, 0.176, 0.4, 0.42, 0.6],
+      delay: [0, 0.176, 0.4, 0.42, 0.6, 0.7],
       isTextSegmentState: '',
       isTextUnderlineState: '',
     }
@@ -132,6 +132,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.hero{
+  position: relative;
+}
+
 .hero-inner {
   padding: 92px 0 333px;
 }

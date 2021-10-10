@@ -1,6 +1,7 @@
 <template>
   <div>
     <AboutHero></AboutHero>
+    <AboutAward></AboutAward>
   </div>
 </template>
 
