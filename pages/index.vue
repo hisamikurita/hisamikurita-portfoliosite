@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="hero-and-about">
+    <!-- <div class="hero-and-about">
       <IndexHero></IndexHero>
       <IndexAbout></IndexAbout>
     </div>
-    <IndexPickup></IndexPickup>
+    <IndexPickup></IndexPickup> -->
     <IndexProject></IndexProject>
     <IndexContact></IndexContact>
   </div>

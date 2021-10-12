@@ -105,7 +105,7 @@ export default {
 
     render: function () {
       this.position.value += this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed)
-      
+
       if (this.position.value < -this.$refs.CmnLoopTextBlock.clientWidth / 3.01) {
         this.position.value = 0
       }

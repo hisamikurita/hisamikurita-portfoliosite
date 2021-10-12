@@ -12,10 +12,10 @@
               :start="delay[0]"
               :text="[
                 '・',
-                'HI, THANKS FOR COMING',
-                'TO MY SITE ！！',
-                'THIS SITE IS BUILT WITH',
-                'NUXT.JS AND THREE.JS',
+                'FRAMEWORK : Vue/Nuxt',
+                'LIBRARY : GSAP/Three.js',
+                'SERVER : Netlify',
+                'AUTHOR : Hisami Kurita',
               ]"
             ></CommonSectionReadTitle>
           </span>
