@@ -116,6 +116,11 @@ export default {
   transition: width 0.01s linear;
   transition-delay: $base-duration;
 
+  @include sp(){
+    top: 14px;
+    left: 20px;
+  }
+
   & a {
     display: block;
 

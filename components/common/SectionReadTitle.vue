@@ -41,6 +41,10 @@ export default {
   font-family: Helvetica, sans-serif;
   letter-spacing: 0.02em;
   line-height: 1.04;
+
+  @include sp(){
+    font-size: 10px;
+  }
 }
 
 //modifier

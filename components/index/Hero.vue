@@ -19,87 +19,100 @@
               ]"
             ></CommonSectionReadTitle>
           </span>
-          <span class="hero-title-wrapper hero-title-wrapper-01">
-            <CommonTextUnderline
-              modifier="index-hero"
-              :state="isTextUnderlineState"
-              :start="delay[0]"
-              :rotate="rotateRight"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[0]"
-              :rotate="rotateRight"
-              text="FOLIO OF HISAMI KURITA"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="hero-title-wrapper hero-title-wrapper-02">
-            <CommonTextUnderline
-              modifier="index-hero"
-              :state="isTextUnderlineState"
-              :start="delay[1]"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[1]"
-              :rotate="rotateLeft"
-              text="19/AUG.1996"
-            >
-            </CommonTextSegment>
-            <span class="hero-title-wrapper-02-base-area">
+          <span class="pc-only">
+            <span class="hero-title-wrapper hero-title-wrapper-01">
+              <CommonTextUnderline
+                modifier="index-hero"
+                :state="isTextUnderlineState"
+                :start="delay[0]"
+                :rotate="rotateRight"
+              ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
-                :start="0.264"
+                :start="delay[0]"
+                :rotate="rotateRight"
+                text="FOLIO OF HISAMI KURITA"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-02">
+              <CommonTextUnderline
+                modifier="index-hero"
+                :state="isTextUnderlineState"
+                :start="delay[1]"
                 :rotate="rotateLeft"
-                text="( BASED IN TOKYO AND KAWASAKI )"
-              ></CommonTextSegment>
-              <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-sometimes">
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[1]"
+                :rotate="rotateLeft"
+                text="19/AUG.1996"
+              >
+              </CommonTextSegment>
+              <span class="hero-title-wrapper-02-base-area">
                 <CommonTextSegment
                   :state="isTextSegmentState"
-                  :start="0.352"
+                  :start="0.264"
                   :rotate="rotateLeft"
-                  text="SOMETIMES"
+                  text="( BASED IN TOKYO AND KAWASAKI )"
                 ></CommonTextSegment>
-              </span>
-              <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-allways">
-                <CommonTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.432"
-                  :rotate="rotateLeft"
-                  text="ALLWAYS"
-                ></CommonTextSegment>
+                <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-sometimes">
+                  <CommonTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.352"
+                    :rotate="rotateLeft"
+                    text="SOMETIMES"
+                  ></CommonTextSegment>
+                </span>
+                <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-allways">
+                  <CommonTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.432"
+                    :rotate="rotateLeft"
+                    text="ALLWAYS"
+                  ></CommonTextSegment>
+                </span>
               </span>
             </span>
+            <span class="hero-title-wrapper hero-title-wrapper-03">
+              <CommonTextUnderline
+                modifier="index-hero"
+                :state="isTextUnderlineState"
+                :start="delay[2]"
+                :rotate="rotateRight"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[2]"
+                :rotate="rotateRight"
+                text="CREATIVE DEVELOPER"
+              ></CommonTextSegment>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-04">
+              <CommonTextUnderline
+                modifier="index-hero"
+                :state="isTextUnderlineState"
+                :start="delay[3]"
+                :rotate="rotateLeft"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[3]"
+                :rotate="rotateLeft"
+                text="AT LIG INC"
+              ></CommonTextSegment>
+            </span>
           </span>
-          <span class="hero-title-wrapper hero-title-wrapper-03">
-            <CommonTextUnderline
-              modifier="index-hero"
-              :state="isTextUnderlineState"
-              :start="delay[2]"
-              :rotate="rotateRight"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[2]"
-              :rotate="rotateRight"
-              text="CREATIVE DEVELOPER"
-            ></CommonTextSegment>
-          </span>
-          <span class="hero-title-wrapper hero-title-wrapper-04">
-            <CommonTextUnderline
-              modifier="index-hero"
-              :state="isTextUnderlineState"
-              :start="delay[3]"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[3]"
-              :rotate="rotateLeft"
-              text="AT LIG INC"
-            ></CommonTextSegment>
+          <span class="sp-only">
+            <span class="hero-title-wrapper hero-title-wrapper-01-sp">
+              FOLIO OF
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-02-sp">
+              HISAMI KURITA
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-03-sp">
+              19/AUG.1996
+            </span>
           </span>
         </h1>
         <div class="hero-card-item">
@@ -176,6 +189,10 @@ export default {
 <style scoped lang="scss">
 .hero-inner {
   padding: 92px 0;
+
+  @include sp(){
+    height: 100vh;
+  }
 }
 
 .hero-title {
@@ -183,6 +200,10 @@ export default {
   font-size: vw(180);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+
+  @include sp(){
+    font-size: vw_sp(220);
+  }
 }
 
 .hero-title-read-area {
@@ -249,6 +270,14 @@ export default {
   background-color: $yellow;
   border-radius: 50%;
   pointer-events: none;
+
+  @include sp(){
+    top: vw_sp(-184);
+    right: auto;
+    left: 9px;
+    width: vw_sp(1046);
+    height: vw_sp(1046);
+  }
 }
 
 .hero-bg-circle-02 {

@@ -22,12 +22,25 @@
     background-color: $white;
     border-radius: 10px;
     cursor: pointer;
+
+    @include sp(){
+      top: 10px;
+      right: 20px;
+      bottom: auto;
+      width: 60px;
+      height: 60px;
+    }
   }
 
   .hambergerMenu-openarea{
     position: relative;
     width: 37px;
     height: 13px;
+
+    @include sp(){
+      width: 26px;
+      height: 13px;
+    }
   }
 
   .hambergerMenu-openarea-line{

@@ -1,0 +1,15 @@
+.pc-only{
+  display: block;
+
+  @include sp(){
+    display: none;
+  }
+}
+
+.sp-only{
+  display: none;
+
+  @include sp(){
+    display: block;
+  }
+}
