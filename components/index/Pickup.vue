@@ -319,7 +319,7 @@ export default {
           setTimeout(() => {
             this.isCircleBgState04 = 'extend'
           }, this.wheelInterval * 1000)
-          setTimeout(()=>{
+          setTimeout(() => {
             this.pickupToBottomLeaveScroll()
           }, this.wheelInterval * 2000)
           break

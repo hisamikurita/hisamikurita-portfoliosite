@@ -78,7 +78,7 @@ export default {
 }
 
 .header-logo-move-text {
-  transition-delay: $base-duration;
+  transition-delay: $base-duration * 0.25;
 }
 
 .is-top .header-logo-move-text {
@@ -93,7 +93,7 @@ export default {
 
 .is-top .header-logo-fade-text {
   transform: translateY(0);
-  transition-delay: $base-duration;
+  transition-delay: $base-duration * 0.25;
 }
 
 .header-logo.is-top {
@@ -114,7 +114,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   transition: width 0.01s linear;
-  transition-delay: $base-duration;
+  transition-delay: $base-duration * 0.25;
 
   @include sp(){
     top: 14px;
@@ -132,7 +132,7 @@ export default {
 
       & .header-logo-fade-text {
         transform: translateY(0);
-        transition-delay: $base-duration;
+        transition-delay: $base-duration * 0.25;
       }
     }
   }

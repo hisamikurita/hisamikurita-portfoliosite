@@ -1,13 +1,20 @@
 <template>
-  <div class="award">
+  <div ref="Award" class="award">
+    <div ref="AwardCardArea" class="award-card-area">
+      <CommonCardAward></CommonCardAward>
+    </div>
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
-          <div v-for="(data) in awardData" :key="data.id" class="award-list">
-            <div v-for="(award) in data.awards" :key="award.id" class="award-item">
-              <p class="award-group">{{award.group}}</p>
-              <p class="award-title">{{data.title}}</p>
-              <p class="award-rank">{{award.rank}}</p>
+          <div v-for="data in awardData" :key="data.id" class="award-list">
+            <div
+              v-for="award in data.awards"
+              :key="award.id"
+              class="award-item"
+            >
+              <p class="award-group">{{ award.group }}</p>
+              <p class="award-title">{{ data.title }}</p>
+              <p class="award-rank">{{ award.rank }}</p>
             </div>
           </div>
         </div>
@@ -25,33 +32,66 @@ export default {
       awardData: awardData,
     }
   },
+  mounted() {
+    this.$refs.Award.addEventListener('mousemove', (e) => {
+      this.$gsap.to(this.$refs.AwardCardArea, {
+        x: e.clientX,
+        y: e.clientY,
+      })
+      console.log(e.clientX)
+      console.log(e.clientY)
+    })
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.award-bg{
+.award{
+  position: relative;
+}
+
+.award-bg {
+  position: relative;
   background-color: $darkBlack;
 }
 
-.award-inner{
+.award-inner {
   padding: 160px 40px;
 }
 
-.award-list{
+.award-card-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 293px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+// .award-card-area-item{
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 293px;
+//   height: 400px;
+// }
+
+.award-list {
   width: vw(1000);
 }
 
-.award-item{
+.award-item {
   display: flex;
   padding: 15px 0;
   border-top: solid 1px $gray;
 
-  &:last-of-type{
+  &:last-of-type {
     border-bottom: solid 1px $gray;
   }
 }
 
-.award-group{
+.award-group {
   position: relative;
   top: 2px;
   flex-shrink: 0;
@@ -60,7 +100,7 @@ export default {
   letter-spacing: 0.02em;
 }
 
-.award-title{
+.award-title {
   flex-shrink: 0;
   width: vw(440);
   color: $gray;
@@ -69,7 +109,7 @@ export default {
   letter-spacing: 0.02em;
 }
 
-.award-rank{
+.award-rank {
   flex-shrink: 0;
   color: $gray;
   font-size: vw(60);

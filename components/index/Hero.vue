@@ -12,10 +12,10 @@
               :start="delay[0]"
               :text="[
                 '・',
-                'FRAMEWORK : Vue/Nuxt',
-                'LIBRARY : GSAP/Three.js',
-                'SERVER : Netlify',
-                'AUTHOR : Hisami Kurita',
+                'AUTHOR : HISAMI KURITA',
+                'FRAMEWORK : VUE/NUXT',
+                'LIBRARY : GSAP/THREE.JS',
+                'SERVER : NETLIFY',
               ]"
             ></CommonSectionReadTitle>
           </span>
