@@ -1,116 +1,352 @@
 <template>
-  <div class="hambergerMenu" @click="hambergerMenuOnClick">
-    <span class="hambergerMenu-overlay"></span>
-    <button ref="HambergerMenuBtn" class="hambergerMenu-btn">
-      <span class="hambergerMenu-openarea">
-        <span class="hambergerMenu-openarea-line hambergerMenu-openarea-line-01"></span>
-        <span class="hambergerMenu-openarea-line hambergerMenu-openarea-line-02"></span>
+  <div class="hambergerMenu">
+    <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
+    <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02"></span>
+    <span class="hambergerMenu-contents">
+      <div class="hambergerMenu-title">
+        <span class="hambergerMenu-title-wrapper-01">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0"
+            :rotate="rotateRight"
+            text="HISAMIKURITA"
+          ></CommonTextSegment>
+        </span>
+        <span class="hambergerMenu-title-wrapper-02">
+          <NuxtLink to="about">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.12"
+              :rotate="rotateLeft"
+              text="ABOUT"
+            ></CommonTextSegment>
+          </NuxtLink>
+        </span>
+      </div>
+      <CommonSectionReadTitle
+        modifier="section"
+        :state="isTextSegmentState"
+        :start="0.24"
+        :text="[
+          '・',
+          'WORKS',
+        ]"
+      ></CommonSectionReadTitle>
+      <div>
+        <ul class="hambergerMenu-list">
+          <li v-for="(data) in projectData" :key="data.id" class="hambergerMenu-item">
+            <a ref="hambergerMenuItemLink" :href="data.link" class="hambergerMenu-item-link">
+              <div class="hambergerMenu-item-img">
+                <img :src="data.image" :alt="data.title">
+              </div>
+              <div>
+                <p class="hambergerMenu-item-title">{{ data.title }}</p>
+                <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </span>
+    <button
+      ref="HambergerMenuBtn"
+      class="hambergerMenu-btn"
+      @click="hambergerMenuOnClick"
+    >
+      <span ref="hambergerMenuOpenarea" class="hambergerMenu-openarea">
+        <span
+          ref="hambergerMenuOpenareaLine01"
+          class="hambergerMenu-openarea-line hambergerMenu-openarea-line-01"
+        ></span>
+        <span
+          ref="hambergerMenuOpenareaLine02"
+          class="hambergerMenu-openarea-line hambergerMenu-openarea-line-02"
+        ></span>
       </span>
     </button>
   </div>
 </template>
 
 <script>
+import projectData from '@/assets/json/project.json'
+
 export default {
+  data: () => {
+    return {
+      projectData: projectData,
+      isTextSegmentState: '',
+    }
+  },
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
+  watch: {
+    hambergerMenuState: function () {
+      if (this.hambergerMenuState) {
+        /**
+         * ico
+         */
+        this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          top: 3,
+          height: 8,
+          borderRadius: 4,
+          rotate: 45,
+        })
+        this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          bottom: 2.5,
+          height: 8,
+          borderRadius: 4,
+          rotate: -45,
+        })
+        this.$gsap.to(this.$refs.hambergerMenuOpenarea, {
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scale: 0.6,
+        })
+        this.$gsap.to(this.$refs.HambergerMenuBtn, {
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          width: 80,
+          height: 80,
+          borderRadius: 100,
+          boxShadow: '0px 0px 10px 5px #bfbeb8',
+          scale: 0.9,
+        })
+        /**
+         * btn
+         */
+        this.$gsap.to(this.$refs.HambergerMenuBtn, {
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          x: -540,
+        })
+        /**
+         * bg
+         */
+        this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
+          delay: 0.4,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scaleX: 5.3,
+          scaleY: 1.1,
+          x: 10,
+        })
+        this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scaleX: 1.0,
+        });
+        /**
+         * text
+         */
+        setTimeout(() => {
+          this.isTextSegmentState = 'center';
+          this.$gsap.to(this.$refs.hambergerMenuItemLink, {
+            duration: this.$baseAnimationConfig.duration,
+            ease: this.$easing.transform,
+            stagger: {
+              each: 0.20,
+            },
+            y: 0,
+          })
+        }, 600)
+      } else if (!this.hambergerMenuState) {
+        //
+      }
+    },
+  },
   methods: {
     hambergerMenuOnClick() {
-      console.log('発火');
-      this.$gsap.to(this.$refs.HambergerMenuBtn, {
-        duration: this.$baseAnimationConfig.duration / 3.0,
-        ease: this.$baseAnimationConfig.colorAndOpacity,
-        width: 80,
-        height: 80,
-        borderRadius: 100,
-      });
-      this.$gsap.to(this.$refs.HambergerMenuBtn, {
-        delay: this.$baseAnimationConfig.duration / 4.0,
-        duration: this.$baseAnimationConfig.duration / 3.0,
-        ease: this.$baseAnimationConfig.colorAndOpacity,
-        x: -540,
-      });
-    }
-  }
+      /**
+       * storeのハンバーガーメニューの真偽値を更新
+       */
+      if (this.hambergerMenuState) {
+        this.$store.commit('hambergerMenu/close')
+      } else if (!this.hambergerMenuState) {
+        this.$store.commit('hambergerMenu/open')
+      }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-  .hambergerMenu{
-    position: fixed;
-    top: 0;
-    right: 10px;
-    bottom: 0;
-    width: 110px;
-    height: calc(100% - 20px);
-    margin: auto 0;
+.hambergerMenu {
+  position: fixed;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 110px;
+  height: calc(100% - 20px);
+  margin: auto 0;
 
-    @include sp(){
-      top: 10px;
-      right: 20px;
-      bottom: auto;
-      width: 60px;
-      height: 60px;
-    }
+  @include sp() {
+    top: 10px;
+    right: 20px;
+    bottom: auto;
+    width: 60px;
+    height: 60px;
   }
+}
 
-  .hambergerMenu-overlay{
+.hambergerMenu-overlay-01 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dfded9;
+  border-radius: 10px;
+  pointer-events: none;
+  transform-origin: right;
+}
+
+.hambergerMenu-overlay-02 {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 510px;
+  height: 100%;
+  background-color: #bcbbb4;
+  border-radius: 10px;
+  pointer-events: none;
+  transform-origin: right;
+  transform: scaleX(0);
+  box-shadow: 1px 1px 50px 77px #a4a39d inset;
+}
+
+.hambergerMenu-contents {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 510px;
+  height: 100%;
+  padding: 52px 20px;
+  overflow: scroll;
+  // z-index: 3;
+}
+
+.hambergerMenu-title {
+  position: relative;
+  color: #302c1a;
+  font-size: 120px;
+  font-family: 'Six Caps', sans-serif;
+  letter-spacing: -0.002em;
+}
+
+.hambergerMenu-title-wrapper-01 {
+  display: block;
+}
+
+.hambergerMenu-title-wrapper-02 {
+  display: inline-block;
+}
+
+.hambergerMenu-item{
+  position: relative;
+  overflow: hidden;
+
+  &:not(:last-of-type){
+    margin: 0 0 20px 0;
+  }
+}
+
+.hambergerMenu-item-link{
+  display: flex;
+  align-items: center;
+  transform: translateY(180px);
+}
+
+.hambergerMenu-item-title{
+  margin: 0 0 20px 0;
+  color: #302c1a;
+  font-size: 56px;
+  font-family: 'Six Caps', sans-serif;
+  text-align: center;
+}
+
+.hambergerMenu-item-desc{
+  color: #302c1a;
+  font-size: 10px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.hambergerMenu-item-img{
+  position: relative;
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  margin: 0 20px 0 0;
+  overflow: hidden;
+  border-radius: 14px;
+
+  & img{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #dfded9;
-    border-radius: 10px;
-    pointer-events: none;
+    object-fit: cover;
   }
+}
 
-  .hambergerMenu-btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    background-color: $white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform $base-duration * 0.5 $transform-easing;
+.hambergerMenu-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: $white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform $base-duration * 0.25 $transform-easing;
 
-    &:hover{
-      transform: scale(0.90, 0.98);
-    }
+  &:hover {
+    transform: scale(0.9, 0.98);
   }
+}
 
-  .hambergerMenu-openarea{
-    position: relative;
-    width: 37px;
+.hambergerMenu-openarea {
+  position: relative;
+  width: 37px;
+  height: 13px;
+
+  @include sp() {
+    width: 26px;
     height: 13px;
-
-    @include sp(){
-      width: 26px;
-      height: 13px;
-    }
   }
+}
 
-  .hambergerMenu-openarea-line{
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: $black;
-    border-radius: 2px;
-    cursor: pointer;
-  }
+.hambergerMenu-openarea-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: $black;
+  border-radius: 2px;
+  cursor: pointer;
+}
 
-  .hambergerMenu-openarea-line-01{
-    top: 0;
-  }
+.hambergerMenu-openarea-line-01 {
+  top: 0;
+}
 
-  .hambergerMenu-openarea-line-02{
-    bottom: 0;
-  }
+.hambergerMenu-openarea-line-02 {
+  bottom: 0;
+}
 </style>

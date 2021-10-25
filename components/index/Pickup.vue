@@ -154,13 +154,13 @@ export default {
 
   mounted() {
     this.$asscroll.on('update', this.pickupToTopEnterScroll)
-    window.addEventListener(
-      'wheel',
-      (e) => {
-        e.preventDefault()
-      },
-      { passive: false }
-    )
+    // window.addEventListener(
+    //   'wheel',
+    //   (e) => {
+    //     e.preventDefault()
+    //   },
+    //   { passive: false }
+    // )
   },
 
   beforeDestroy() {

@@ -148,9 +148,10 @@ export default {
     }
   },
   mounted() {
-
+    setTimeout(()=>{
     this.isTextSegmentState = 'center';
     this.isTextUnderlineState = 'extend';
+    },1000)
 
     /* scroll-animation */
     const observe = this.$refs.Hero

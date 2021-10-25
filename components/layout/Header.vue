@@ -1,7 +1,7 @@
 <template>
   <div>
     <p ref="HeaderLogo" class="header-logo is-top">
-      <NuxtLink to="/"
+      <NuxtLink to="./"
         >H<span class="header-logo-text header-logo-fade-text">I</span
         ><span
           class="

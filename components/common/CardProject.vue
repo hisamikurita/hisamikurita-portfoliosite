@@ -1,7 +1,9 @@
 <template>
   <div ref="CardProject" class="card-project" :class='`card-project-${modifier}`'>
     <article ref="CardProjectArticle" :style="{ transform: 'rotate(' + rotate + 'deg' + ')' }" class="card-project-article">
+      <!-- リンクが存在するとき -->
       <span v-if="link">
+        <!-- 外部リンクのとき -->
         <span v-if="blank">
           <a :href="link" target="_blank" rel="noopener" class="card-project-link">
             <div class="card-project-inner">
@@ -22,14 +24,14 @@
               <span class="card-project-title-wrapper-03">
                 <CommonTextSegment
                   :state="state"
-                  :start="0.72"
+                  :start="0"
                   :rotate="rotateLeft"
                   :text="title"
                 ></CommonTextSegment>
                 <span v-if="subtitle" class="card-project-sub-title">
                     <CommonTextSegment
                       :state="state"
-                      :start="1.0"
+                      :start="0.28"
                       :rotate="rotateLeft"
                       :text="subtitle"
                     ></CommonTextSegment>
@@ -38,6 +40,7 @@
             </div>
           </a>
         </span>
+        <!-- 内部リンクのとき -->
         <span v-else>
           <NuxtLink :to="link" class="card-project-link">
             <div class="card-project-inner">
@@ -58,14 +61,14 @@
               <span class="card-project-title-wrapper-03">
                 <CommonTextSegment
                   :state="state"
-                  :start="0.72"
+                  :start="0"
                   :rotate="rotateLeft"
                   :text="title"
                 ></CommonTextSegment>
                 <span v-if="subtitle" class="card-project-sub-title">
                     <CommonTextSegment
                       :state="state"
-                      :start="1.0"
+                      :start="0.28"
                       :rotate="rotateLeft"
                       :text="subtitle"
                     ></CommonTextSegment>
@@ -75,6 +78,7 @@
           </NuxtLink>
         </span>
       </span>
+      <!-- タイトルのみリンクが存在するとき -->
       <span v-else>
         <div class="card-project-inner">
             <span class="card-project-title-wrapper-01">
@@ -95,14 +99,14 @@
               <a :href="title.link" target="_blank" rel="noopener">
                 <CommonTextSegment
                   :state="state"
-                  :start="0.72"
+                  :start="0"
                   :rotate="rotateLeft"
                   :text="title.text"
                 ></CommonTextSegment>
                 <span v-if="title.subtext" class="card-project-sub-title">
                   <CommonTextSegment
                     :state="state"
-                    :start="1.0"
+                      :start="0.28"
                     :rotate="rotateLeft"
                     :text="title.subtext"
                   ></CommonTextSegment>

@@ -68,7 +68,7 @@
                     :name="data.name"
                     :title="data.title"
                     :link="data.link"
-                    :text="data.text"
+                    :text="data.textArray"
                     :rotate="data.rotate"
                     :xspeed="data.xspeed"
                     :yspeed="data.yspeed"

@@ -6,15 +6,17 @@
     ],
     "link": "mtrust",
     "title": "M-TRUST",
-    "text": [
+    "textArray": [
       "M-TRSUT IS A COMPANY WITH",
       "HIGH-SKILLED PROFESSIONALS",
       "WHO SOLVE SOCIAL ISSUES",
       "FROM THE REAL ESTATE BUSINESS"
     ],
+    "desc": "M-TRSUT IS A COMPANY WITH HIGH-SKILLED PROFESSIONALS WHO SOLVE SOCIAL ISSUES FROM THE REAL ESTATE BUSINESS",
     "rotate": 8,
     "xspeed": 0.11,
-    "yspeed": 0.21
+    "yspeed": 0.21,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -23,15 +25,17 @@
     ],
     "link": "#",
     "title": "KTKM",
-    "text": [
+    "textArray": [
       "JAPANESE CHARACTER KETA",
       "KUMA, A BEAR WHO LIVES FOR",
       "MOVING AGGRESSIVELY, AND",
       "HIS FRIEND KETAWAN."
     ],
+    "desc": "JAPANESE CHARACTER KETAKUMA, A BEAR WHO LIVES FOR MOVING AGGRESSIVELY, AND HIS FRIEND KETAWAN.",
     "rotate": -7,
     "xspeed": -0.05,
-    "yspeed": 0.23
+    "yspeed": 0.23,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -40,16 +44,18 @@
     ],
     "link": "#",
     "title": "NL PLUS",
-    "text": [
+    "textArray": [
       "NLPLUS IS A SOLUTIONS COM",
       "PANY THAT PROVIDES SER",
       "VICES SUCH AS “FIRST WEB”",
       "AND “LO CCO” TO SOLVE PROB",
       "LEMS USING ICT."
     ],
+    "desc": "NLPLUS IS A SOLUTIONS COMPANY THAT PROVIDES SERVICES SUCH AS “FIRST WEB” AND “LOCCO” TO SOLVE PROBLEMS USING ICT.",
     "rotate": -5,
     "xspeed": 0.05,
-    "yspeed": 0.19
+    "yspeed": 0.19,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -58,16 +64,18 @@
     ],
     "link": "#",
     "title": "R&G",
-    "text": [
+    "textArray": [
       "RED AND GREEN CO.,LTD IS",
       "THE TOTAL COORDINATOR OF",
       "THE PRODUCT PLANNING,",
       "BRANDING, AND CIRCULATION",
       "TO SALES."
     ],
+    "desc": "RED AND GREEN CO.,LTD IS THE TOTAL COORDINATOR OF THE PRODUCT PLANNING, BRANDING, AND CIRCULATION TO SALES.",
     "rotate": -6,
     "xspeed": 0.14,
-    "yspeed": 0.17
+    "yspeed": 0.17,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -76,15 +84,17 @@
     ],
     "link": "#",
     "title": "ASVSON",
-    "text": [
+    "textArray": [
       "ASOVISION IS A COMPANY THAT",
       "MAKES A GAME CHANGE TO A",
       "SOCIETY WHERE EVERYONE",
       "CAN PLAY A LEADING ROLE."
     ],
+    "desc": "ASOVISION IS A COMPANY THAT MAKES A GAME CHANGE TO A SOCIETY WHERE EVERYONE CAN PLAY A LEADING ROLE.",
     "rotate": -9,
     "xspeed": -0.08,
-    "yspeed": 0.25
+    "yspeed": 0.25,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -93,15 +103,17 @@
     ],
     "link": "#",
     "title": "BST",
-    "text": [
+    "textArray": [
       "BASTA IS A PRODUCT OF BASF,",
       "AN INTERNATIONAL CHEMICAL",
       "MANUFACTURER HEADQUAR",
       "TERED IN GERMANY."
     ],
+    "desc": "BASTA IS A PRODUCT OF BASF, AN INTERNATIONAL CHEMICAL MANUFACTURER HEADQUAR TERED IN GERMANY.",
     "rotate": 6,
     "xspeed": 0.01,
-    "yspeed": 0.2
+    "yspeed": 0.2,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -110,15 +122,17 @@
     ],
     "link": "#",
     "title": "FRNTR",
-    "text": [
+    "textArray": [
       "LOREM IPSUM DOLOR SIT",
       "AMET, CONSECTETUR",
       "ADIPISCING ELIT, SED DO",
       "EIUSMOD TEMPOR INCIDI"
     ],
+    "desc": "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDI",
     "rotate": 7,
     "xspeed": 0.18,
-    "yspeed": 0.18
+    "yspeed": 0.18,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -127,15 +141,17 @@
     ],
     "link": "#",
     "title": "YKDH",
-    "text": [
+    "textArray": [
       "YAKUDO MEANS DYNAMISM IN",
       "JAPANESE. YAKUDO IS COMPA",
       "NY WANT TO OFFER MORE",
       "DYNAMISM TO PEOPLE."
     ],
+    "desc": "YAKUDO MEANS DYNAMISM IN JAPANESE. YAKUDO IS COMPANY WANT TO OFFER MORE DYNAMISM TO PEOPLE.",
     "rotate": -5,
     "xspeed": -0.16,
-    "yspeed": 0.22
+    "yspeed": 0.22,
+    "image" : "/images/nlplus.jpg"
   },
   {
     "name": [
@@ -144,14 +160,16 @@
     ],
     "link": "#",
     "title": "ARCVE",
-    "text": [
+    "textArray": [
       "I'M PUTTING TOGETHER A",
       "DYNAMIC ARCHIVE PAGE OF",
       "THE WORK I'M SUBMITTING TO",
       "CODEPEN."
     ],
+    "desc": "I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN.",
     "rotate": -7,
     "xspeed": 0.12,
-    "yspeed": 0.21
+    "yspeed": 0.21,
+    "image" : "/images/nlplus.jpg"
   }
 ]
