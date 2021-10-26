@@ -148,10 +148,8 @@ export default {
     }
   },
   mounted() {
-    setTimeout(()=>{
     this.isTextSegmentState = 'center';
     this.isTextUnderlineState = 'extend';
-    },1000)
 
     /* scroll-animation */
     const observe = this.$refs.Hero
@@ -231,12 +229,12 @@ export default {
 }
 
 .hero-title-wrapper-03 {
-  width: vw(662);
+  width: vw(668);
   margin: 0 0 22px vw(414);
 }
 
 .hero-title-wrapper-04 {
-  width: vw(330);
+  width: vw(336);
   margin: 0 0 0 vw(206);
 }
 

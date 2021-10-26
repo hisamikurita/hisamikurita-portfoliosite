@@ -2,13 +2,9 @@
   <span class="cmn-text-segment-block">
     <span ref="CmnTextSegmentWrapper" class="cmn-text-segment-wrapper">
       <span
-        v-for="(char, index) of text"
-        :key="index"
         ref="CmnTextSegment"
         class="cmn-text-segment"
-        v-text="char"
-      >
-      </span>
+      >{{ text }}</span>
     </span>
   </span>
 </template>
@@ -132,13 +128,13 @@ export default {
 
 .cmn-text-segment-wrapper {
   display: inline-block;
+  position: relative;
   overflow: hidden;
-  white-space: nowrap;
 }
 
 .cmn-text-segment {
   display: inline-block;
   opacity: 0;
-  white-space: break-spaces;
+  white-space: nowrap;
 }
 </style>

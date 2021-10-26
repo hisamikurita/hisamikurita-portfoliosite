@@ -125,5 +125,6 @@ export default {
 <style lang="scss">
 .cmn-loop-text-block {
   width: max-content;
+  overflow: hidden;
 }
 </style>
