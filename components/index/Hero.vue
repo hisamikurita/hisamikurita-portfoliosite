@@ -113,6 +113,20 @@
             <span class="hero-title-wrapper hero-title-wrapper-03-sp">
               19/AUG.1996
             </span>
+            <span class="hero-title-wrapper hero-title-wrapper-04-sp">
+              ( BASED IN TOKYO AND KAWASAKI )
+              <span class="hero-title-wrapper-04-01-sp">SOMETIMES</span>
+              <span class="hero-title-wrapper-04-02-sp">ALLWAYS</span>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-05-sp">
+              CREATIVE
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-06-sp">
+              DEVELOPER
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-07-sp">
+              AT LIG INC
+            </span>
           </span>
         </h1>
         <div class="hero-card-item">
@@ -190,7 +204,7 @@ export default {
   padding: 92px 0;
 
   @include sp(){
-    height: 100vh;
+    padding: 106px 0;
   }
 }
 
@@ -214,6 +228,10 @@ export default {
 .hero-title-wrapper {
   display: block;
   position: relative;
+
+  @include sp(){
+    margin: 0 0 20px 0;
+  }
 }
 
 .hero-title-wrapper-01 {
@@ -236,6 +254,46 @@ export default {
 .hero-title-wrapper-04 {
   width: vw(336);
   margin: 0 0 0 vw(206);
+}
+
+.hero-title-wrapper-01-sp{
+  text-align: right;
+}
+
+.hero-title-wrapper-03-sp{
+  margin: 0 0 10px 42px;
+}
+
+.hero-title-wrapper-04-sp{
+  position: relative;
+  margin: 0 0 38px 45px;
+  font-size: vw_sp(80);
+}
+
+.hero-title-wrapper-05-sp{
+  margin: 0 0 20px 18px;
+}
+
+.hero-title-wrapper-06-sp{
+  margin: 0 0 20px 102px;
+}
+
+.hero-title-wrapper-04-01-sp{
+  position: absolute;
+  top: 120%;
+  left: vw_sp(140);
+  font-size: vw_sp(20);
+  font-family: Helvetica, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.hero-title-wrapper-04-02-sp{
+  position: absolute;
+  top: 120%;
+  left: vw_sp(340);
+  font-size: vw_sp(20);
+  font-family: Helvetica, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .hero-title-wrapper-02-base-area {

@@ -2,7 +2,7 @@
   <div class="hambergerMenu">
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02"></span>
-    <span class="hambergerMenu-contents">
+    <span ref="HambergerMenuContents" class="hambergerMenu-contents">
       <div class="hambergerMenu-title">
         <span class="hambergerMenu-title-wrapper-01">
           <CommonTextSegment
@@ -23,15 +23,17 @@
           </NuxtLink>
         </span>
       </div>
-      <CommonSectionReadTitle
-        modifier="section"
-        :state="isTextSegmentState"
-        :start="0.24"
-        :text="[
-          '・',
-          'WORKS',
-        ]"
-      ></CommonSectionReadTitle>
+      <div class="hambergerMenu-section-title">
+        <CommonSectionReadTitle
+          modifier="section"
+          :state="isTextSegmentState"
+          :start="0.24"
+          :text="[
+            '・',
+            'WORKS',
+          ]"
+        ></CommonSectionReadTitle>
+      </div>
       <div>
         <ul class="hambergerMenu-list">
           <li v-for="(data) in projectData" :key="data.id" class="hambergerMenu-item">
@@ -85,6 +87,9 @@ export default {
   watch: {
     hambergerMenuState: function () {
       if (this.hambergerMenuState) {
+        this.$gsap.set(this.$refs.HambergerMenuContents, {
+          autoAlpha: 1.0,
+        });
         /**
          * ico
          */
@@ -92,15 +97,15 @@ export default {
           duration: this.$baseAnimationConfig.duration / 3.0,
           ease: this.$easing.colorAndOpacity,
           top: 3,
-          height: 8,
+          height: 9,
           borderRadius: 4,
           rotate: 45,
         })
         this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
           duration: this.$baseAnimationConfig.duration / 3.0,
           ease: this.$easing.colorAndOpacity,
-          bottom: 2.5,
-          height: 8,
+          bottom: 2,
+          height: 9,
           borderRadius: 4,
           rotate: -45,
         })
@@ -112,8 +117,8 @@ export default {
         this.$gsap.to(this.$refs.HambergerMenuBtn, {
           duration: this.$baseAnimationConfig.duration / 3.0,
           ease: this.$easing.colorAndOpacity,
-          width: 80,
-          height: 80,
+          width: 86,
+          height: 86,
           borderRadius: 100,
           boxShadow: '0px 0px 10px 5px #bfbeb8',
           scale: 0.9,
@@ -124,7 +129,7 @@ export default {
         this.$gsap.to(this.$refs.HambergerMenuBtn, {
           duration: this.$baseAnimationConfig.duration / 3.0,
           ease: this.$easing.colorAndOpacity,
-          x: -540,
+          x: -520,
         })
         /**
          * bg
@@ -133,7 +138,7 @@ export default {
           delay: 0.4,
           duration: this.$baseAnimationConfig.duration / 3.0,
           ease: this.$easing.colorAndOpacity,
-          scaleX: 5.3,
+          scaleX: 5.1,
           scaleY: 1.1,
           x: 10,
         })
@@ -150,6 +155,7 @@ export default {
           this.isTextSegmentState = 'center';
           this.$gsap.to(this.$refs.hambergerMenuItemLink, {
             duration: this.$baseAnimationConfig.duration,
+            delay: 0.48,
             ease: this.$easing.transform,
             stagger: {
               each: 0.20,
@@ -158,7 +164,91 @@ export default {
           })
         }, 600)
       } else if (!this.hambergerMenuState) {
-        //
+        this.$gsap.set(this.$refs.HambergerMenuContents, {
+          autoAlpha: 0.0,
+        });
+        this.$gsap.to(this.$refs.hambergerMenuItemLink, {
+          duration: this.$baseAnimationConfig.duration,
+          delay: 0.48,
+          ease: this.$easing.transform,
+          stagger: {
+            each: 0.20,
+          },
+          y: -180,
+        });
+        /**
+         * text
+         */
+        this.isTextSegmentState = 'top';
+        this.$gsap.to(this.$refs.hambergerMenuItemLink, {
+          duration: this.$baseAnimationConfig.duration,
+          delay: 0.48,
+          ease: this.$easing.transform,
+          stagger: {
+            each: 0.20,
+          },
+          y: -180,
+        });
+        /**
+         * bg
+         */
+        this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
+          delay: 0.2,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scaleX: 1.0,
+          scaleY: 1.0,
+          x: 0,
+        })
+        this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
+          delay: 0.4,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scaleX: 0,
+        });
+        /**
+         * btn
+         */
+        this.$gsap.to(this.$refs.HambergerMenuBtn, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          x: 0,
+        });
+        this.$gsap.to(this.$refs.HambergerMenuBtn, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          width: '100%',
+          height: '100%',
+          borderRadius: 10,
+          boxShadow: 'none',
+          scale: 1.0,
+        });
+        this.$gsap.to(this.$refs.hambergerMenuOpenarea, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          scale: 1,
+        })
+        this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          top: 0,
+          height: 4,
+          borderRadius: 2,
+          rotate: 0,
+        })
+        this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
+          delay: 0.6,
+          duration: this.$baseAnimationConfig.duration / 3.0,
+          ease: this.$easing.colorAndOpacity,
+          bottom: 0,
+          height: 4,
+          borderRadius: 2,
+          rotate: 0,
+        })
       }
     },
   },
@@ -211,7 +301,7 @@ export default {
 .hambergerMenu-overlay-02 {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0;
   width: 510px;
   height: 100%;
   background-color: #bcbbb4;
@@ -228,17 +318,22 @@ export default {
   right: 10px;
   width: 510px;
   height: 100%;
-  padding: 52px 20px;
+  padding: 50px 26px;
   overflow: scroll;
-  // z-index: 3;
+  opacity: 0;
 }
 
 .hambergerMenu-title {
   position: relative;
+  margin: 0 0 36px 0;
   color: #302c1a;
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+}
+
+.hambergerMenu-section-title{
+  margin: 0 0 36px 0;
 }
 
 .hambergerMenu-title-wrapper-01 {
@@ -265,7 +360,7 @@ export default {
 }
 
 .hambergerMenu-item-title{
-  margin: 0 0 20px 0;
+  margin: -12px 0 20px 0;
   color: #302c1a;
   font-size: 56px;
   font-family: 'Six Caps', sans-serif;
