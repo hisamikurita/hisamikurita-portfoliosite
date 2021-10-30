@@ -28,6 +28,7 @@ export default {
   plugins: [
     '~/plugins/asscroll.client.js',
     '~/plugins/gsap.client.js',
+    '~/plugins/hambergerMenu.client.js',
     '~/plugins/mixin.js',
   ],
 

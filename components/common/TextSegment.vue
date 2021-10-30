@@ -42,6 +42,15 @@ export default {
         case 'bottom':
           this.toBottom()
           break
+        case 'init':
+          if(this.topWrapper) this.topWrapper.kill();
+          if(this.topArray) this.topArray.kill();
+          if(this.centerWrapper) this.centerWrapper.kill();
+          if(this.centerArray) this.centerArray.kill();
+          if(this.bottomWrapper) this.bottomWrapper.kill();
+          if(this.bottomArray) this.bottomArray.kill();
+          this.init()
+          break
       }
     },
   },
@@ -65,13 +74,13 @@ export default {
     },
 
     toCenter: function () {
-      this.$gsap.to(this.wrapper, {
+      this.centerWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: 0,
       })
-      this.$gsap.to(this.textArray, {
+      this.centerArray = this.$gsap.to(this.textArray, {
         duration: this.$baseAnimationConfig.duration,
         delay: Number(this.start),
         ease: this.$easing.transform,
@@ -83,13 +92,13 @@ export default {
     },
 
     toTop: function () {
-      this.$gsap.to(this.wrapper, {
+      this.topWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
-      this.$gsap.to(this.textArray, {
+      this.topArray = this.$gsap.to(this.textArray, {
         duration: this.$baseAnimationConfig.duration,
         delay: Number(this.start),
         ease: this.$easing.transform,
@@ -101,13 +110,13 @@ export default {
     },
 
     toBottom: function () {
-      this.$gsap.to(this.wrapper, {
+      this.bottomWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
-      this.$gsap.to(this.textArray, {
+      this.bottomArray = this.$gsap.to(this.textArray, {
         duration: this.$baseAnimationConfig.duration,
         delay: Number(this.start),
         ease: this.$easing.transform,

@@ -420,7 +420,7 @@ export default {
 .pickup-circle-bg-enter {
   display: block;
   position: absolute;
-  top: -120px;
+  top: -130px;
   right: 0;
   left: 0;
   margin: 0 auto;
