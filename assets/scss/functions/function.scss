@@ -4,6 +4,14 @@
   @return math.div($size, 1280) * 100vw;
 }
 
+@function vh($size) {
+  @return math.div($size, 800) * 100vh;
+}
+
 @function vw_sp($size) {
   @return math.div($size, 750) * 100vw;
+}
+
+@function vh_sp($size) {
+  @return math.div($size, 750) * 100vh;
 }

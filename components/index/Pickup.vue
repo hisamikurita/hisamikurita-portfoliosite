@@ -14,119 +14,70 @@
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
-          <h2 class="pickup-title">
-            <span class="pickup-title-wrapper pickup-title-wrapper-01">
-              <CommonTextSegment
-                :state="isTextSegmentState01"
-                :start="0"
-                :rotate="rotateRight"
-                text="M-TRUST CO.,LTD. IS"
+          <div class="pickup-clip">
+            <p class="pickup-section-number">
+              <span
+                v-for="num in 3"
+                :key="num.id"
+                class="pickup-section-number-wrapper"
+                :class="'pickup-section-number-wrapper' + num"
               >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState01"
-                :start="0.12"
-                :rotate="rotateLeft"
-                text="A COMPANY WITH HIGH-SKILLED"
+                <CommonSectionReadTitle
+                  modifier="pickup-section"
+                  :state="isTextSegmentState[num]"
+                  :start="0"
+                  :text="['・', 'SELECTED', 'PROJECT', '0' + num]"
+                ></CommonSectionReadTitle>
+              </span>
+            </p>
+            <p class="pickup-section-text">
+              <span
+                v-for="(data, index) in pickupData"
+                :key="data.id"
+                class="pickup-section-text-wrapper"
+                :class="'pickup-section-text-wrapper-0' + Number(index + 1)"
               >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState01"
-                :start="0.24"
-                :rotate="rotateRight"
-                text="PROFESSIONALS WHO"
+                <span class="pickup-section-text-title">
+                  <CommonTextSegment
+                    :state="isTextSegmentState[Number(index + 1)]"
+                    :start="0"
+                    :rotate="rotateLeft"
+                    :text="data.title"
+                  >
+                  </CommonTextSegment>
+                </span>
+                <span>
+                  <CommonSectionReadTitle
+                    :state="isTextSegmentState[Number(index + 1)]"
+                    :start="0.12"
+                    :text="data.pickupDescArray"
+                  >
+                  </CommonSectionReadTitle>
+                </span>
+              </span>
+            </p>
+            <h2 class="pickup-title">
+              <span
+                v-for="(data, index) in pickupData"
+                :key="data.id"
+                class="pickup-title-wrapper"
+                :class="'pickup-title-wrapper-0' + Number(index + 1)"
               >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState01"
-                :start="0.36"
-                :rotate="rotateLeft"
-                text="SOLVE SOCIAL ISSUES FROM"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState01"
-                :start="0.48"
-                :rotate="rotateRight"
-                text="THE REAL ESTATE BUSINESS."
-              >
-              </CommonTextSegment>
-            </span>
-            <span class="pickup-title-wrapper pickup-title-wrapper-02">
-              <CommonTextSegment
-                :state="isTextSegmentState02"
-                :start="0"
-                :rotate="rotateRight"
-                text="JAPANESE CHARACTER"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState02"
-                :start="0.12"
-                :rotate="rotateLeft"
-                text="KETAKUMA,"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState02"
-                :start="0.24"
-                :rotate="rotateRight"
-                text="A BEAR WHO LIVES"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState02"
-                :start="0.36"
-                :rotate="rotateLeft"
-                text="FOR MOVING GGRESSIVELY,"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState02"
-                :start="0.48"
-                :rotate="rotateRight"
-                text="AND HIS FRIEND KETAWAN."
-              >
-              </CommonTextSegment>
-            </span>
-            <span class="pickup-title-wrapper pickup-title-wrapper-03">
-              <CommonTextSegment
-                :state="isTextSegmentState03"
-                :start="0"
-                :rotate="rotateRight"
-                text="NLPLUS IS"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState03"
-                :start="0.12"
-                :rotate="rotateLeft"
-                text="A SOLUTIONS COMPANY"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState03"
-                :start="0.24"
-                :rotate="rotateRight"
-                text="THAT PROVIDES SERVICES"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState03"
-                :start="0.36"
-                :rotate="rotateLeft"
-                text="SUCH AS “FIRST WEB” AND “LOCCO”"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
-                :state="isTextSegmentState03"
-                :start="0.48"
-                :rotate="rotateRight"
-                text="TO SOLVE PROBLEMS USING ICT."
-              >
-              </CommonTextSegment>
-            </span>
-          </h2>
+                <span
+                  v-for="(text, tIndex) in data.pickupTextArray"
+                  :key="text.id"
+                >
+                  <CommonTextSegment
+                    :state="isTextSegmentState[Number(index + 1)]"
+                    :start="tIndex * 0.12"
+                    :rotate="tIndex % 2 != 0 ? rotateLeft : rotateRight"
+                    :text="text"
+                  >
+                  </CommonTextSegment>
+                </span>
+              </span>
+            </h2>
+          </div>
         </div>
       </div>
     </div>
@@ -134,17 +85,22 @@
 </template>
 
 <script>
+import pickupData from '@/assets/json/pickup.json'
+
 export default {
   data: () => {
     return {
+      pickupData: pickupData,
       isPickupSectionEnter: false,
       pickupSectionCurrentNum: 0,
       isWheelAnimation: false,
       wheelInterval: 1.0,
       wheelRatio: 5,
-      isTextSegmentState01: '',
-      isTextSegmentState02: '',
-      isTextSegmentState03: '',
+      isTextSegmentState: {
+        1: '',
+        2: '',
+        3: '',
+      },
       isCircleBgState02: '',
       isCircleBgState03: '',
       isCircleBgState04: '',
@@ -167,7 +123,9 @@ export default {
 
   beforeDestroy() {
     this.$asscroll.off('update', this.pickupToTopEnterScroll)
-    window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
+    window.removeEventListener('wheel', this.pickupSceneManager, {
+      passive: false,
+    })
   },
 
   methods: {
@@ -304,24 +262,24 @@ export default {
 
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
-          this.isTextSegmentState01 = 'center'
+          this.isTextSegmentState[1] = 'center'
           break
         case 2.0:
-          this.isTextSegmentState01 = 'top'
+          this.isTextSegmentState[1] = 'top'
           setTimeout(() => {
-            this.isTextSegmentState02 = 'center'
+            this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
-          this.isTextSegmentState02 = 'top'
+          this.isTextSegmentState[2] = 'top'
           setTimeout(() => {
-            this.isTextSegmentState03 = 'center'
+            this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 4.0:
-          this.isTextSegmentState03 = 'top'
+          this.isTextSegmentState[3] = 'top'
           setTimeout(() => {
             this.isCircleBgState04 = 'extend'
           }, this.wheelInterval * 1000)
@@ -338,24 +296,24 @@ export default {
       switch (this.pickupSectionCurrentNum) {
         case 0.0:
           this.pickupToTopLeaveScroll()
-          this.isTextSegmentState01 = 'bottom'
+          this.isTextSegmentState[1] = 'bottom'
           break
         case 1.0:
-          this.isTextSegmentState02 = 'bottom'
+          this.isTextSegmentState[2] = 'bottom'
           setTimeout(() => {
-            this.isTextSegmentState01 = 'center'
+            this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 2.0:
-          this.isTextSegmentState03 = 'bottom'
+          this.isTextSegmentState[3] = 'bottom'
           setTimeout(() => {
-            this.isTextSegmentState02 = 'center'
+            this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
-          this.isTextSegmentState03 = 'center'
+          this.isTextSegmentState[3] = 'center'
           this.isCircleBgState04 = 'shrink'
           break
       }
@@ -397,8 +355,17 @@ export default {
 }
 
 .pickup-inner {
-  position: relative;
   height: 100vh;
+}
+
+.pickup .l-container {
+  height: 100%;
+}
+
+.pickup-clip {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .pickup-title-wrapper {
@@ -406,21 +373,43 @@ export default {
   top: 50%;
   left: 45.4%;
   transform: translate3d(-50%, -50%, 0);
-  font-size: vw(126);
+  font-size: vh(126);
   font-family: 'Six Caps', sans-serif;
   text-align: center;
+  line-height: 0.98;
 }
 
-.pickup-title-wrapper-01 {
+.pickup-section-number-wrapper {
+  position: absolute;
+  top: 70px;
+  right: 115px;
+}
+
+.pickup-title-wrapper-01,
+.pickup-section-text-wrapper-01 {
   color: $darkBlue;
 }
 
-.pickup-title-wrapper-02 {
+.pickup-title-wrapper-02,
+.pickup-section-text-wrapper-02 {
   color: $purple;
 }
 
-.pickup-title-wrapper-03 {
+.pickup-title-wrapper-03,
+.pickup-section-text-wrapper-03 {
   color: $darkPink;
+}
+
+.pickup-section-text-wrapper {
+  position: absolute;
+  bottom: 86px;
+  left: 0;
+}
+
+.pickup-section-text-title {
+  display: block;
+  margin: 0 0 60px 0;
+  font-size: 20px;
 }
 
 .pickup-circle-bg-enter {
@@ -428,7 +417,7 @@ export default {
   position: absolute;
   top: -130px;
   right: 0;
-  left: 0;
+  left: -5%;
   margin: 0 auto;
   background-color: $blue;
   width: 80px;

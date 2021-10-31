@@ -67,18 +67,17 @@ export default {
   }
 }
 
-// .cmn-title-read-text-wrapper--card-section{
-//   & .cmn-title-read-text-00{
-//     font-size: 36px;
-//     text-indent: -2px;
-//     line-height: 0.79;
-//   }
+.cmn-title-read-text-wrapper--pickup-section{
+  font-size: 14px;
+  text-align: right;
 
-//   & .cmn-title-read-text-01{
-//     font-size: 20px;
-//   }
-// }
-
+  & .cmn-title-read-text-00{
+    position: relative;
+    left: 4px;
+    font-size: 36px;
+    line-height: 0.79;
+  }
+}
 
 .cmn-title-read-text-wrapper--contact-section{
   & .cmn-title-read-text-00{

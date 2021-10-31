@@ -223,6 +223,10 @@ export default {
   position: absolute;
   top: 8px;
   left: 2px;
+
+  @include sp(){
+    top: -18px;
+  }
 }
 
 .hero-title-wrapper {
@@ -346,6 +350,13 @@ export default {
   background-color: $lightBlue;
   border-radius: 50%;
   pointer-events: none;
+
+  @include sp(){
+    top: vw_sp(650);
+    left: vw_sp(-610);
+    width: vw_sp(1345);
+    height: vw_sp(1345);
+  }
 }
 
 .hero-card-item{
@@ -353,5 +364,10 @@ export default {
   top: 19.8%;
   left: 9%;
   transform: rotate(10deg);
+
+  @include sp(){
+    top: 17.8%;
+    left: 57%;
+  }
 }
 </style>

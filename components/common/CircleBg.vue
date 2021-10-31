@@ -50,7 +50,7 @@ export default {
   display: block;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate3d(-50%, -50%, 0);
   width: 140vmax;
   height: 140vmax;

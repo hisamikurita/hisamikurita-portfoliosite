@@ -1,11 +1,24 @@
 <template>
-  <div ref="CardProject" class="card-project" :class='`card-project-${modifier}`'>
-    <article ref="CardProjectArticle" :style="{ transform: 'rotate(' + rotate + 'deg' + ')' }" class="card-project-article">
+  <div
+    ref="CardProject"
+    class="card-project"
+    :class="`card-project-${modifier}`"
+  >
+    <article
+      ref="CardProjectArticle"
+      :style="{ transform: 'rotate(' + rotate + 'deg' + ')' }"
+      class="card-project-article"
+    >
       <!-- リンクが存在するとき -->
       <span v-if="link">
         <!-- 外部リンクのとき -->
         <span v-if="blank">
-          <a :href="link" target="_blank" rel="noopener" class="card-project-link">
+          <a
+            :href="link"
+            target="_blank"
+            rel="noopener"
+            class="card-project-link"
+          >
             <div class="card-project-inner">
               <span class="card-project-title-wrapper-01">
                 <span
@@ -15,11 +28,11 @@
                 ></span>
               </span>
               <span class="card-project-title-wrapper-02">
-                  <span
-                    v-for="(char, index) of text"
-                    :key="index"
-                    v-text="char"
-                  ></span>
+                <span
+                  v-for="(char, index) of text"
+                  :key="index"
+                  v-text="char"
+                ></span>
               </span>
               <span class="card-project-title-wrapper-03">
                 <CommonTextSegment
@@ -29,13 +42,13 @@
                   :text="title"
                 ></CommonTextSegment>
                 <span v-if="subtitle" class="card-project-sub-title">
-                    <CommonTextSegment
-                      :state="state"
-                      :start="0.28"
-                      :rotate="rotateLeft"
-                      :text="subtitle"
-                    ></CommonTextSegment>
-                  </span>
+                  <CommonTextSegment
+                    :state="state"
+                    :start="0.28"
+                    :rotate="rotateLeft"
+                    :text="subtitle"
+                  ></CommonTextSegment>
+                </span>
               </span>
             </div>
           </a>
@@ -52,11 +65,11 @@
                 ></span>
               </span>
               <span class="card-project-title-wrapper-02">
-                  <span
-                    v-for="(char, index) of text"
-                    :key="index"
-                    v-text="char"
-                  ></span>
+                <span
+                  v-for="(char, index) of text"
+                  :key="index"
+                  v-text="char"
+                ></span>
               </span>
               <span class="card-project-title-wrapper-03">
                 <CommonTextSegment
@@ -66,13 +79,13 @@
                   :text="title"
                 ></CommonTextSegment>
                 <span v-if="subtitle" class="card-project-sub-title">
-                    <CommonTextSegment
-                      :state="state"
-                      :start="0.28"
-                      :rotate="rotateLeft"
-                      :text="subtitle"
-                    ></CommonTextSegment>
-                  </span>
+                  <CommonTextSegment
+                    :state="state"
+                    :start="0.28"
+                    :rotate="rotateLeft"
+                    :text="subtitle"
+                  ></CommonTextSegment>
+                </span>
               </span>
             </div>
           </NuxtLink>
@@ -81,39 +94,41 @@
       <!-- タイトルのみリンクが存在するとき -->
       <span v-else>
         <div class="card-project-inner">
-            <span class="card-project-title-wrapper-01">
-              <span
-                v-for="(char, index) of name"
-                :key="index"
-                v-text="char"
-              ></span>
-            </span>
-            <span class="card-project-title-wrapper-02">
-              <span v-if="info">
-                <span v-for="(char, index) of info" :key="index">
-                  <a :href="char.link" target="_blank" rel="noopener">{{ char.text }}</a>
-                </span>
+          <span class="card-project-title-wrapper-01">
+            <span
+              v-for="(char, index) of name"
+              :key="index"
+              v-text="char"
+            ></span>
+          </span>
+          <span class="card-project-title-wrapper-02">
+            <span v-if="info">
+              <span v-for="(char, index) of info" :key="index">
+                <a :href="char.link" target="_blank" rel="noopener">{{
+                  char.text
+                }}</a>
               </span>
             </span>
-            <span class="card-project-title-wrapper-03">
-              <a :href="title.link" target="_blank" rel="noopener">
+          </span>
+          <span class="card-project-title-wrapper-03">
+            <a :href="title.link" target="_blank" rel="noopener">
+              <CommonTextSegment
+                :state="state"
+                :start="0"
+                :rotate="rotateLeft"
+                :text="title.text"
+              ></CommonTextSegment>
+              <span v-if="title.subtext" class="card-project-sub-title">
                 <CommonTextSegment
                   :state="state"
-                  :start="0"
+                  :start="0.28"
                   :rotate="rotateLeft"
-                  :text="title.text"
+                  :text="title.subtext"
                 ></CommonTextSegment>
-                <span v-if="title.subtext" class="card-project-sub-title">
-                  <CommonTextSegment
-                    :state="state"
-                      :start="0.28"
-                    :rotate="rotateLeft"
-                    :text="title.subtext"
-                  ></CommonTextSegment>
-                </span>
-              </a>
-            </span>
-          </div>
+              </span>
+            </a>
+          </span>
+        </div>
       </span>
     </article>
     <div ref="CardProjectObserver" class="card-project-observer"></div>
@@ -166,7 +181,7 @@ export default {
     modifier: {
       type: String,
       default: '',
-    }
+    },
   },
   data: () => {
     return {
@@ -262,7 +277,11 @@ export default {
   background-color: $white;
   color: $black;
   border-radius: 14px;
-  // transform: rotate(8deg);
+
+  @include sp() {
+    width: 264px;
+    height: 360px;
+  }
 }
 
 .card-project-inner {
@@ -285,17 +304,25 @@ export default {
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
 
-  & a{
+  @include sp() {
+    font-size: 108px;
+  }
+
+  & a {
     display: block;
   }
 
-  & .card-project-sub-title{
+  & .card-project-sub-title {
     position: absolute;
     top: 12px;
     right: -4px;
     font-size: 12px;
     font-family: Helvetica, sans-serif;
     letter-spacing: 0.02em;
+
+    @include sp() {
+      font-size: 11px;
+    }
   }
 }
 
@@ -306,6 +333,10 @@ export default {
     font-family: Helvetica, sans-serif;
     letter-spacing: 0.02em;
     line-height: 1.24;
+
+    @include sp() {
+      font-size: 11px;
+    }
   }
 }
 
@@ -313,50 +344,61 @@ export default {
   display: block;
   margin: 0 0 60px 0;
 
+    @include sp() {
+  margin: 0 0 52px 0;
+    }
+
   & span {
     display: block;
     font-size: 20px;
     line-height: 1.2;
 
+    @include sp() {
+      font-size: 18px;
+    }
+
     &:first-of-type {
       font-size: 36px;
       text-indent: -4px;
       line-height: 1;
+
+      @include sp() {
+        font-size: 32px;
+      }
     }
   }
 }
 
 //modifier
-.card-project-index-hero .card-project-article{
+.card-project-index-hero .card-project-article {
   background-color: $thinPink;
 }
 
-.card-project-index-hero .card-project-title-wrapper-01{
+.card-project-index-hero .card-project-title-wrapper-01 {
   color: $white;
 }
 
-.card-project-index-hero .card-project-title-wrapper-02{
+.card-project-index-hero .card-project-title-wrapper-02 {
   color: $darkPink;
 }
 
-.card-project-index-hero .card-project-title-wrapper-03{
+.card-project-index-hero .card-project-title-wrapper-03 {
   color: $darkPink;
 }
 
-.card-project-about-hero .card-project-article{
+.card-project-about-hero .card-project-article {
   background-color: #d9d9d9;
 }
 
-.card-project-about-hero .card-project-title-wrapper-01{
+.card-project-about-hero .card-project-title-wrapper-01 {
   color: $darkBlack;
 }
 
-.card-project-about-hero .card-project-title-wrapper-02{
+.card-project-about-hero .card-project-title-wrapper-02 {
   color: $darkBlack;
 }
 
-.card-project-about-hero .card-project-title-wrapper-03{
+.card-project-about-hero .card-project-title-wrapper-03 {
   color: $darkBlack;
 }
-
 </style>
