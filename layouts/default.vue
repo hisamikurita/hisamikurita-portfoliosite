@@ -16,6 +16,9 @@ export default {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
     },
+    indexPickupState: function () {
+      return this.$store.getters['indexPickup/state']
+    },
   },
   watch: {
     hambergerMenuState: function () {
@@ -36,7 +39,7 @@ export default {
        * ハンバガーメニューが閉じた時
        */
       else if (!this.hambergerMenuState) {
-        this.$asscroll.enable()
+        if(!this.indexPickupState) this.$asscroll.enable()
         this.$gsap.to(this.$refs.AsscrollContainer, {
           delay: 0.2,
           duration: this.$baseAnimationConfig.duration / 3.0,

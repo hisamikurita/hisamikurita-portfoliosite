@@ -152,22 +152,22 @@ export default {
     }
   },
 
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+    indexPickupState: function () {
+      return this.$store.getters['indexPickup/state']
+    },
+  },
+
   mounted() {
     this.$asscroll.on('update', this.pickupToTopEnterScroll)
-    // window.addEventListener(
-    //   'wheel',
-    //   (e) => {
-    //     e.preventDefault()
-    //   },
-    //   { passive: false }
-    // )
   },
 
   beforeDestroy() {
     this.$asscroll.off('update', this.pickupToTopEnterScroll)
-    window.removeEventListener('wheel', this.pickupSceneManager, {
-      passive: false,
-    })
+    window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
   },
 
   methods: {
@@ -177,6 +177,7 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
+        this.$store.commit('indexPickup/enter')
         this.$asscroll.off('update', this.pickupToTopEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
@@ -211,6 +212,8 @@ export default {
     },
 
     pickupToTopLeaveScroll() {
+      this.$store.commit('indexPickup/leave')
+
       this.isPickupSectionEnter = false
       window.removeEventListener('wheel', this.pickupSceneManager, {
         passive: false,
@@ -248,6 +251,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        this.$store.commit('indexPickup/enter')
         this.$asscroll.off('update', this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
@@ -271,6 +275,8 @@ export default {
     },
 
     pickupToBottomLeaveScroll() {
+      this.$store.commit('indexPickup/leave')
+
       window.removeEventListener('wheel', this.pickupSceneManager, {
         passive: false,
       })
@@ -356,7 +362,7 @@ export default {
     },
 
     pickupSceneManager(e) {
-      if (this.isWheelAnimation) return
+      if (this.isWheelAnimation || this.hambergerMenuState) return
 
       if (e.deltaY > this.wheelRatio) {
         this.pickupSceneNext()
