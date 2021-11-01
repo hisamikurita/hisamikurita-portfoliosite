@@ -281,6 +281,7 @@ export default {
   @include sp() {
     width: 264px;
     height: 360px;
+    border-radius: 7px;
   }
 }
 
@@ -344,9 +345,9 @@ export default {
   display: block;
   margin: 0 0 60px 0;
 
-    @include sp() {
-  margin: 0 0 52px 0;
-    }
+  @include sp() {
+    margin: 0 0 52px 0;
+  }
 
   & span {
     display: block;

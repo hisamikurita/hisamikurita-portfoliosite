@@ -1,71 +1,73 @@
 <template>
   <div class="about">
-    <div class="about-inner">
-      <div class="l-container">
-        <h2 ref="AboutTitleTrigger" class="about-title">
-          <CommonTextUnderline
-            modifier="index-about"
-            :state="isTextUnderlineState"
-            :start="0.6"
-            :rotate="rotateLeft"
-          ></CommonTextUnderline>
-          <span class="about-title-read-area">
+    <div class="about-bg">
+      <div class="about-inner">
+        <div class="l-container">
+          <h2 ref="AboutTitleTrigger" class="about-title">
+            <CommonTextUnderline
+              modifier="index-about"
+              :state="isTextUnderlineState"
+              :start="0.6"
+              :rotate="rotateLeft"
+            ></CommonTextUnderline>
+            <span class="about-title-read-area">
+              <CommonSectionReadTitle
+                modifier="section"
+                :state="isTextSegmentState"
+                :start="0"
+                :text="['・', 'ABOUT']"
+              ></CommonSectionReadTitle>
+            </span>
+            <span class="about-title-wrapper about-title-wrapper-01">
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="0"
+                :rotate="rotateRight"
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="about-title-wrapper about-title-wrapper-02">
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="0.12"
+                :rotate="rotateLeft"
+                text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="about-title-wrapper about-title-wrapper-03">
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="0.24"
+                :rotate="rotateRight"
+                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="about-title-wrapper about-title-wrapper-04">
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="0.36"
+                :rotate="rotateLeft"
+                text="m ipsum dolor sit amet, consectetur adipiscing elit,"
+              >
+              </CommonTextSegment>
+            </span>
+          </h2>
+          <p class="about-read-text">
             <CommonSectionReadTitle
-              modifier="section"
               :state="isTextSegmentState"
-              :start="0"
-              :text="['・', 'ABOUT']"
+              :start="0.48"
+              :text="[
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
+                'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim',
+                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
+                'commodo consequat. Duis aute ir',
+              ]"
             ></CommonSectionReadTitle>
-          </span>
-          <span class="about-title-wrapper about-title-wrapper-01">
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="0"
-              :rotate="rotateRight"
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="about-title-wrapper about-title-wrapper-02">
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="0.12"
-              :rotate="rotateLeft"
-              text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="about-title-wrapper about-title-wrapper-03">
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="0.24"
-              :rotate="rotateRight"
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="about-title-wrapper about-title-wrapper-04">
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="0.36"
-              :rotate="rotateLeft"
-              text="m ipsum dolor sit amet, consectetur adipiscing elit,"
-            >
-            </CommonTextSegment>
-          </span>
-        </h2>
-        <p class="about-read-text">
-          <CommonSectionReadTitle
-            :state="isTextSegmentState"
-            :start="0.48"
-            :text="[
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-              'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim',
-              'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
-              'commodo consequat. Duis aute ir',
-            ]"
-          ></CommonSectionReadTitle>
-        </p>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -104,6 +106,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.about-bg{
+  position: relative;
+
+  @include sp(){
+    overflow: hidden;
+  }
+}
+
 .about-inner {
   padding: 333px 0 258px 0;
 }

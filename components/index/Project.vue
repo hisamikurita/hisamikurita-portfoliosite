@@ -164,11 +164,20 @@ export default {
 
 <style scoped lang="scss">
 .project-bg{
+  position: relative;
   // background-color: $thinPink;
+
+  @include sp(){
+    overflow: hidden;
+  }
 }
 
 .project-inner {
   padding: 206px 0 0 0;
+
+  @include sp(){
+    padding: 150px 0 0 0;
+  }
 }
 
 .project-loop-title{
@@ -177,12 +186,20 @@ export default {
   font-size: vw(140);
   font-family: 'Six Caps', sans-serif;
   white-space: nowrap;
+
+  @include sp(){
+    font-size: vw_sp(160);
+  }
 }
 
 .project-loop-title-wrapper{
   display: block;
   position: relative;
   padding: 28px;
+
+  @include sp(){
+    padding: 10px 0 8px;
+  }
 }
 
 .project-loop-title-read-area{

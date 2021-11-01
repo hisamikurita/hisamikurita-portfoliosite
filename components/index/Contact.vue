@@ -14,41 +14,66 @@
                 :text="['・', 'SAY HI']"
               ></CommonSectionReadTitle>
             </span>
-            <span class="contact-title-wrapper contact-title-wrapper-01">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0"
-                :rotate="rotateRight"
-                text="I AM CREATIVE DEVELOPER"
-              >
-              </CommonTextSegment>
+            <span class="pc-only">
+              <span class="contact-title-wrapper contact-title-wrapper-01">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0"
+                  :rotate="rotateRight"
+                  text="I AM CREATIVE DEVELOPER"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-02">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="rotateLeft"
+                  text="FOCUSED ON CREATING THINGS"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-03">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.24"
+                  :rotate="rotateRight"
+                  text="WITH INTERACTION & ANIMATION"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-04">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.36"
+                  :rotate="rotateLeft"
+                  text="AS MY MAIN FOCUS."
+                >
+                </CommonTextSegment>
+              </span>
             </span>
-            <span class="contact-title-wrapper contact-title-wrapper-02">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.12"
-                :rotate="rotateLeft"
-                text="FOCUSED ON CREATING THINGS"
-              >
-              </CommonTextSegment>
-            </span>
-            <span class="contact-title-wrapper contact-title-wrapper-03">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.24"
-                :rotate="rotateRight"
-                text="WITH INTERACTION & ANIMATION"
-              >
-              </CommonTextSegment>
-            </span>
-            <span class="contact-title-wrapper contact-title-wrapper-04">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.36"
-                :rotate="rotateLeft"
-                text="AS MY MAIN FOCUS."
-              >
-              </CommonTextSegment>
+            <span class="sp-only">
+              <span class="contact-title-wrapper contact-title-wrapper-01-sp">
+                I AM CREATIVE
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-02-sp">
+                DEVELOPER
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-03-sp">
+                FOCUSED ON
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-04-sp">
+                CREATING THINGS
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-05-sp">
+                WITH INTERACTION
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-06-sp">
+                & ANIMATION
+              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-07-sp">
+                AS MY MAINN FOCUS.
+              </span>
             </span>
           </h2>
           <div class="contact-info-area">
@@ -62,7 +87,11 @@
                 ></CommonSectionReadTitle>
               </span>
               <span class="contact-info-list">
-                <span v-for="(data, index) in projectData" :key="data.id">
+                <span
+                  v-for="(data, index) in projectData"
+                  :key="data.id"
+                  class="contact-info-item"
+                >
                   <NuxtLink :to="data.link">
                     <CommonTextSegment
                       :state="isTextSegmentState"
@@ -76,32 +105,37 @@
               </span>
             </div>
             <div class="contact-info-name-area">
-              <p class="contact-name">
-                <CommonTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :rotate="rotateRight"
-                  text="HISAMI KURITA"
-                >
-                </CommonTextSegment>
-              </p>
+              <span class="pc-only">
+                <span class="contact-name">
+                  <CommonTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.48"
+                    :rotate="rotateRight"
+                    text="HISAMI KURITA"
+                  >
+                  </CommonTextSegment>
+                </span>
+              </span>
+              <span class="sp-only">
+                <span class="contact-name"> HISAMI<br />KURITA </span>
+              </span>
             </div>
           </div>
           <span class="contact-card-item-01">
             <CommonCardProject
-              :name="['・','DESIGNED BY','(KENTO ISHIDUKA)']"
+              :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
               :info="[
                 {
-                  link : 'https://twitter.com/kentiy1229',
-                  text : 'TWITTER @KENTIY1229',
+                  link: 'https://twitter.com/kentiy1229',
+                  text: 'TWITTER @KENTIY1229',
                 },
                 {
-                  link : 'https://dribbble.com/keeeeentisi',
-                  text : 'DRIBBBLE @KEEEEENTISI',
+                  link: 'https://dribbble.com/keeeeentisi',
+                  text: 'DRIBBBLE @KEEEEENTISI',
                 },
                 {
-                  link : 'https://www.linkedin.com/in/kento-ishiduka-84bb26135',
-                  text : 'LINKED IN @KENTOISHIDUKA',
+                  link: 'https://www.linkedin.com/in/kento-ishiduka-84bb26135',
+                  text: 'LINKED IN @KENTOISHIDUKA',
                 },
               ]"
               :title="{
@@ -116,19 +150,19 @@
           </span>
           <span class="contact-card-item-02">
             <CommonCardProject
-              :name="['・','CODED BY','(HISAMI KURITA)']"
+              :name="['・', 'CODED BY', '(HISAMI KURITA)']"
               :info="[
                 {
-                  link : 'https://twitter.com/AAA00832745',
-                  text : 'TWITTER @AAA00832745',
+                  link: 'https://twitter.com/AAA00832745',
+                  text: 'TWITTER @AAA00832745',
                 },
                 {
-                  link : 'https://github.com/hisamikurita',
-                  text : 'GITHUB @HISAMIKURITA',
+                  link: 'https://github.com/hisamikurita',
+                  text: 'GITHUB @HISAMIKURITA',
                 },
                 {
-                  link : 'https://codepen.io/hisamikurita',
-                  text : 'CODEPEN @HISAMIKURITA',
+                  link: 'https://codepen.io/hisamikurita',
+                  text: 'CODEPEN @HISAMIKURITA',
                 },
               ]"
               :title="{
@@ -161,13 +195,13 @@ export default {
 
   mounted() {
     /* text-animation */
-    this.observe = this.$refs.Contact;
+    this.observe = this.$refs.Contact
     this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.isTextSegmentState = 'center';
-            this.isCircleBgState = 'extend';
+            this.isTextSegmentState = 'center'
+            this.isCircleBgState = 'extend'
             this.iObserver.unobserve(this.observe)
           }
         })
@@ -184,21 +218,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.contact{
+.contact {
   position: relative;
   overflow: hidden;
 }
 
 .contact-bg {
   padding: 450px 0 0 0;
+
+  @include sp() {
+    padding: 225px 0 80px 0;
+  }
 }
 
-.contact-title{
+.contact-title {
   position: relative;
   margin: 0 0 140px 0;
   color: $darkPink;
   font-size: vw(180);
   font-family: 'Six Caps', sans-serif;
+
+  @include sp() {
+    margin: 0 0 58px 0;
+    font-size: vw_sp(180);
+  }
 }
 
 .contact-title-read-area {
@@ -206,65 +249,123 @@ export default {
   top: 8px;
   left: 2px;
   color: $white;
-}
 
-.contact-title-wrapper{
-  display: block;
-}
-
-.contact-title-wrapper-01{
-  padding: 0 0 0 290px;
-
-  @include tab {
-      padding: 0 0 0 vw(290);
+  @include sp() {
+    top: 2px;
+    left: 0;
   }
 }
 
-.contact-title-wrapper-02{
+.contact-title-wrapper {
+  display: block;
+
+  @include sp() {
+    white-space: nowrap;
+  }
+}
+
+.contact-title-wrapper-01 {
+  padding: 0 0 0 290px;
+
+  @include tab {
+    padding: 0 0 0 vw(290);
+  }
+}
+
+.contact-title-wrapper-02 {
   padding: 0 0 0 33px;
 }
 
-.contact-title-wrapper-04{
+.contact-title-wrapper-04 {
   padding: 0 0 0 40px;
 }
 
-.contact-info-area{
+.contact-title-wrapper-01-sp {
+  margin: 0 0 0 48px;
+}
+
+.contact-info-area {
   display: flex;
+
+  @include sp() {
+    justify-content: space-between;
+  }
 }
 
-.contact-info-index-area{
+.contact-info-index-area {
   margin: 0 40px 0 0;
+
+  @include sp() {
+    margin: 10px 40px 0 0;
+  }
 }
 
-.contact-info-index{
+.contact-info-index {
   display: block;
   margin: 0 0 56px 0;
+
+  @include sp() {
+    margin: 0 0 59px 0;
+  }
 }
 
-.contact-info-list{
+.contact-info-list {
   font-size: 12px;
+
+  @include sp() {
+    font-size: 10px;
+  }
 }
 
-.contact-name{
+.contact-info-item {
+  @include sp() {
+    display: block;
+    margin: 0 0 2px 0;
+  }
+}
+
+.contact-info-name-area {
+  position: relative;
+}
+
+.contact-name {
   margin: -26px 0 0 0;
   color: $darkPink;
   font-size: vw(400);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.02em;
+
+  @include sp() {
+    font-size: vw_sp(400);
+    white-space: nowrap;
+  }
 }
 
-.contact-card-item-01{
+.contact-card-item-01 {
   position: absolute;
   top: 55.5%;
   left: 30%;
   transform: rotate(-10deg);
+  width: 0;
+  height: 0;
+
+  @include sp() {
+    top: 48%;
+    left: 41%;
+  }
 }
 
-.contact-card-item-02{
+.contact-card-item-02 {
   position: absolute;
   top: 39%;
   right: 15%;
   transform: rotate(10deg);
-}
+  width: 0;
+  height: 0;
 
+  @include sp() {
+    top: 46%;
+    right: 32%;
+  }
+}
 </style>

@@ -344,6 +344,10 @@ export default {
 <style scoped lang="scss">
 .pickup {
   position: relative;
+
+  @include sp(){
+    overflow: hidden;
+  }
 }
 
 .pickup.is-enter {

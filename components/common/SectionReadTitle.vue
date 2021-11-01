@@ -54,6 +54,11 @@ export default {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
+
+    @include sp(){
+      font-size: 28px;
+      text-indent: -1.5px;
+    }
   }
 }
 
@@ -86,10 +91,20 @@ export default {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.8;
+
+    @include sp(){
+      margin: 0 0 3px 0;
+      font-size: 28px;
+      text-indent: -1.5px;
+    }
   }
 
   & .cmn-title-read-text-01{
     font-size: 20px;
+
+    @include sp(){
+      font-size: 10px;
+    }
   }
 }
 
