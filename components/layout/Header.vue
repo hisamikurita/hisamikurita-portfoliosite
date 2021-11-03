@@ -1,40 +1,38 @@
 <template>
-  <div>
-    <p ref="HeaderLogo" class="header-logo is-top">
-      <NuxtLink to="./"
-        >H<span class="header-logo-text header-logo-fade-text">I</span
-        ><span
-          class="
-            header-logo-text header-logo-move-text header-logo-move-text-01
-          "
-          >S</span
-        ><span class="header-logo-text header-logo-fade-text">A</span
-        ><span
-          class="
-            header-logo-text header-logo-move-text header-logo-move-text-02
-          "
-          >M</span
-        ><span class="header-logo-text header-logo-fade-text">I</span
-        ><span
-          class="
-            header-logo-text header-logo-move-text header-logo-move-text-03
-          "
-          >K</span
-        ><span class="header-logo-text header-logo-fade-text">U</span
-        ><span
-          class="
-            header-logo-text header-logo-move-text header-logo-move-text-04
-          "
-          >R</span
-        ><span class="header-logo-text header-logo-fade-text">I</span
-        ><span
-          class="
-            header-logo-text header-logo-move-text header-logo-move-text-05
-          "
-          >T</span
-        ><span class="header-logo-text header-logo-fade-text">A</span></NuxtLink
-      >
-    </p>
+  <div ref="HeaderLogo" class="header-logo is-top">
+    <NuxtLink to="./"
+      >H<span class="header-logo-text header-logo-fade-text">I</span
+      ><span
+        class="
+          header-logo-text header-logo-move-text header-logo-move-text-01
+        "
+        >S</span
+      ><span class="header-logo-text header-logo-fade-text">A</span
+      ><span
+        class="
+          header-logo-text header-logo-move-text header-logo-move-text-02
+        "
+        >M</span
+      ><span class="header-logo-text header-logo-fade-text">I</span
+      ><span
+        class="
+          header-logo-text header-logo-move-text header-logo-move-text-03
+        "
+        >K</span
+      ><span class="header-logo-text header-logo-fade-text">U</span
+      ><span
+        class="
+          header-logo-text header-logo-move-text header-logo-move-text-04
+        "
+        >R</span
+      ><span class="header-logo-text header-logo-fade-text">I</span
+      ><span
+        class="
+          header-logo-text header-logo-move-text header-logo-move-text-05
+        "
+        >T</span
+      ><span class="header-logo-text header-logo-fade-text">A</span></NuxtLink
+    >
   </div>
 </template>
 

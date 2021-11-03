@@ -8,14 +8,12 @@
               modifier="project-section"
               :state="isTextSegmentState"
               :start="0"
-              :text="[
-                '・',
-                'SELECTED',
-                'PROJECTS',
-              ]"
+              :text="['・', 'SELECTED', 'PROJECTS']"
             ></CommonSectionReadTitle>
           </span>
-          <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
+          <span
+            class="project-loop-title-wrapper project-loop-title-wrapper-01"
+          >
             <CommonTextUnderline
               modifier="index-project-01"
               :state="isTextUnderlineState"
@@ -40,7 +38,9 @@
             >
             </CommonTextLoop>
           </span>
-          <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
+          <span
+            class="project-loop-title-wrapper project-loop-title-wrapper-01"
+          >
             <CommonTextUnderline
               modifier="index-project-02"
               :state="isTextUnderlineState"
@@ -63,7 +63,10 @@
           <div class="l-container">
             <div ref="projectCardAreaClip" class="project-card-area-clip">
               <div v-for="(data, index) in projectData" :key="data.id">
-                <div class="project-card-item" :class="'project-card-item-0' + index">
+                <div
+                  class="project-card-item"
+                  :class="'project-card-item-0' + index"
+                >
                   <CommonCardProject
                     :name="data.name"
                     :title="data.title"
@@ -98,8 +101,7 @@ export default {
     }
   },
 
-  beforeMount(){
-  },
+  beforeMount() {},
 
   mounted() {
     /* card-animation */
@@ -123,13 +125,13 @@ export default {
     // }
 
     /* text-animation */
-    this.observe = this.$refs.ProjectLoopTitle;
+    this.observe = this.$refs.ProjectLoopTitle
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.isTextSegmentState = 'center';
-            this.isTextUnderlineState = 'extend';
+            this.isTextSegmentState = 'center'
+            this.isTextUnderlineState = 'extend'
             this.iObserverTextSegment.unobserve(this.observe)
           }
         })
@@ -143,10 +145,9 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.isLoopTextState = 'isActive';
-          }
-          else{
-            this.isLoopTextState = 'isNoActive';
+            this.isLoopTextState = 'isActive'
+          } else {
+            this.isLoopTextState = 'isNoActive'
           }
         })
       },
@@ -163,11 +164,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.project-bg{
+.project-bg {
   position: relative;
   // background-color: $thinPink;
 
-  @include sp(){
+  @include sp() {
     overflow: hidden;
   }
 }
@@ -175,128 +176,165 @@ export default {
 .project-inner {
   padding: 206px 0 0 0;
 
-  @include sp(){
+  @include sp() {
     padding: 150px 0 0 0;
   }
 }
 
-.project-loop-title{
+.project-loop-title {
   position: relative;
   color: $black;
   font-size: vw(140);
   font-family: 'Six Caps', sans-serif;
   white-space: nowrap;
 
-  @include sp(){
+  @include sp() {
     font-size: vw_sp(160);
   }
 }
 
-.project-loop-title-wrapper{
+.project-loop-title-wrapper {
   display: block;
   position: relative;
   padding: 28px;
 
-  @include sp(){
+  @include sp() {
     padding: 10px 0 8px;
   }
 }
 
-.project-loop-title-read-area{
+.project-loop-title-read-area {
   position: absolute;
   top: -96px;
   right: 160px;
   text-align: right;
 
-  @include sp(){
+  @include sp() {
     top: -91px;
     right: 19px;
   }
 }
 
-.project-card-area{
+.project-card-area {
   position: relative;
   height: 2000px;
 
-  @include sp(){
-    height: 6000px;
+  @include sp() {
+    height: 3000px;
   }
 }
 
-.project .l-container{
+.project .l-container {
   height: 100%;
   padding: 0 160px 0 40px;
 
-  @include sp(){
+  @include sp() {
     padding: 0 20px;
   }
 }
 
-.project-card-area-clip{
+.project-card-area-clip {
   position: relative;
   width: 100%;
   height: 100%;
   margin: 0 160px 0 0;
 
-  @include sp(){
+  @include sp() {
     margin: 0;
   }
 }
 
-.project-card-item{
+.project-card-item {
   position: absolute;
   width: 0;
   height: 0;
 }
 
-.project-card-item-00{
+.project-card-item-00 {
   top: -5.2%;
   right: 34.6%;
 
-  @include sp(){
+  @include sp() {
     top: -1.2%;
-    right: 81.6%;
+    right: 69.6%;
   }
 }
 
-.project-card-item-01{
+.project-card-item-01 {
   top: 8.3%;
   left: 34.5%;
+
+  @include sp() {
+    top: 20.3%;
+    left: 34.5%;
+  }
 }
 
-.project-card-item-02{
+.project-card-item-02 {
   top: 24%;
   left: 11%;
+
+  @include sp() {
+    top: 31%;
+  }
 }
 
-.project-card-item-03{
+.project-card-item-03 {
   top: 2%;
   left: 3.4%;
+
+  @include sp() {
+    top: 9%;
+    left: 0%;
+  }
 }
 
-.project-card-item-04{
+.project-card-item-04 {
   top: 23%;
   right: 27%;
+
+  @include sp() {
+    top: 40.5%;
+  }
 }
 
-.project-card-item-05{
+.project-card-item-05 {
   top: 35%;
   right: 58%;
+
+  @include sp() {
+    top: 51%;
+    right: 72%;
+  }
 }
 
-.project-card-item-06{
+.project-card-item-06 {
   top: 49%;
   right: 32.8%;
+
+  @include sp() {
+    top: 62%;
+    right: 44.8%;
+  }
 }
 
-.project-card-item-07{
+.project-card-item-07 {
   top: 53%;
   left: 22.4%;
+
+  @include sp() {
+    top: 72%;
+    left: 33.4%;
+  }
 }
 
-.project-card-item-08{
+.project-card-item-08 {
   top: 66%;
   left: 4%;
-}
 
+  @include sp() {
+    top: 83%;
+    left: 9%;
+  }
+}
 </style>
