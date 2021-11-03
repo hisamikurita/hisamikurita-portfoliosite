@@ -26,6 +26,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/siteConfig.client.js',
+    '~/plugins/checkDevice.client.js',
     '~/plugins/asscroll.client.js',
     '~/plugins/gsap.client.js',
     '~/plugins/hambergerMenu.client.js',

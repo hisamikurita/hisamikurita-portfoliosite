@@ -1,10 +1,7 @@
 <template>
-  <span class="cmn-text-segment-block">
+  <span ref="CmnTextSegmentBlock" class="cmn-text-segment-block">
     <span ref="CmnTextSegmentWrapper" class="cmn-text-segment-wrapper">
-      <span
-        ref="CmnTextSegment"
-        class="cmn-text-segment"
-      >{{ text }}</span>
+      <span ref="CmnTextSegment" class="cmn-text-segment">{{ text }}</span>
     </span>
   </span>
 </template>
@@ -28,10 +25,16 @@ export default {
       type: String,
       required: true,
     },
+    spAnimation: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   watch: {
     state: function () {
+      if (!this.spAnimation && this.$siteConfig.isMobile) return
+
       switch (this.state) {
         case 'center':
           this.toCenter()
@@ -43,12 +46,12 @@ export default {
           this.toBottom()
           break
         case 'init':
-          if(this.topWrapper) this.topWrapper.kill();
-          if(this.topArray) this.topArray.kill();
-          if(this.centerWrapper) this.centerWrapper.kill();
-          if(this.centerArray) this.centerArray.kill();
-          if(this.bottomWrapper) this.bottomWrapper.kill();
-          if(this.bottomArray) this.bottomArray.kill();
+          if (this.topWrapper) this.topWrapper.kill()
+          if (this.topArray) this.topArray.kill()
+          if (this.centerWrapper) this.centerWrapper.kill()
+          if (this.centerArray) this.centerArray.kill()
+          if (this.bottomWrapper) this.bottomWrapper.kill()
+          if (this.bottomArray) this.bottomArray.kill()
           this.init()
           break
       }
@@ -56,6 +59,8 @@ export default {
   },
 
   mounted() {
+    if (!this.spAnimation && this.$siteConfig.isMobile) return
+
     this.wrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
     this.init()
@@ -74,6 +79,9 @@ export default {
     },
 
     toCenter: function () {
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'auto';
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'auto';
+
       this.centerWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -92,6 +100,9 @@ export default {
     },
 
     toTop: function () {
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none';
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none';
+
       this.topWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -110,6 +121,9 @@ export default {
     },
 
     toBottom: function () {
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none';
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none';
+  
       this.bottomWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
@@ -133,6 +147,8 @@ export default {
 <style lang="scss">
 .cmn-text-segment-block {
   display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .cmn-text-segment-wrapper {

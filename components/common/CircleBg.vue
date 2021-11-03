@@ -52,8 +52,8 @@ export default {
   top: 50%;
   left: 45%;
   transform: translate3d(-50%, -50%, 0);
-  width: 140vmax;
-  height: 140vmax;
+  width: 142vmax;
+  height: 142vmax;
   pointer-events: none;
 }
 
@@ -83,9 +83,20 @@ export default {
 
 .circle-bg-index-contact{
   top: 0;
-  width: 150vmax;
-  height: 150vmax;
+  width: 160vmax;
+  height: 160vmax;
   transform: translate3d(-50%, 0, 0);
+
+  @include tab() {
+    width: 180vmax;
+    height: 180vmax;
+  }
+
+  @include sp(){
+    left: 50%;
+    width: 180vmax;
+    height: 360vmax;
+  }
 }
 
 .circle-bg-element-index-contact{

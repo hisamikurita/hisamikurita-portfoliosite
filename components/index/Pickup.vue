@@ -123,12 +123,14 @@ export default {
 
   beforeDestroy() {
     this.$asscroll.off('update', this.pickupToTopEnterScroll)
-    window.removeEventListener('wheel', this.pickupSceneManager, {
-      passive: false,
-    })
+    window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
+    window.addEventListener('resize', this.pickupResize);
   },
 
   methods: {
+    /**
+     * ピックアップセクションに上から侵入する時
+     */
     pickupToTopEnterScroll() {
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -153,9 +155,8 @@ export default {
               this.isPickupSectionEnter = true
             }, 500)
 
-            window.addEventListener('wheel', this.pickupSceneManager, {
-              passive: false,
-            })
+            window.addEventListener('wheel', this.pickupSceneManager, { passive: false })
+            window.addEventListener('resize', this.pickupResize);
           },
         })
 
@@ -164,18 +165,20 @@ export default {
           ease: this.$easing.transform,
           delay: 0.2,
           y: window.innerHeight / 2,
-          scale: Math.max(window.innerWidth, window.innerHeight) / 64.0,
+          scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
         })
       }
     },
 
+    /**
+     * ピックアップセクションの上から離れる時
+     */
     pickupToTopLeaveScroll() {
       this.$store.commit('indexPickup/leave')
 
       this.isPickupSectionEnter = false
-      window.removeEventListener('wheel', this.pickupSceneManager, {
-        passive: false,
-      })
+      window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
+      window.removeEventListener('resize', this.pickupResize);
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -203,6 +206,9 @@ export default {
       })
     },
 
+    /**
+     * ピックアップセクションに下から侵入する時
+     */
     pickupToBottomEnterScroll() {
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -224,20 +230,29 @@ export default {
             this.pickupScenePrev()
             this.disable(1000)
 
-            window.addEventListener('wheel', this.pickupSceneManager, {
-              passive: false,
-            })
+            window.addEventListener('wheel', this.pickupSceneManager, { passive: false })
+            window.addEventListener('resize', this.pickupResize);
           },
-        })
+        });
+
+      /**
+       * 下から侵入する時にサイズと位置を更新する
+       */
+      this.$gsap.set(this.$refs.PickupCircleEnter, {
+        y: window.innerHeight / 2,
+        scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
+      })
       }
     },
 
+    /**
+     * ピックアップセクションの下に離れる時
+     */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
 
-      window.removeEventListener('wheel', this.pickupSceneManager, {
-        passive: false,
-      })
+      window.removeEventListener('wheel', this.pickupSceneManager, { passive: false })
+      window.removeEventListener('resize', this.pickupResize);
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
@@ -257,6 +272,9 @@ export default {
       })
     },
 
+    /**
+     * 進む時のイベント管理
+     */
     pickupSceneNext() {
       this.pickupSectionCurrentNum += 1.0
 
@@ -290,6 +308,9 @@ export default {
       }
     },
 
+    /**
+     * 戻る時のイベント管理
+     */
     pickupScenePrev() {
       this.pickupSectionCurrentNum += -1.0
 
@@ -319,6 +340,9 @@ export default {
       }
     },
 
+    /**
+     * 全体のシーン管理
+     */
     pickupSceneManager(e) {
       if (this.isWheelAnimation || this.hambergerMenuState) return
 
@@ -331,6 +355,25 @@ export default {
       }
     },
 
+    pickupResize(){
+      /**
+       * リサイズした時に一番目の円の位置と大きさを更新する
+       */
+      this.$gsap.set(this.$refs.PickupCircleEnter, {
+        y: window.innerHeight / 2,
+        scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
+      })
+      /**
+       * リサイズした時にasscrollのcontainerの位置を更新する
+       */
+      const pickupPos = this.$refs.Pickup.offsetTop
+      this.scroll.value = pickupPos
+      this.$asscroll.scrollTo(this.scroll.value)
+    },
+
+    /**
+     * 操作不能
+     */
     disable(interval = 2000) {
       this.isWheelAnimation = true
       setTimeout(() => {

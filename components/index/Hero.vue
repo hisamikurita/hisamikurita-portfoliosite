@@ -32,6 +32,7 @@
                 :start="delay[0]"
                 :rotate="rotateRight"
                 text="FOLIO OF HISAMI KURITA"
+                :sp-animation="false"
               >
               </CommonTextSegment>
             </span>
@@ -47,6 +48,7 @@
                 :start="delay[1]"
                 :rotate="rotateLeft"
                 text="19/AUG.1996"
+                :sp-animation="false"
               >
               </CommonTextSegment>
               <span class="hero-title-wrapper-02-base-area">
@@ -55,6 +57,7 @@
                   :start="0.264"
                   :rotate="rotateLeft"
                   text="( BASED IN TOKYO AND KAWASAKI )"
+                  :sp-animation="false"
                 ></CommonTextSegment>
                 <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-sometimes">
                   <CommonTextSegment
@@ -62,6 +65,7 @@
                     :start="0.352"
                     :rotate="rotateLeft"
                     text="SOMETIMES"
+                    :sp-animation="false"
                   ></CommonTextSegment>
                 </span>
                 <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-allways">
@@ -70,6 +74,7 @@
                     :start="0.432"
                     :rotate="rotateLeft"
                     text="ALLWAYS"
+                    :sp-animation="false"
                   ></CommonTextSegment>
                 </span>
               </span>
@@ -86,6 +91,7 @@
                 :start="delay[2]"
                 :rotate="rotateRight"
                 text="CREATIVE DEVELOPER"
+                :sp-animation="false"
               ></CommonTextSegment>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04">
@@ -100,6 +106,7 @@
                 :start="delay[3]"
                 :rotate="rotateLeft"
                 text="AT LIG INC"
+                :sp-animation="false"
               ></CommonTextSegment>
             </span>
           </span>
@@ -235,6 +242,7 @@ export default {
 
   @include sp(){
     margin: 0 0 20px 0;
+    white-space: nowrap;
   }
 }
 

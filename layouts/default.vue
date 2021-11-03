@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { horizonalReload } from '../lib/horizonalReload';
+
 export default {
   computed: {
     hambergerMenuState: function () {
@@ -51,7 +53,17 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('wheel', this.prEvent, { passive: false })
+    /**
+     * ホイールイベントのデフォルトの動作を止める
+     */
+    if(!this.$checkDevice.isTouch()){
+      window.addEventListener('wheel', this.prEvent, { passive: false });
+    }
+    /**
+     * ブレイクポイントを跨いだ時に強制的にロードさせる
+     */
+    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    mediaQuery.addEventListener('change', horizonalReload);
   },
 
   methods: {

@@ -226,6 +226,10 @@ export default {
 .contact-bg {
   padding: 450px 0 0 0;
 
+  @include tab() {
+    padding: 335px 0 0 0;
+  }
+
   @include sp() {
     padding: 225px 0 80px 0;
   }
@@ -343,8 +347,8 @@ export default {
 
 .contact-card-item-01 {
   position: absolute;
-  top: 55.5%;
-  left: 30%;
+  top: 61.5%;
+  left: 24%;
   transform: rotate(-10deg);
   width: 0;
   height: 0;
@@ -357,8 +361,8 @@ export default {
 
 .contact-card-item-02 {
   position: absolute;
-  top: 39%;
-  right: 15%;
+  top: 52%;
+  right: 38%;
   transform: rotate(10deg);
   width: 0;
   height: 0;

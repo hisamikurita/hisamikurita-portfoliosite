@@ -95,6 +95,11 @@ export default {
   left: 40px;
   width: calc(100% - 200px);
   background-color: $black;
+
+  @include sp(){
+    left: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 .text-under-line--index-project-02 {
@@ -103,6 +108,11 @@ export default {
   left: 40px;
   width: calc(100% - 200px);
   background-color: $black;
+
+  @include sp(){
+    left: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 .text-under-line--about-hero {

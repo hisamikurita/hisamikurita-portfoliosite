@@ -69,6 +69,12 @@ export default {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
+
+    @include sp(){
+      font-size: 28px;
+      text-indent: 0;
+      line-height: 1;
+    }
   }
 }
 

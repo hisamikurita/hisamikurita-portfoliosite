@@ -207,16 +207,29 @@ export default {
   top: -96px;
   right: 160px;
   text-align: right;
+
+  @include sp(){
+    top: -91px;
+    right: 19px;
+  }
 }
 
 .project-card-area{
   position: relative;
   height: 2000px;
+
+  @include sp(){
+    height: 6000px;
+  }
 }
 
 .project .l-container{
   height: 100%;
   padding: 0 160px 0 40px;
+
+  @include sp(){
+    padding: 0 20px;
+  }
 }
 
 .project-card-area-clip{
@@ -224,6 +237,10 @@ export default {
   width: 100%;
   height: 100%;
   margin: 0 160px 0 0;
+
+  @include sp(){
+    margin: 0;
+  }
 }
 
 .project-card-item{
@@ -235,6 +252,11 @@ export default {
 .project-card-item-00{
   top: -5.2%;
   right: 34.6%;
+
+  @include sp(){
+    top: -1.2%;
+    right: 81.6%;
+  }
 }
 
 .project-card-item-01{
@@ -275,13 +297,6 @@ export default {
 .project-card-item-08{
   top: 66%;
   left: 4%;
-}
-
-
-.box{
-  width: 200px;
-  height: 100px;
-  background-color: #fff;
 }
 
 </style>

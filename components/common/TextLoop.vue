@@ -69,6 +69,12 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    this.$asscroll.off('scroll', this.onScrollDirection);
+    this.$asscroll.off('scroll', this.onScrollTween);
+    cancelAnimationFrame(this.raf);
+  },
+
   methods: {
     onScrollDirection: function () {
       if(this.scrollDirectionFlag) return;
