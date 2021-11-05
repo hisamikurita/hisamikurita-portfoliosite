@@ -191,20 +191,19 @@ export default {
               }
             )
           }, 300)
-        } else if (this.$siteConfig.isMobile) {
+        }
+        else if (this.$siteConfig.isMobile) {
           /**
            * btn
            */
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
             ease: this.$easing.transform,
-            x: (-window.innerWidth / 2.0) + 30,
+            x: (-window.innerWidth / 2.0) + 30 + 20,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
             ease: this.$easing.transform,
-            width: 60,
-            height: 60,
             borderRadius: 100,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
@@ -234,8 +233,13 @@ export default {
             delay: 0.2,
             duration: 0.2,
             ease: this.$easing.transform,
-            width: window.innerWidth,
-            height: window.innerHeight - 16 - 10,
+            scaleY: 1,
+          })
+          this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
+            delay: 0.4,
+            duration: 0.2,
+            ease: this.$easing.transform,
+            scaleY: 1,
           })
         }
       } else if (!this.hambergerMenuState) {
@@ -342,6 +346,56 @@ export default {
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
           }, 300)
         }
+        else if (this.$siteConfig.isMobile) {
+          /**
+           * btn
+           */
+          this.$gsap.to(this.$refs.HambergerMenuBtn, {
+            duration: 0.2,
+            ease: this.$easing.transform,
+            x: 0,
+          })
+          this.$gsap.to(this.$refs.HambergerMenuBtn, {
+            duration: 0.2,
+            ease: this.$easing.transform,
+            borderRadius: 10,
+          })
+          this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
+            duration: 0.2,
+            ease: this.$easing.colorAndOpacity,
+            boxShadow: 'none',
+          })
+          /**
+           * ico
+           */
+          this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
+            duration: 0.2,
+            ease: this.$easing.transform,
+            top: 0,
+            rotate: 0,
+          })
+          this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
+            duration: 0.2,
+            ease: this.$easing.transform,
+            bottom: 0,
+            rotate: 0,
+          })
+          /**
+           * bg
+           */
+          this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
+            delay: 0.2,
+            duration: 0.2,
+            ease: this.$easing.transform,
+            scaleY: 0,
+          })
+          this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
+            delay: 0.4,
+            duration: 0.2,
+            ease: this.$easing.transform,
+            scaleY: 0,
+          })
+        }
       }
     },
   },
@@ -393,9 +447,12 @@ export default {
 
   @include sp() {
     top: 16px;
-    left: auto;
-    right: -20px;
+    left: calc(-100vw + 60px + 20px);
+    width: 100vw;
+    height: calc(100vh - 26px);
     border-radius: 0;
+    transform: scaleY(0);
+    transform-origin: top;
   }
 }
 
@@ -413,9 +470,11 @@ export default {
   box-shadow: 1px 1px 50px 77px #a4a39d inset;
 
   @include sp() {
-    right: -20px;
-    width: 100%;
-    transform: scaleX(1);
+    top: 36px;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 46px - 20px);
+    transform: scaleY(0);
+    transform-origin: top;
   }
 }
 
