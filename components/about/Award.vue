@@ -38,8 +38,6 @@ export default {
         x: e.clientX,
         y: e.clientY,
       })
-      console.log(e.clientX)
-      console.log(e.clientY)
     })
   },
 }
@@ -48,6 +46,7 @@ export default {
 <style lang="scss" scoped>
 .award{
   position: relative;
+  overflow: hidden;
 }
 
 .award-bg {

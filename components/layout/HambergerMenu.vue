@@ -194,6 +194,13 @@ export default {
         }
         else if (this.$siteConfig.isMobile) {
           /**
+           * contents
+           */
+          this.$gsap.set(this.$refs.HambergerMenuContents, {
+            autoAlpha: 1.0,
+          })
+          this.$refs.HambergerMenuContents.style.pointerEvents = 'auto'
+          /**
            * btn
            */
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
@@ -211,6 +218,7 @@ export default {
             ease: this.$easing.colorAndOpacity,
             boxShadow: '0px 0px 5px 3px #bfbeb8',
           })
+          window.addEventListener('resize', this.hambergerMenuBtnOnResize)
           /**
            * ico
            */
@@ -241,6 +249,24 @@ export default {
             ease: this.$easing.transform,
             scaleY: 1,
           })
+          /**
+           * text
+           */
+          setTimeout(() => {
+            this.isTextSegmentState = 'center'
+            this.itemLinkCenter = this.$gsap.to(
+              this.$refs.hambergerMenuItemLink,
+              {
+                duration: this.$baseAnimationConfig.duration,
+                delay: 0.36,
+                ease: this.$easing.transform,
+                stagger: {
+                  each: 0.12,
+                },
+                y: 0,
+              }
+            )
+          }, 500)
         }
       } else if (!this.hambergerMenuState) {
       /**
@@ -365,6 +391,7 @@ export default {
             ease: this.$easing.colorAndOpacity,
             boxShadow: 'none',
           })
+          window.removeEventListener('resize', this.hambergerMenuBtnOnResize)
           /**
            * ico
            */
@@ -395,6 +422,37 @@ export default {
             ease: this.$easing.transform,
             scaleY: 0,
           })
+          /**
+           * text
+           */
+          // this.isTextSegmentState = 'top'
+          // this.itemLinkBottom = this.$gsap.to(
+          //   this.$refs.hambergerMenuItemLink,
+          //   {
+          //     duration: this.$baseAnimationConfig.duration,
+          //     delay: 0.36,
+          //     ease: this.$easing.transform,
+          //     stagger: {
+          //       each: 0.12,
+          //     },
+          //     y: -180,
+          //   }
+          // )
+          /**
+           * init
+           */
+          setTimeout(() => {
+            this.isTextSegmentState = 'init'
+            this.$gsap.set(this.$refs.HambergerMenuContents, {
+              autoAlpha: 0.0,
+            })
+            if (this.itemLinkCenter) this.itemLinkCenter.kill()
+            if (this.itemLinkBottom) this.itemLinkBottom.kill()
+            this.$gsap.set(this.$refs.hambergerMenuItemLink, {
+              y: 180,
+            })
+            this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
+          }, 600)
         }
       }
     },
@@ -410,6 +468,11 @@ export default {
         this.$store.commit('hambergerMenu/open')
       }
     },
+    hambergerMenuBtnOnResize(){
+      this.$gsap.set(this.$refs.HambergerMenuBtn, {
+        x: (-window.innerWidth / 2.0) + 30 + 20,
+      })
+    }
   },
 }
 </script>
@@ -451,10 +514,10 @@ export default {
   transform-origin: right;
 
   @include sp() {
-    top: 16px;
+    top: 22px;
     left: calc(-100vw + 60px + 20px);
     width: 100vw;
-    height: calc(var(--viewportHeight) - 26px);
+    height: calc(var(--viewportHeight) - 32px);
     border-radius: 0;
     transform: scaleY(0);
     transform-origin: top;
@@ -475,9 +538,10 @@ export default {
   box-shadow: 1px 1px 50px 77px #a4a39d inset;
 
   @include sp() {
-    top: 36px;
-    width: calc(100vw - 40px);
-    height: calc(var(--viewportHeight) - 46px - 20px);
+    top: 42px;
+    right: -10px;
+    width: calc(100vw - 20px);
+    height: calc(var(--viewportHeight) - 52px - 20px);
     transform: scaleY(0);
     transform-origin: top;
   }
@@ -493,6 +557,12 @@ export default {
   overflow: scroll;
   opacity: 0;
   pointer-events: none;
+
+  @include sp() {
+    right: 0;
+    width: 100%;
+    padding: 38px 8px;
+  }
 }
 
 .hambergerMenu-title {
@@ -502,10 +572,19 @@ export default {
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+
+  @include sp() {
+    margin: 0 0 46px 0;
+    font-size: vw_sp(216);
+  }
 }
 
 .hambergerMenu-section-title {
   margin: 0 0 36px 0;
+
+  @include sp() {
+    margin: 0 0 34px 0;
+  }
 }
 
 .hambergerMenu-title-wrapper-01 {
@@ -522,6 +601,10 @@ export default {
 
   &:not(:last-of-type) {
     margin: 0 0 20px 0;
+
+    @include sp() {
+      margin: 0 0 17px 0;
+    }
   }
 }
 
@@ -537,6 +620,11 @@ export default {
   font-size: 56px;
   font-family: 'Six Caps', sans-serif;
   text-align: center;
+
+  @include sp() {
+    margin: 0 0 12px 0;
+    font-size: vw_sp(96);
+  }
 }
 
 .hambergerMenu-item-desc {
@@ -555,6 +643,12 @@ export default {
   margin: 0 20px 0 0;
   overflow: hidden;
   border-radius: 14px;
+
+  @include sp() {
+    width: vw_sp(215);
+    height: vw_sp(215);
+    border-radius: 4px;
+  }
 
   & img {
     position: absolute;

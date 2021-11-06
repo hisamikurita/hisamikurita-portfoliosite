@@ -134,6 +134,7 @@ export default {
 <style lang="scss" scoped>
 .hero{
   position: relative;
+  overflow: hidden;
 }
 
 .hero-inner {

@@ -5,6 +5,7 @@ export default (context, inject) => {
     isMobile: false,
   }
 
+
   if(window.innerWidth > siteConfig.breakPoint){
     siteConfig.isPc = true;
   }

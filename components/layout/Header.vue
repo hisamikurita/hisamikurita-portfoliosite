@@ -38,8 +38,15 @@
 
 <script>
 export default {
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
   mounted() {
     this.$asscroll.on('scroll', () => {
+      if(this.hambergerMenuState) return;
+
       if (this.$asscroll.targetPos < 1.0) {
         this.$refs.HeaderLogo.classList.add('is-top')
       } else {

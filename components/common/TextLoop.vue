@@ -51,6 +51,12 @@ export default {
     }
   },
 
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
+
   watch: {
     loop: function () {
       switch (this.loop) {
@@ -77,7 +83,7 @@ export default {
 
   methods: {
     onScrollDirection: function () {
-      if(this.scrollDirectionFlag) return;
+      if(this.scrollDirectionFlag || this.hambergerMenuState) return;
 
       const currentPos = this.$asscroll.targetPos;
       if (currentPos > this.startPos) {
@@ -102,6 +108,8 @@ export default {
     },
 
     onScrollTween: function(){
+      if(this.hambergerMenuState) return;
+
       this.$gsap.to(this.tweenPosition, {
         duration: this.$baseAnimationConfig.duration / 1.5,
         ease: 'none',
@@ -110,6 +118,10 @@ export default {
     },
 
     render: function () {
+      this.raf = window.requestAnimationFrame(this.render)
+
+      if(this.hambergerMenuState) return;
+
       this.position.value += this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed)
 
       if (this.position.value < -this.$refs.CmnLoopTextBlock.clientWidth / 3.01) {
@@ -121,8 +133,6 @@ export default {
 
       this.$refs.CmnLoopTextBlock.style.transform = `translate3d(${-this.$refs.CmnLoopTextBlock.clientWidth / 3}px, 0, 0)`
       this.$refs.CmnLoopTextWrapper.style.transform = `translate3d(${this.position.value}px, 0, 0)`
-
-      this.raf = window.requestAnimationFrame(this.render)
     },
   },
 }
