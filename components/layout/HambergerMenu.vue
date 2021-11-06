@@ -415,6 +415,11 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --viewportWidth: 0;
+  --viewportHeight: 0;
+}
+
 .hambergerMenu {
   position: fixed;
   top: 0;
@@ -449,7 +454,7 @@ export default {
     top: 16px;
     left: calc(-100vw + 60px + 20px);
     width: 100vw;
-    height: calc(100vh - 26px);
+    height: calc(var(--viewportHeight) - 26px);
     border-radius: 0;
     transform: scaleY(0);
     transform-origin: top;
@@ -472,7 +477,7 @@ export default {
   @include sp() {
     top: 36px;
     width: calc(100vw - 40px);
-    height: calc(100vh - 46px - 20px);
+    height: calc(var(--viewportHeight) - 46px - 20px);
     transform: scaleY(0);
     transform-origin: top;
   }

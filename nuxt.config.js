@@ -26,6 +26,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/viewport.client.js',
+    '~/plugins/backfaceFixed.client.js',
     '~/plugins/horizonReload.client.js',
     '~/plugins/siteConfig.client.js',
     '~/plugins/checkDevice.client.js',

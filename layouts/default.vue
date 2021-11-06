@@ -26,10 +26,6 @@ export default {
        * ハンバガーメニューが開いた時
        */
       if (this.hambergerMenuState) {
-        /**
-         * asscrollを無効にする
-         */
-        this.$asscroll.disable({ inputOnly: true })
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
@@ -38,16 +34,21 @@ export default {
             x: -560,
           })
         }
-        window.removeEventListener('wheel', this.prEvent, { passive: false })
+        if (this.$checkDevice.isTouch()) {
+          this.$backfaceScroll(false);
+        }
+        else {
+          /**
+           * asscrollを無効にする
+           */
+          this.$asscroll.disable({ inputOnly: true })
+          window.removeEventListener('wheel', this.prEvent, { passive: false })
+        }
       }
       /**
        * ハンバガーメニューが閉じた時
        */
       else if (!this.hambergerMenuState) {
-        /**
-         * ピックアップセクションだった場合はasscrollを有効しない
-         */
-        if (!this.indexPickupState) this.$asscroll.enable()
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
@@ -56,7 +57,16 @@ export default {
             x: 0,
           })
         }
-        window.addEventListener('wheel', this.prEvent, { passive: false })
+        if (this.$checkDevice.isTouch()) {
+          this.$backfaceScroll(true);
+        }
+        else {
+          /**
+           * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
+           */
+          if (!this.indexPickupState) this.$asscroll.enable()
+          window.addEventListener('wheel', this.prEvent, { passive: false })
+        }
       }
     },
   },
