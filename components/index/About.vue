@@ -23,7 +23,7 @@
                 :state="isTextSegmentState"
                 :start="0"
                 :rotate="rotateRight"
-                text="Lorem ipsum dolor sit amet, consectetur adipiscing"
+                text="IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA"
               >
               </CommonTextSegment>
             </span>
@@ -32,7 +32,7 @@
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="rotateLeft"
-                text="elit, Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+                text="TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION"
               >
               </CommonTextSegment>
             </span>
@@ -41,7 +41,7 @@
                 :state="isTextSegmentState"
                 :start="0.24"
                 :rotate="rotateRight"
-                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, Lore"
+                text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
               >
               </CommonTextSegment>
             </span>
@@ -50,7 +50,7 @@
                 :state="isTextSegmentState"
                 :start="0.36"
                 :rotate="rotateLeft"
-                text="m ipsum dolor sit amet, consectetur adipiscing elit,"
+                text="ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS."
               >
               </CommonTextSegment>
             </span>
@@ -60,10 +60,10 @@
               :state="isTextSegmentState"
               :start="0.48"
               :text="[
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-                'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim',
-                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ',
-                'commodo consequat. Duis aute ir',
+                'THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND',
+                'GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT',
+                'ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN,',
+                'BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.',
               ]"
             ></CommonSectionReadTitle>
           </p>
@@ -143,11 +143,11 @@ export default {
 
 .about-title-wrapper {
   display: block;
-  text-align: right;
 }
 
 .about-title-wrapper-01 {
   padding: 0 0 0 vw(156);
+  text-align: right;
 }
 
 .about-title-wrapper-04 {

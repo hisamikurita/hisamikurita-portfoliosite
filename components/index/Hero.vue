@@ -143,10 +143,10 @@
             :subtitle="'(ABOUT ME)'"
             :link="'about'"
             :text="[
-              'LOREM IPSUM DOLOR SIT',
-              'AMET, CONSECTETUR',
-              'ADIPISCING ELIT, SED DO',
-              'EIUSMOD TEMPOR INCIDI'
+              'HELLO. IF YOU WANT TO KNOW MORE',
+              'ABOUT ME, PLEASE CLICK ON THIS',
+              'CARD. BY THE WAY,',
+              'YOU CAN THROW THIS CARD AWAY!'
             ]"
             :rotate="8"
             :xspeed="0.01"
