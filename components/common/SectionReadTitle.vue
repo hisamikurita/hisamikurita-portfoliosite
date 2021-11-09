@@ -82,11 +82,21 @@ export default {
   font-size: 14px;
   text-align: right;
 
+  @include sp() {
+    font-size: 10px;
+  }
+
   & .cmn-title-read-text-00{
     position: relative;
     left: 4px;
     font-size: 36px;
     line-height: 0.79;
+
+    @include sp(){
+      font-size: 28px;
+      text-indent: 0;
+      line-height: 0.86;
+    }
   }
 }
 

@@ -143,10 +143,11 @@
             :subtitle="'(ABOUT ME)'"
             :link="'about'"
             :text="[
-              'HELLO. IF YOU WANT TO KNOW MORE',
-              'ABOUT ME, PLEASE CLICK ON THIS',
-              'CARD. BY THE WAY,',
-              'YOU CAN THROW THIS CARD AWAY!'
+              'YOU CAN CLICK AND,',
+              'SHOW ABOUT ME.',
+              'BY THE WAY,',
+              'YOU CAN THROW',
+              'THIS CARD AWAY',
             ]"
             :rotate="8"
             :xspeed="0.01"
@@ -178,9 +179,9 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.$asscroll.on('update', this.bgCircleScaleChangeScroll)
+            this.$gsap.ticker.add(this.bgCircleScaleChangeScroll);
           } else {
-            this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
+            this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
           }
         })
       },
@@ -191,7 +192,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$asscroll.off('update', this.bgCircleScaleChangeScroll)
+    this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
   },
 
   methods: {

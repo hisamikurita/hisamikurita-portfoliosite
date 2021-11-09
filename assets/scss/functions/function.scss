@@ -8,6 +8,14 @@
   @return math.div($size, 800) * 100vh;
 }
 
+@function vmin($size) {
+  @return math.div($size, 1280) * 100vmin;
+}
+
+@function vmin_sp($size) {
+  @return math.div($size, 750) * 100vmin;
+}
+
 @function vw_sp($size) {
   @return math.div($size, 750) * 100vw;
 }

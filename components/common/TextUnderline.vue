@@ -87,6 +87,12 @@ export default {
     right: vw(56);
     width: calc(100% - #{vw(56)} - 40px);
   }
+
+  @include sp(){
+    width: calc(100% - #{vw_sp(40)});
+    bottom: -34px;
+    right: vw_sp(20);
+  }
 }
 
 .text-under-line--index-project-01 {

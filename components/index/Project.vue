@@ -166,11 +166,7 @@ export default {
 <style scoped lang="scss">
 .project-bg {
   position: relative;
-  // background-color: $thinPink;
-
-  @include sp() {
-    overflow: hidden;
-  }
+  overflow: hidden;
 }
 
 .project-inner {

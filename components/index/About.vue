@@ -4,12 +4,6 @@
       <div class="about-inner">
         <div class="l-container">
           <h2 ref="AboutTitleTrigger" class="about-title">
-            <CommonTextUnderline
-              modifier="index-about"
-              :state="isTextUnderlineState"
-              :start="0.6"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
             <span class="about-title-read-area">
               <CommonSectionReadTitle
                 modifier="section"
@@ -18,54 +12,72 @@
                 :text="['・', 'ABOUT']"
               ></CommonSectionReadTitle>
             </span>
-            <span class="about-title-wrapper about-title-wrapper-01">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0"
-                :rotate="rotateRight"
-                text="IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA"
-              >
-              </CommonTextSegment>
+            <span class="pc-only">
+              <span class="about-title-wrapper about-title-wrapper-01">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0"
+                  :rotate="rotateRight"
+                  text="IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA"
+                  :sp-animation="false"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="about-title-wrapper about-title-wrapper-02">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="rotateLeft"
+                  text="TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION"
+                  :sp-animation="false"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="about-title-wrapper about-title-wrapper-03">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.24"
+                  :rotate="rotateRight"
+                  text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
+                  :sp-animation="false"
+                >
+                </CommonTextSegment>
+              </span>
+              <span class="about-title-wrapper about-title-wrapper-04">
+                <CommonTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.36"
+                  :rotate="rotateLeft"
+                  text="ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS."
+                  :sp-animation="false"
+                >
+                </CommonTextSegment>
+              </span>
             </span>
-            <span class="about-title-wrapper about-title-wrapper-02">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.12"
-                :rotate="rotateLeft"
-                text="TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION"
-              >
-              </CommonTextSegment>
+            <span class="sp-only">
+              <span class="about-title-wrapper-sp about-title-wrapper-01-sp">IN THE SUMMER OF 22, I</span>STARTED PROGRAMMING. IT WA<br>S LATER THAN MOST, BUT I THI<br>NK I FOUND SOMETHING THAT I<br>WAS PASSIONATE ABOUT. I'VE B<br>EEN WRITING CODE EVERY DAY<br>EVER SINCE. MY GREATEST STRE<br>NGTH IS MY NEVER-ENDING INQ<br>UISITIVENESS.
             </span>
-            <span class="about-title-wrapper about-title-wrapper-03">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.24"
-                :rotate="rotateRight"
-                text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
-              >
-              </CommonTextSegment>
-            </span>
-            <span class="about-title-wrapper about-title-wrapper-04">
-              <CommonTextSegment
-                :state="isTextSegmentState"
-                :start="0.36"
-                :rotate="rotateLeft"
-                text="ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS."
-              >
-              </CommonTextSegment>
-            </span>
+            <CommonTextUnderline
+              modifier="index-about"
+              :state="isTextUnderlineState"
+              :start="0.6"
+              :rotate="rotateLeft"
+            ></CommonTextUnderline>
           </h2>
           <p class="about-read-text">
-            <CommonSectionReadTitle
-              :state="isTextSegmentState"
-              :start="0.48"
-              :text="[
-                'THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND',
-                'GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT',
-                'ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN,',
-                'BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.',
-              ]"
-            ></CommonSectionReadTitle>
+            <span class="pc-only">
+              <CommonSectionReadTitle
+                :state="isTextSegmentState"
+                :start="0.48"
+                :text="[
+                  'THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND',
+                  'GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT',
+                  'ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN,',
+                  'BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.',
+                ]"
+              ></CommonSectionReadTitle>
+            </span>
+            <span class="sp-only">THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span>
           </p>
         </div>
       </div>
@@ -116,6 +128,10 @@ export default {
 
 .about-inner {
   padding: 333px 0 258px 0;
+
+  @include sp(){
+    padding: 118px 0;
+  }
 }
 
 .about-title {
@@ -131,6 +147,15 @@ export default {
 
   @include tab {
     padding: 0 vw(56) 0 vw(40);
+    line-height: 1;
+  }
+
+  @include sp(){
+    width: auto;
+    margin: 0 0 54px 0;
+    padding: 0 vw_sp(20);
+    font-size: vw_sp(120);
+    white-space: nowrap;
   }
 }
 
@@ -139,6 +164,10 @@ export default {
   top: -4px;
   left: 42px;
   color: $white;
+
+  @include sp(){
+    left: 9px;
+  }
 }
 
 .about-title-wrapper {
@@ -154,6 +183,11 @@ export default {
   padding: 0 vw(150) 0 0;
 }
 
+.about-title-wrapper-01-sp{
+  display: block;
+  text-align: right;
+}
+
 .about-read-text {
   width: vw(1090);
   color: $darkBlue;
@@ -164,6 +198,14 @@ export default {
 
   @include tab {
     padding: 0 vw(56) 0 vw(40);
+  }
+
+  @include sp(){
+    width: calc(270px + #{vw_sp(20)});
+    margin: 0 0 0 auto;
+    padding: 0 vw_sp(20);
+    font-size: 10px;
+    line-height: 1.3;
   }
 }
 </style>

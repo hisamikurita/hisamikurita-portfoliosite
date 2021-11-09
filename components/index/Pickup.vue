@@ -5,12 +5,14 @@
     :class="{ 'is-enter': isPickupSectionEnter }"
   >
     <span ref="PickupCircleEnter" class="pickup-circle-bg-enter"></span>
-    <CommonCircleBg :state="isCircleBgState02" modifier="pickup-02">
-    </CommonCircleBg>
-    <CommonCircleBg :state="isCircleBgState03" modifier="pickup-03">
-    </CommonCircleBg>
-    <CommonCircleBg :state="isCircleBgState04" modifier="pickup-04">
-    </CommonCircleBg>
+    <span class="pickup-circle-bg-area">
+      <CommonCircleBg :state="isCircleBgState02" modifier="pickup-02">
+      </CommonCircleBg>
+      <CommonCircleBg :state="isCircleBgState03" modifier="pickup-03">
+      </CommonCircleBg>
+      <CommonCircleBg :state="isCircleBgState04" modifier="pickup-04">
+      </CommonCircleBg>
+    </span>
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
@@ -118,6 +120,9 @@ export default {
   },
 
   mounted() {
+          this.isTextSegmentState[1] = 'center'
+          this.isTextSegmentState[2] = 'center'
+          this.isTextSegmentState[3] = 'center'
     this.$asscroll.on('update', this.pickupToTopEnterScroll)
   },
 
@@ -387,10 +392,8 @@ export default {
 <style scoped lang="scss">
 .pickup {
   position: relative;
-
-  @include sp(){
-    overflow: hidden;
-  }
+  // @include sp(){
+  // }
 }
 
 .pickup.is-enter {
@@ -399,6 +402,11 @@ export default {
 
 .pickup-bg {
   background-color: $lightBlue;
+
+  @include sp() {
+    position: relative;
+    overflow: hidden;
+  }
 }
 
 .pickup-inner {
@@ -424,12 +432,23 @@ export default {
   font-family: 'Six Caps', sans-serif;
   text-align: center;
   line-height: 0.98;
+
+  @include sp() {
+    top: 41%;
+    left: 50%;
+    font-size: vmin_sp(126);
+  }
 }
 
 .pickup-section-number-wrapper {
   position: absolute;
   top: 70px;
   right: 115px;
+
+  @include sp() {
+    top: 53px;
+    right: 0;
+  }
 }
 
 .pickup-title-wrapper-01,
@@ -451,12 +470,26 @@ export default {
   position: absolute;
   bottom: 86px;
   left: 0;
+
+  @include sp() {
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: vw_sp(670);
+  }
 }
 
 .pickup-section-text-title {
   display: block;
   margin: 0 0 60px 0;
   font-size: 20px;
+
+  @include sp() {
+    margin: 0;
+    font-size: 18px;
+  }
 }
 
 .pickup-circle-bg-enter {
@@ -471,5 +504,23 @@ export default {
   height: 80px;
   border-radius: 50%;
   pointer-events: none;
+
+  @include sp() {
+    top: 50%;
+    right: auto;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    margin: 0;
+  }
+}
+
+.pickup-circle-bg-area{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
 }
 </style>
