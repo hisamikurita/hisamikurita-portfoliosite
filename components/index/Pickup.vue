@@ -123,11 +123,11 @@ export default {
           this.isTextSegmentState[1] = 'center'
           this.isTextSegmentState[2] = 'center'
           this.isTextSegmentState[3] = 'center'
-    this.$asscroll.on('update', this.pickupToTopEnterScroll)
+          this.$gsap.ticker.add(this.pickupToTopEnterScroll);
   },
 
   beforeDestroy() {
-    this.$asscroll.off('update', this.pickupToTopEnterScroll)
+    this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
     window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
     window.addEventListener('resize', this.pickupResize);
   },
@@ -143,15 +143,21 @@ export default {
 
       if (this.$asscroll.targetPos > pickupTopPos) {
         this.$store.commit('indexPickup/enter')
-        this.$asscroll.off('update', this.pickupToTopEnterScroll)
-        this.$asscroll.disable({ inputOnly: true })
+        this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
+        if (!this.$checkDevice.isTouch()) {
+          this.$asscroll.disable({ inputOnly: true })
+        }
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
           duration: this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
-            this.$asscroll.scrollTo(this.scroll.value)
+            if (!this.$checkDevice.isTouch()) {
+              this.$asscroll.scrollTo(this.scroll.value)
+            }else{
+              window.scrollTo({ top: this.scroll.value })
+            }
           },
           onComplete: () => {
             this.pickupSceneNext()
@@ -160,6 +166,9 @@ export default {
               this.isPickupSectionEnter = true
             }, 500)
 
+            if (this.$checkDevice.isTouch()) {
+              this.$backfaceScroll(false);
+            }
             window.addEventListener('wheel', this.pickupSceneManager, { passive: false })
             window.addEventListener('resize', this.pickupResize);
           },
