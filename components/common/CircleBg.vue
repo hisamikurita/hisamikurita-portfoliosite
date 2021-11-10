@@ -55,6 +55,12 @@ export default {
   width: 142vmax;
   height: 142vmax;
   pointer-events: none;
+
+  @include sp(){
+    left: 50%;
+    width: 120vmax;
+    height: 120vmax;
+  }
 }
 
 .circle-bg-element{

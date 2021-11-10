@@ -112,12 +112,15 @@
           </span>
           <span class="sp-only">
             <span class="hero-title-wrapper hero-title-wrapper-01-sp">
+              <span class="hero-text-underline"></span>
               FOLIO OF
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02-sp">
+              <span class="hero-text-underline"></span>
               HISAMI KURITA
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03-sp">
+              <span class="hero-text-underline"></span>
               19/AUG.1996
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04-sp">
@@ -126,12 +129,15 @@
               <span class="hero-title-wrapper-04-02-sp">ALLWAYS</span>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-05-sp">
+              <span class="hero-text-underline"></span>
               CREATIVE
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-06-sp">
+              <span class="hero-text-underline"></span>
               DEVELOPER
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-07-sp">
+              <span class="hero-text-underline"></span>
               AT LIG INC
             </span>
           </span>
@@ -212,7 +218,7 @@ export default {
   padding: 92px 0;
 
   @include sp(){
-    padding: 106px 0;
+    padding: 106px vw_sp(20);
   }
 }
 
@@ -270,25 +276,38 @@ export default {
 }
 
 .hero-title-wrapper-01-sp{
-  text-align: right;
+  width: vw_sp(335);
+  margin: 0 0 vw_sp(40) auto;
+}
+
+.hero-title-wrapper-02-sp{
+  width: vw_sp(586);
+  margin: 0 0 vw_sp(34) 0;
 }
 
 .hero-title-wrapper-03-sp{
-  margin: 0 0 10px 42px;
+  width: vw_sp(504);
+  margin: 0 0 vw_sp(28) 42px;
 }
 
 .hero-title-wrapper-04-sp{
   position: relative;
-  margin: 0 0 38px 45px;
+  margin: 0 0 vw_sp(76) 45px;
   font-size: vw_sp(80);
 }
 
 .hero-title-wrapper-05-sp{
-  margin: 0 0 20px 18px;
+  width: vw_sp(367);
+  margin: 0 0 vw_sp(40) 18px;
 }
 
 .hero-title-wrapper-06-sp{
-  margin: 0 0 20px 102px;
+  width: vw_sp(420);
+  margin: 0 0 vw_sp(40) 102px;
+}
+
+.hero-title-wrapper-07-sp{
+  width: vw_sp(406);
 }
 
 .hero-title-wrapper-04-01-sp{
@@ -329,6 +348,15 @@ export default {
 
 .hero-title-wrapper-02-base-area-helvetica-allways {
   left: vw(380);
+}
+
+.hero-text-underline{
+  position: absolute;
+  top: -7px;
+  left: 0;
+  background-color: $white;
+  width: 100%;
+  height: 1px;
 }
 
 .hero-bg-circle-01 {

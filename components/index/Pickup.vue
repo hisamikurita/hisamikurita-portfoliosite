@@ -120,14 +120,15 @@ export default {
   },
 
   mounted() {
-          this.isTextSegmentState[1] = 'center'
-          this.isTextSegmentState[2] = 'center'
-          this.isTextSegmentState[3] = 'center'
-          this.$gsap.ticker.add(this.pickupToTopEnterScroll);
+    // this.isTextSegmentState[1] = 'center'
+    // this.isTextSegmentState[2] = 'center'
+    // this.isTextSegmentState[3] = 'center'
+    this.$gsap.ticker.add(this.pickupToTopEnterScroll);
   },
 
   beforeDestroy() {
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
+    this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
     window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
     window.addEventListener('resize', this.pickupResize);
   },
@@ -137,13 +138,24 @@ export default {
      * ピックアップセクションに上から侵入する時
      */
     pickupToTopEnterScroll() {
+
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
 
+      // console.log('enter')
+      // console.log(this.$asscroll.targetPos)
+      // console.log(this.$refs.Pickup.offsetTop)
+      // console.log(window.innerHeight)
+
+
       if (this.$asscroll.targetPos > pickupTopPos) {
         this.$store.commit('indexPickup/enter')
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
+
+        /**
+         * asscrollが有効な時
+         */
         if (!this.$checkDevice.isTouch()) {
           this.$asscroll.disable({ inputOnly: true })
         }
@@ -153,9 +165,16 @@ export default {
           duration: this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
+            /**
+             * asscrollが有効な時
+             */
             if (!this.$checkDevice.isTouch()) {
               this.$asscroll.scrollTo(this.scroll.value)
-            }else{
+            }
+            /**
+             * asscrollが無効な時
+             */
+            else{
               window.scrollTo({ top: this.scroll.value })
             }
           },
@@ -166,6 +185,9 @@ export default {
               this.isPickupSectionEnter = true
             }, 500)
 
+            /**
+             * asscrollが無効な時
+             */
             if (this.$checkDevice.isTouch()) {
               this.$backfaceScroll(false);
             }
@@ -174,13 +196,23 @@ export default {
           },
         })
 
-        this.$gsap.to(this.$refs.PickupCircleEnter, {
-          duration: this.$baseAnimationConfig.duration * 1.2,
-          ease: this.$easing.transform,
-          delay: 0.2,
-          y: window.innerHeight / 2,
-          scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
-        })
+        if (this.$siteConfig.isPc) {
+            this.$gsap.to(this.$refs.PickupCircleEnter, {
+            duration: this.$baseAnimationConfig.duration * 1.2,
+            ease: this.$easing.transform,
+            delay: 0.2,
+            y: window.innerHeight / 2,
+            scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
+          })
+        }
+        else{
+            this.$gsap.to(this.$refs.PickupCircleEnter, {
+            duration: this.$baseAnimationConfig.duration * 1.2,
+            ease: this.$easing.transform,
+            delay: 0.2,
+            scale: 1,
+          })
+        }
       }
     },
 
@@ -188,9 +220,15 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-      this.$store.commit('indexPickup/leave')
 
-      this.isPickupSectionEnter = false
+      this.$store.commit('indexPickup/leave')
+      this.isPickupSectionEnter = false;
+      /**
+       * asscrollが無効な時
+       */
+      if (this.$checkDevice.isTouch()) {
+        this.$backfaceScroll(true);
+      }
       window.removeEventListener('wheel', this.pickupSceneManager, { passive: false,})
       window.removeEventListener('resize', this.pickupResize);
 
@@ -201,23 +239,49 @@ export default {
         duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
-          this.$asscroll.scrollTo(this.scroll.value)
+          /**
+           * asscrollが有効な時
+           */
+          if (!this.$checkDevice.isTouch()) {
+            this.$asscroll.scrollTo(this.scroll.value)
+          }
+          /**
+           * asscrollが無効な時
+           */
+          else{
+            window.scrollTo({ top: this.scroll.value })
+          }
         },
         onComplete: () => {
           setTimeout(() => {
-            this.$asscroll.on('update', this.pickupToTopEnterScroll)
-            this.$asscroll.enable()
+            this.$gsap.ticker.add(this.pickupToTopEnterScroll);
+            /**
+             * asscrollが有効な時
+             */
+            if (!this.$checkDevice.isTouch()) {
+              this.$asscroll.enable()
+            }
           }, 100)
         },
       })
 
-      this.$gsap.to(this.$refs.PickupCircleEnter, {
-        duration: this.$baseAnimationConfig.duration * 1.2,
-        ease: this.$easing.transform,
-        delay: 0.2,
-        y: 0,
-        scale: 1,
-      })
+      if (this.$siteConfig.isPc) {
+        this.$gsap.to(this.$refs.PickupCircleEnter, {
+          duration: this.$baseAnimationConfig.duration * 1.2,
+          ease: this.$easing.transform,
+          delay: 0.2,
+          scale: 1,
+        })
+      }
+      else{
+        this.$gsap.to(this.$refs.PickupCircleEnter, {
+          duration: this.$baseAnimationConfig.duration * 1.2,
+          ease: this.$easing.transform,
+          delay: 0.2,
+          scale: 0,
+        })
+      }
+
     },
 
     /**
@@ -264,7 +328,12 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
-
+      /**
+       * asscrollが無効な時
+       */
+      if (this.$checkDevice.isTouch()) {
+        this.$backfaceScroll(true);
+      }
       window.removeEventListener('wheel', this.pickupSceneManager, { passive: false })
       window.removeEventListener('resize', this.pickupResize);
 
@@ -275,12 +344,28 @@ export default {
         duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
-          this.$asscroll.scrollTo(this.scroll.value)
+          /**
+           * asscrollが有効な時
+           */
+          if (!this.$checkDevice.isTouch()) {
+            this.$asscroll.scrollTo(this.scroll.value)
+          }
+          /**
+           * asscrollが無効な時
+           */
+          else{
+            window.scrollTo({ top: this.scroll.value })
+          }
         },
         onComplete: () => {
           setTimeout(() => {
-            this.$asscroll.enable()
-            this.$asscroll.on('update', this.pickupToBottomEnterScroll)
+            /**
+             * asscrollが有効な時
+             */
+            if (!this.$checkDevice.isTouch()) {
+                this.$asscroll.enable()
+            }
+            this.$gsap.ticker.add(this.pickupToBottomEnterScroll);
           }, 100)
         },
       })
@@ -401,8 +486,10 @@ export default {
 <style scoped lang="scss">
 .pickup {
   position: relative;
-  // @include sp(){
-  // }
+
+  @include sp(){
+    overflow: hidden;
+  }
 }
 
 .pickup.is-enter {
@@ -411,11 +498,6 @@ export default {
 
 .pickup-bg {
   background-color: $lightBlue;
-
-  @include sp() {
-    position: relative;
-    overflow: hidden;
-  }
 }
 
 .pickup-inner {
@@ -518,8 +600,9 @@ export default {
     top: 50%;
     right: auto;
     left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    margin: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0);
+    width: 120vmax;
+    height: 120vmax;
   }
 }
 

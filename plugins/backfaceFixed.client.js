@@ -7,6 +7,7 @@ const scrollStop = () => {
   body.style.top = `${currentScrollTop * -1}px`
   body.style.left = '0'
   body.style.width = '100%'
+  body.style.height = '100%'
 }
 
 const scrollAuto = () => {
@@ -14,6 +15,7 @@ const scrollAuto = () => {
   body.style.top = ''
   body.style.left = ''
   body.style.width = ''
+  body.style.height = ''
   window.scrollTo(0, currentScrollTop)
 }
 
