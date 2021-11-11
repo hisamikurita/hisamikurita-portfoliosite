@@ -505,16 +505,35 @@ export default {
       /**
        * リサイズした時に一番目の円の位置と大きさを更新する
        */
-      this.$gsap.set(this.$refs.PickupCircleEnter, {
-        y: window.innerHeight / 2,
-        scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
-      })
+      if (this.$siteConfig.isPc) {
+        this.$gsap.set(this.$refs.PickupCircleEnter, {
+          y: window.innerHeight / 2,
+          scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
+        })
+      }
+      else{
+        this.$gsap.set(this.$refs.PickupCircleEnter, {
+          scale: 1,
+        })
+      }
+
       /**
        * リサイズした時にasscrollのcontainerの位置を更新する
        */
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
-      this.$asscroll.scrollTo(this.scroll.value)
+      /**
+       * asscrollが有効な時
+       */
+      if (!this.$checkDevice.isTouch()) {
+        this.$asscroll.scrollTo(this.scroll.value)
+      }
+      /**
+       * asscrollが無効な時
+       */
+      else{
+        window.scrollTo({ top: this.scroll.value })
+      }
     },
 
     /**
@@ -542,6 +561,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:root {
+  --viewportWidth: 0;
+  --viewportHeight: 0;
+}
+
 .pickup {
   position: relative;
 
@@ -559,7 +583,7 @@ export default {
 }
 
 .pickup-inner {
-  height: 100vh;
+  height: var(--viewportHeight);
 }
 
 .pickup .l-container {
