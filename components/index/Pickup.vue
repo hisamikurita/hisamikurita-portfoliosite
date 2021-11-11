@@ -154,6 +154,7 @@ export default {
         if (!this.$checkDevice.isTouch()) {
           this.$asscroll.disable({ inputOnly: true })
         }
+        this.disable(this.$baseAnimationConfig.duration * 2000)
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
@@ -230,12 +231,14 @@ export default {
       window.removeEventListener('touchmove', this.pickupSceneTouchManager);
       window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false,})
       window.removeEventListener('resize', this.pickupResize);
+      this.disable(this.$baseAnimationConfig.duration * 2000)
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
+
       this.$gsap.to(this.scroll, {
         value: pickupTopPos,
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
           /**
@@ -300,10 +303,11 @@ export default {
         if (!this.$checkDevice.isTouch()) {
           this.$asscroll.disable({ inputOnly: true })
         }
+        this.disable(this.$baseAnimationConfig.duration * 2000)
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$baseAnimationConfig.duration,
+          duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
             /**
@@ -369,7 +373,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
       this.$gsap.to(this.scroll, {
         value: pickupBottomPos,
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
           /**
@@ -475,7 +479,12 @@ export default {
 
       if (e.deltaY > this.wheelRatio) {
         this.pickupSceneNext()
-        this.disable()
+        if(this.pickupSectionCurrentNum === 4.0){
+          this.disable(4000)
+        } else{
+          this.disable();
+        }
+
       } else if (e.deltaY < -this.wheelRatio) {
         this.pickupScenePrev()
         this.disable()
@@ -493,7 +502,7 @@ export default {
         this.disable()
       } else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        this.disable()
+        // if(this.pickupSectionCurrentNum)this.disable()
       }
     },
 
@@ -540,6 +549,7 @@ export default {
      * 操作不能
      */
     disable(interval = 2000) {
+      if(this.isScrollAnimation) return
       this.isScrollAnimation = true
       window.addEventListener('touchstart', this.prEvent, { passive: false });
       window.addEventListener('touchmove', this.prEvent, { passive: false });
