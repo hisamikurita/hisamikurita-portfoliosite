@@ -522,9 +522,20 @@ export default {
      */
     disable(interval = 2000) {
       this.isScrollAnimation = true
+      window.addEventListener('touchstart', this.prEvent);
+      window.addEventListener('touchmove', this.prEvent);
+      window.addEventListener('wheel', this.prEvent, { passive: false })
+
       setTimeout(() => {
         this.isScrollAnimation = false
+        window.removeEventListener('touchstart', this.prEvent);
+        window.removeEventListener('touchmove', this.prEvent);
+        window.removeEventListener('wheel', this.prEvent, { passive: false })
       }, interval)
+    },
+
+    prEvent: function (e) {
+      e.preventDefault()
     },
   },
 }
