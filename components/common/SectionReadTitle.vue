@@ -56,8 +56,10 @@ export default {
     line-height: 0.79;
 
     @include sp(){
+      display: inline-block;
+      margin: 0 0 0 -4.5px;
       font-size: 28px;
-      text-indent: -1.5px;
+      text-indent: 0;
     }
   }
 }

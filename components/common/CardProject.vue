@@ -364,7 +364,10 @@ export default {
       line-height: 1;
 
       @include sp() {
+        display: inline-block;
+        margin: 0 0 0 -4px;
         font-size: 32px;
+        text-indent: 0;
       }
     }
   }
