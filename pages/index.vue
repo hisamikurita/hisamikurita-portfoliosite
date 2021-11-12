@@ -13,6 +13,15 @@
 <script>
 export default {
   name: 'Index',
+
+  mounted() {
+    this.$nextTick(() => {
+      this.$asscroll.enable({ reset: true });
+    });
+  },
+  beforeDestroy() {
+    this.$asscroll.disable();
+  }
 }
 </script>
 

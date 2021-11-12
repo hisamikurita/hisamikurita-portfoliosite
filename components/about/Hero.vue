@@ -3,113 +3,156 @@
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
-          <span class="hero-title-read-area">
-            <CommonSectionReadTitle
-              modifier="section"
-              :state="isTextSegmentState"
-              :start="delay[0]"
-              :text="[
-                '・',
-                'ABOUT',
-                'ABOUTABOUTABOUTABOUT',
-                'ABOUT',
-              ]"
-            ></CommonSectionReadTitle>
+          <span class="pc-only">
+            <span class="hero-title-read-area">
+              <CommonSectionReadTitle
+                modifier="section"
+                :state="isTextSegmentState"
+                :start="delay[0]"
+                :text="[
+                  '・',
+                  'ABOUT',
+                  'ABOUTABOUTABOUTABOUT',
+                  'ABOUT',
+                ]"
+                :sp-animation="false"
+              ></CommonSectionReadTitle>
+            </span>
           </span>
-          <span class="hero-title-wrapper hero-title-wrapper-01">
-            <CommonTextUnderline
-              modifier="about-hero"
-              :state="isTextUnderlineState"
-              :start="delay[0]"
-              :rotate="rotateRight"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[0]"
-              :rotate="rotateRight"
-              text="HELLO, WORLD"
-            >
-            </CommonTextSegment>
+          <span class="pc-only">
+            <span class="hero-title-wrapper hero-title-wrapper-01">
+              <CommonTextUnderline
+                modifier="about-hero"
+                :state="isTextUnderlineState"
+                :start="delay[0]"
+                :rotate="rotateRight"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[0]"
+                :rotate="rotateRight"
+                text="HELLO, WORLD"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-02">
+              <CommonTextUnderline
+                modifier="about-hero"
+                :state="isTextUnderlineState"
+                :start="delay[1]"
+                :rotate="rotateLeft"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[1]"
+                :rotate="rotateLeft"
+                text="HISAMI"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[2]"
+                :rotate="rotateLeft"
+                text="KURITA"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-03">
+              <CommonTextUnderline
+                modifier="about-hero"
+                :state="isTextUnderlineState"
+                :start="delay[3]"
+                :rotate="rotateRight"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[3]"
+                :rotate="rotateRight"
+                text="IS  CR"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[4]"
+                :rotate="rotateRight"
+                text="EATIVE"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-04">
+              <CommonTextUnderline
+                modifier="about-hero"
+                :state="isTextUnderlineState"
+                :start="delay[5]"
+                :rotate="rotateLeft"
+              ></CommonTextUnderline>
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="delay[5]"
+                :rotate="rotateLeft"
+                text="DEVELOPER AT LIG INC SINCE 2020"
+                :sp-animation="false"
+              >
+              </CommonTextSegment>
+            </span>
           </span>
-          <span class="hero-title-wrapper hero-title-wrapper-02">
-            <CommonTextUnderline
-              modifier="about-hero"
-              :state="isTextUnderlineState"
-              :start="delay[1]"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[1]"
-              :rotate="rotateLeft"
-              text="HISAMI"
-            >
-            </CommonTextSegment>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[2]"
-              :rotate="rotateLeft"
-              text="KURITA"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="hero-title-wrapper hero-title-wrapper-03">
-            <CommonTextUnderline
-              modifier="about-hero"
-              :state="isTextUnderlineState"
-              :start="delay[3]"
-              :rotate="rotateRight"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[3]"
-              :rotate="rotateRight"
-              text="IS  CR"
-            >
-            </CommonTextSegment>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[4]"
-              :rotate="rotateRight"
-              text="EATIVE"
-            >
-            </CommonTextSegment>
-          </span>
-          <span class="hero-title-wrapper hero-title-wrapper-04">
-            <CommonTextUnderline
-              modifier="about-hero"
-              :state="isTextUnderlineState"
-              :start="delay[5]"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="delay[5]"
-              :rotate="rotateLeft"
-              text="DEVELOPER AT LIG INC SINCE 2020"
-            >
-            </CommonTextSegment>
+          <span class="sp-only">
+            <span class="hero-title-wrapper hero-title-wrapper-01-sp">
+              <span class="hero-text-underline"></span>
+              HELLO, WORLD
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-02-sp">
+              <span class="hero-text-underline"></span>
+              <span>HISAMI</span>
+              <span>KURITA</span>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-03-sp">
+              <span class="hero-text-underline"></span>
+              <span>IS</span>
+              <span>CR</span>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-04-sp">
+              <span class="hero-text-underline"></span>
+              <span>EATIVE</span>
+              <span>DEVELO</span>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-05-sp">
+              <span class="hero-text-underline"></span>
+              <span>PER AT LIG INC</span>
+            </span>
+            <span class="hero-title-wrapper hero-title-wrapper-06-sp">
+              <span class="hero-text-underline"></span>
+              <span>SINCE 2020.</span>
+            </span>
           </span>
         </h1>
-        <div class="hero-card-item">
-          <CommonCardProject
-            :name="['・','LIG INC']"
-            :title="'LIG INC.'"
-            :subtitle="'(VISIT SITE)'"
-            :blank="true"
-            :link="'https://liginc.co.jp'"
-            :text="[
-              'LOREM IPSUM DOLOR SIT',
-              'AMET, CONSECTETUR',
-              'ADIPISCING ELIT, SED DO',
-              'EIUSMOD TEMPOR INCIDI'
-            ]"
-            :rotate="8"
-            :xspeed="0.01"
-            :yspeed="0.14"
-            modifier="about-hero"
-          ></CommonCardProject>
-        </div>
+        <span class="pc-only">
+          <span class="hero-card-item">
+            <CommonCardProject
+              :name="['・','LIG INC']"
+              :title="'LIG INC.'"
+              :subtitle="'(VISIT SITE)'"
+              :blank="true"
+              :link="'https://liginc.co.jp'"
+              :text="[
+                'LOREM IPSUM DOLOR SIT',
+                'AMET, CONSECTETUR',
+                'ADIPISCING ELIT, SED DO',
+                'EIUSMOD TEMPOR INCIDI'
+              ]"
+              :rotate="8"
+              :xspeed="0.01"
+              :yspeed="0.14"
+              :sp-animation="false"
+              modifier="about-hero"
+            ></CommonCardProject>
+          </span>
+        </span>
       </div>
     </div>
   </div>
@@ -139,6 +182,10 @@ export default {
 
 .hero-inner {
   padding: 92px 0 333px;
+
+  @include sp(){
+    padding: 106px 0 148px;
+  }
 }
 
 .hero-title {
@@ -147,6 +194,10 @@ export default {
   font-size: vw(180);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+
+  @include sp(){
+    font-size: vw_sp(220);
+  }
 }
 
 .hero-title-read-area {
@@ -158,6 +209,14 @@ export default {
 .hero-title-wrapper{
   display: block;
   position: relative;
+
+  @include sp(){
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 18px;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
 
 .hero-title-wrapper-01{
@@ -182,6 +241,39 @@ export default {
 
 .hero-title-wrapper-04{
   width: vw(1077);
+}
+
+.hero-title-wrapper-01-sp{
+  width: vw_sp(550);
+}
+
+.hero-title-wrapper-02-sp{
+  width: vw_sp(670);
+}
+
+.hero-title-wrapper-03-sp{
+  width: vw_sp(590);
+}
+
+.hero-title-wrapper-04-sp{
+  width: vw_sp(670);
+}
+
+.hero-title-wrapper-05-sp{
+  width: vw_sp(573);
+}
+
+.hero-title-wrapper-06-sp{
+  width: vw_sp(452);
+}
+
+.hero-text-underline{
+  position: absolute;
+  top: -7px;
+  left: 0;
+  background-color: $black;
+  width: 100%;
+  height: 1px;
 }
 
 .hero-card-item{

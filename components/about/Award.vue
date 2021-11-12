@@ -1,11 +1,24 @@
 <template>
   <div ref="Award" class="award">
-    <div ref="AwardCardArea" class="award-card-area">
-      <CommonCardAward></CommonCardAward>
-    </div>
+    <span class="pc-only">
+      <span ref="AwardCardArea" class="award-card-area">
+        <CommonCardAward></CommonCardAward>
+      </span>
+    </span>
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
+          <span class="hero-title-read-area">
+            <CommonSectionReadTitle
+              modifier="section"
+              :state="isTextSegmentState"
+              :start="0"
+              :text="[
+                '・',
+                'AWARDS',
+              ]"
+            ></CommonSectionReadTitle>
+          </span>
           <div v-for="data in awardData" :key="data.id" class="award-list">
             <div
               v-for="award in data.awards"
@@ -30,15 +43,36 @@ export default {
   data: () => {
     return {
       awardData: awardData,
+      isTextSegmentState: '',
     }
   },
   mounted() {
+    /* text-animation */
+    this.observe = this.$refs.Award
+    this.iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.isTextSegmentState = 'center'
+            this.iObserver.unobserve(this.observe)
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    this.iObserver.observe(this.observe)
+
+    /* mouse */
     this.$refs.Award.addEventListener('mousemove', (e) => {
       this.$gsap.to(this.$refs.AwardCardArea, {
         x: e.clientX,
         y: e.clientY,
       })
     })
+  },
+
+  beforeDestroy() {
+    this.iObserver.unobserve(this.observe)
   },
 }
 </script>
@@ -66,6 +100,7 @@ export default {
   height: 400px;
   pointer-events: none;
   z-index: 1;
+  display: none;
 }
 
 // .award-card-area-item{

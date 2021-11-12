@@ -6,6 +6,7 @@
         :start="Number(start) + index * 0.12"
         :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
         :text="char"
+        :sp-animation="spAnimation"
       ></CommonTextSegment>
     </span>
   </span>
@@ -29,6 +30,10 @@ export default {
     state: {
       type: String,
       required: true,
+    },
+    spAnimation: {
+      type: Boolean,
+      default: true,
     },
   },
 }

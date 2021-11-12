@@ -178,6 +178,10 @@ export default {
       type: Number,
       default: 8,
     },
+    spAnimation: {
+      type: Boolean,
+      default: true,
+    },
     modifier: {
       type: String,
       default: '',
@@ -189,6 +193,8 @@ export default {
     }
   },
   mounted() {
+    if (!this.spAnimation && this.$siteConfig.isMobile) return
+
     this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
       type: 'x,y',
       bounds: this.$parent.$el,

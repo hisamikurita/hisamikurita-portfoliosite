@@ -8,6 +8,16 @@
 <script>
 export default {
   name: 'About',
+
+  mounted() {
+    this.$nextTick(() => {
+      this.$asscroll.enable({ reset: true });
+    });
+  },
+
+  beforeDestroy() {
+    this.$asscroll.disable();
+  }
 }
 </script>
 
