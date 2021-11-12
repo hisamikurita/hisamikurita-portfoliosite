@@ -499,10 +499,14 @@ export default {
 
       if (deltaY > this.touchRatio) {
         this.pickupSceneNext()
-        this.disable()
+        if(this.pickupSectionCurrentNum === 4.0){
+          this.disable(4000)
+        } else{
+          this.disable();
+        }
       } else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        // if(this.pickupSectionCurrentNum)this.disable()
+        this.disable()
       }
     },
 
