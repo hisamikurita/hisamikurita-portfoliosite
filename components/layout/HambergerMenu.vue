@@ -5,24 +5,26 @@
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
           <span class="hambergerMenu-title-wrapper-01">
-            <NuxtLink to="/">
+              <component :is="setRootTagName('index')" to="./" @click="onClickSameUrlReload('index')">
               <CommonTextSegment
                 :state="isTextSegmentState"
                 :start="0"
                 :rotate="rotateRight"
+                :is-load-init="true"
                 text="HISAMIKURITA"
               ></CommonTextSegment>
-            </NuxtLink>
+            </component>
           </span>
           <span class="hambergerMenu-title-wrapper-02">
-            <NuxtLink to="/about">
+            <component :is="setRootTagName('about')" to="/about" @click="onClickSameUrlReload('about')">
               <CommonTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="rotateLeft"
+                :is-load-init="true"
                 text="ABOUT"
               ></CommonTextSegment>
-            </NuxtLink>
+            </component>
           </span>
         </div>
         <div class="hambergerMenu-section-title">
@@ -96,6 +98,11 @@ export default {
   computed: {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
+    },
+    setRootTagName() {
+      return function(root){
+        return this.$route.name === root ? 'span' : 'nuxt-link';
+      }
     },
   },
   watch: {
@@ -474,6 +481,11 @@ export default {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
         x: (-window.innerWidth / 2.0) + 30 + 20,
       })
+    },
+    onClickSameUrlReload(root){
+      if (this.$route.name === root) {
+        this.$router.go({ path: this.$router.currentRoute.path, force: true })
+      }
     }
   },
 }
@@ -591,15 +603,12 @@ export default {
 
 .hambergerMenu-title-wrapper-01 {
   display: block;
+  cursor: pointer;
 }
 
 .hambergerMenu-title-wrapper-02 {
   display: inline-block;
-}
-
-.hambergerMenu-title-wrapper-01 .nuxt-link-exact-active,
-.hambergerMenu-title-wrapper-02 .nuxt-link-exact-active{
-  cursor: default;
+  cursor: pointer;
 }
 
 .hambergerMenu-item {

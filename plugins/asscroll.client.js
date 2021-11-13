@@ -10,6 +10,10 @@ export default ({ app }, inject) => {
     customScrollbar: false,
   });
 
+  /**
+   * ロード時に再度有効化
+   * https://github.com/hisamikurita/hisamikurita-portfoliosite/issues/11
+   */
   window.addEventListener('load',()=>{
     asscroll.disable();
     asscroll.enable();

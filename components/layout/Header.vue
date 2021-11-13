@@ -50,6 +50,7 @@ export default {
 
   methods: {
     onClickSameUrlReload(){
+      console.log(this.$route.name)
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       }

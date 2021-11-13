@@ -29,6 +29,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    isLoadInit: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   watch: {
@@ -63,12 +67,26 @@ export default {
 
     this.wrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
-    this.init()
+
+    if (this.isLoadInit) {
+      /**
+       * ハンバーガーメニューの同URLだった場合にリロードさせる処理とアニメーションが、
+       * タグを書き換える際にmouted内も発火するため、バッティングする。
+       * そのため初期化をロード時のみ有効化させる
+       */
+      this.textArray.style.opacity = 1.0
+      window.addEventListener('load',()=>{
+        this.init()
+      })
+    }
+    else {
+      this.init()
+    }
   },
 
   methods: {
     init: function () {
-      if(this.state === 'center'){
+      if (this.state === 'center') {
         this.$gsap.set(this.wrapper, {
           rotate: 0,
           transformOrigin: this.rotate > 0 ? 'left' : 'right',
@@ -77,8 +95,7 @@ export default {
           opacity: 1.0,
           yPercent: 0,
         })
-      }
-      else{
+      } else {
         this.$gsap.set(this.wrapper, {
           rotate: this.rotate,
           transformOrigin: this.rotate > 0 ? 'left' : 'right',
@@ -91,8 +108,8 @@ export default {
     },
 
     toCenter: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'auto';
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'auto';
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'auto'
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'auto'
 
       this.centerWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
@@ -112,8 +129,8 @@ export default {
     },
 
     toTop: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none';
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none';
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none'
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
 
       this.topWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
@@ -133,9 +150,9 @@ export default {
     },
 
     toBottom: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none';
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none';
-  
+      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none'
+      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
+
       this.bottomWrapper = this.$gsap.to(this.wrapper, {
         duration: this.$baseAnimationConfig.duration * 2.0,
         ease: this.$easing.transform,
