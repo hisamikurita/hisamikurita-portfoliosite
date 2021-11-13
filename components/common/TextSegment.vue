@@ -68,14 +68,26 @@ export default {
 
   methods: {
     init: function () {
-      this.$gsap.set(this.wrapper, {
-        rotate: this.rotate,
-        transformOrigin: this.rotate > 0 ? 'left' : 'right',
-      })
-      this.$gsap.set(this.textArray, {
-        opacity: 1.0,
-        yPercent: 103.5,
-      })
+      if(this.state === 'center'){
+        this.$gsap.set(this.wrapper, {
+          rotate: 0,
+          transformOrigin: this.rotate > 0 ? 'left' : 'right',
+        })
+        this.$gsap.set(this.textArray, {
+          opacity: 1.0,
+          yPercent: 0,
+        })
+      }
+      else{
+        this.$gsap.set(this.wrapper, {
+          rotate: this.rotate,
+          transformOrigin: this.rotate > 0 ? 'left' : 'right',
+        })
+        this.$gsap.set(this.textArray, {
+          opacity: 1.0,
+          yPercent: 103.5,
+        })
+      }
     },
 
     toCenter: function () {

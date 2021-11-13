@@ -1,38 +1,28 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top">
-    <NuxtLink to="./"
-      >H<span class="header-logo-text header-logo-fade-text">I</span
+    <component :is="setRootTagName" class="heade-link" to="./" @click="onClickSameUrlReload">
+      H<span class="header-logo-text header-logo-fade-text">I</span
       ><span
-        class="
-          header-logo-text header-logo-move-text header-logo-move-text-01
-        "
+        class="header-logo-text header-logo-move-text header-logo-move-text-01"
         >S</span
       ><span class="header-logo-text header-logo-fade-text">A</span
       ><span
-        class="
-          header-logo-text header-logo-move-text header-logo-move-text-02
-        "
+        class="header-logo-text header-logo-move-text header-logo-move-text-02"
         >M</span
       ><span class="header-logo-text header-logo-fade-text">I</span
       ><span
-        class="
-          header-logo-text header-logo-move-text header-logo-move-text-03
-        "
+        class="header-logo-text header-logo-move-text header-logo-move-text-03"
         >K</span
       ><span class="header-logo-text header-logo-fade-text">U</span
       ><span
-        class="
-          header-logo-text header-logo-move-text header-logo-move-text-04
-        "
+        class="header-logo-text header-logo-move-text header-logo-move-text-04"
         >R</span
       ><span class="header-logo-text header-logo-fade-text">I</span
       ><span
-        class="
-          header-logo-text header-logo-move-text header-logo-move-text-05
-        "
+        class="header-logo-text header-logo-move-text header-logo-move-text-05"
         >T</span
-      ><span class="header-logo-text header-logo-fade-text">A</span></NuxtLink
-    >
+      ><span class="header-logo-text header-logo-fade-text">A</span>
+    </component>
   </div>
 </template>
 
@@ -42,10 +32,13 @@ export default {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
     },
+    setRootTagName() {
+      return this.$route.name === 'index' ? 'span' : 'nuxt-link';
+    },
   },
   mounted() {
     this.$asscroll.on('scroll', () => {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       if (this.$asscroll.targetPos < 1.0) {
         this.$refs.HeaderLogo.classList.add('is-top')
@@ -54,6 +47,14 @@ export default {
       }
     })
   },
+
+  methods: {
+    onClickSameUrlReload(){
+      if (this.$route.name === 'index') {
+        this.$router.go({ path: this.$router.currentRoute.path, force: true })
+      }
+    }
+  }
 }
 </script>
 
@@ -120,13 +121,14 @@ export default {
   white-space: nowrap;
   transition: width 0.01s linear;
   transition-delay: $base-duration * 0.25;
+  cursor: pointer;
 
-  @include sp(){
+  @include sp() {
     top: 14px;
     left: 20px;
   }
 
-  & a {
+  & .heade-link  {
     display: block;
 
     &:hover {

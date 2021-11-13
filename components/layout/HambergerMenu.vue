@@ -5,15 +5,17 @@
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
           <span class="hambergerMenu-title-wrapper-01">
-            <CommonTextSegment
-              :state="isTextSegmentState"
-              :start="0"
-              :rotate="rotateRight"
-              text="HISAMIKURITA"
-            ></CommonTextSegment>
+            <NuxtLink to="/">
+              <CommonTextSegment
+                :state="isTextSegmentState"
+                :start="0"
+                :rotate="rotateRight"
+                text="HISAMIKURITA"
+              ></CommonTextSegment>
+            </NuxtLink>
           </span>
           <span class="hambergerMenu-title-wrapper-02">
-            <NuxtLink to="about">
+            <NuxtLink to="/about">
               <CommonTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
@@ -593,6 +595,11 @@ export default {
 
 .hambergerMenu-title-wrapper-02 {
   display: inline-block;
+}
+
+.hambergerMenu-title-wrapper-01 .nuxt-link-exact-active,
+.hambergerMenu-title-wrapper-02 .nuxt-link-exact-active{
+  cursor: default;
 }
 
 .hambergerMenu-item {

@@ -9,5 +9,11 @@ export default ({ app }, inject) => {
     touchScrollType: 'none',
     customScrollbar: false,
   });
+
+  window.addEventListener('load',()=>{
+    asscroll.disable();
+    asscroll.enable();
+  });
+
   inject('asscroll', asscroll);
 }
