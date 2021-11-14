@@ -277,10 +277,11 @@ export default {
             )
           }, 500)
         }
-      } else if (!this.hambergerMenuState) {
-      /**
-       * ハンバガーメニューが閉じた時
-       */
+      }
+      else if (!this.hambergerMenuState) {
+        /**
+         * ハンバガーメニューが閉じた時
+         */
         if (this.$siteConfig.isPc) {
           /**
            * btn
@@ -369,6 +370,7 @@ export default {
            * init
            */
           setTimeout(() => {
+            this.$refs.HambergerMenuContents.scrollTo(0, 0)
             this.isTextSegmentState = 'init'
             this.$gsap.set(this.$refs.HambergerMenuContents, {
               autoAlpha: 0.0,
@@ -451,6 +453,7 @@ export default {
            * init
            */
           setTimeout(() => {
+            this.$refs.HambergerMenuContents.scrollTo(0, 0)
             this.isTextSegmentState = 'init'
             this.$gsap.set(this.$refs.HambergerMenuContents, {
               autoAlpha: 0.0,

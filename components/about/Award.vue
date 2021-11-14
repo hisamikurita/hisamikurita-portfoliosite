@@ -8,9 +8,9 @@
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
-          <span class="hero-title-read-area">
+          <span class="award-title-read-area">
             <CommonSectionReadTitle
-              modifier="section"
+              modifier="award-section"
               :state="isTextSegmentState"
               :start="0"
               :text="[
@@ -19,19 +19,27 @@
               ]"
             ></CommonSectionReadTitle>
           </span>
-          <div v-for="data in awardData" :key="data.id" class="award-list">
-            <div
-              v-for="award in data.awards"
-              :key="award.id"
-              class="award-item"
-            >
-              <p class="award-group">{{ award.group }}</p>
-              <p class="award-title">{{ data.title }}</p>
-              <p class="award-rank">{{ award.rank }}</p>
+          <div class="award-list-wrapper">
+            <div v-for="data in awardData" :key="data.id" class="award-list">
+              <div
+                v-for="award in data.awards"
+                :key="award.id"
+                class="award-item"
+              >
+                <p class="award-group">{{ award.group }}</p>
+                <p class="award-title">{{ data.title }}</p>
+                <p class="award-rank">{{ award.rank }}</p>
+              </div>
             </div>
           </div>
+          <span class="pc-only">
+            <ul class="award-total-list">
+              <li class="award-total-item">AWWWARDS*{{ awardData[awardData.length - 1.0].total.awwwwards }}</li>
+              <li class="award-total-item">CSSDA*{{ awardData[awardData.length - 1.0].total.cssda }}</li>
+              <li class="award-total-item">CSSWINNER*{{ awardData[awardData.length - 1.0].total.csswinner }}</li>
+            </ul>
+          </span>
         </div>
-        <!-- <div style="height:9999px"></div> -->
       </div>
     </div>
   </div>
@@ -90,7 +98,11 @@ export default {
 }
 
 .award-inner {
-  padding: 160px 40px;
+  padding: 152px 40px;
+
+  @include sp(){
+    padding: 63px vw_sp(20);
+  }
 }
 
 .award-card-area {
@@ -104,6 +116,15 @@ export default {
   display: none;
 }
 
+.award-title-read-area{
+  display: block;
+  margin: 0 0 36px 0;
+
+  @include sp(){
+    margin: 0 0 40px 0;
+  }
+}
+
 // .award-card-area-item{
 //   position: absolute;
 //   top: 0;
@@ -112,8 +133,16 @@ export default {
 //   height: 400px;
 // }
 
+.award-list-wrapper{
+  margin: 0 0 40px 0;
+}
+
 .award-list {
   width: vw(1000);
+
+  @include sp(){
+    width: 100%;
+  }
 }
 
 .award-item {
@@ -124,6 +153,11 @@ export default {
   &:last-of-type {
     border-bottom: solid 1px $gray;
   }
+
+  @include sp(){
+    display: block;
+    padding: 18px 0;
+  }
 }
 
 .award-group {
@@ -133,6 +167,13 @@ export default {
   width: vw(238);
   font-size: 14px;
   letter-spacing: 0.02em;
+
+  @include sp(){
+    top: auto;
+    width: auto;
+    margin: 0 0 10px 0;
+    font-size: 10px;
+  }
 }
 
 .award-title {
@@ -142,6 +183,13 @@ export default {
   font-size: vw(60);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: 0.02em;
+
+  @include sp(){
+    width: auto;
+    margin: 0 0 8px 0;
+    font-size: vw_sp(100);
+    text-align: right;
+  }
 }
 
 .award-rank {
@@ -150,5 +198,20 @@ export default {
   font-size: vw(60);
   font-family: 'Six Caps', sans-serif;
   letter-spacing: 0.02em;
+
+  @include sp(){
+    width: auto;
+    font-size: vw_sp(100);
+  }
+}
+
+.award-total-item{
+  color: $gray;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+
+  &:not(:last-of-type) {
+    margin: 0 0 4px 0;
+  }
 }
 </style>

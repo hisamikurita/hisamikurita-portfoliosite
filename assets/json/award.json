@@ -114,5 +114,12 @@
         "rank" : "SITE OF THE DAY"
       }
     ]
+  },
+  {
+    "total": {
+      "awwwwards": 6,
+      "cssda" : 16,
+      "csswinner" : 2
+    }
   }
 ]
