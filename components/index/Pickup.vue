@@ -119,6 +119,9 @@ export default {
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
     },
+    indexPickupPos: function () {
+      return this.$store.getters['indexPickup/pos']
+    },
   },
 
   mounted() {
@@ -126,6 +129,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.$store.commit('indexPickup/leave')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
     window.removeEventListener('touchstart', this.setTouchY);
@@ -552,6 +556,7 @@ export default {
         window.scrollTo({ top: this.scroll.value })
       }
       this.$store.commit('indexPickup/setPickupPos', pickupPos)
+      this.$backfaceScroll(false, this.indexPickupPos);
     },
 
     /**
@@ -626,7 +631,7 @@ export default {
   line-height: 0.98;
 
   @include sp() {
-    top: 41%;
+    top: calc(65px + 38%);
     left: 50%;
     font-size: vmin_sp(126);
   }
@@ -638,7 +643,7 @@ export default {
   right: 115px;
 
   @include sp() {
-    top: 53px;
+    top: 72px;
     right: 0;
   }
 }

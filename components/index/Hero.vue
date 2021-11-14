@@ -187,21 +187,23 @@ export default {
     this.isTextUnderlineState = 'extend';
 
     /* scroll-animation */
-    const observe = this.$refs.Hero
-    new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.bgCircleScaleChangeScroll);
-          } else {
-            this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
-          }
-        })
-      },
-      {
-        rootMargin: '0%',
-      }
-    ).observe(observe)
+    this.$nextTick(() => {
+      const observe = this.$refs.Hero
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.bgCircleScaleChangeScroll);
+            } else {
+              this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      ).observe(observe)
+    })
   },
 
   beforeDestroy() {
@@ -210,7 +212,7 @@ export default {
 
   methods: {
     bgCircleScaleChangeScroll() {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState || !this.$refs.Hero) return;
 
       this.$gsap.to(this.$refs.HeroBgCircle02, {
         duration: this.$baseAnimationConfig.duration / 3.0,

@@ -10,17 +10,17 @@ const scrollStop = (currentScrollTop = window.pageYOffset) => {
   body.style.height = '100%'
 }
 
-const scrollAuto = () => {
+const scrollAuto = (savePos = saveCurrentScrollTop) => {
   body.style.position = ''
   body.style.top = ''
   body.style.left = ''
   body.style.width = ''
   body.style.height = ''
-  window.scrollTo(0, saveCurrentScrollTop)
+  window.scrollTo(0, savePos)
 }
 
-export const backfaceScroll = (state, currentScrollTop) => {
-  state ? scrollAuto() : scrollStop(currentScrollTop)
+export const backfaceScroll = (state, currentScrollTop, savePos) => {
+  state ? scrollAuto(savePos) : scrollStop(currentScrollTop)
 }
 
 export default (context, inject) => {
