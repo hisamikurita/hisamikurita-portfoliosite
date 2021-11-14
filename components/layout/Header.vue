@@ -32,13 +32,16 @@ export default {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
     },
+    indexPickupState: function () {
+      return this.$store.getters['indexPickup/state']
+    },
     setRootTagName() {
       return this.$route.name === 'index' ? 'span' : 'nuxt-link';
     },
   },
   mounted() {
     this.$asscroll.on('scroll', () => {
-      if (this.hambergerMenuState) return
+      if (this.hambergerMenuState || this.indexPickupState) return
 
       if (this.$asscroll.targetPos < 1.0) {
         this.$refs.HeaderLogo.classList.add('is-top')
@@ -50,7 +53,6 @@ export default {
 
   methods: {
     onClickSameUrlReload(){
-      console.log(this.$route.name)
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       }

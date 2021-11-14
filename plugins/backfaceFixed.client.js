@@ -1,8 +1,8 @@
 const body = document.querySelector('body')
-let currentScrollTop = 0
+let saveCurrentScrollTop = 0
 
-const scrollStop = () => {
-  currentScrollTop = window.pageYOffset
+const scrollStop = (currentScrollTop = window.pageYOffset) => {
+  saveCurrentScrollTop = currentScrollTop;
   body.style.position = 'fixed'
   body.style.top = `${currentScrollTop * -1}px`
   body.style.left = '0'
@@ -16,11 +16,11 @@ const scrollAuto = () => {
   body.style.left = ''
   body.style.width = ''
   body.style.height = ''
-  window.scrollTo(0, currentScrollTop)
+  window.scrollTo(0, saveCurrentScrollTop)
 }
 
-export const backfaceScroll = state => {
-  state ? scrollAuto() : scrollStop()
+export const backfaceScroll = (state, currentScrollTop) => {
+  state ? scrollAuto() : scrollStop(currentScrollTop)
 }
 
 export default (context, inject) => {

@@ -146,6 +146,7 @@ export default {
 
       if (this.$asscroll.targetPos > pickupTopPos) {
         this.$store.commit('indexPickup/enter')
+        this.$store.commit('indexPickup/setPickupPos', pickupPos)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
 
         /**
@@ -290,12 +291,15 @@ export default {
      * ピックアップセクションに下から侵入する時
      */
     pickupToBottomEnterScroll() {
+      if (this.hambergerMenuState) return;
+
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
         this.$store.commit('indexPickup/enter')
+        this.$store.commit('indexPickup/setPickupPos', pickupPos)
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
         /**
          * asscrollが有効な時
@@ -547,6 +551,7 @@ export default {
       else{
         window.scrollTo({ top: this.scroll.value })
       }
+      this.$store.commit('indexPickup/setPickupPos', pickupPos)
     },
 
     /**

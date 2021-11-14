@@ -19,6 +19,9 @@ export default {
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
     },
+    indexPickupPos: function () {
+      return this.$store.getters['indexPickup/pos']
+    },
   },
   watch: {
     hambergerMenuState: function () {
@@ -35,7 +38,12 @@ export default {
           })
         }
         if (this.$checkDevice.isTouch()) {
-          this.$backfaceScroll(false);
+          if (this.indexPickupState) {
+            this.$backfaceScroll(false, this.indexPickupPos);
+          }
+          else{
+            this.$backfaceScroll(false);
+          }
         }
         else {
           /**
@@ -58,7 +66,7 @@ export default {
           })
         }
         if (this.$checkDevice.isTouch()) {
-          this.$backfaceScroll(true);
+          if (!this.indexPickupState) this.$backfaceScroll(true);
         }
         else {
           /**

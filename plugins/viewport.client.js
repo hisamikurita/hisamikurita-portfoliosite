@@ -9,6 +9,6 @@ export default () => {
     root.style.setProperty('--viewportHeight', `${height}px`)
   }
 
-  viewportResize();
+  window.addEventListener('load', viewportResize);
   window.addEventListener('resize', viewportResize);
 }

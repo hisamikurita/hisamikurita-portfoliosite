@@ -175,6 +175,13 @@ export default {
       isTextUnderlineState: '',
     }
   },
+
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
+
   mounted() {
     this.isTextSegmentState = 'center';
     this.isTextUnderlineState = 'extend';
@@ -203,6 +210,8 @@ export default {
 
   methods: {
     bgCircleScaleChangeScroll() {
+      if (this.hambergerMenuState) return;
+
       this.$gsap.to(this.$refs.HeroBgCircle02, {
         duration: this.$baseAnimationConfig.duration / 3.0,
         ease: 'none',

@@ -6,11 +6,15 @@
 
 export const state = () => ({
   isCurrent: false,
+  pickupPos : 0,
 });
 
 export const getters = {
   state(state) {
     return state.isCurrent;
+  },
+  pos(state) {
+    return state.pickupPos;
   }
 };
 
@@ -21,4 +25,7 @@ export const mutations = {
   leave(state) {
     state.isCurrent = false;
   },
+  setPickupPos(state, pos) {
+    state.pickupPos = pos;
+  }
 };
