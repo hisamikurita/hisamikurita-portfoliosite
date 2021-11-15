@@ -243,7 +243,7 @@ export default {
 
       this.$gsap.to(this.scroll, {
         value: pickupTopPos,
-        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
+        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
           /**
@@ -316,7 +316,7 @@ export default {
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
+          duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
             /**
@@ -382,7 +382,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
       this.$gsap.to(this.scroll, {
         value: pickupBottomPos,
-        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 2.0 : this.$baseAnimationConfig.duration,
+        duration: this.$checkDevice.isTouch() ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
           /**
@@ -493,7 +493,11 @@ export default {
 
       } else if (e.deltaY < -this.wheelRatio) {
         this.pickupScenePrev()
-        this.disable()
+        if(this.pickupSectionCurrentNum === 3.0){
+          this.disable(4000)
+        } else{
+          this.disable();
+        }
       }
     },
 
@@ -512,7 +516,11 @@ export default {
         }
       } else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        this.disable()
+        if(this.pickupSectionCurrentNum === 3.0){
+          this.disable(4000)
+        } else{
+          this.disable();
+        }
       }
     },
 

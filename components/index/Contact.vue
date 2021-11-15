@@ -21,6 +21,7 @@
                   :start="0"
                   :rotate="rotateRight"
                   text="I AM CREATIVE DEVELOPER"
+                  :sp-animation="false"
                 >
                 </CommonTextSegment>
               </span>
@@ -30,6 +31,7 @@
                   :start="0.12"
                   :rotate="rotateLeft"
                   text="FOCUSED ON CREATING THINGS"
+                  :sp-animation="false"
                 >
                 </CommonTextSegment>
               </span>
@@ -39,6 +41,7 @@
                   :start="0.24"
                   :rotate="rotateRight"
                   text="WITH INTERACTION & ANIMATION"
+                  :sp-animation="false"
                 >
                 </CommonTextSegment>
               </span>
@@ -48,6 +51,7 @@
                   :start="0.36"
                   :rotate="rotateLeft"
                   text="AS MY MAIN FOCUS."
+                  :sp-animation="false"
                 >
                 </CommonTextSegment>
               </span>
@@ -112,6 +116,7 @@
                     :start="0.48"
                     :rotate="rotateRight"
                     text="HISAMI KURITA"
+                    :sp-animation="false"
                   >
                   </CommonTextSegment>
                 </span>

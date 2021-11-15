@@ -35,19 +35,29 @@
                 ></span>
               </span>
               <span class="card-project-title-wrapper-03">
-                <CommonTextSegment
-                  :state="state"
-                  :start="0"
-                  :rotate="rotateLeft"
-                  :text="title"
-                ></CommonTextSegment>
-                <span v-if="subtitle" class="card-project-sub-title">
+                <span class="pc-only">
                   <CommonTextSegment
                     :state="state"
-                    :start="0.28"
+                    :start="0"
                     :rotate="rotateLeft"
-                    :text="subtitle"
+                    :text="title"
+                    :sp-animation="false"
                   ></CommonTextSegment>
+                  <span v-if="subtitle" class="card-project-sub-title">
+                    <CommonTextSegment
+                      :state="state"
+                      :start="0.28"
+                      :rotate="rotateLeft"
+                      :text="subtitle"
+                      :sp-animation="false"
+                    ></CommonTextSegment>
+                  </span>
+                </span>
+                <span class="sp-only">
+                  {{ title }}
+                  <span class="card-project-sub-title">
+                    {{ subtitle }}
+                  </span>
                 </span>
               </span>
             </div>
@@ -72,19 +82,29 @@
                 ></span>
               </span>
               <span class="card-project-title-wrapper-03">
-                <CommonTextSegment
-                  :state="state"
-                  :start="0"
-                  :rotate="rotateLeft"
-                  :text="title"
-                ></CommonTextSegment>
-                <span v-if="subtitle" class="card-project-sub-title">
+                <span class="pc-only">
                   <CommonTextSegment
                     :state="state"
-                    :start="0.28"
+                    :start="0"
                     :rotate="rotateLeft"
-                    :text="subtitle"
+                    :text="title"
+                    :sp-animation="false"
                   ></CommonTextSegment>
+                  <span v-if="subtitle" class="card-project-sub-title">
+                    <CommonTextSegment
+                      :state="state"
+                      :start="0.28"
+                      :rotate="rotateLeft"
+                      :text="subtitle"
+                      :sp-animation="false"
+                    ></CommonTextSegment>
+                  </span>
+                </span>
+                <span class="sp-only">
+                  {{ title }}
+                  <span class="card-project-sub-title">
+                    {{ subtitle }}
+                  </span>
                 </span>
               </span>
             </div>
@@ -111,22 +131,34 @@
             </span>
           </span>
           <span class="card-project-title-wrapper-03">
-            <a :href="title.link" target="_blank" rel="noopener">
-              <CommonTextSegment
-                :state="state"
-                :start="0"
-                :rotate="rotateLeft"
-                :text="title.text"
-              ></CommonTextSegment>
-              <span v-if="title.subtext" class="card-project-sub-title">
+            <span class="pc-only">
+              <a :href="title.link" target="_blank" rel="noopener">
                 <CommonTextSegment
                   :state="state"
-                  :start="0.28"
+                  :start="0"
                   :rotate="rotateLeft"
-                  :text="title.subtext"
+                  :text="title.text"
+                  :sp-animation="false"
                 ></CommonTextSegment>
-              </span>
-            </a>
+                <span v-if="title.subtext" class="card-project-sub-title">
+                  <CommonTextSegment
+                    :state="state"
+                    :start="0.28"
+                    :rotate="rotateLeft"
+                    :text="title.subtext"
+                    :sp-animation="false"
+                  ></CommonTextSegment>
+                </span>
+              </a>
+            </span>
+            <span class="sp-only">
+              <a :href="title.link" target="_blank" rel="noopener">
+                {{ title.text }}
+                <span v-if="title.subtext" class="card-project-sub-title">
+                  {{ title.subtext }}
+                </span>
+              </a>
+            </span>
           </span>
         </div>
       </span>

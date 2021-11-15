@@ -121,6 +121,7 @@ export default {
                 window.innerHeight / 2 +
                 this.$refs.ProjectCircleEnter.clientHeight / 2
               ),
+              scale: 0,
             },
             {
               duration: this.$baseAnimationConfig.duration * 1.2,
