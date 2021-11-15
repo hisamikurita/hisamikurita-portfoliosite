@@ -613,7 +613,7 @@ export default {
 }
 
 .pickup-inner {
-  height: var(--viewportHeight);
+  height: 600px;
 }
 
 .pickup .l-container {
