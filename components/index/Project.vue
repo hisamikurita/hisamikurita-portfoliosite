@@ -1,6 +1,9 @@
 <template>
   <div ref="Project" class="project">
-    <div class="project-bg">
+    <div ref="ProjectBg" class="project-bg">
+      <span class="project-circle-bg-enter"
+        ><span ref="ProjectCircleEnter" class="project-circle-bg-element"></span
+      ></span>
       <div class="project-inner">
         <h2 ref="ProjectLoopTitle" class="project-loop-title">
           <span class="project-loop-title-read-area">
@@ -101,28 +104,68 @@ export default {
     }
   },
 
-  beforeMount() {},
+  computed: {
+    ProjectAnimationState: function () {
+      return this.$store.getters['indexPickup/projectAnimationState']
+    },
+  },
+
+  watch: {
+    ProjectAnimationState: function () {
+      switch (this.ProjectAnimationState) {
+        case 'start':
+          this.$gsap.fromTo(
+            this.$refs.ProjectCircleEnter,
+            {
+              y: -(
+                window.innerHeight / 2 +
+                this.$refs.ProjectCircleEnter.clientHeight / 2
+              ),
+            },
+            {
+              duration: this.$baseAnimationConfig.duration * 1.2,
+              ease: this.$easing.transform,
+              y: -window.innerHeight / 2,
+              scale: 1.0,
+            }
+          )
+          setTimeout(()=>{
+            this.$refs.ProjectBg.style.backgroundColor = '#f0efeb';
+          },this.$baseAnimationConfig.duration * 1000)
+          break
+        case 'end':
+          this.$refs.ProjectBg.style.backgroundColor = '#ffabb7';
+          this.$gsap.fromTo(
+            this.$refs.ProjectCircleEnter,
+            {
+              y: -window.innerHeight / 2,
+              scale: 1.0,
+            },
+            {
+              duration: this.$baseAnimationConfig.duration * 1.2,
+              ease: this.$easing.transform,
+              y: -(
+                window.innerHeight / 2 +
+                this.$refs.ProjectCircleEnter.clientHeight / 2
+              ),
+              scale: 0.0,
+            }
+          )
+          break
+      }
+    },
+  },
 
   mounted() {
-    /* card-animation */
-    // this.CardTextSegment = new IntersectionObserver(
-    //   (entries) => {
-    //     entries.forEach((entry) => {
-    //       if (entry.isIntersecting) {
-    //         const index = CommonCardProjectArray.indexOf(entry.target);
-
-    //         this.$refs.CommonCardProject[index].state = 'center';
-    //         this.CardTextSegment.unobserve(entry.target)
-    //       }
-    //     })
-    //   },
-    //   { rootMargin: '0%' }
-    // )
-    // const CommonCardProjectArray = [];
-    // for (let i = 0; i < this.$refs.CommonCardProject.length; i++) {
-    //   CommonCardProjectArray.push(this.$refs.CommonCardProject[i].observe);
-    //   this.CardTextSegment.observe(this.$refs.CommonCardProject[i].observe);
-    // }
+    /* circle */
+    this.$nextTick(() => {
+      this.$gsap.set(this.$refs.ProjectCircleEnter, {
+        y: -(
+          window.innerHeight / 2 +
+          this.$refs.ProjectCircleEnter.clientHeight / 2
+        ),
+      })
+    })
 
     /* text-animation */
     this.observe = this.$refs.ProjectLoopTitle
@@ -130,9 +173,11 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.isTextSegmentState = 'center'
-            this.isTextUnderlineState = 'extend'
-            this.iObserverTextSegment.unobserve(this.observe)
+            setTimeout(() => {
+              this.isTextSegmentState = 'center'
+              this.isTextUnderlineState = 'extend'
+              this.iObserverTextSegment.unobserve(this.observe)
+            }, 300)
           }
         })
       },
@@ -164,13 +209,46 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:root {
+  --viewportWidth: 0;
+  --viewportHeight: 0;
+}
+
+.project {
+  position: relative;
+}
+
+.project-circle-bg-enter {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  transform: translate3d(-50%, 0, 0);
+  width: 142vmax;
+  height: 142vmax;
+  pointer-events: none;
+}
+
+.project-circle-bg-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $skinColor;
+  border-radius: 50%;
+  transform: scale(0);
+  transform-origin: center;
+}
+
 .project-bg {
   position: relative;
-  overflow: hidden;
+  background-color: $thinPink;
 }
 
 .project-inner {
+  position: relative;
   padding: 206px 0 0 0;
+  overflow: hidden;
 
   @include sp() {
     padding: 150px 0 0 0;

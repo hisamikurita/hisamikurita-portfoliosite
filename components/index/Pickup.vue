@@ -10,8 +10,8 @@
       </CommonCircleBg>
       <CommonCircleBg :state="isCircleBgState03" modifier="pickup-03">
       </CommonCircleBg>
-      <CommonCircleBg :state="isCircleBgState04" modifier="pickup-04">
-      </CommonCircleBg>
+      <!-- <CommonCircleBg :state="isCircleBgState04" modifier="pickup-04">
+      </CommonCircleBg> -->
     </span>
     <div class="pickup-bg">
       <div class="pickup-inner">
@@ -304,6 +304,7 @@ export default {
       if (this.$asscroll.targetPos < pickupBottomPos) {
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
+        this.$store.commit('indexPickup/setProjectAnimationState','end')
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
         /**
          * asscrollが有効な時
@@ -438,11 +439,9 @@ export default {
         case 4.0:
           this.isTextSegmentState[3] = 'top'
           setTimeout(() => {
-            this.isCircleBgState04 = 'extend'
-          }, this.wheelInterval * 1000)
-          setTimeout(() => {
+            this.$store.commit('indexPickup/setProjectAnimationState','start')
             this.pickupToBottomLeaveScroll()
-          }, this.wheelInterval * 2000)
+          }, this.wheelInterval * 500)
           break
       }
     },
@@ -474,7 +473,6 @@ export default {
           break
         case 3.0:
           this.isTextSegmentState[3] = 'center'
-          this.isCircleBgState04 = 'shrink'
           break
       }
     },

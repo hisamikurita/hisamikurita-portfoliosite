@@ -6,7 +6,8 @@
 
 export const state = () => ({
   isCurrent: false,
-  pickupPos : 0,
+  pickupPos: 0,
+  projectAnimation: '',
 });
 
 export const getters = {
@@ -15,6 +16,9 @@ export const getters = {
   },
   pos(state) {
     return state.pickupPos;
+  },
+  projectAnimationState(state) {
+    return state.projectAnimation;
   }
 };
 
@@ -27,5 +31,8 @@ export const mutations = {
   },
   setPickupPos(state, pos) {
     state.pickupPos = pos;
+  },
+  setProjectAnimationState(state, progress) {
+    state.projectAnimation = progress;
   }
 };
