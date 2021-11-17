@@ -10,6 +10,7 @@
                 :state="isTextSegmentState"
                 :start="0"
                 :text="['・', 'ABOUT']"
+                :sp-animation="false"
               ></CommonSectionReadTitle>
             </span>
             <span class="pc-only">
@@ -57,12 +58,18 @@
             <span class="sp-only">
               <span class="about-title-wrapper-sp about-title-wrapper-01-sp">IN THE SUMMER OF 22, I</span>STARTED PROGRAMMING. IT WA<br>S LATER THAN MOST, BUT I THI<br>NK I FOUND SOMETHING THAT I<br>WAS PASSIONATE ABOUT. I'VE B<br>EEN WRITING CODE EVERY DAY<br>EVER SINCE. MY GREATEST STRE<br>NGTH IS MY NEVER-ENDING INQ<br>UISITIVENESS.
             </span>
-            <CommonTextUnderline
-              modifier="index-about"
-              :state="isTextUnderlineState"
-              :start="0.6"
-              :rotate="rotateLeft"
-            ></CommonTextUnderline>
+            <span class="pc-only">
+              <CommonTextUnderline
+                modifier="index-about"
+                :state="isTextUnderlineState"
+                :start="0.6"
+                :rotate="rotateLeft"
+                :sp-animation="false"
+              ></CommonTextUnderline>
+            </span>
+            <span class="sp-only">
+              <span class="about-text-underline"></span>
+            </span>
           </h2>
           <p class="about-read-text">
             <span class="pc-only">
@@ -75,6 +82,7 @@
                   'ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN,',
                   'BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.',
                 ]"
+                :sp-animation="false"
               ></CommonSectionReadTitle>
             </span>
             <span class="sp-only">THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span>
@@ -207,5 +215,14 @@ export default {
     font-size: 10px;
     line-height: 1.3;
   }
+}
+
+.about-text-underline {
+  position: absolute;
+  bottom: -34px;
+  right: vw_sp(20);
+  background-color: $darkBlue;
+  width: calc(100% - #{vw_sp(40)});
+  height: 1px;
 }
 </style>

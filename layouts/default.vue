@@ -5,12 +5,15 @@
         <nuxt />
       </div>
     </div>
+    <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <LayoutHeader></LayoutHeader>
     <LayoutHambergerMenu></LayoutHambergerMenu>
   </div>
 </template>
 
 <script>
+import { preEvent } from "../lib/preEvent"
+
 export default {
   computed: {
     hambergerMenuState: function () {
@@ -29,6 +32,8 @@ export default {
        * ハンバガーメニューが開いた時
        */
       if (this.hambergerMenuState) {
+        this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
+
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
@@ -37,7 +42,11 @@ export default {
             x: -560,
           })
         }
-        if (this.$checkDevice.isTouch()) {
+
+        if (this.$siteConfig.isTouch) {
+          /**
+           * タッチデバイスでTOPのピックアップセクションだった時に更に処理を分岐する
+           */
           if (this.indexPickupState) {
             this.$backfaceScroll(false, this.indexPickupPos);
           }
@@ -45,18 +54,21 @@ export default {
             this.$backfaceScroll(false);
           }
         }
-        else {
+        else if(this.$siteConfig.isNoTouch) {
           /**
            * asscrollを無効にする
            */
           this.$asscroll.disable({ inputOnly: true })
-          window.removeEventListener('wheel', this.prEvent, { passive: false })
+          window.removeEventListener('wheel', preEvent, { passive: false })
         }
       }
+
       /**
        * ハンバガーメニューが閉じた時
        */
       else if (!this.hambergerMenuState) {
+        this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
+
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
@@ -65,32 +77,40 @@ export default {
             x: 0,
           })
         }
-        if (this.$checkDevice.isTouch()) {
-          if (!this.indexPickupState) this.$backfaceScroll(true);
+
+        if (this.$siteConfig.isTouch) {
+          /**
+           * ピックアップセクションだった場合はスクロール固定を解除しない
+           */
+          if (this.indexPickupState) return;
+          this.$backfaceScroll(true);
         }
-        else {
+        else if(this.$siteConfig.isNoTouch) {
           /**
            * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
            */
-          if (!this.indexPickupState) this.$asscroll.enable()
-          window.addEventListener('wheel', this.prEvent, { passive: false })
+          if(this.indexPickupState) return;
+          this.$asscroll.enable()
+          window.addEventListener('wheel', preEvent, { passive: false })
         }
       }
-    },
-  },
-  mounted() {
-    /**
-     * ホイールイベントのデフォルトの動作を止める
-     */
-    if (!this.$checkDevice.isTouch()) {
-      window.addEventListener('wheel', this.prEvent, { passive: false })
     }
-  },
-
-  methods: {
-    prEvent: function (e) {
-      e.preventDefault()
-    },
-  },
+  }
 }
 </script>
+
+<style lang="scss">
+.asscroll-container-cover{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+
+  @include sp() {
+    display: none;
+  }
+}
+</style>

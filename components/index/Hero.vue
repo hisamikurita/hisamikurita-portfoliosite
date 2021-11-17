@@ -6,18 +6,27 @@
       <div class="l-container">
         <h1 class="hero-title">
           <span class="hero-title-read-area">
-            <CommonSectionReadTitle
-              modifier="section"
-              :state="isTextSegmentState"
-              :start="delay[0]"
-              :text="[
-                '・',
-                'AUTHOR : HISAMI KURITA',
-                'FRAMEWORK : VUE/NUXT',
-                'LIBRARY : GSAP/THREE.JS',
-                'SERVER : NETLIFY',
-              ]"
-            ></CommonSectionReadTitle>
+            <span class="pc-only">
+              <CommonSectionReadTitle
+                modifier="section"
+                :state="isTextSegmentState"
+                :start="delay[0]"
+                :text="[
+                  '・',
+                  'AUTHOR : HISAMI KURITA',
+                  'FRAMEWORK : VUE/NUXT',
+                  'LIBRARY : GSAP/THREE.JS',
+                  'SERVER : NETLIFY',
+                ]"
+                :sp-animation="false"
+              ></CommonSectionReadTitle>
+            </span>
+            <span class="sp-only">
+              <span class="hero-title-read-block-sp">AUTHOR : HISAMI KURITA</span>
+              <span class="hero-title-read-block-sp">FRAMEWORK : VUE/NUXT'</span>
+              <span class="hero-title-read-block-sp">LIBRARY : GSAP/THREE.JS'</span>
+              <span class="hero-title-read-block-sp">SERVER : NETLIFY'</span>
+            </span>
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
@@ -26,6 +35,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[0]"
                 :rotate="rotateRight"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -42,6 +52,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[1]"
                 :rotate="rotateLeft"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -85,6 +96,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[2]"
                 :rotate="rotateRight"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -100,6 +112,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[3]"
                 :rotate="rotateLeft"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -212,7 +225,7 @@ export default {
 
   methods: {
     bgCircleScaleChangeScroll() {
-      if (this.hambergerMenuState || !this.$refs.Hero) return;
+      if (this.hambergerMenuState) return;
 
       this.$gsap.to(this.$refs.HeroBgCircle02, {
         duration: this.$baseAnimationConfig.duration / 3.0,
@@ -248,10 +261,16 @@ export default {
   position: absolute;
   top: 8px;
   left: 2px;
+  font-family: Helvetica, sans-serif;
 
   @include sp(){
     top: -18px;
+    font-size: 10px;
   }
+}
+
+.hero-title-read-block-sp{
+  display: block;
 }
 
 .hero-title-wrapper {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <AboutHero></AboutHero>
     <AboutAward></AboutAward>
   </div>
@@ -12,7 +12,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$backfaceScroll(true, 0, 0);
-      this.$asscroll.enable({ reset: true });
+      if(!this.$siteConfig.isTouch) this.$asscroll.enable({ reset: true });
     });
   },
 

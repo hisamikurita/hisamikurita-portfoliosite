@@ -21,6 +21,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    spAnimation: {
+      type: Boolean,
+      default: true,
+    },
     modifier: {
       type: String,
       default: '',
@@ -29,6 +33,8 @@ export default {
 
   watch: {
     state: function () {
+      if (!this.spAnimation && this.$siteConfig.isMobile) return
+
       switch (this.state) {
         case 'extend':
           this.toExtend()
@@ -38,6 +44,8 @@ export default {
   },
 
   mounted() {
+    if (!this.spAnimation && this.$siteConfig.isMobile) return
+
     this.init()
   },
 
@@ -88,11 +96,11 @@ export default {
     width: calc(100% - #{vw(56)} - 40px);
   }
 
-  @include sp(){
-    width: calc(100% - #{vw_sp(40)});
-    bottom: -34px;
-    right: vw_sp(20);
-  }
+  // @include sp(){
+  //   width: calc(100% - #{vw_sp(40)});
+  //   bottom: -34px;
+  //   right: vw_sp(20);
+  // }
 }
 
 .text-under-line--index-project-01 {

@@ -1,18 +1,9 @@
-html,body{
-  // overflow-x: hidden;
-}
-
 body {
   background-color: $skinColor;
   color: $white;
   font-size: 16px;
   font-family: Helvetica, sans-serif;
   font-feature-settings: "palt";
-}
-
-.asscroll-container{
-  position: relative;
-  overflow-x: hidden;
 }
 
 .l-container {

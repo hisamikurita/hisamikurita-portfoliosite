@@ -134,7 +134,7 @@ export default {
   & .heade-link  {
     display: block;
 
-    &:hover {
+    @include hover(){
       & .header-logo-move-text {
         transform: translateX(0);
         transition-delay: 0s;

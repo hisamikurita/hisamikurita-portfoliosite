@@ -29,11 +29,10 @@ export default {
     '~/plugins/viewport.client.js',
     '~/plugins/backfaceFixed.client.js',
     '~/plugins/horizonReload.client.js',
-    '~/plugins/siteConfig.client.js',
-    '~/plugins/checkDevice.client.js',
     '~/plugins/asscroll.client.js',
     '~/plugins/gsap.client.js',
     '~/plugins/hambergerMenu.client.js',
+    '~/plugins/siteConfig.client.js',
     '~/plugins/mixin.js',
   ],
 

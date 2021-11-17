@@ -707,18 +707,21 @@ export default {
   transition: transform $base-duration * 0.25 $transform-easing;
   border-radius: inherit;
 
-  &:hover {
+  @include hover(){
     transform: scale(0.9, 0.98);
 
     @include sp() {
       transform: scale(1, 1);
     }
   }
-  &.isOpen:hover {
-    transform: scale(1.1, 1.1);
 
-    @include sp() {
-      transform: scale(1, 1);
+  &.isOpen{
+    @include hover(){
+      transform: scale(1.1, 1.1);
+
+      @include sp() {
+        transform: scale(1, 1);
+      }
     }
   }
 }

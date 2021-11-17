@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index">
     <div class="hero-and-about">
       <IndexHero></IndexHero>
       <IndexAbout></IndexAbout>
@@ -17,7 +17,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$backfaceScroll(true, 0, 0);
-      this.$asscroll.enable({ reset: true });
+      if(!this.$siteConfig.isTouch) this.$asscroll.enable({ reset: true });
     });
   },
   beforeDestroy() {
@@ -30,5 +30,9 @@ export default {
 .hero-and-about {
   position: relative;
   overflow: hidden;
+}
+
+.index{
+  overflow-x: hidden;
 }
 </style>
