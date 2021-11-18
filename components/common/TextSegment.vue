@@ -1,5 +1,3 @@
-<!-- テキストアニメーション用のコンポーネント -->
-
 <template>
   <span ref="CmnTextSegmentBlock" class="cmn-text-segment-block">
     <span ref="CmnTextSegmentWrapper" class="cmn-text-segment-wrapper">

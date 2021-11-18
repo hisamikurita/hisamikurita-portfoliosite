@@ -119,6 +119,10 @@ export default {
   },
 
   mounted() {
+    this.TouchScrollRatio = this.$siteConfig.isTouch ? 0.55 : 1.0;
+    this.TouchIntervalRatio = this.$siteConfig.isTouch ? 0 : 1.0;
+    this.TouchScrollDuration = this.TouchScrollRatio * 2000;
+    this.TouchInervalDuration = this.TouchIntervalRatio * 100;
     this.$gsap.ticker.add(this.pickupToTopEnterScroll);
   },
 
@@ -143,8 +147,8 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
-        this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
         this.disable(2000)
+        this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
         if(this.$siteConfig.isNoTouch) this.$asscroll.disable({ inputOnly: true })
 
         this.$store.commit('indexPickup/enter')
@@ -172,18 +176,18 @@ export default {
             this.pickupSceneNext()
 
             /**
-             * asscrollが無効な時
+             * asscrollが無効な時アニメーション終了時に背景を固定
              */
             if (this.$siteConfig.isTouch) {
               this.$backfaceScroll(false);
             }
-            window.addEventListener('touchstart', this.setTouchY);
-            window.addEventListener('touchmove', this.pickupSceneTouchManager);
-            window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
-            window.addEventListener('resize', this.pickupResize);
+            this.addAllEvent();
           },
         })
 
+        /**
+         * 侵入した時の最初のサークルアニメーション
+         */
         if (this.$siteConfig.isPc) {
             this.$gsap.to(this.$refs.PickupCircleEnter, {
             duration: this.$baseAnimationConfig.duration * 1.2,
@@ -193,7 +197,7 @@ export default {
             scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
           })
         }
-        else{
+        else if(this.$siteConfig.isMobile){
             this.$gsap.to(this.$refs.PickupCircleEnter, {
             duration: this.$baseAnimationConfig.duration * 1.2,
             ease: this.$easing.transform,
@@ -208,38 +212,32 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-
-      this.$store.commit('indexPickup/leave')
+      this.disable(this.TouchScrollDuration)
       /**
        * asscrollが無効な時
        */
-      if (this.$siteConfig.isTouch) {
-        this.$backfaceScroll(true);
-      }
-      window.removeEventListener('touchstart', this.setTouchY);
-      window.removeEventListener('touchmove', this.pickupSceneTouchManager);
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false,})
-      window.removeEventListener('resize', this.pickupResize);
-      this.disable(this.$baseAnimationConfig.duration * 2000)
+      if (this.$siteConfig.isTouch) this.$backfaceScroll(true);
+      this.$store.commit('indexPickup/leave')
+      this.removeAllEvent();
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
 
       this.$gsap.to(this.scroll, {
         value: pickupTopPos,
-        duration: this.$siteConfig.isTouch ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
+        duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
           /**
            * asscrollが有効な時
            */
-          if (!this.$siteConfig.isTouch) {
+          if (this.$siteConfig.isNoTouch) {
             this.$asscroll.scrollTo(this.scroll.value)
           }
           /**
            * asscrollが無効な時
            */
-          else{
+          else if(this.$siteConfig.isTouch){
             window.scrollTo({ top: this.scroll.value })
           }
         },
@@ -249,10 +247,8 @@ export default {
             /**
              * asscrollが有効な時
              */
-            if (!this.$siteConfig.isTouch) {
-              this.$asscroll.enable()
-            }
-          }, 100)
+            if (this.$siteConfig.isNoTouch) this.$asscroll.enable()
+          }, this.TouchInervalDuration)
         },
       })
 
@@ -576,6 +572,26 @@ export default {
         window.removeEventListener('touchmove', this.prEvent, { passive: false });
         window.removeEventListener('wheel', this.prEvent, { passive: false })
       }, interval)
+    },
+
+    /**
+     * イベントをセットする
+     */
+    addAllEvent(){
+      window.addEventListener('touchstart', this.setTouchY);
+      window.addEventListener('touchmove', this.pickupSceneTouchManager);
+      window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
+      window.addEventListener('resize', this.pickupResize);
+    },
+
+    /**
+     * イベントを削除する
+     */
+    removeAllEvent(){
+      window.removeEventListener('touchstart', this.setTouchY);
+      window.removeEventListener('touchmove', this.pickupSceneTouchManager);
+      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
+      window.removeEventListener('resize', this.pickupResize);
     },
 
     prEvent: function (e) {

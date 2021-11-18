@@ -16,13 +16,17 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      this.$backfaceScroll(true, 0, 0);
-      if(!this.$siteConfig.isTouch) this.$asscroll.enable({ reset: true });
+      if (this.$siteConfig.isTouch) {
+        this.$backfaceScroll(true, 0, 0)
+      }
+      else if (this.$siteConfig.isNoTouch) {
+        this.$asscroll.enable({ reset: true })
+      }
     });
   },
   beforeDestroy() {
-    this.$asscroll.disable();
-  }
+    if (this.$siteConfig.isNoTouch) this.$asscroll.disable()
+  },
 }
 </script>
 
@@ -32,7 +36,7 @@ export default {
   overflow: hidden;
 }
 
-.index{
+.index {
   overflow-x: hidden;
 }
 </style>
