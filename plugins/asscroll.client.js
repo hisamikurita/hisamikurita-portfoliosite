@@ -5,7 +5,7 @@ import ASScroll from '@ashthornton/asscroll'
  */
 const asscroll = new ASScroll({
   ease: 0.09,
-  touchScrollType: 'none',
+  touchScrollType: 'scrollTop',
   customScrollbar: false,
 });
 

@@ -119,10 +119,6 @@ export default {
   },
 
   mounted() {
-    this.TouchScrollRatio = this.$siteConfig.isTouch ? 0.55 : 1.0;
-    this.TouchIntervalRatio = this.$siteConfig.isTouch ? 0 : 1.0;
-    this.TouchScrollDuration = this.TouchScrollRatio * 2000;
-    this.TouchInervalDuration = this.TouchIntervalRatio * 100;
     this.$gsap.ticker.add(this.pickupToTopEnterScroll);
   },
 
@@ -147,9 +143,10 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
+        this.addAllPreEvent();
         this.disable(2000)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
-        if(this.$siteConfig.isNoTouch) this.$asscroll.disable({ inputOnly: true })
+        this.$asscroll.disable({ inputOnly: true })
 
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
@@ -159,28 +156,10 @@ export default {
           duration: this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
-            /**
-             * asscrollが有効な時
-             */
-            if (this.$siteConfig.isNoTouch) {
-              this.$asscroll.scrollTo(this.scroll.value)
-            }
-            /**
-             * asscrollが無効な時
-             */
-            else if(this.$siteConfig.isTouch){
-              window.scrollTo({ top: this.scroll.value })
-            }
+            this.$asscroll.scrollTo(this.scroll.value)
           },
           onComplete: () => {
             this.pickupSceneNext()
-
-            /**
-             * asscrollが無効な時アニメーション終了時に背景を固定
-             */
-            if (this.$siteConfig.isTouch) {
-              this.$backfaceScroll(false);
-            }
             this.addAllEvent();
           },
         })
@@ -212,11 +191,7 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-      this.disable(this.TouchScrollDuration)
-      /**
-       * asscrollが無効な時
-       */
-      if (this.$siteConfig.isTouch) this.$backfaceScroll(true);
+      this.disable()
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent();
 
@@ -228,27 +203,14 @@ export default {
         duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
-          /**
-           * asscrollが有効な時
-           */
-          if (this.$siteConfig.isNoTouch) {
-            this.$asscroll.scrollTo(this.scroll.value)
-          }
-          /**
-           * asscrollが無効な時
-           */
-          else if(this.$siteConfig.isTouch){
-            window.scrollTo({ top: this.scroll.value })
-          }
+          this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
           setTimeout(() => {
             this.$gsap.ticker.add(this.pickupToTopEnterScroll);
-            /**
-             * asscrollが有効な時
-             */
-            if (this.$siteConfig.isNoTouch) this.$asscroll.enable()
-          }, this.TouchInervalDuration)
+            this.removeAllPreEvent();
+            this.$asscroll.enable()
+          }, 100)
         },
       })
 
@@ -282,51 +244,24 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
+        this.$asscroll.disable({ inputOnly: true })
+        this.addAllPreEvent();
+        this.disable(4000)
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
         this.$store.commit('indexPickup/setProjectAnimationState','end')
-        this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
-        /**
-         * asscrollが有効な時
-         */
-        if (!this.$siteConfig.isTouch) {
-          this.$asscroll.disable({ inputOnly: true })
-        }
-        this.disable(this.$baseAnimationConfig.duration * 2000)
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$siteConfig.isTouch ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
+          duration: this.$baseAnimationConfig.duration,
           ease: this.$easing.transform,
           onUpdate: () => {
-            /**
-             * asscrollが有効な時
-             */
-            if (!this.$siteConfig.isTouch) {
-              this.$asscroll.scrollTo(this.scroll.value)
-            }
-            /**
-             * asscrollが無効な時
-             */
-            else{
-              window.scrollTo({ top: this.scroll.value })
-            }
+            this.$asscroll.scrollTo(this.scroll.value)
           },
           onComplete: () => {
             this.pickupScenePrev()
-            this.disable(1000)
-
-            /**
-             * asscrollが無効な時
-             */
-            if (this.$siteConfig.isTouch) {
-              this.$backfaceScroll(false);
-            }
-
-            window.addEventListener('touchstart', this.setTouchY);
-            window.addEventListener('touchmove', this.pickupSceneTouchManager);
-            window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
-            window.addEventListener('resize', this.pickupResize);
+            this.addAllEvent();
           },
         });
 
@@ -347,45 +282,22 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
-      /**
-       * asscrollが無効な時
-       */
-      if (this.$siteConfig.isTouch) {
-        this.$backfaceScroll(true);
-      }
-      window.removeEventListener('touchstart', this.setTouchY);
-      window.removeEventListener('touchmove', this.pickupSceneTouchManager);
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
-      window.removeEventListener('resize', this.pickupResize);
+      this.removeAllEvent();
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
+
       this.$gsap.to(this.scroll, {
         value: pickupBottomPos,
-        duration: this.$siteConfig.isTouch ? this.$baseAnimationConfig.duration * 1.5 : this.$baseAnimationConfig.duration,
+        duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
         onUpdate: () => {
-          /**
-           * asscrollが有効な時
-           */
-          if (!this.$siteConfig.isTouch) {
-            this.$asscroll.scrollTo(this.scroll.value)
-          }
-          /**
-           * asscrollが無効な時
-           */
-          else{
-            window.scrollTo({ top: this.scroll.value })
-          }
+          this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
           setTimeout(() => {
-            /**
-             * asscrollが有効な時
-             */
-            if (!this.$siteConfig.isTouch) {
-                this.$asscroll.enable()
-            }
+            this.$asscroll.enable()
+            this.removeAllPreEvent();
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll);
           }, 100)
         },
@@ -479,7 +391,7 @@ export default {
 
       } else if (e.deltaY < -this.wheelRatio) {
         this.pickupScenePrev()
-        if(this.pickupSectionCurrentNum === 3.0){
+        if(this.pickupSectionCurrentNum === 4.0){
           this.disable(4000)
         } else{
           this.disable();
@@ -502,7 +414,7 @@ export default {
         }
       } else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        if(this.pickupSectionCurrentNum === 3.0){
+        if(this.pickupSectionCurrentNum === 4.0){
           this.disable(4000)
         } else{
           this.disable();
@@ -562,16 +474,19 @@ export default {
     disable(interval = 2000) {
       if(this.isScrollAnimation) return
       this.isScrollAnimation = true
-      window.addEventListener('touchstart', this.prEvent, { passive: false });
-      window.addEventListener('touchmove', this.prEvent, { passive: false });
-      window.addEventListener('wheel', this.prEvent, { passive: false })
 
       setTimeout(() => {
         this.isScrollAnimation = false
-        window.removeEventListener('touchstart', this.prEvent, { passive: false });
-        window.removeEventListener('touchmove', this.prEvent, { passive: false });
-        window.removeEventListener('wheel', this.prEvent, { passive: false })
       }, interval)
+    },
+
+    /**
+     * デフォルトのイベントを止める
+     */
+    addAllPreEvent(){
+      window.addEventListener('touchstart', this.prEvent, { passive: false });
+      window.addEventListener('touchmove', this.prEvent, { passive: false });
+      window.addEventListener('wheel', this.prEvent, { passive: false })
     },
 
     /**
@@ -582,6 +497,15 @@ export default {
       window.addEventListener('touchmove', this.pickupSceneTouchManager);
       window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
       window.addEventListener('resize', this.pickupResize);
+    },
+
+    /**
+     * デフォルトのイベントを戻す
+     */
+    removeAllPreEvent(){
+      window.removeEventListener('touchstart', this.prEvent, { passive: false });
+      window.removeEventListener('touchmove', this.prEvent, { passive: false });
+      window.removeEventListener('wheel', this.prEvent, { passive: false })
     },
 
     /**
