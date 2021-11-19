@@ -137,7 +137,7 @@ export default {
      * ピックアップセクションに上から侵入する時
      */
     pickupToTopEnterScroll() {
-
+      console.log(this.isScrollAnimation)
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -191,7 +191,7 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-      this.disable()
+      this.disable(3000)
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent();
 
@@ -247,7 +247,7 @@ export default {
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
         this.$asscroll.disable({ inputOnly: true })
         this.addAllPreEvent();
-        this.disable(4000)
+        this.disable(2000)
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
         this.$store.commit('indexPickup/setProjectAnimationState','end')
@@ -334,7 +334,7 @@ export default {
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState','start')
             this.pickupToBottomLeaveScroll()
-          }, this.wheelInterval * 500)
+          }, this.wheelInterval * 1000)
           break
       }
 
@@ -383,19 +383,11 @@ export default {
 
       if (e.deltaY > this.wheelRatio) {
         this.pickupSceneNext()
-        if(this.pickupSectionCurrentNum === 4.0){
-          this.disable(4000)
-        } else{
-          this.disable();
-        }
-
-      } else if (e.deltaY < -this.wheelRatio) {
+        this.disable();
+      }
+      else if (e.deltaY < -this.wheelRatio) {
         this.pickupScenePrev()
-        if(this.pickupSectionCurrentNum === 4.0){
-          this.disable(4000)
-        } else{
-          this.disable();
-        }
+        this.disable();
       }
     },
 
@@ -407,18 +399,11 @@ export default {
 
       if (deltaY > this.touchRatio) {
         this.pickupSceneNext()
-        if(this.pickupSectionCurrentNum === 4.0){
-          this.disable(4000)
-        } else{
-          this.disable();
-        }
-      } else if (deltaY < -this.touchRatio) {
+        this.disable();
+      }
+      else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        if(this.pickupSectionCurrentNum === 4.0){
-          this.disable(4000)
-        } else{
-          this.disable();
-        }
+        this.disable();
       }
     },
 
@@ -455,36 +440,38 @@ export default {
       /**
        * asscrollが有効な時
        */
-      if (!this.$siteConfig.isTouch) {
+      // if (!this.$siteConfig.isTouch) {
         this.$asscroll.scrollTo(this.scroll.value)
-      }
+      // }
       /**
        * asscrollが無効な時
        */
-      else{
-        window.scrollTo({ top: this.scroll.value })
-      }
+      // else{
+      //   window.scrollTo({ top: this.scroll.value })
+      // }
       this.$store.commit('indexPickup/setPickupPos', pickupPos)
-      this.$backfaceScroll(false, this.indexPickupPos);
+      // this.$backfaceScroll(false, this.indexPickupPos);
     },
 
     /**
      * 進む戻るの操作不能
      */
     disable(interval = 2000) {
-      if(this.isScrollAnimation) return
       this.isScrollAnimation = true
+      if(this.clear) clearTimeout(this.clear);
 
-      setTimeout(() => {
-        this.isScrollAnimation = false
-      }, interval)
+      this.clear = setTimeout(this.clearAnimation, interval);
+    },
+
+    clearAnimation(){
+      this.isScrollAnimation = false
     },
 
     /**
      * デフォルトのイベントを止める
      */
     addAllPreEvent(){
-      window.addEventListener('touchstart', this.prEvent, { passive: false });
+      // window.addEventListener('touchstart', this.prEvent, { passive: false });
       window.addEventListener('touchmove', this.prEvent, { passive: false });
       window.addEventListener('wheel', this.prEvent, { passive: false })
     },
@@ -503,7 +490,7 @@ export default {
      * デフォルトのイベントを戻す
      */
     removeAllPreEvent(){
-      window.removeEventListener('touchstart', this.prEvent, { passive: false });
+      // window.removeEventListener('touchstart', this.prEvent, { passive: false });
       window.removeEventListener('touchmove', this.prEvent, { passive: false });
       window.removeEventListener('wheel', this.prEvent, { passive: false })
     },

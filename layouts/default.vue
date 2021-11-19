@@ -47,12 +47,12 @@ export default {
           /**
            * タッチデバイスでTOPのピックアップセクションだった時に更に処理を分岐する
            */
-          if (this.indexPickupState) {
-            this.$backfaceScroll(false, this.indexPickupPos);
-          }
-          else{
+          // if (this.indexPickupState) {
+          //   this.$backfaceScroll(false, this.indexPickupPos);
+          // }
+          // else{
             this.$backfaceScroll(false);
-          }
+          // }
         }
         else if(this.$siteConfig.isNoTouch) {
           /**
@@ -82,7 +82,7 @@ export default {
           /**
            * ピックアップセクションだった場合はスクロール固定を解除しない
            */
-          if (this.indexPickupState) return;
+          // if (this.indexPickupState) return;
           this.$backfaceScroll(true);
         }
         else if(this.$siteConfig.isNoTouch) {
