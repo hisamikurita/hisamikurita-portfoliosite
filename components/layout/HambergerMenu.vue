@@ -1,5 +1,5 @@
 <template>
-  <div class="hambergerMenu">
+  <div class="hambergerMenu" :class="{'is-disable': hambergerMenuDisable}">
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
@@ -98,6 +98,9 @@ export default {
   computed: {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
+    },
+    hambergerMenuDisable: function () {
+      return this.$store.getters['hambergerMenu/disable']
     },
     setRootTagName() {
       return function(root){
@@ -516,6 +519,11 @@ export default {
     bottom: auto;
     width: 60px;
     height: 60px;
+  }
+
+  &.is-disable{
+    pointer-events: none;
+    user-select: none;
   }
 }
 

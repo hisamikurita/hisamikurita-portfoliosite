@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { preEvent, preEventTouch } from "../../lib/preEvent"
 import pickupData from '@/assets/json/pickup.json'
 
 export default {
@@ -101,7 +102,6 @@ export default {
       },
       isCircleBgState02: '',
       isCircleBgState03: '',
-      isCircleBgState04: '',
       scroll: { value: 0 },
     }
   },
@@ -126,10 +126,8 @@ export default {
     this.$store.commit('indexPickup/leave')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
-    window.removeEventListener('touchstart', this.setTouchY);
-    window.removeEventListener('touchmove', this.pickupSceneTouchManager);
-    window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false,})
-    window.removeEventListener('resize', this.pickupResize);
+    this.removeAllEvent();
+    this.removeAllPreEvent();
   },
 
   methods: {
@@ -137,7 +135,6 @@ export default {
      * ピックアップセクションに上から侵入する時
      */
     pickupToTopEnterScroll() {
-      console.log(this.isScrollAnimation)
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -145,6 +142,7 @@ export default {
       if (this.$asscroll.targetPos > pickupTopPos) {
         this.addAllPreEvent();
         this.disable(2000)
+        this.$store.commit('hambergerMenu/disable')
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
         this.$asscroll.disable({ inputOnly: true })
 
@@ -161,6 +159,7 @@ export default {
           onComplete: () => {
             this.pickupSceneNext()
             this.addAllEvent();
+            this.$store.commit('hambergerMenu/enable')
           },
         })
 
@@ -192,6 +191,7 @@ export default {
      */
     pickupToTopLeaveScroll() {
       this.disable(3000)
+      this.$store.commit('hambergerMenu/disable')
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent();
 
@@ -210,6 +210,7 @@ export default {
             this.$gsap.ticker.add(this.pickupToTopEnterScroll);
             this.removeAllPreEvent();
             this.$asscroll.enable()
+            this.$store.commit('hambergerMenu/enable')
           }, 100)
         },
       })
@@ -246,6 +247,7 @@ export default {
       if (this.$asscroll.targetPos < pickupBottomPos) {
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
         this.$asscroll.disable({ inputOnly: true })
+        this.$store.commit('hambergerMenu/disable')
         this.addAllPreEvent();
         this.disable(2000)
         this.$store.commit('indexPickup/enter')
@@ -262,6 +264,7 @@ export default {
           onComplete: () => {
             this.pickupScenePrev()
             this.addAllEvent();
+            this.$store.commit('hambergerMenu/enable')
           },
         });
 
@@ -282,6 +285,7 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
+      this.$store.commit('hambergerMenu/disable')
       this.removeAllEvent();
 
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -299,6 +303,7 @@ export default {
             this.$asscroll.enable()
             this.removeAllPreEvent();
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll);
+            this.$store.commit('hambergerMenu/enable')
           }, 100)
         },
       })
@@ -437,20 +442,8 @@ export default {
        */
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
-      /**
-       * asscrollが有効な時
-       */
-      // if (!this.$siteConfig.isTouch) {
-        this.$asscroll.scrollTo(this.scroll.value)
-      // }
-      /**
-       * asscrollが無効な時
-       */
-      // else{
-      //   window.scrollTo({ top: this.scroll.value })
-      // }
+      this.$asscroll.scrollTo(this.scroll.value)
       this.$store.commit('indexPickup/setPickupPos', pickupPos)
-      // this.$backfaceScroll(false, this.indexPickupPos);
     },
 
     /**
@@ -471,9 +464,9 @@ export default {
      * デフォルトのイベントを止める
      */
     addAllPreEvent(){
-      // window.addEventListener('touchstart', this.prEvent, { passive: false });
-      window.addEventListener('touchmove', this.prEvent, { passive: false });
-      window.addEventListener('wheel', this.prEvent, { passive: false })
+      window.addEventListener('touchstart', preEventTouch, { passive: false });
+      window.addEventListener('touchmove', preEventTouch, { passive: false });
+      window.addEventListener('wheel', preEvent, { passive: false })
     },
 
     /**
@@ -490,9 +483,9 @@ export default {
      * デフォルトのイベントを戻す
      */
     removeAllPreEvent(){
-      // window.removeEventListener('touchstart', this.prEvent, { passive: false });
-      window.removeEventListener('touchmove', this.prEvent, { passive: false });
-      window.removeEventListener('wheel', this.prEvent, { passive: false })
+      window.removeEventListener('touchstart', preEventTouch, { passive: false });
+      window.removeEventListener('touchmove', preEventTouch, { passive: false });
+      window.removeEventListener('wheel', preEvent, { passive: false })
     },
 
     /**
@@ -503,10 +496,6 @@ export default {
       window.removeEventListener('touchmove', this.pickupSceneTouchManager);
       window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
       window.removeEventListener('resize', this.pickupResize);
-    },
-
-    prEvent: function (e) {
-      e.preventDefault()
     },
   },
 }
@@ -525,10 +514,6 @@ export default {
     overflow: hidden;
   }
 }
-
-// .pickup.is-enter {
-//   overflow: hidden;
-// }
 
 .pickup-bg {
   background-color: $lightBlue;
@@ -624,7 +609,7 @@ export default {
   position: absolute;
   top: -130px;
   right: 0;
-  left: -5%;
+  left: -10%;
   margin: 0 auto;
   background-color: $blue;
   width: 80px;

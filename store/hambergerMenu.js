@@ -6,11 +6,15 @@
 
 export const state = () => ({
   isOpen: false,
+  isDisable: false,
 });
 
 export const getters = {
   state(state) {
     return state.isOpen;
+  },
+  disable(state) {
+    return state.isDisable;
   }
 };
 
@@ -20,5 +24,11 @@ export const mutations = {
   },
   close(state) {
     state.isOpen = false;
+  },
+  enable(state) {
+    state.isDisable = false;
+  },
+  disable(state) {
+    state.isDisable = true;
   },
 };

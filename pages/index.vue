@@ -16,17 +16,13 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      if (this.$siteConfig.isTouch) {
-        this.$backfaceScroll(true, 0, 0)
-      }
-      else if (this.$siteConfig.isNoTouch) {
-        this.$asscroll.enable({ reset: true })
-      }
+      this.$asscroll.enable({ reset: true })
     });
   },
+
   beforeDestroy() {
-    if (this.$siteConfig.isNoTouch) this.$asscroll.disable()
-  },
+    this.$asscroll.disable()
+  }
 }
 </script>
 

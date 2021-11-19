@@ -44,20 +44,9 @@ export default {
         }
 
         if (this.$siteConfig.isTouch) {
-          /**
-           * タッチデバイスでTOPのピックアップセクションだった時に更に処理を分岐する
-           */
-          // if (this.indexPickupState) {
-          //   this.$backfaceScroll(false, this.indexPickupPos);
-          // }
-          // else{
-            this.$backfaceScroll(false);
-          // }
+          this.$backfaceScroll(false);
         }
         else if(this.$siteConfig.isNoTouch) {
-          /**
-           * asscrollを無効にする
-           */
           this.$asscroll.disable({ inputOnly: true })
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
@@ -86,12 +75,12 @@ export default {
           this.$backfaceScroll(true);
         }
         else if(this.$siteConfig.isNoTouch) {
+          window.addEventListener('wheel', preEvent, { passive: false })
           /**
            * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
            */
           if(this.indexPickupState) return;
           this.$asscroll.enable()
-          window.addEventListener('wheel', preEvent, { passive: false })
         }
       }
     }
