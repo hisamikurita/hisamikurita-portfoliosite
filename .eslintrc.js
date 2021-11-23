@@ -19,5 +19,6 @@ module.exports = {
   rules: {
     "object-shorthand": "off",
     "no-void": "off",
+    "no-return-assign" : "off"
   }
 }

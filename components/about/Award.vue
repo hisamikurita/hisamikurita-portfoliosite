@@ -172,7 +172,7 @@ export default {
     onMousemove(e) {
       if (this.hambergerMenuState) return;
 
-      this.mouseX = e.clientX - this.cardHalfWidth
+      this.mouseX = e.clientX - this.cardHalfWidth + 20
       this.mouseY = e.clientY - this.cardHalfHeight
       this.currentY = this.mouseY + this.$asscroll.targetPos
 
