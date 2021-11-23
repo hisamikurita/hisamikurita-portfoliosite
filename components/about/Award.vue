@@ -1,9 +1,20 @@
 <template>
   <div ref="Award" class="award">
-    <span class="pc-only">
-      <span ref="AwardCardArea" class="award-card-area">
-        <CommonCardAward></CommonCardAward>
-      </span>
+    <span ref="AwardCardArea" class="award-card-area">
+      <div
+        v-for="award in awardData"
+        :key="award.id"
+        ref="AwardCardItem"
+        class="award-card-item"
+      >
+        <CommonCardAward
+          :group="award.group"
+          :title="award.title"
+          :rank="award.rank"
+          :date="award.date"
+          :modifier="award.modifier"
+        ></CommonCardAward>
+      </div>
     </span>
     <div class="award-bg">
       <div class="award-inner">
@@ -13,30 +24,29 @@
               modifier="award-section"
               :state="isTextSegmentState"
               :start="0"
-              :text="[
-                '・',
-                'AWARDS',
-              ]"
+              :text="['・', 'AWARDS']"
             ></CommonSectionReadTitle>
           </span>
           <div class="award-list-wrapper">
-            <div v-for="data in awardData" :key="data.id" class="award-list">
+            <div class="award-list">
               <div
-                v-for="award in data.awards"
+                v-for="(award, index) in awardData"
                 :key="award.id"
+                ref="AwardItem"
                 class="award-item"
+                :data-id="index"
               >
                 <p class="award-group">{{ award.group }}</p>
-                <p class="award-title">{{ data.title }}</p>
+                <p class="award-title">{{ award.title }}</p>
                 <p class="award-rank">{{ award.rank }}</p>
               </div>
             </div>
           </div>
           <span class="pc-only">
             <ul class="award-total-list">
-              <li class="award-total-item">AWWWARDS*{{ awardData[awardData.length - 1.0].total.awwwwards }}</li>
-              <li class="award-total-item">CSSDA*{{ awardData[awardData.length - 1.0].total.cssda }}</li>
-              <li class="award-total-item">CSSWINNER*{{ awardData[awardData.length - 1.0].total.csswinner }}</li>
+              <li class="award-total-item">AWWWARDS*6</li>
+              <li class="award-total-item">CSSDA*16</li>
+              <li class="award-total-item">CSSWINNER*2</li>
             </ul>
           </span>
         </div>
@@ -55,6 +65,11 @@ export default {
       isTextSegmentState: '',
     }
   },
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
   mounted() {
     /* text-animation */
     this.observe = this.$refs.Award
@@ -71,23 +86,176 @@ export default {
     )
     this.iObserver.observe(this.observe)
 
-    /* mouse */
-    this.$refs.Award.addEventListener('mousemove', (e) => {
-      this.$gsap.to(this.$refs.AwardCardArea, {
-        x: e.clientX,
-        y: e.clientY,
-      })
-    })
+    this.award = this.$refs.Award
+    this.cards = this.$refs.AwardCardItem
+    this.items = this.$refs.AwardItem
+    this.itemsHeight = this.items[0].getBoundingClientRect().height
+    this.cardHalfWidth = 117
+    this.cardHalfHeight = 160
+    this.animationFlags = [];
+    for (let i = 0; i < this.items.length; i++) {
+      this.animationFlags.push(false);
+    }
+
+    if (this.$siteConfig.isNoTouch) {
+      this.cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.cardScrollPos)
+              this.$gsap.ticker.add(this.cardScrollAnimation)
+            }
+            else{
+              this.$gsap.ticker.remove(this.cardScrollPos)
+              this.$gsap.ticker.remove(this.cardScrollAnimation)
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.cardObserver.observe(this.observe)
+      window.addEventListener('mousemove', this.onMousemove)
+    }
   },
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
+      if (this.$siteConfig.isNoTouch) {
+      this.$gsap.ticker.remove(this.cardScrollPos)
+      this.$gsap.ticker.remove(this.cardScrollAnimation)
+      window.removeEventListener('mousemove', this.onMousemove)
+    }
+  },
+
+  methods: {
+    cardScrollPos() {
+      if (this.hambergerMenuState) return;
+
+      this.currentY = this.mouseY + this.$asscroll.targetPos
+
+      this.$gsap.to(this.$refs.AwardCardArea, {
+        duration: 0.4,
+        ease: 'none',
+        x: this.mouseX,
+        y: this.currentY,
+      })
+    },
+    cardScrollAnimation() {
+      if (this.hambergerMenuState) return;
+
+      for (let i = 0; i < this.items.length; i++) {
+        const target = this.items[i]
+        const rect = target.getBoundingClientRect()
+        const startPosY =
+          this.award.offsetTop + target.offsetTop - this.cardHalfHeight
+        const startPosX = rect.left - this.cardHalfWidth
+        const endPosY = startPosY + rect.height
+        const endPosX = startPosX + rect.width
+
+        if (this.currentY < startPosY || this.mouseX < startPosX) {
+          this.colorFadeOut(target)
+          this.cardFadeOut(this.cards[i], i)
+        } else if (
+          this.currentY >= startPosY &&
+          this.currentY < endPosY &&
+          this.mouseX >= startPosX &&
+          this.mouseX < endPosX
+        ) {
+          this.colorFadeIn(target)
+          this.cardFadeIn(this.cards[i], i)
+        } else {
+          this.colorFadeOut(target)
+          this.cardFadeOut(this.cards[i], i)
+        }
+      }
+    },
+    onMousemove(e) {
+      if (this.hambergerMenuState) return;
+
+      this.mouseX = e.clientX - this.cardHalfWidth
+      this.mouseY = e.clientY - this.cardHalfHeight
+      this.currentY = this.mouseY + this.$asscroll.targetPos
+
+      this.$gsap.to(this.$refs.AwardCardArea, {
+        duration: 0.4,
+        ease: 'none',
+        x: this.mouseX,
+        y: this.currentY,
+      })
+    },
+    cardFadeIn(target, index) {
+      if(this.animationFlags[index]) return;
+      this.animationFlags[index] = true;
+
+      this.$gsap.fromTo(target,
+      {
+        transformOrigin: index % 2 !== 0 ? 'left' : 'right',
+        rotate: index % 2 !== 0 ? 8 : -8,
+        y: 100,
+      },
+      {
+        duration: 0.4,
+        ease: this.$easing.transform,
+        rotate: 0,
+        y: 0,
+      })
+
+    this.$gsap.fromTo(target,
+      {
+        opacity: 0,
+      },
+      {
+        duration: 0.4,
+        ease: this.$easing.colorAndOpacity,
+        opacity: 1,
+      })
+    },
+    cardFadeOut(target, index) {
+      if(!this.animationFlags[index]) return;
+      this.animationFlags[index] = false;
+
+      this.$gsap.fromTo(target,
+      {
+        transformOrigin: index % 2 !== 0 ? 'right' : 'left',
+        rotate: 0,
+        y: 0,
+      },
+      {
+        duration: 0.4,
+        ease: this.$easing.transform,
+        rotate: index % 2 !== 0 ? -8 : 8,
+        y: -100,
+      })
+      this.$gsap.fromTo(target,
+      {
+        opacity: 1,
+      },
+      {
+        duration: 0.4,
+        ease: this.$easing.colorAndOpacity,
+        opacity: 0,
+      })
+    },
+    colorFadeIn(target) {
+      this.$gsap.to(target, {
+        duration: 0.4,
+        ease: this.$easing.colorAndOpacity,
+        color: '#ffffff',
+      })
+    },
+    colorFadeOut(target) {
+      this.$gsap.to(target, {
+        duration: 0.4,
+        ease: this.$easing.colorAndOpacity,
+        color: '#828282',
+      })
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.award{
+.award {
   position: relative;
   overflow: hidden;
 }
@@ -100,47 +268,42 @@ export default {
 .award-inner {
   padding: 152px 40px;
 
-  @include sp(){
+  @include sp() {
     padding: 63px vw_sp(20);
   }
 }
 
 .award-card-area {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 293px;
   height: 400px;
   pointer-events: none;
   z-index: 1;
-  display: none;
 }
 
-.award-title-read-area{
+.award-card-item {
+  opacity: 0;
+}
+
+.award-title-read-area {
   display: block;
   margin: 0 0 36px 0;
 
-  @include sp(){
+  @include sp() {
     margin: 0 0 40px 0;
   }
 }
 
-// .award-card-area-item{
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 293px;
-//   height: 400px;
-// }
-
-.award-list-wrapper{
+.award-list-wrapper {
   margin: 0 0 40px 0;
 }
 
 .award-list {
   width: vw(1000);
 
-  @include sp(){
+  @include sp() {
     width: 100%;
   }
 }
@@ -149,12 +312,13 @@ export default {
   display: flex;
   padding: 15px 0;
   border-top: solid 1px $gray;
+  color: $gray;
 
   &:last-of-type {
     border-bottom: solid 1px $gray;
   }
 
-  @include sp(){
+  @include sp() {
     display: block;
     padding: 18px 0;
   }
@@ -165,10 +329,11 @@ export default {
   top: 2px;
   flex-shrink: 0;
   width: vw(238);
+  color: $white;
   font-size: 14px;
   letter-spacing: 0.02em;
 
-  @include sp(){
+  @include sp() {
     top: auto;
     width: auto;
     margin: 0 0 10px 0;
@@ -179,12 +344,11 @@ export default {
 .award-title {
   flex-shrink: 0;
   width: vw(440);
-  color: $gray;
-  font-size: vw(60);
+  font-size: 60px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: 0.02em;
 
-  @include sp(){
+  @include sp() {
     width: auto;
     margin: 0 0 8px 0;
     font-size: vw_sp(100);
@@ -194,18 +358,17 @@ export default {
 
 .award-rank {
   flex-shrink: 0;
-  color: $gray;
-  font-size: vw(60);
+  font-size: 60px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: 0.02em;
 
-  @include sp(){
+  @include sp() {
     width: auto;
     font-size: vw_sp(100);
   }
 }
 
-.award-total-item{
+.award-total-item {
   color: $gray;
   font-size: 12px;
   letter-spacing: 0.02em;

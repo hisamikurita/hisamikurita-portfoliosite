@@ -1,125 +1,163 @@
 [
   {
     "title" : "KETAKUMA OFFICIAL SITE",
-    "awards" : [
-      {
-        "group" : "AWWWARDS",
-        "rank" : "HONORARABLE MENTION"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "SPECIAL KDOS"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UI DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UX DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "INNOVATION AWARD"
-      },
-      {
-        "group" : "CSS WINNER",
-        "rank" : "SITE OF THE DAY"
-      }
-    ]
+    "group" : "AWWWARDS",
+    "rank" : "HONORARABLE MENTION",
+    "date" : "JUN 10, 2021",
+    "modifier" : "aw-hm"
+  },
+  {
+    "title" : "KETAKUMA OFFICIAL SITE",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "SPECIAL KDOS",
+    "date" : "JUN 7, 2021",
+    "modifier" : "da-kds"
+  },
+  {
+    "title" : "KETAKUMA OFFICIAL SITE",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UI DESIGN AWARD",
+    "date" : "JUN 7, 2021",
+    "modifier" : "da-uiawd"
+  },
+  {
+    "title" : "KETAKUMA OFFICIAL SITE",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UX DESIGN AWARD",
+    "date" : "JUN 7, 2021",
+    "modifier" : "da-uxawd"
+  },
+  {
+    "title" : "KETAKUMA OFFICIAL SITE",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "INNOVATION AWARD",
+    "date" : "JUN 7, 2021",
+    "modifier" : "da-innawd"
+  },
+  {
+    "title" : "KETAKUMA OFFICIAL SITE",
+    "group" : "CSS WINNER",
+    "rank" : "SITE OF THE DAY",
+    "date" : "JUN 13, 2021",
+    "modifier" : "cw-sotd"
   },
   {
     "title" : "YAKUDO",
-    "awards" : [
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "SPECIAL KDOS"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UI DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UX DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "INNOVATION AWARD"
-      }
-    ]
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "SPECIAL KDOS",
+    "date" : "FEB 14, 2021",
+    "modifier" : "da-kds"
+  },
+  {
+    "title" : "YAKUDO",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UI DESIGN AWARD",
+    "date" : "FEB 14, 2021",
+    "modifier" : "da-uiawd"
+  },
+  {
+    "title" : "YAKUDO",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UX DESIGN AWARD",
+    "date" : "FEB 14, 2021",
+    "modifier" : "da-uxawd"
+  },
+  {
+    "title" : "YAKUDO",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "INNOVATION AWARD",
+    "date" : "FEB 14, 2021",
+    "modifier" : "da-innawd"
   },
   {
     "title" : "RED AND GREEN CO., LTD",
-    "awards" : [
-      {
-        "group" : "AWWWARDS",
-        "rank" : "HONORARABLE MENTION"
-      },
-      {
-        "group" : "AWWWARDS",
-        "rank" : "MOBILE EXELLENCE"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "SPECIAL KDOS"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UI DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UX DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "INNOVATION AWARD"
-      }
-    ]
+    "group" : "AWWWARDS",
+    "rank" : "HONORARABLE MENTION",
+    "date" : "APL 29, 2021",
+    "modifier" : "aw-hm"
+  },
+  {
+    "title" : "RED AND GREEN CO., LTD",
+    "group" : "AWWWARDS",
+    "rank" : "MOBILE EXELLENCE",
+    "date" : "APL 29, 2020",
+    "modifier" : "aw-me"
+  },
+  {
+    "title" : "RED AND GREEN CO., LTD",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "SPECIAL KDOS",
+    "date" : "FEB 16 , 2021",
+    "modifier" : "da-kds"
+  },
+  {
+    "title" : "RED AND GREEN CO., LTD",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UI DESIGN AWARD",
+    "date" : "FEB 16 , 2021",
+    "modifier" : "da-uiawd"
+  },
+  {
+    "title" : "RED AND GREEN CO., LTD",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UX DESIGN AWARD",
+    "date" : "FEB 16 , 2021",
+    "modifier" : "da-uxawd"
+  },
+  {
+    "title" : "RED AND GREEN CO., LTD",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "INNOVATION AWARD",
+    "date" : "FEB 16 , 2021",
+    "modifier" : "da-innawd"
   },
   {
     "title" : "M-TRUST CO.,LTD.",
-    "awards" : [
-      {
-        "group" : "AWWWARDS",
-        "rank" : "SITE OF THE DAY"
-      },
-      {
-        "group" : "AWWWARDS",
-        "rank" : "HONORARABLE MENTION"
-      },
-      {
-        "group" : "AWWWARDS",
-        "rank" : "MOBILE EXELLENCE"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "WEBSITE OF THE DAY"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UI DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "UX DESIGN AWARD"
-      },
-      {
-        "group" : "CSS DESIGN AWARDS",
-        "rank" : "INNOVATION AWARD"
-      },
-      {
-        "group" : "CSS WINNER",
-        "rank" : "SITE OF THE DAY"
-      }
-    ]
+    "group" : "AWWWARDS",
+    "rank" : "SITE OF THE DAY",
+    "date" : "Oct 11, 2020",
+    "modifier" : "aw-sotd"
   },
   {
-    "total": {
-      "awwwwards": 6,
-      "cssda" : 16,
-      "csswinner" : 2
-    }
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "AWWWARDS",
+    "rank" : "MOBILE EXELLENCE",
+    "date" : "Oct 11, 2020",
+    "modifier" : "aw-me"
+  },
+  {
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "WEBSITE OF THE DAY",
+    "date" : "Oct 11, 2020",
+    "modifier" : "da-wotd"
+  },
+  {
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UI DESIGN AWARD",
+    "date" : "OCT 19, 2020",
+    "modifier" : "da-uiawd"
+  },
+  {
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "UX DESIGN AWARD",
+    "date" : "OCT 19, 2020",
+    "modifier" : "da-uxawd"
+  },
+  {
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "CSS DESIGN AWARDS",
+    "rank" : "INNOVATION AWARD",
+    "date" : "OCT 19, 2020",
+    "modifier" : "da-innawd"
+  },
+  {
+    "title" : "M-TRUST CO.,LTD.",
+    "group" : "CSS WINNER",
+    "rank" : "SITE OF THE DAY",
+    "date" : "OCT 19, 2020",
+    "modifier" : "cw-sotd"
   }
 ]

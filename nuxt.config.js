@@ -41,6 +41,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@aceforth/nuxt-optimized-images',
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
@@ -63,6 +64,11 @@ export default {
     google: {
       families: ['Six+Caps']
     }
+  },
+
+  optimizedImages: {
+    optimizeImages: true,
+    optimizeImagesInDev: true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
