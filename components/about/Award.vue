@@ -174,19 +174,6 @@ export default {
       if (this.animationFlags[index]) return
       this.animationFlags[index] = true
 
-      // this.$gsap.fromTo(target,
-      // {
-      //   transformOrigin: index % 2 !== 0 ? 'left' : 'right',
-      //   rotate: index % 2 !== 0 ? 8 : -8,
-      //   y: 100,
-      // },
-      // {
-      //   duration: 0.4,
-      //   ease: this.$easing.transform,
-      //   rotate: 0,
-      //   y: 0,
-      // })
-
       this.$gsap.set(target, { opacity: 1 })
     },
     cardFadeOut(target, index) {

@@ -4,6 +4,12 @@ body {
   font-size: 16px;
   font-family: Helvetica, sans-serif;
   font-feature-settings: "palt";
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .l-container {
