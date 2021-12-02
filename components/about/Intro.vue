@@ -41,7 +41,7 @@ export default {
 
 .intro{
   position: relative;
-  height: 2000px;
+  height: 3000px;
   padding: 200px 0 0 0;
 }
 

@@ -1,11 +1,15 @@
 <template>
-  <div class="hambergerMenu" :class="{'is-disable': hambergerMenuDisable}">
+  <div class="hambergerMenu" :class="{ 'is-disable': hambergerMenuDisable }">
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
           <span class="hambergerMenu-title-wrapper-01">
-              <component :is="setRootTagName('index')" to="./" @click="onClickSameUrlReload('index')">
+            <component
+              :is="setRootTagName('index')"
+              to="./"
+              @click="onClickSameUrlReload('index')"
+            >
               <CommonTextSegment
                 :state="isTextSegmentState"
                 :start="0"
@@ -16,7 +20,11 @@
             </component>
           </span>
           <span class="hambergerMenu-title-wrapper-02">
-            <component :is="setRootTagName('about')" to="/about" @click="onClickSameUrlReload('about')">
+            <component
+              :is="setRootTagName('about')"
+              to="/about"
+              @click="onClickSameUrlReload('about')"
+            >
               <CommonTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
@@ -103,8 +111,8 @@ export default {
       return this.$store.getters['hambergerMenu/disable']
     },
     setRootTagName() {
-      return function(root){
-        return this.$route.name === root ? 'span' : 'nuxt-link';
+      return function (root) {
+        return this.$route.name === root ? 'span' : 'nuxt-link'
       }
     },
   },
@@ -203,8 +211,7 @@ export default {
               }
             )
           }, 300)
-        }
-        else if (this.$siteConfig.isMobile) {
+        } else if (this.$siteConfig.isMobile) {
           /**
            * contents
            */
@@ -218,7 +225,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
             ease: this.$easing.transform,
-            x: (-window.innerWidth / 2.0) + 30 + 20,
+            x: -window.innerWidth / 2.0 + 30 + 20,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
@@ -280,8 +287,7 @@ export default {
             )
           }, 500)
         }
-      }
-      else if (!this.hambergerMenuState) {
+      } else if (!this.hambergerMenuState) {
         /**
          * ハンバガーメニューが閉じた時
          */
@@ -385,8 +391,7 @@ export default {
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
           }, 300)
-        }
-        else if (this.$siteConfig.isMobile) {
+        } else if (this.$siteConfig.isMobile) {
           /**
            * btn
            */
@@ -483,16 +488,16 @@ export default {
         this.$store.commit('hambergerMenu/open')
       }
     },
-    hambergerMenuBtnOnResize(){
+    hambergerMenuBtnOnResize() {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
-        x: (-window.innerWidth / 2.0) + 30 + 20,
+        x: -window.innerWidth / 2.0 + 30 + 20,
       })
     },
-    onClickSameUrlReload(root){
+    onClickSameUrlReload(root) {
       if (this.$route.name === root) {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       }
-    }
+    },
   },
 }
 </script>
@@ -521,7 +526,7 @@ export default {
     height: 60px;
   }
 
-  &.is-disable{
+  &.is-disable {
     pointer-events: none;
     user-select: none;
   }
@@ -582,6 +587,12 @@ export default {
   overflow: scroll;
   opacity: 0;
   pointer-events: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @include sp() {
     right: 0;
@@ -715,7 +726,7 @@ export default {
   transition: transform $base-duration * 0.25 $transform-easing;
   border-radius: inherit;
 
-  @include hover(){
+  @include hover() {
     transform: scale(0.9, 0.98);
 
     @include sp() {
@@ -723,8 +734,8 @@ export default {
     }
   }
 
-  &.isOpen{
-    @include hover(){
+  &.isOpen {
+    @include hover() {
       transform: scale(1.1, 1.1);
 
       @include sp() {

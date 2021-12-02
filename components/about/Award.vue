@@ -99,21 +99,8 @@ export default {
     this.iObserver.observe(this.observe)
 
     if (this.$siteConfig.isNoTouch) {
-      this.cardObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              this.$gsap.ticker.add(this.cardScrollPos)
-              this.$gsap.ticker.add(this.cardScrollAnimation)
-            } else {
-              this.$gsap.ticker.remove(this.cardScrollPos)
-              this.$gsap.ticker.remove(this.cardScrollAnimation)
-            }
-          })
-        },
-        { rootMargin: '0%' }
-      )
-      this.cardObserver.observe(this.observe)
+      this.$gsap.ticker.add(this.cardScrollPos)
+      this.$gsap.ticker.add(this.cardScrollAnimation)
       window.addEventListener('mousemove', this.onMousemove)
     }
   },
