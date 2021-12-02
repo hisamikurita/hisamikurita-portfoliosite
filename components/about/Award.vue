@@ -78,9 +78,9 @@ export default {
     this.itemsHeight = this.items[0].getBoundingClientRect().height
     this.cardHalfWidth = 117
     this.cardHalfHeight = 160
-    this.animationFlags = [];
+    this.animationFlags = []
     for (let i = 0; i < this.items.length; i++) {
-      this.animationFlags.push(false);
+      this.animationFlags.push(false)
     }
     this.observe = this.$refs.Award
 
@@ -105,8 +105,7 @@ export default {
             if (entry.isIntersecting) {
               this.$gsap.ticker.add(this.cardScrollPos)
               this.$gsap.ticker.add(this.cardScrollAnimation)
-            }
-            else{
+            } else {
               this.$gsap.ticker.remove(this.cardScrollPos)
               this.$gsap.ticker.remove(this.cardScrollAnimation)
             }
@@ -121,7 +120,7 @@ export default {
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
-      if (this.$siteConfig.isNoTouch) {
+    if (this.$siteConfig.isNoTouch) {
       this.$gsap.ticker.remove(this.cardScrollPos)
       this.$gsap.ticker.remove(this.cardScrollAnimation)
       window.removeEventListener('mousemove', this.onMousemove)
@@ -130,7 +129,7 @@ export default {
 
   methods: {
     cardScrollPos() {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.currentY = this.mouseY + this.$asscroll.targetPos
 
@@ -142,7 +141,7 @@ export default {
       })
     },
     cardScrollAnimation() {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       for (let i = 0; i < this.items.length; i++) {
         const target = this.items[i]
@@ -171,7 +170,7 @@ export default {
       }
     },
     onMousemove(e) {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.mouseX = e.clientX - this.cardHalfWidth
       this.mouseY = e.clientY - this.cardHalfHeight
@@ -185,8 +184,8 @@ export default {
       })
     },
     cardFadeIn(target, index) {
-      if(this.animationFlags[index]) return;
-      this.animationFlags[index] = true;
+      if (this.animationFlags[index]) return
+      this.animationFlags[index] = true
 
       // this.$gsap.fromTo(target,
       // {
@@ -201,15 +200,15 @@ export default {
       //   y: 0,
       // })
 
-      this.$gsap.set(target,{ opacity: 1 });
+      this.$gsap.set(target, { opacity: 1 })
     },
     cardFadeOut(target, index) {
-      if(!this.animationFlags[index]) return;
-      this.animationFlags[index] = false;
+      if (!this.animationFlags[index]) return
+      this.animationFlags[index] = false
 
-      setTimeout(()=>{
-      this.$gsap.set(target,{ opacity: 0 });
-      },1000)
+      setTimeout(() => {
+        this.$gsap.set(target, { opacity: 0 })
+      }, 700)
     },
     colorFadeIn(target) {
       this.$gsap.to(target, {
