@@ -150,7 +150,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
             ease: this.$easing.colorAndOpacity,
-            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 30%)',
+            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 50%)',
           })
           /**
            * ico
@@ -235,7 +235,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
             ease: this.$easing.colorAndOpacity,
-            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 30%)',
+            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 50%)',
           })
           window.addEventListener('resize', this.hambergerMenuBtnOnResize)
           /**

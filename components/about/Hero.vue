@@ -181,6 +181,7 @@ export default {
 }
 
 .hero-inner {
+  margin: 0 0 200px 0;
   padding: 92px 0 333px;
 
   @include sp(){

@@ -282,7 +282,7 @@ export default {
       this.$gsap.to(this.$refs.CardProjectArticle, {
         duration: this.$baseAnimationConfig.duration,
         ease: this.$easing.transform,
-        y: -120,
+        y: -320,
         rotate: 0,
       })
     },
