@@ -280,7 +280,7 @@ export default {
     cardViewAnimation(){
       this.state = 'center'
       this.$gsap.to(this.$refs.CardProjectArticle, {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$baseAnimationConfig.duration * 1.5,
         ease: this.$easing.transform,
         y: -320,
         rotate: 0,
