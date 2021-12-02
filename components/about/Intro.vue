@@ -33,7 +33,6 @@ export default {
             },
           },
         })
-        console.log(this.$refs.IntroReadText.clientWidth)
       // }, 1000)
     })
 

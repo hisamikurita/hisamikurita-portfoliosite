@@ -150,7 +150,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
             ease: this.$easing.colorAndOpacity,
-            boxShadow: '0px 0px 10px 5px #bfbeb8',
+            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 30%)',
           })
           /**
            * ico
@@ -235,7 +235,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
             ease: this.$easing.colorAndOpacity,
-            boxShadow: '0px 0px 5px 3px #bfbeb8',
+            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 30%)',
           })
           window.addEventListener('resize', this.hambergerMenuBtnOnResize)
           /**
@@ -565,7 +565,17 @@ export default {
   pointer-events: none;
   transform-origin: right;
   transform: scaleX(0);
-  box-shadow: 1px 1px 50px 77px #a4a39d inset;
+
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 1px 1px 50px 77px #a4a39d inset;
+    z-index: 1;
+  }
 
   @include sp() {
     top: 42px;

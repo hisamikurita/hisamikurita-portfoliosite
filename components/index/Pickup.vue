@@ -285,7 +285,6 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
-      this.$store.commit('hambergerMenu/disable')
       this.removeAllEvent();
 
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -335,7 +334,8 @@ export default {
           }, this.wheelInterval * 1000)
           break
         case 4.0:
-          this.isTextSegmentState[3] = 'top'
+          this.isTextSegmentState[3] = 'top';
+          this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState','start')
             this.pickupToBottomLeaveScroll()
