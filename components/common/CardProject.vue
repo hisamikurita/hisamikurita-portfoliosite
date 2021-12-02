@@ -247,12 +247,7 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.state = 'center'
-            this.$gsap.to(this.$refs.CardProjectArticle, {
-              duration: this.$baseAnimationConfig.duration * 2.0,
-              ease: this.$easing.transform,
-              rotate: 0,
-            })
+            this.cardViewAnimation();
             this.iObserverTextSegment.unobserve(this.observe)
           }
         })
@@ -265,9 +260,9 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.$asscroll.on('scroll', this.cardPallax)
+            this.$asscroll.on('update', this.cardPallax)
           } else {
-            this.$asscroll.off('scroll', this.cardPallax)
+            this.$asscroll.off('update', this.cardPallax)
           }
         })
       },
@@ -278,10 +273,20 @@ export default {
   },
 
   beforeDestroy() {
-    this.$asscroll.off('scroll', this.cardPallax)
+    this.$asscroll.off('update', this.cardPallax)
   },
 
   methods: {
+    cardViewAnimation(){
+      this.state = 'center'
+      this.$gsap.to(this.$refs.CardProjectArticle, {
+        duration: this.$baseAnimationConfig.duration,
+        ease: this.$easing.transform,
+        y: -120,
+        rotate: 0,
+      })
+    },
+
     cardPallax() {
       this.$gsap.to(this.$refs.CardProject, {
         duration: this.$baseAnimationConfig.duration / 3.0,

@@ -111,7 +111,7 @@ export default {
       if(this.hambergerMenuState) return;
 
       this.$gsap.to(this.tweenPosition, {
-        duration: this.$baseAnimationConfig.duration / 1.5,
+        duration: this.$baseAnimationConfig.duration * 0.5,
         ease: 'none',
         value: this.$asscroll.currentPos,
       });

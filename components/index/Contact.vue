@@ -352,7 +352,7 @@ export default {
 
 .contact-card-item-01 {
   position: absolute;
-  top: 61.5%;
+  top: 65.5%;
   left: 24%;
   transform: rotate(-10deg);
   width: 0;
@@ -366,7 +366,7 @@ export default {
 
 .contact-card-item-02 {
   position: absolute;
-  top: 52%;
+  top: 56%;
   right: 38%;
   transform: rotate(10deg);
   width: 0;
