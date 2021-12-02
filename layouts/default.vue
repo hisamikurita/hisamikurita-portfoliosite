@@ -84,21 +84,6 @@ export default {
         }
       }
     }
-  },
-  mounted() {
-    this.$ScrollTrigger.defaults({
-      scroller: this.$asscroll.containerElement
-    })
-    this.$ScrollTrigger.scrollerProxy(this.$asscroll.containerElement, {
-      scrollTop(value) {
-        return arguments.length ? this.$asscroll.currentPos = value : this.$asscroll.currentPos;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }
-      }
-    });
-    this.$gsap.ticker.add(this.$ScrollTrigger.update);
-    this.$ScrollTrigger.addEventListener("refresh", this.$asscroll.resize);
   }
 }
 

@@ -50,10 +50,19 @@ export default {
       type: [Object, String],
       required: true,
     },
+    rotate: {
+      type: Number,
+      default: 0,
+    },
     modifier: {
       type: [Object, String],
       required: true,
     },
+  },
+  mounted() {
+    this.$gsap.set(this.$refs.CardAward, {
+      rotate: this.rotate,
+    });
   }
 }
 </script>

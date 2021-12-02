@@ -45,3 +45,9 @@ if (siteConfig.isNoTouch) {
 export default (context, inject) => {
   inject('siteConfig', siteConfig);
 }
+
+/**
+ * ブレイクポイントを跨いだ時に強制的にロードさせる
+ */
+const mediaQuery = window.matchMedia('(max-width: 768px)')
+mediaQuery.addEventListener('change', reload)

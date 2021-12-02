@@ -13,6 +13,7 @@
           :rank="award.rank"
           :date="award.date"
           :modifier="award.modifier"
+          :rotate="award.rotate"
         ></CommonCardAward>
       </div>
     </span>
@@ -71,8 +72,19 @@ export default {
     },
   },
   mounted() {
-    /* text-animation */
+    this.award = this.$refs.Award
+    this.cards = this.$refs.AwardCardItem
+    this.items = this.$refs.AwardItem
+    this.itemsHeight = this.items[0].getBoundingClientRect().height
+    this.cardHalfWidth = 117
+    this.cardHalfHeight = 160
+    this.animationFlags = [];
+    for (let i = 0; i < this.items.length; i++) {
+      this.animationFlags.push(false);
+    }
     this.observe = this.$refs.Award
+
+    /* text-animation */
     this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -85,17 +97,6 @@ export default {
       { rootMargin: '0%' }
     )
     this.iObserver.observe(this.observe)
-
-    this.award = this.$refs.Award
-    this.cards = this.$refs.AwardCardItem
-    this.items = this.$refs.AwardItem
-    this.itemsHeight = this.items[0].getBoundingClientRect().height
-    this.cardHalfWidth = 117
-    this.cardHalfHeight = 160
-    this.animationFlags = [];
-    for (let i = 0; i < this.items.length; i++) {
-      this.animationFlags.push(false);
-    }
 
     if (this.$siteConfig.isNoTouch) {
       this.cardObserver = new IntersectionObserver(
@@ -172,7 +173,7 @@ export default {
     onMousemove(e) {
       if (this.hambergerMenuState) return;
 
-      this.mouseX = e.clientX - this.cardHalfWidth + 20
+      this.mouseX = e.clientX - this.cardHalfWidth
       this.mouseY = e.clientY - this.cardHalfHeight
       this.currentY = this.mouseY + this.$asscroll.targetPos
 
@@ -187,54 +188,28 @@ export default {
       if(this.animationFlags[index]) return;
       this.animationFlags[index] = true;
 
-      this.$gsap.fromTo(target,
-      {
-        transformOrigin: index % 2 !== 0 ? 'left' : 'right',
-        rotate: index % 2 !== 0 ? 8 : -8,
-        y: 100,
-      },
-      {
-        duration: 0.4,
-        ease: this.$easing.transform,
-        rotate: 0,
-        y: 0,
-      })
+      // this.$gsap.fromTo(target,
+      // {
+      //   transformOrigin: index % 2 !== 0 ? 'left' : 'right',
+      //   rotate: index % 2 !== 0 ? 8 : -8,
+      //   y: 100,
+      // },
+      // {
+      //   duration: 0.4,
+      //   ease: this.$easing.transform,
+      //   rotate: 0,
+      //   y: 0,
+      // })
 
-    this.$gsap.fromTo(target,
-      {
-        opacity: 0,
-      },
-      {
-        duration: 0.4,
-        ease: this.$easing.colorAndOpacity,
-        opacity: 1,
-      })
+      this.$gsap.set(target,{ opacity: 1 });
     },
     cardFadeOut(target, index) {
       if(!this.animationFlags[index]) return;
       this.animationFlags[index] = false;
 
-      this.$gsap.fromTo(target,
-      {
-        transformOrigin: index % 2 !== 0 ? 'right' : 'left',
-        rotate: 0,
-        y: 0,
-      },
-      {
-        duration: 0.4,
-        ease: this.$easing.transform,
-        rotate: index % 2 !== 0 ? -8 : 8,
-        y: -100,
-      })
-      this.$gsap.fromTo(target,
-      {
-        opacity: 1,
-      },
-      {
-        duration: 0.4,
-        ease: this.$easing.colorAndOpacity,
-        opacity: 0,
-      })
+      setTimeout(()=>{
+      this.$gsap.set(target,{ opacity: 0 });
+      },1000)
     },
     colorFadeIn(target) {
       this.$gsap.to(target, {
@@ -276,7 +251,7 @@ export default {
 .award-card-area {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 150px;
   width: 293px;
   height: 400px;
   pointer-events: none;
