@@ -15,46 +15,68 @@
         <span><img src="/images/intro.jpg" /></span>
       </span>
       <p class="intro-title">
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0"
-          :rotate="rotateRight"
-          text="LOREM IPSUM DOLOR SITA"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0.12"
-          :rotate="rotateLeft"
-          text="MET, CONSECTETUR ADIPISCINGELIT, L"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0.24"
-          :rotate="rotateRight"
-          text="OREM IPSUM DOLOR SIT AMET, CONSE"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0.36"
-          :rotate="rotateLeft"
-          text="CTETUR ADIPISCING ELIT, LOREM IPSU"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0.48"
-          :rotate="rotateRight"
-          text="M DOLOR SIT AMET."
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
+        <span class="intro-title-read-area">
+          <CommonSectionReadTitle
+            modifier="section"
+            :state="isTextSegmentState"
+            :start="0"
+            :text="[
+              '・',
+              'ABOUT',
+            ]"
+            :sp-animation="false"
+          ></CommonSectionReadTitle>
+        </span>
+        <span class="intro-title-wrapper intro-title-wrapper-01">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0"
+            :rotate="rotateRight"
+            text="LOREM IPSUM DOLOR SITA"
+            :sp-animation="false"
+          >
+          </CommonTextSegment>
+        </span>
+        <span class="intro-title-wrapper intro-title-wrapper-02">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0.12"
+            :rotate="rotateLeft"
+            text="MET, CONSECTETUR ADIPISCINGELIT, L"
+            :sp-animation="false"
+          >
+          </CommonTextSegment>
+        </span>
+        <span class="intro-title-wrapper intro-title-wrapper-03">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0.24"
+            :rotate="rotateRight"
+            text="OREM IPSUM DOLOR SIT AMET, CONSE"
+            :sp-animation="false"
+          >
+          </CommonTextSegment>
+        </span>
+        <span class="intro-title-wrapper intro-title-wrapper-04">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0.36"
+            :rotate="rotateLeft"
+            text="CTETUR ADIPISCING ELIT, LOREM IPSU"
+            :sp-animation="false"
+          >
+          </CommonTextSegment>
+        </span>
+        <span class="intro-title-wrapper intro-title-wrapper-05">
+          <CommonTextSegment
+            :state="isTextSegmentState"
+            :start="0.48"
+            :rotate="rotateRight"
+            text="M DOLOR SIT AMET."
+            :sp-animation="false"
+          >
+          </CommonTextSegment>
+        </span>
       </p>
       <p class="intro-note">
         <CommonTextSegment
@@ -79,15 +101,22 @@
 </template>
 
 <script>
+import { vw } from '../../lib/vw';
+
 export default {
   data: () => {
     return {
       isTextSegmentState: '',
       isCircleBgState: '',
+      progress: 0,
+      // tl: null,
+      // tlProgress: 0,
     }
   },
 
   mounted() {
+    window.addEventListener('resize', this.onResize);
+
     this.$gsap.set(this.$refs.IntroWrapper, {
       height: window.innerHeight,
     })
@@ -97,33 +126,20 @@ export default {
 
     this.$nextTick(() => {
       setTimeout(() => {
-        const x = -this.$refs.IntroReadText.clientWidth + window.innerWidth
-        const end = 8000 - window.innerHeight
-        const endSide = 5000 - window.innerHeight
+        this.wWidth = window.innerWidth;
+        this.wHeight = window.innerHeight;
+        this.x = -this.$refs.IntroReadText.clientWidth + window.innerWidth
+        this.end = 8000 - window.innerHeight
+        this.endSide = 5000 - window.innerHeight
 
-        const tl = this.$gsap.timeline({
-          scrollTrigger: {
-            trigger: this.$refs.IntroReadText,
-            start: 'center center',
-            end: `+=${endSide}px`,
-            scrub: 1.0,
-          },
-        })
+        /**
+         * タイムライン
+         */
+        this.scrollTl();
 
-        tl.to(this.$refs.IntroReadText, {
-          x: x,
-        })
-          .to(this.$refs.IntroBg, {
-            opacity: 1,
-          })
-          .to(this.$refs.IntroBg, {
-            top: 0,
-            right: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-            borderRadius: 0,
-          })
-
+        /**
+         * サークルアニメーション
+         */
         this.$gsap.to(
           {},
           {
@@ -136,6 +152,9 @@ export default {
           }
         )
 
+        /**
+         * テキストアニメーション
+         */
         this.$gsap.to(
           {},
           {
@@ -154,48 +173,95 @@ export default {
           }
         )
 
-        //   this.$gsap.to(this.$refs.IntroReadText, {
-        //     ease: 'none',
-        //     scrollTrigger: {
-        //       pin: true,
-        //       pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
-        //       // pinSpacing: false,
-        //       trigger: this.$refs.IntroReadText,
-        //       start: 'center center',
-        //       end: '+=1300px',
-        //       scrub: 1.0,
-        //     },
-        //   })
-
-        // this.$gsap.to(this.$refs.IntroCircleBg.$el, {
-        //   ease: 'none',
-        //   scrollTrigger: {
-        //     // pin: true,
-        //     // pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
-        //     // pinSpacing: false,
-        //     trigger: this.$refs.IntroReadText,
-        //     start: 'center center',
-        //     end: `+=${end}px`,
-        //     scrub: 1.0,
-
-        //   },
-        // })
-        // })
-
-        this.$gsap.to(this.$refs.IntroWrapper, {
+        /**
+         * セクション固定
+         */
+        this.fixSec = this.$gsap.to(this.$refs.IntroWrapper, {
           ease: 'none',
           scrollTrigger: {
             pin: true,
             pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
             trigger: this.$refs.IntroWrapper,
             start: 'end',
-            end: `+=${end}px`,
+            end: `+=${this.end}px`,
             scrub: true,
           },
         })
       }, 500)
     })
   },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+
+  methods: {
+    onResize(){
+      //   this.wWidth = window.innerWidth;
+      //   this.wHeight = window.innerHeight;
+      //   // console.log(this.a.scrollTrigger.end)
+      // this.$gsap.set(this.$refs.IntroReadText, {
+      //   x: window.innerWidth,
+      // })
+
+      // this.x = -this.$refs.IntroReadText.clientWidth + window.innerWidth
+      // this.end = 8000 - window.innerHeight
+      // this.endSide = 5000 - window.innerHeight
+
+      // /**
+      //  * セクション固定
+      //  */
+      this.$gsap.set(this.$refs.IntroWrapper, { height: window.innerHeight,});
+      // this.fixSec.scrollTrigger.end = this.end;
+
+console.log(this.progress)
+      this.progress = this.tl.progress();
+      this.tl.kill();
+      this.scrollTl();
+    },
+
+    scrollTl(){
+      console.log('実行')
+      this.tl = this.$gsap.timeline({
+        scrollTrigger: {
+          trigger: this.$refs.IntroReadText,
+          start: 'center center',
+          end: `+=${this.endSide}px`,
+          scrub: 1.0,
+        },
+      })
+      this.tl.fromTo(this.$refs.IntroReadText,
+      {
+        x: window.innerWidth
+      },
+      {
+        x: -this.$refs.IntroReadText.clientWidth + window.innerWidth,
+      })
+      .fromTo(this.$refs.IntroBg,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+      })
+      .fromTo(this.$refs.IntroBg,
+      {
+        top: vw(17),
+        right: vw(98),
+        width: vw(54),
+        height: vw(245),
+        borderRadius: vw(17),
+      },
+      {
+        top: 0,
+        right: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        borderRadius: 0,
+      })
+      this.tl.seek(this.progress)
+    }
+  }
 }
 </script>
 
@@ -281,20 +347,15 @@ export default {
   font-family: 'Six Caps', sans-serif;
 }
 
-.intro-title-segment-block {
-  display: block;
-  pointer-events: none;
-  user-select: none;
-}
-
-.intro-title-segment-wrapper {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-}
-
-.intro-title-segment-wrapper-01 {
+.intro-title-wrapper-01{
   text-align: right;
+}
+
+.intro-title-read-area {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  color: $white;
 }
 
 .intro-note {

@@ -26,6 +26,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[0]"
                 :rotate="rotateRight"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -42,6 +43,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[1]"
                 :rotate="rotateLeft"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -66,6 +68,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[3]"
                 :rotate="rotateRight"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
@@ -90,6 +93,7 @@
                 :state="isTextUnderlineState"
                 :start="delay[5]"
                 :rotate="rotateLeft"
+                :sp-animation="false"
               ></CommonTextUnderline>
               <CommonTextSegment
                 :state="isTextSegmentState"
