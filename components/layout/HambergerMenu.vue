@@ -186,6 +186,7 @@ export default {
             scaleX: 5.1,
             scaleY: 1.1,
             x: 10,
+            boxShadow: '0 0 10px 2px rgb(255 255 255 / 50%)',
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.3,
@@ -374,6 +375,7 @@ export default {
             scaleX: 1.0,
             scaleY: 1.0,
             x: 0,
+            boxShadow: 'none',
           })
           /**
            * init
@@ -600,12 +602,6 @@ export default {
   overflow-y: scroll;
   opacity: 0;
   pointer-events: none;
-  // -ms-overflow-style: none;
-  // scrollbar-width: none;
-
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
 
   &::-webkit-scrollbar {
     width: 4px;

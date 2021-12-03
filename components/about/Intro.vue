@@ -30,7 +30,7 @@ export default {
       setTimeout(()=>{
 
       const x = -this.$refs.IntroReadText.clientWidth + window.innerWidth;
-      const end = 3000 - window.innerHeight;
+      const end = 5000 - window.innerHeight;
 
       this.$gsap.to(this.$refs.IntroReadText, {
         x: x,
@@ -45,8 +45,10 @@ export default {
           scrub: 1.0,
 
           onEnter: () => {
-            // console.log(this.$refs.IntroCircleBg.$el)
             this.isCircleBgState = 'extend'
+          },
+          onLeaveBack: () => {
+            this.isCircleBgState = 'shrink'
           },
         },
       })
@@ -105,7 +107,7 @@ export default {
 
 .intro {
   position: relative;
-  height: 3000px;
+  height: 5000px;
   // padding: 200px 0 0 0;
 }
 
