@@ -235,7 +235,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
             ease: this.$easing.colorAndOpacity,
-            boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 50%)',
+            boxShadow: 'none',
           })
           window.addEventListener('resize', this.hambergerMenuBtnOnResize)
           /**
@@ -565,15 +565,18 @@ export default {
   pointer-events: none;
   transform-origin: right;
   transform: scaleX(0);
+  overflow: hidden;
 
-  &::before{
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 1px 1px 50px 77px #a4a39d inset;
+    box-shadow: inset 35px 60px 50px 20px rgb(24 23 13 / 50%);
+    border-radius: 10px;
+    pointer-events: none;
     z-index: 1;
   }
 
@@ -590,18 +593,27 @@ export default {
 .hambergerMenu-contents {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0;
   width: 510px;
   height: 100%;
-  padding: 50px 26px;
-  overflow: scroll;
+  padding: 50px 26px 50px 16px;
+  overflow-y: scroll;
   opacity: 0;
   pointer-events: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
 
   &::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+  background-color: #89877C;
+  border-radius: 10px;
   }
 
   @include sp() {
@@ -618,6 +630,7 @@ export default {
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
   letter-spacing: -0.002em;
+  z-index: 2;
 
   @include sp() {
     margin: 0 0 46px 0;
@@ -626,7 +639,9 @@ export default {
 }
 
 .hambergerMenu-section-title {
+  position: relative;
   margin: 0 0 36px 0;
+  z-index: 2;
 
   @include sp() {
     margin: 0 0 34px 0;

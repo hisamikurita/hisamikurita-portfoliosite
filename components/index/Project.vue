@@ -332,7 +332,7 @@ export default {
 }
 
 .project-card-item-00 {
-  top: -1.2%;
+  top: 3.2%;
   right: 34.6%;
 
   @include sp() {
@@ -342,7 +342,7 @@ export default {
 }
 
 .project-card-item-01 {
-  top: 12.3%;
+  top: 16.3%;
   left: 34.5%;
 
   @include sp() {
@@ -352,7 +352,7 @@ export default {
 }
 
 .project-card-item-02 {
-  top: 28%;
+  top: 32%;
   left: 11%;
 
   @include sp() {
@@ -361,7 +361,7 @@ export default {
 }
 
 .project-card-item-03 {
-  top: 6%;
+  top: 10%;
   left: 3.4%;
 
   @include sp() {
@@ -371,7 +371,7 @@ export default {
 }
 
 .project-card-item-04 {
-  top: 27%;
+  top: 31%;
   right: 27%;
 
   @include sp() {
@@ -380,7 +380,7 @@ export default {
 }
 
 .project-card-item-05 {
-  top: 39%;
+  top: 43%;
   right: 58%;
 
   @include sp() {
@@ -390,7 +390,7 @@ export default {
 }
 
 .project-card-item-06 {
-  top: 54%;
+  top: 58%;
   right: 32.8%;
 
   @include sp() {
@@ -400,7 +400,7 @@ export default {
 }
 
 .project-card-item-07 {
-  top: 57%;
+  top: 61%;
   left: 22.4%;
 
   @include sp() {
@@ -410,7 +410,7 @@ export default {
 }
 
 .project-card-item-08 {
-  top: 70%;
+  top: 74%;
   left: 4%;
 
   @include sp() {
