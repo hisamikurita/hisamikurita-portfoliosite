@@ -181,7 +181,7 @@ export default {
 }
 
 .hero-inner {
-  margin: 0 0 200px 0;
+  margin: 0 0 900px 0;
   padding: 92px 0 333px;
 
   @include sp(){
@@ -279,7 +279,7 @@ export default {
 
 .hero-card-item{
   position: absolute;
-  top: 71.8%;
+  top: 48.8%;
   left: 33%;
   transform: rotate(-10deg);
 }
