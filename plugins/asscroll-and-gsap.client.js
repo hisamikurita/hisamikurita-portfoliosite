@@ -38,7 +38,12 @@ ScrollTrigger.scrollerProxy(asscroll.containerElement, {
     return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }
   },
 });
-gsap.ticker.add(ScrollTrigger.update);
+
+function render () {
+  window.requestAnimationFrame(render)
+  ScrollTrigger.update()
+}
+render();
 ScrollTrigger.addEventListener("refresh", asscroll.resize);
 
 export default (context, inject) => {

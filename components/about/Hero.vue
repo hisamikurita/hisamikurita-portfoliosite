@@ -279,7 +279,7 @@ export default {
 
 .hero-card-item{
   position: absolute;
-  top: 63.8%;
+  top: 71.8%;
   left: 33%;
   transform: rotate(-10deg);
 }

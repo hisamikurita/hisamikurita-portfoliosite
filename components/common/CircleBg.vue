@@ -108,4 +108,8 @@ export default {
 .circle-bg-element-index-contact{
   background-color: $thinPink;
 }
+
+.circle-bg-element-about-intro{
+  background-color: $thinPink;
+}
 </style>
