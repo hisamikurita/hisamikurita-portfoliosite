@@ -1,5 +1,8 @@
 <template>
-  <div class="hambergerMenu" :class="{ 'is-disable': hambergerMenuDisable }">
+  <div
+    class="hambergerMenu"
+    :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }"
+  >
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
@@ -76,7 +79,6 @@
       <span
         ref="HambergerMenuBtnHover"
         class="hambergerMenu-hover"
-        :class="{ isOpen: hambergerMenuState }"
       >
         <span ref="hambergerMenuOpenarea" class="hambergerMenu-openarea">
           <span
@@ -186,7 +188,7 @@ export default {
             scaleX: 5.1,
             scaleY: 1.1,
             x: 10,
-            boxShadow: '0 0 10px 2px rgb(255 255 255 / 50%)',
+            boxShadow: '0 0 3px 0.6px rgb(255 255 255 / 80%)',
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.3,
@@ -545,6 +547,21 @@ export default {
   pointer-events: none;
   transform-origin: right;
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 2px 35px 16px 5px rgb(24 23 13 / 20%);
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity $base-duration $colorAndOpacity-easing;
+  }
+
   @include sp() {
     top: 22px;
     left: calc(-100vw + 60px + 20px);
@@ -553,6 +570,12 @@ export default {
     border-radius: 0;
     transform: scaleY(0);
     transform-origin: top;
+  }
+}
+
+.hambergerMenu.isOpen .hambergerMenu-overlay-01 {
+  &::before {
+    opacity: 1;
   }
 }
 
@@ -608,8 +631,8 @@ export default {
   }
 
   &::-webkit-scrollbar-thumb {
-  background-color: #89877C;
-  border-radius: 10px;
+    background-color: #89877c;
+    border-radius: 10px;
   }
 
   @include sp() {
@@ -754,14 +777,14 @@ export default {
       transform: scale(1, 1);
     }
   }
+}
 
-  &.isOpen {
-    @include hover() {
-      transform: scale(1.1, 1.1);
+.hambergerMenu.isOpen .hambergerMenu-hover {
+  @include hover() {
+    transform: scale(1.1, 1.1);
 
-      @include sp() {
-        transform: scale(1, 1);
-      }
+    @include sp() {
+      transform: scale(1, 1);
     }
   }
 }
