@@ -21,7 +21,7 @@ body {
   }
 }
 
-span::selection {
+span::selection,dt::selection,dd::selection {
   background: $darkBlack;
   color: $white;
 }

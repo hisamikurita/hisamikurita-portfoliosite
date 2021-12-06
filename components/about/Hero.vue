@@ -181,11 +181,9 @@ export default {
 <style lang="scss" scoped>
 .hero{
   position: relative;
-  overflow: hidden;
 }
 
 .hero-inner {
-  margin: 0 0 900px 0;
   padding: 92px 0 333px;
 
   @include sp(){
@@ -283,7 +281,7 @@ export default {
 
 .hero-card-item{
   position: absolute;
-  top: 48.8%;
+  top: 82.8%;
   left: 33%;
   transform: rotate(-10deg);
 }

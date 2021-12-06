@@ -85,7 +85,7 @@ export default {
     onScrollDirection: function () {
       if(this.scrollDirectionFlag || this.hambergerMenuState) return;
 
-      const currentPos = this.$asscroll.targetPos;
+      const currentPos = this.$asscroll.currentPos;
       if (currentPos > this.startPos) {
         this.$gsap.to(this.isScrollDirection, {
           duration: this.$baseAnimationConfig.duration / 2.0,
@@ -122,12 +122,12 @@ export default {
 
       if(this.hambergerMenuState) return;
 
-      this.position.value += this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed)
+      this.position.value += Math.floor(this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed))
 
-      if (this.position.value < -this.$refs.CmnLoopTextBlock.clientWidth / 3.01) {
+      if (this.position.value < -this.$refs.CmnLoopTextBlock.clientWidth / 2.99) {
         this.position.value = 0
       }
-      else if(this.position.value > this.$refs.CmnLoopTextBlock.clientWidth / 3.01){
+      else if(this.position.value > this.$refs.CmnLoopTextBlock.clientWidth / 2.99){
         this.position.value = 0
       }
 

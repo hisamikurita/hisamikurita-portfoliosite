@@ -20,122 +20,244 @@
             modifier="section"
             :state="isTextSegmentState"
             :start="0"
-            :text="[
-              '・',
-              'ABOUT',
-            ]"
-            :sp-animation="false"
+            :text="['・', 'ABOUT']"
           ></CommonSectionReadTitle>
         </span>
-        <span class="intro-title-wrapper intro-title-wrapper-01">
+        <span class="pc-only">
+          <span class="intro-title-wrapper intro-title-wrapper-01">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0"
+              :rotate="rotateRight"
+              text="LOREM IPSUM DOLOR SITA"
+              :sp-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-02">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.12"
+              :rotate="rotateLeft"
+              text="MET, CONSECTETUR ADIPISCINGELIT, L"
+              :sp-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-03">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.24"
+              :rotate="rotateRight"
+              text="OREM IPSUM DOLOR SIT AMET, CONSE"
+              :sp-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-04">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.36"
+              :rotate="rotateLeft"
+              text="CTETUR ADIPISCING ELIT, LOREM IPSU"
+              :sp-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-05">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.48"
+              :rotate="rotateRight"
+              text="M DOLOR SIT AMET."
+              :sp-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+        </span>
+        <span class="sp-only">
+          <span class="intro-title-wrapper intro-title-wrapper-sp-01">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0"
+              :rotate="rotateRight"
+              text="LOREM I"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-02">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.12"
+              :rotate="rotateLeft"
+              text="PSUM DOLOR SI"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-03">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.24"
+              :rotate="rotateRight"
+              text="TAMET, CONSEC"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-04">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.36"
+              :rotate="rotateLeft"
+              text="TETUR ADIPISCI"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-05">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.48"
+              :rotate="rotateRight"
+              text="NGELIT, LOREM"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-06">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.6"
+              :rotate="rotateLeft"
+              text="IPSUM DOLOR S"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-title-wrapper intro-title-wrapper-sp-07">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.72"
+              :rotate="rotateRight"
+              text="IT AMET."
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+        </span>
+      </p>
+      <p class="intro-note">
+        <span class="pc-only">
           <CommonTextSegment
             :state="isTextSegmentState"
             :start="0"
             :rotate="rotateRight"
-            text="LOREM IPSUM DOLOR SITA"
+            text="LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
             :sp-animation="false"
           >
           </CommonTextSegment>
-        </span>
-        <span class="intro-title-wrapper intro-title-wrapper-02">
           <CommonTextSegment
             :state="isTextSegmentState"
             :start="0.12"
             :rotate="rotateLeft"
-            text="MET, CONSECTETUR ADIPISCINGELIT, L"
+            text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR"
             :sp-animation="false"
           >
           </CommonTextSegment>
         </span>
-        <span class="intro-title-wrapper intro-title-wrapper-03">
-          <CommonTextSegment
-            :state="isTextSegmentState"
-            :start="0.24"
-            :rotate="rotateRight"
-            text="OREM IPSUM DOLOR SIT AMET, CONSE"
-            :sp-animation="false"
-          >
-          </CommonTextSegment>
+        <span class="sp-only">
+          <span class="intro-note-wrapper intro-note-wrapper-sp-01">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0"
+              :rotate="rotateRight"
+              text="LOREM IPSUM DOLOR SIT"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-note-wrapper intro-note-wrapper-sp-02">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.12"
+              :rotate="rotateLeft"
+              text="AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-note-wrapper intro-note-wrapper-sp-03">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.24"
+              :rotate="rotateRight"
+              text="TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-note-wrapper intro-note-wrapper-sp-04">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.36"
+              :rotate="rotateLeft"
+              text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-note-wrapper intro-note-wrapper-sp-05">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.48"
+              :rotate="rotateRight"
+              text="LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
+          <span class="intro-note-wrapper intro-note-wrapper-sp-06">
+            <CommonTextSegment
+              :state="isTextSegmentState"
+              :start="0.60"
+              :rotate="rotateLeft"
+              text="AUTE IR"
+              :pc-animation="false"
+            >
+            </CommonTextSegment>
+          </span>
         </span>
-        <span class="intro-title-wrapper intro-title-wrapper-04">
-          <CommonTextSegment
-            :state="isTextSegmentState"
-            :start="0.36"
-            :rotate="rotateLeft"
-            text="CTETUR ADIPISCING ELIT, LOREM IPSU"
-            :sp-animation="false"
-          >
-          </CommonTextSegment>
-        </span>
-        <span class="intro-title-wrapper intro-title-wrapper-05">
-          <CommonTextSegment
-            :state="isTextSegmentState"
-            :start="0.48"
-            :rotate="rotateRight"
-            text="M DOLOR SIT AMET."
-            :sp-animation="false"
-          >
-          </CommonTextSegment>
-        </span>
-      </p>
-      <p class="intro-note">
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0"
-          :rotate="rotateRight"
-          text="LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
-        <CommonTextSegment
-          :state="isTextSegmentState"
-          :start="0.12"
-          :rotate="rotateLeft"
-          text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR"
-          :sp-animation="false"
-        >
-        </CommonTextSegment>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import { vw } from '../../lib/vw';
+import { vw, vwSp } from '../../lib/vw'
 
 export default {
   data: () => {
     return {
       isTextSegmentState: '',
       isCircleBgState: '',
-      progress: 0,
+      tlProgress: 0,
+      scrollPos: 0,
       // tl: null,
       // tlProgress: 0,
     }
   },
 
   mounted() {
-    window.addEventListener('resize', this.onResize);
-
-    this.$gsap.set(this.$refs.IntroWrapper, {
-      height: window.innerHeight,
-    })
-    this.$gsap.set(this.$refs.IntroReadText, {
-      x: window.innerWidth,
-    })
+    window.addEventListener('resize', this.onResize)
 
     this.$nextTick(() => {
       setTimeout(() => {
-        this.wWidth = window.innerWidth;
-        this.wHeight = window.innerHeight;
-        this.x = -this.$refs.IntroReadText.clientWidth + window.innerWidth
-        this.end = 8000 - window.innerHeight
-        this.endSide = 5000 - window.innerHeight
-
         /**
          * タイムライン
          */
-        this.scrollTl();
+        this.scrollTl()
 
         /**
          * サークルアニメーション
@@ -173,95 +295,98 @@ export default {
           }
         )
 
-        /**
-         * セクション固定
-         */
-        this.fixSec = this.$gsap.to(this.$refs.IntroWrapper, {
-          ease: 'none',
-          scrollTrigger: {
-            pin: true,
-            pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
-            trigger: this.$refs.IntroWrapper,
-            start: 'end',
-            end: `+=${this.end}px`,
-            scrub: true,
-          },
-        })
-      }, 500)
+        this.scrollFix()
+      }, 100)
     })
   },
 
   beforeDestroy() {
-    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('resize', this.onResize)
   },
 
   methods: {
-    onResize(){
-      //   this.wWidth = window.innerWidth;
-      //   this.wHeight = window.innerHeight;
-      //   // console.log(this.a.scrollTrigger.end)
-      // this.$gsap.set(this.$refs.IntroReadText, {
-      //   x: window.innerWidth,
-      // })
+    onResize() {},
 
-      // this.x = -this.$refs.IntroReadText.clientWidth + window.innerWidth
-      // this.end = 8000 - window.innerHeight
-      // this.endSide = 5000 - window.innerHeight
+    scrollFix() {
+      /**
+       * セクション固定
+       */
+      this.fixSec = this.$gsap.to(this.$refs.IntroWrapper, {
+        ease: 'none',
+        scrollTrigger: {
+          pin: true,
+          pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
+          trigger: this.$refs.IntroWrapper,
+          start: 'end',
+          end: () => `+=${8000 - window.innerHeight}px`,
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      })
 
-      // /**
-      //  * セクション固定
-      //  */
-      this.$gsap.set(this.$refs.IntroWrapper, { height: window.innerHeight,});
-      // this.fixSec.scrollTrigger.end = this.end;
-
-console.log(this.progress)
-      this.progress = this.tl.progress();
-      this.tl.kill();
-      this.scrollTl();
+      if (this.$siteConfig.isTouch) {
+        this.$gsap.set(this.$refs.IntroWrapper, {
+          zIndex: -1,
+        })
+      }
     },
 
-    scrollTl(){
-      console.log('実行')
+    scrollTl() {
+      const textInit = this.$siteConfig.isPc ? vw(1280) : vwSp(750);
+      const textMove = this.$siteConfig.isPc ? vw(-1758 + 1280) : vwSp(-1858 + 750);
+      const bgWidth = this.$siteConfig.isPc ? vw(54) : vwSp(81);
+      const bgHeight = this.$siteConfig.isPc ? vw(245) : vwSp(365);
+      const bgRadius = this.$siteConfig.isPc ? vw(22) : vwSp(36);
+      const bgX = this.$siteConfig.isPc ? vw(-48) : vwSp(121);
+      const bgY = this.$siteConfig.isPc ? vw(8) : vwSp(39);
+
       this.tl = this.$gsap.timeline({
         scrollTrigger: {
           trigger: this.$refs.IntroReadText,
           start: 'center center',
-          end: `+=${this.endSide}px`,
+          end: () => `+=${5000 - window.innerHeight}px`,
           scrub: 1.0,
+          invalidateOnRefresh: true,
         },
       })
-      this.tl.fromTo(this.$refs.IntroReadText,
-      {
-        x: window.innerWidth
-      },
-      {
-        x: -this.$refs.IntroReadText.clientWidth + window.innerWidth,
-      })
-      .fromTo(this.$refs.IntroBg,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-      })
-      .fromTo(this.$refs.IntroBg,
-      {
-        top: vw(17),
-        right: vw(98),
-        width: vw(54),
-        height: vw(245),
-        borderRadius: vw(17),
-      },
-      {
-        top: 0,
-        right: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        borderRadius: 0,
-      })
-      this.tl.seek(this.progress)
-    }
-  }
+      this.tl
+        .fromTo(
+          this.$refs.IntroReadText,
+          {
+            x: textInit,
+          },
+          {
+            x: textMove,
+          }
+        )
+        .fromTo(
+          this.$refs.IntroBg,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+          }
+        )
+        .fromTo(
+          this.$refs.IntroBg,
+          {
+            x: bgX,
+            y: bgY,
+            width: bgWidth,
+            height: bgHeight,
+            borderRadius: bgRadius,
+          },
+          {
+            x: 0,
+            y: 0,
+            width: () => window.innerWidth,
+            height: () => window.innerHeight,
+            borderRadius: 0,
+          }
+        )
+    },
+  },
 }
 </script>
 
@@ -274,7 +399,11 @@ console.log(this.progress)
 .intro {
   position: relative;
   height: 8000px;
-  // padding: 200px 0 0 0;
+  margin: 900px 0 0 0;
+
+  @include sp(){
+    margin: 100px 0 0 0;
+  }
 }
 
 .intro-spacer {
@@ -291,7 +420,8 @@ console.log(this.progress)
   top: 0;
   left: 0;
   width: 100%;
-  // height: var(--viewportHeight);
+  height: var(--viewportHeight) !important;
+  z-index: -1;
 }
 
 .intro-read-text {
@@ -307,24 +437,38 @@ console.log(this.progress)
   font-family: 'Six Caps', sans-serif;
   white-space: nowrap;
   line-height: 1;
+  transform: translateX(vw(1280));
+
+  @include sp(){
+    width: vw_sp(2604);
+    height: vw_sp(365);
+    font-size: vw_sp(420);
+    transform: translateX(vw_sp(750));
+  }
 }
 
 .intro-bg {
   position: absolute;
-  top: vw(17);
-  right: vw(98);
+  top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
   width: vw(54);
   height: vw(245);
-  // width: 100%;
-  // height: 100%;
   margin: auto;
   border-radius: vw(22);
   overflow: hidden;
   backface-visibility: hidden;
-  transform: translateZ(0);
+  transform: translate(vw(-48), vw(8));
   opacity: 0;
+  pointer-events: none;
+
+  @include sp(){
+    width: vw_sp(81);
+    height: vw_sp(365);
+    border-radius: vw(36);
+    transform: translate(vw_sp(121), vw_sp(39));
+  }
 
   & img {
     position: absolute;
@@ -345,9 +489,15 @@ console.log(this.progress)
   color: $black;
   font-size: vw(80);
   font-family: 'Six Caps', sans-serif;
+
+  @include sp(){
+    top: calc(50% - 20px);
+    right: 23px;
+    font-size: vw_sp(120);
+  }
 }
 
-.intro-title-wrapper-01{
+.intro-title-wrapper-01,.intro-title-wrapper-sp-01 {
   text-align: right;
 }
 
@@ -366,6 +516,12 @@ console.log(this.progress)
   font-size: 12px;
   line-height: 1.2;
   letter-spacing: 0.02em;
+
+  @include sp(){
+    bottom: 20px;
+    left: 20px;
+    font-size: vw_sp(20);
+  }
 }
 
 .intro-note-text {

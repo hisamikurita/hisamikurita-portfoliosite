@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style lang="scss">
-  //
+  .about {
+  overflow-x: hidden;
+}
 </style>

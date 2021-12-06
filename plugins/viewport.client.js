@@ -6,7 +6,5 @@ const viewportResize = () => {
   root.style.setProperty('--viewportHeight', `${height}px`)
 }
 
-export default () => {
-  window.addEventListener('load', viewportResize);
-  window.addEventListener('resize', viewportResize);
-}
+window.addEventListener('DOMContentLoaded', viewportResize);
+window.addEventListener('resize', viewportResize);

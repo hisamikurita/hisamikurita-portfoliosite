@@ -29,6 +29,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    pcAnimation: {
+      type: Boolean,
+      default: true,
+    },
     isLoadInit: {
       type: Boolean,
       default: false,
@@ -37,7 +41,7 @@ export default {
 
   watch: {
     state: function () {
-      if (!this.spAnimation && this.$siteConfig.isMobile) return
+      if (!this.spAnimation && this.$siteConfig.isMobile || !this.pcAnimation && this.$siteConfig.isPc) return
 
       switch (this.state) {
         case 'center':
@@ -63,7 +67,7 @@ export default {
   },
 
   mounted() {
-    if (!this.spAnimation && this.$siteConfig.isMobile) return
+    if (!this.spAnimation && this.$siteConfig.isMobile || !this.pcAnimation && this.$siteConfig.isPc) return
 
     this.wrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
