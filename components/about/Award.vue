@@ -13,7 +13,7 @@
           :rank="award.rank"
           :date="award.date"
           :modifier="award.modifier"
-          :rotate="award.rotate"
+          :rotate="0"
         ></CommonCardAward>
       </div>
     </span>
@@ -174,15 +174,36 @@ export default {
       if (this.animationFlags[index]) return
       this.animationFlags[index] = true
 
-      this.$gsap.set(target, { opacity: 1 })
+      this.$gsap.set(target,{
+        zIndex: 2,
+      })
+      this.$gsap.fromTo(target,
+      {
+        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
+      },
+      {
+        duration: this.$baseAnimationConfig.duration,
+        ease: this.$easing.transform,
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+      })
     },
     cardFadeOut(target, index) {
       if (!this.animationFlags[index]) return
       this.animationFlags[index] = false
 
-      setTimeout(() => {
-        this.$gsap.set(target, { opacity: 0 })
-      }, 700)
+      this.$gsap.set(target,{
+        zIndex: 1,
+      })
+      this.$gsap.fromTo(target,
+      {
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+      },
+      {
+        duration: this.$baseAnimationConfig.duration,
+        delay: 0,
+        ease: this.$easing.transform,
+        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
+      })
     },
     colorFadeIn(target) {
       this.$gsap.to(target, {
@@ -232,7 +253,12 @@ export default {
 }
 
 .award-card-item {
-  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
 }
 
 .award-title-read-area {

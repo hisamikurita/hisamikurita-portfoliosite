@@ -1,6 +1,7 @@
 <template>
   <div ref="Intro" class="intro">
-    <span ref="IntroSpacer" class="intro-spacer"></span>
+    <span ref="IntroSpacer01" class="intro-spacer-01"></span>
+    <span ref="IntroSpacer02" class="intro-spacer-02"></span>
     <div ref="IntroWrapper" class="intro-wrapper">
       <CommonCircleBg
         ref="IntroCircleBg"
@@ -12,7 +13,7 @@
         <span>INTRODUCTION INTRODUCTION INT</span>
       </div>
       <span ref="IntroBg" class="intro-bg">
-        <span><img src="/images/intro.jpg" /></span>
+        <span><img ref="IntroImg" src="/images/intro.jpg" /></span>
       </span>
       <p class="intro-title">
         <span class="intro-title-read-area">
@@ -221,7 +222,7 @@
           <span class="intro-note-wrapper intro-note-wrapper-sp-06">
             <CommonTextSegment
               :state="isTextSegmentState"
-              :start="0.60"
+              :start="0.6"
               :rotate="rotateLeft"
               text="AUTE IR"
               :pc-animation="false"
@@ -242,10 +243,6 @@ export default {
     return {
       isTextSegmentState: '',
       isCircleBgState: '',
-      tlProgress: 0,
-      scrollPos: 0,
-      // tl: null,
-      // tlProgress: 0,
     }
   },
 
@@ -266,9 +263,12 @@ export default {
           {},
           {
             scrollTrigger: {
+              once: true,
               trigger: this.$refs.IntroReadText,
               onEnter: () => {
-                this.isCircleBgState = 'extend'
+                setTimeout(() => {
+                  this.isCircleBgState = 'extend'
+                }, 300)
               },
             },
           }
@@ -281,7 +281,7 @@ export default {
           {},
           {
             scrollTrigger: {
-              trigger: this.$refs.IntroSpacer,
+              trigger: this.$refs.IntroSpacer01,
               onEnter: () => {
                 this.isTextSegmentState = 'center'
               },
@@ -332,20 +332,22 @@ export default {
     },
 
     scrollTl() {
-      const textInit = this.$siteConfig.isPc ? vw(1280) : vwSp(750);
-      const textMove = this.$siteConfig.isPc ? vw(-1758 + 1280) : vwSp(-1858 + 750);
-      const bgWidth = this.$siteConfig.isPc ? vw(54) : vwSp(81);
-      const bgHeight = this.$siteConfig.isPc ? vw(245) : vwSp(365);
-      const bgRadius = this.$siteConfig.isPc ? vw(22) : vwSp(36);
-      const bgX = this.$siteConfig.isPc ? vw(-48) : vwSp(121);
-      const bgY = this.$siteConfig.isPc ? vw(8) : vwSp(39);
+      const textInit = this.$siteConfig.isPc ? vw(1280) : vwSp(750)
+      const textMove = this.$siteConfig.isPc
+        ? vw(-1758 + 1280)
+        : vwSp(-1858 + 750)
+      const bgWidth = this.$siteConfig.isPc ? vw(54) : vwSp(81)
+      const bgHeight = this.$siteConfig.isPc ? vw(245) : vwSp(365)
+      const bgRadius = this.$siteConfig.isPc ? vw(24) : vwSp(36)
+      const bgX = this.$siteConfig.isPc ? vw(-49) : vwSp(121)
+      const bgY = this.$siteConfig.isPc ? vw(7.8) : vwSp(39)
 
       this.tl = this.$gsap.timeline({
         scrollTrigger: {
           trigger: this.$refs.IntroReadText,
           start: 'center center',
           end: () => `+=${5000 - window.innerHeight}px`,
-          scrub: 1.0,
+          scrub: 0.8,
           invalidateOnRefresh: true,
         },
       })
@@ -357,8 +359,7 @@ export default {
           },
           {
             x: textMove,
-          }
-        )
+          },'-=0.1')
         .fromTo(
           this.$refs.IntroBg,
           {
@@ -366,8 +367,7 @@ export default {
           },
           {
             opacity: 1,
-          }
-        )
+          },'-=0.1')
         .fromTo(
           this.$refs.IntroBg,
           {
@@ -383,8 +383,23 @@ export default {
             width: () => window.innerWidth,
             height: () => window.innerHeight,
             borderRadius: 0,
-          }
-        )
+          },'-=0.1')
+
+      this.$gsap.fromTo(
+        this.$refs.IntroImg,
+        {
+          y: 150,
+        },
+        {
+          y: -150,
+          ease: 'none',
+          scrollTrigger: {
+            start: 'start',
+            trigger: this.$refs.IntroSpacer02,
+            scrub: 0.8,
+          },
+        }
+      )
     },
   },
 }
@@ -401,17 +416,26 @@ export default {
   height: 8000px;
   margin: 900px 0 0 0;
 
-  @include sp(){
+  @include sp() {
     margin: 100px 0 0 0;
   }
 }
 
-.intro-spacer {
+.intro-spacer-01 {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 1500px;
+  pointer-events: none;
+}
+
+.intro-spacer-02 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5400px;
   pointer-events: none;
 }
 
@@ -439,7 +463,7 @@ export default {
   line-height: 1;
   transform: translateX(vw(1280));
 
-  @include sp(){
+  @include sp() {
     width: vw_sp(2604);
     height: vw_sp(365);
     font-size: vw_sp(420);
@@ -463,7 +487,7 @@ export default {
   opacity: 0;
   pointer-events: none;
 
-  @include sp(){
+  @include sp() {
     width: vw_sp(81);
     height: vw_sp(365);
     border-radius: vw(36);
@@ -472,11 +496,13 @@ export default {
 
   & img {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 300px);
+    margin: auto;
     object-fit: cover;
   }
 }
@@ -490,14 +516,15 @@ export default {
   font-size: vw(80);
   font-family: 'Six Caps', sans-serif;
 
-  @include sp(){
+  @include sp() {
     top: calc(50% - 20px);
     right: 23px;
     font-size: vw_sp(120);
   }
 }
 
-.intro-title-wrapper-01,.intro-title-wrapper-sp-01 {
+.intro-title-wrapper-01,
+.intro-title-wrapper-sp-01 {
   text-align: right;
 }
 
@@ -517,7 +544,7 @@ export default {
   line-height: 1.2;
   letter-spacing: 0.02em;
 
-  @include sp(){
+  @include sp() {
     bottom: 20px;
     left: 20px;
     font-size: vw_sp(20);
