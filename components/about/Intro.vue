@@ -268,7 +268,7 @@ export default {
               onEnter: () => {
                 setTimeout(() => {
                   this.isCircleBgState = 'extend'
-                }, 300)
+                }, 200)
               },
             },
           }
@@ -318,7 +318,7 @@ export default {
           pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
           trigger: this.$refs.IntroWrapper,
           start: 'end',
-          end: () => `+=${8000 - window.innerHeight}px`,
+          end: () => `+=${7000 - window.innerHeight}px`,
           scrub: true,
           invalidateOnRefresh: true,
         },
@@ -346,7 +346,7 @@ export default {
         scrollTrigger: {
           trigger: this.$refs.IntroReadText,
           start: 'center center',
-          end: () => `+=${5000 - window.innerHeight}px`,
+          end: () => `+=${4000 - window.innerHeight}px`,
           scrub: 0.8,
           invalidateOnRefresh: true,
         },
@@ -388,15 +388,15 @@ export default {
       this.$gsap.fromTo(
         this.$refs.IntroImg,
         {
-          y: 150,
+          y: 200,
         },
         {
-          y: -150,
+          y: -200,
           ease: 'none',
           scrollTrigger: {
             start: 'start',
             trigger: this.$refs.IntroSpacer02,
-            scrub: 0.8,
+            scrub: 0.1,
           },
         }
       )
@@ -413,8 +413,8 @@ export default {
 
 .intro {
   position: relative;
-  height: 8000px;
-  margin: 900px 0 0 0;
+  height: 7000px;
+  margin: vw(600) 0 0 0;
 
   @include sp() {
     margin: 100px 0 0 0;
@@ -435,7 +435,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 5400px;
+  height: 5000px;
   pointer-events: none;
 }
 
@@ -501,7 +501,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(100% + 300px);
+    height: calc(100% + 400px);
     margin: auto;
     object-fit: cover;
   }
