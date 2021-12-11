@@ -64,12 +64,12 @@ export default {
           this.tweenPosition.value = this.$asscroll.currentPos;
           this.$asscroll.on('scroll', this.onScrollDirection);
           this.$asscroll.on('scroll', this.onScrollTween);
-          this.render();
+          this.$gsap.ticker.add(this.render);
           break
         case 'isNoActive':
           this.$asscroll.off('scroll', this.onScrollDirection);
           this.$asscroll.off('scroll', this.onScrollTween);
-          cancelAnimationFrame(this.raf);
+          this.$gsap.ticker.remove(this.render);
           break
       }
     },
@@ -78,7 +78,7 @@ export default {
   beforeDestroy() {
     this.$asscroll.off('scroll', this.onScrollDirection);
     this.$asscroll.off('scroll', this.onScrollTween);
-    cancelAnimationFrame(this.raf);
+    this.$gsap.ticker.remove(this.render);
   },
 
   methods: {
@@ -118,8 +118,6 @@ export default {
     },
 
     render: function () {
-      this.raf = window.requestAnimationFrame(this.render)
-
       if(this.hambergerMenuState) return;
 
       this.position.value += Math.floor(this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed))

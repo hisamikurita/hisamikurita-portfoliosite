@@ -96,7 +96,6 @@ export default {
   data: () => {
     return {
       projectData: projectData,
-      posts: {},
       isCardSegmentState: '',
       isTextSegmentState: '',
       isTextUnderlineState: '',
