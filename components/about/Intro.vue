@@ -264,11 +264,10 @@ export default {
           {
             scrollTrigger: {
               once: true,
-              trigger: this.$refs.IntroReadText,
+              // start: 'center center',
+              trigger: this.$refs.IntroWrapper,
               onEnter: () => {
-                setTimeout(() => {
-                  this.isCircleBgState = 'extend'
-                }, 200)
+                this.isCircleBgState = 'extend'
               },
             },
           }
@@ -305,8 +304,6 @@ export default {
   },
 
   methods: {
-    onResize() {},
-
     scrollFix() {
       /**
        * セクション固定
@@ -359,7 +356,9 @@ export default {
           },
           {
             x: textMove,
-          },'-=0.1')
+          },
+          '-=0.1'
+        )
         .fromTo(
           this.$refs.IntroBg,
           {
@@ -367,7 +366,9 @@ export default {
           },
           {
             opacity: 1,
-          },'-=0.1')
+          },
+          '-=0.1'
+        )
         .fromTo(
           this.$refs.IntroBg,
           {
@@ -383,7 +384,9 @@ export default {
             width: () => window.innerWidth,
             height: () => window.innerHeight,
             borderRadius: 0,
-          },'-=0.1')
+          },
+          '-=0.1'
+        )
 
       this.$gsap.fromTo(
         this.$refs.IntroImg,

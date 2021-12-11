@@ -95,12 +95,6 @@ export default {
     right: vw(56);
     width: calc(100% - #{vw(56)} - 40px);
   }
-
-  // @include sp(){
-  //   width: calc(100% - #{vw_sp(40)});
-  //   bottom: -34px;
-  //   right: vw_sp(20);
-  // }
 }
 
 .text-under-line--index-project-01 {
@@ -134,6 +128,32 @@ export default {
   top: -12px;
   left: 0;
   background-color: $black;
+}
+
+.text-under-line--about-project-01 {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: calc(100% + 4px);
+  background-color: $black;
+
+  @include sp(){
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+}
+
+.text-under-line--about-project-02 {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  width: calc(100% + 4px);
+  background-color: $black;
+
+  @include sp(){
+    left: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 </style>

@@ -231,6 +231,7 @@ export default {
 
 .award-bg {
   position: relative;
+  padding: 0 0 vw(600) 0;
   background-color: $darkBlack;
 }
 

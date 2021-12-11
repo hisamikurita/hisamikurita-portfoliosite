@@ -112,4 +112,8 @@ export default {
 .circle-bg-element-about-intro{
   background-color: $thinPink;
 }
+
+.circle-bg-element-about-project{
+  background-color: $skinColor;
+}
 </style>

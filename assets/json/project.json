@@ -6,6 +6,7 @@
     ],
     "link": "mtrust",
     "title": "M-TRUST",
+    "fullTitle": "M-TRUST",
     "textArray": [
       "M-TRSUT IS A COMPANY WITH",
       "HIGH-SKILLED PROFESSIONALS",
@@ -25,6 +26,7 @@
     ],
     "link": "#",
     "title": "KTKM",
+    "fullTitle": "KETAKUMA",
     "textArray": [
       "JAPANESE CHARACTER KETA",
       "KUMA, A BEAR WHO LIVES FOR",
@@ -44,6 +46,7 @@
     ],
     "link": "#",
     "title": "NL PLUS",
+    "fullTitle": "NL PLUS",
     "textArray": [
       "NLPLUS IS A SOLUTIONS COM",
       "PANY THAT PROVIDES SER",
@@ -64,6 +67,7 @@
     ],
     "link": "#",
     "title": "R&G",
+    "fullTitle": "RED&GREEN",
     "textArray": [
       "RED AND GREEN CO.,LTD IS",
       "THE TOTAL COORDINATOR OF",
@@ -84,6 +88,7 @@
     ],
     "link": "#",
     "title": "ASVSON",
+    "fullTitle": "ASOVISION",
     "textArray": [
       "ASOVISION IS A COMPANY THAT",
       "MAKES A GAME CHANGE TO A",
@@ -103,6 +108,7 @@
     ],
     "link": "#",
     "title": "BST",
+    "fullTitle": "BASTA",
     "textArray": [
       "BASTA IS A PRODUCT OF BASF,",
       "AN INTERNATIONAL CHEMICAL",
@@ -122,6 +128,7 @@
     ],
     "link": "#",
     "title": "FRNTR",
+    "fullTitle": "FRONTIER",
     "textArray": [
       "LOREM IPSUM DOLOR SIT",
       "AMET, CONSECTETUR",
@@ -141,6 +148,7 @@
     ],
     "link": "#",
     "title": "YKDH",
+    "fullTitle": "YAKUDOH",
     "textArray": [
       "YAKUDO MEANS DYNAMISM IN",
       "JAPANESE. YAKUDO IS COMPA",
@@ -160,6 +168,7 @@
     ],
     "link": "#",
     "title": "ARCVE",
+    "fullTitle": "ARCHIVE",
     "textArray": [
       "I'M PUTTING TOGETHER A",
       "DYNAMIC ARCHIVE PAGE OF",
