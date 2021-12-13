@@ -13,7 +13,6 @@
           :rank="award.rank"
           :date="award.date"
           :modifier="award.modifier"
-          :rotate="0"
         ></CommonCardAward>
       </div>
     </span>
@@ -29,7 +28,7 @@
             ></CommonSectionReadTitle>
           </span>
           <div class="award-list-wrapper">
-            <div class="award-list">
+            <div ref="AwardList" class="award-list">
               <div
                 v-for="(award, index) in awardData"
                 :key="award.id"
@@ -64,6 +63,7 @@ export default {
     return {
       awardData: awardData,
       isTextSegmentState: '',
+      count: 0,
     }
   },
   computed: {
@@ -130,6 +130,26 @@ export default {
     cardScrollAnimation() {
       if (this.hambergerMenuState) return
 
+      const list = this.$refs.AwardList;
+      const rect = list.getBoundingClientRect()
+      const startPosY = this.award.offsetTop + list.offsetTop - this.cardHalfHeight
+      const startPosX = rect.left - this.cardHalfWidth
+      const endPosY = startPosY + rect.height
+      const endPosX = startPosX + rect.width
+        if (this.currentY < startPosY || this.mouseX < startPosX) {
+          // this.allCardFadeOut();
+          console.log('発火')
+        } else if (
+          this.currentY >= startPosY &&
+          this.currentY < endPosY &&
+          this.mouseX >= startPosX &&
+          this.mouseX < endPosX
+        ) {
+          //
+        } else {
+          // this.allCardFadeOut();
+        }
+
       for (let i = 0; i < this.items.length; i++) {
         const target = this.items[i]
         const rect = target.getBoundingClientRect()
@@ -173,9 +193,10 @@ export default {
     cardFadeIn(target, index) {
       if (this.animationFlags[index]) return
       this.animationFlags[index] = true
+      this.count++;
 
       this.$gsap.set(target,{
-        zIndex: 2,
+        zIndex: this.count,
       })
       this.$gsap.fromTo(target,
       {
@@ -187,20 +208,14 @@ export default {
         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
       })
     },
-    cardFadeOut(target, index) {
+    cardFadeOut(index) {
       if (!this.animationFlags[index]) return
       this.animationFlags[index] = false
-
-      this.$gsap.set(target,{
-        zIndex: 1,
-      })
-      this.$gsap.fromTo(target,
-      {
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-      },
+    },
+    allCardFadeOut(){
+      this.$gsap.to(this.items,
       {
         duration: this.$baseAnimationConfig.duration,
-        delay: 0,
         ease: this.$easing.transform,
         clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
       })
