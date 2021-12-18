@@ -6,10 +6,10 @@
           <span v-if="group === 'AWWWARDS'">
             <img src="/images/awwwards.png">
           </span>
-          <span v-if="group === 'CSS DESIGN AWARDS'">
+          <span v-else-if="group === 'CSS DESIGN AWARDS'">
             <img src="/images/cssda.png">
           </span>
-          <span v-if="group === 'CSS WINNER'">
+          <span v-else-if="group === 'CSS WINNER'">
             <img src="/images/csswinner.png">
           </span>
         </span>
@@ -35,24 +35,24 @@
 export default {
   props: {
     group: {
-      type: [Object, String],
+      type: String,
       required: true,
     },
     title: {
-      type: [Object, String],
+      type: String,
       required: true,
     },
     rank: {
-      type: [Object, String],
+      type: String,
       required: true,
     },
     date: {
-      type: [Object, String],
+      type: String,
       required: true,
     },
     modifier: {
-      type: [Object, String],
-      required: true,
+      type: String,
+      default: '',
     },
   }
 }

@@ -3,12 +3,11 @@
     <span ref="IntroSpacer01" class="intro-spacer-01"></span>
     <span ref="IntroSpacer02" class="intro-spacer-02"></span>
     <div ref="IntroWrapper" class="intro-wrapper">
-      <CommonCircleBg
+      <AppCircleBg
         ref="IntroCircleBg"
         :state="isCircleBgState"
-        modifier="about-intro"
-      >
-      </CommonCircleBg>
+        :modifier="'about-intro'"
+      />
       <div ref="IntroReadText" class="intro-read-text">
         <span>INTRODUCTION INTRODUCTION INT</span>
       </div>
@@ -17,217 +16,197 @@
       </span>
       <p class="intro-title">
         <span class="intro-title-read-area">
-          <CommonSectionReadTitle
-            modifier="section"
+          <AppSectionReadTitle
             :state="isTextSegmentState"
-            :start="0"
             :text="['・', 'ABOUT']"
-          ></CommonSectionReadTitle>
+            :modifier="'section'"
+          />
         </span>
         <span class="pc-only">
           <span class="intro-title-wrapper intro-title-wrapper-01">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0"
               :rotate="rotateRight"
               text="LOREM IPSUM DOLOR SITA"
               :sp-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-02">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.12"
               :rotate="rotateLeft"
               text="MET, CONSECTETUR ADIPISCINGELIT, L"
               :sp-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-03">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.24"
               :rotate="rotateRight"
               text="OREM IPSUM DOLOR SIT AMET, CONSE"
               :sp-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-04">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.36"
               :rotate="rotateLeft"
               text="CTETUR ADIPISCING ELIT, LOREM IPSU"
               :sp-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-05">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.48"
               :rotate="rotateRight"
               text="M DOLOR SIT AMET."
               :sp-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
         </span>
         <span class="sp-only">
           <span class="intro-title-wrapper intro-title-wrapper-sp-01">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0"
               :rotate="rotateRight"
               text="LOREM I"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-02">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.12"
               :rotate="rotateLeft"
               text="PSUM DOLOR SI"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-03">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.24"
               :rotate="rotateRight"
               text="TAMET, CONSEC"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-04">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.36"
               :rotate="rotateLeft"
               text="TETUR ADIPISCI"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-05">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.48"
               :rotate="rotateRight"
               text="NGELIT, LOREM"
               :pc-animation="false"
             >
-            </CommonTextSegment>
+            </AppTextSegment>
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-06">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.6"
               :rotate="rotateLeft"
               text="IPSUM DOLOR S"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-title-wrapper intro-title-wrapper-sp-07">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.72"
               :rotate="rotateRight"
               text="IT AMET."
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
         </span>
       </p>
       <p class="intro-note">
         <span class="pc-only">
-          <CommonTextSegment
+          <AppTextSegment
             :state="isTextSegmentState"
             :start="0"
             :rotate="rotateRight"
             text="LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
             :sp-animation="false"
-          >
-          </CommonTextSegment>
-          <CommonTextSegment
+          />
+          <AppTextSegment
             :state="isTextSegmentState"
             :start="0.12"
             :rotate="rotateLeft"
             text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR"
             :sp-animation="false"
-          >
-          </CommonTextSegment>
+          />
         </span>
         <span class="sp-only">
           <span class="intro-note-wrapper intro-note-wrapper-sp-01">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0"
               :rotate="rotateRight"
               text="LOREM IPSUM DOLOR SIT"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-note-wrapper intro-note-wrapper-sp-02">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.12"
               :rotate="rotateLeft"
               text="AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-note-wrapper intro-note-wrapper-sp-03">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.24"
               :rotate="rotateRight"
               text="TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-note-wrapper intro-note-wrapper-sp-04">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.36"
               :rotate="rotateLeft"
               text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-note-wrapper intro-note-wrapper-sp-05">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.48"
               :rotate="rotateRight"
               text="LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
           <span class="intro-note-wrapper intro-note-wrapper-sp-06">
-            <CommonTextSegment
+            <AppTextSegment
               :state="isTextSegmentState"
               :start="0.6"
               :rotate="rotateLeft"
               text="AUTE IR"
               :pc-animation="false"
-            >
-            </CommonTextSegment>
+            />
           </span>
         </span>
       </p>
@@ -247,8 +226,6 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.onResize)
-
     this.$nextTick(() => {
       setTimeout(() => {
         /**
@@ -297,10 +274,6 @@ export default {
         this.scrollFix()
       }, 100)
     })
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('resize', this.onResize)
   },
 
   methods: {
@@ -463,7 +436,7 @@ export default {
   margin: auto 0;
   color: $darkPink;
   font-size: vw(280);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   white-space: nowrap;
   line-height: 1;
   transform: translateX(vw(1280));
@@ -519,7 +492,7 @@ export default {
   transform: translate3d(0, -50%, 0);
   color: $black;
   font-size: vw(80);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
 
   @include sp() {
     top: calc(50% - 20px);

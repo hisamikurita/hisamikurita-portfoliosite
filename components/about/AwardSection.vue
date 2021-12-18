@@ -7,25 +7,24 @@
         ref="AwardCardItem"
         class="award-card-item"
       >
-        <CommonCardAward
+        <CardAwardContents
           :group="award.group"
           :title="award.title"
           :rank="award.rank"
           :date="award.date"
           :modifier="award.modifier"
-        ></CommonCardAward>
+        />
       </div>
     </span>
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
           <span class="award-title-read-area">
-            <CommonSectionReadTitle
-              modifier="award-section"
+            <AppSectionReadTitle
               :state="isTextSegmentState"
-              :start="0"
               :text="['・', 'AWARDS']"
-            ></CommonSectionReadTitle>
+              :modifier="'award-section'"
+            />
           </span>
           <div class="award-list-wrapper">
             <div ref="AwardList" class="award-list">
@@ -79,6 +78,7 @@ export default {
     this.cardHalfWidth = 117
     this.cardHalfHeight = 160
     this.animationFlags = []
+    this.isAllResetAnimation = false;
     for (let i = 0; i < this.items.length; i++) {
       this.animationFlags.push(false)
     }
@@ -137,8 +137,8 @@ export default {
       const endPosY = startPosY + rect.height
       const endPosX = startPosX + rect.width
         if (this.currentY < startPosY || this.mouseX < startPosX) {
-          // this.allCardFadeOut();
-          console.log('発火')
+          this.allCardFadeOut();
+          // console.log('発火')
         } else if (
           this.currentY >= startPosY &&
           this.currentY < endPosY &&
@@ -147,7 +147,7 @@ export default {
         ) {
           //
         } else {
-          // this.allCardFadeOut();
+          this.allCardFadeOut();
         }
 
       for (let i = 0; i < this.items.length; i++) {
@@ -161,7 +161,7 @@ export default {
 
         if (this.currentY < startPosY || this.mouseX < startPosX) {
           this.colorFadeOut(target)
-          this.cardFadeOut(this.cards[i], i)
+          this.cardFadeOut(i)
         } else if (
           this.currentY >= startPosY &&
           this.currentY < endPosY &&
@@ -172,7 +172,7 @@ export default {
           this.cardFadeIn(this.cards[i], i)
         } else {
           this.colorFadeOut(target)
-          this.cardFadeOut(this.cards[i], i)
+          this.cardFadeOut(i)
         }
       }
     },
@@ -193,6 +193,7 @@ export default {
     cardFadeIn(target, index) {
       if (this.animationFlags[index]) return
       this.animationFlags[index] = true
+      this.hover = true;
       this.count++;
 
       this.$gsap.set(target,{
@@ -203,7 +204,7 @@ export default {
         clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
       },
       {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.transform,
         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
       })
@@ -211,25 +212,34 @@ export default {
     cardFadeOut(index) {
       if (!this.animationFlags[index]) return
       this.animationFlags[index] = false
+      this.hover = false;
     },
     allCardFadeOut(){
-      this.$gsap.to(this.items,
+      if(!this.hover && this.isAllResetAnimation) return;
+      this.isAllResetAnimation = true;
+
+      this.$gsap.to(this.cards,
       {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.transform,
-        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
+        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)',
+        onComplete:() =>{
+          setTimeout(()=>{
+          this.isAllResetAnimation = false;
+          },100)
+        }
       })
     },
     colorFadeIn(target) {
       this.$gsap.to(target, {
-        duration: 0.4,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.colorAndOpacity,
         color: '#ffffff',
       })
     },
     colorFadeOut(target) {
       this.$gsap.to(target, {
-        duration: 0.4,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.colorAndOpacity,
         color: '#828282',
       })
@@ -335,7 +345,7 @@ export default {
   flex-shrink: 0;
   width: vw(440);
   font-size: 60px;
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: 0.02em;
 
   @include sp() {
@@ -349,7 +359,7 @@ export default {
 .award-rank {
   flex-shrink: 0;
   font-size: 60px;
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: 0.02em;
 
   @include sp() {

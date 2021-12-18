@@ -1,59 +1,52 @@
 <template>
   <div ref="Contact" class="contact">
-    <CommonCircleBg :state="isCircleBgState" modifier="index-contact">
-    </CommonCircleBg>
+    <AppCircleBg :state="isCircleBgState" :modifier="'index-contact'" />
     <div class="contact-bg">
       <div class="contact-inner">
         <div class="l-container">
           <h2 class="contact-title">
             <span class="contact-title-read-area">
-              <CommonSectionReadTitle
-                modifier="section"
+              <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :start="0"
                 :text="['・', 'SAY HI']"
-              ></CommonSectionReadTitle>
+                :modifier="'section'"
+              />
             </span>
             <span class="pc-only">
               <span class="contact-title-wrapper contact-title-wrapper-01">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
-                  :start="0"
                   :rotate="rotateRight"
-                  text="I AM CREATIVE DEVELOPER"
+                  :text="'I AM CREATIVE DEVELOPER'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-02">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
                   :rotate="rotateLeft"
-                  text="FOCUSED ON CREATING THINGS"
+                  :text="'FOCUSED ON CREATING THINGS'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-03">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
                   :rotate="rotateRight"
-                  text="WITH INTERACTION & ANIMATION"
+                  :text="'WITH INTERACTION & ANIMATION'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-04">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
                   :rotate="rotateLeft"
-                  text="AS MY MAIN FOCUS."
+                  :text="'AS MY MAIN FOCUS.'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
             </span>
             <span class="sp-only">
@@ -83,12 +76,12 @@
           <div class="contact-info-area">
             <div class="contact-info-index-area">
               <span class="contact-info-index">
-                <CommonSectionReadTitle
-                  modifier="contact-section"
+                <AppSectionReadTitle
                   :state="isTextSegmentState"
                   :start="0.48"
                   :text="['・', 'INDEX']"
-                ></CommonSectionReadTitle>
+                  :modifier="'contact-section'"
+                />
               </span>
               <span class="contact-info-list">
                 <span
@@ -97,13 +90,12 @@
                   class="contact-info-item"
                 >
                   <NuxtLink :to="data.link">
-                    <CommonTextSegment
+                    <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
                       :rotate="rotateLeft"
                       :text="data.name[1]"
-                    >
-                    </CommonTextSegment>
+                    />
                   </NuxtLink>
                 </span>
               </span>
@@ -111,14 +103,13 @@
             <div class="contact-info-name-area">
               <span class="pc-only">
                 <span class="contact-name">
-                  <CommonTextSegment
+                  <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.48"
                     :rotate="rotateRight"
-                    text="HISAMI KURITA"
+                    :text="'HISAMI KURITA'"
                     :sp-animation="false"
-                  >
-                  </CommonTextSegment>
+                  />
                 </span>
               </span>
               <span class="sp-only">
@@ -127,7 +118,8 @@
             </div>
           </div>
           <span class="contact-card-item-01">
-            <CommonCardProject
+            <AppCardBase
+              :component-name="'ContactContents'"
               :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
               :info="[
                 {
@@ -151,10 +143,11 @@
               :rotate="-10"
               :xspeed="-0.08"
               :yspeed="0.2"
-            ></CommonCardProject>
+            />
           </span>
           <span class="contact-card-item-02">
-            <CommonCardProject
+            <AppCardBase
+              :component-name="'ContactContents'"
               :name="['・', 'CODED BY', '(HISAMI KURITA)']"
               :info="[
                 {
@@ -178,7 +171,7 @@
               :rotate="8"
               :xspeed="0.051"
               :yspeed="0.1"
-            ></CommonCardProject>
+            />
           </span>
         </div>
       </div>
@@ -245,7 +238,7 @@ export default {
   margin: 0 0 140px 0;
   color: $darkPink;
   font-size: vw(180);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
 
   @include sp() {
     margin: 0 0 58px 0;
@@ -341,7 +334,7 @@ export default {
   margin: -26px 0 0 0;
   color: $darkPink;
   font-size: vw(400);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: -0.02em;
 
   @include sp() {

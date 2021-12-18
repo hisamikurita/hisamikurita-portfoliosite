@@ -7,7 +7,7 @@ export default {
   props: {
     state: {
       type: String,
-      required: true,
+      default: '',
     },
     modifier: {
       type: String,
@@ -29,14 +29,14 @@ export default {
   methods: {
     toExtend: function (){
       this.$gsap.to(this.$refs.CircleBgElement, {
-        duration: this.$baseAnimationConfig.duration * 1.2,
+        duration: this.$siteConfig.baseDuration * 1.2,
         ease: this.$easing.transform,
         scale: 1,
       })
     },
     toShrink: function(){
       this.$gsap.to(this.$refs.CircleBgElement, {
-        duration: this.$baseAnimationConfig.duration * 1.2,
+        duration: this.$siteConfig.baseDuration * 1.2,
         ease: this.$easing.transform,
         scale: 0,
       })

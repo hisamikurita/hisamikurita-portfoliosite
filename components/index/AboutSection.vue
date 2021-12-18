@@ -5,67 +5,61 @@
         <div class="l-container">
           <h2 ref="AboutTitleTrigger" class="about-title">
             <span class="about-title-read-area">
-              <CommonSectionReadTitle
-                modifier="section"
+              <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :start="0"
                 :text="['・', 'ABOUT']"
                 :sp-animation="false"
-              ></CommonSectionReadTitle>
+                :modifier="'section'"
+              />
             </span>
             <span class="pc-only">
               <span class="about-title-wrapper about-title-wrapper-01">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
-                  :start="0"
                   :rotate="rotateRight"
-                  text="IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA"
+                  :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="about-title-wrapper about-title-wrapper-02">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
                   :rotate="rotateLeft"
-                  text="TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION"
+                  :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="about-title-wrapper about-title-wrapper-03">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
                   :rotate="rotateRight"
                   text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
               <span class="about-title-wrapper about-title-wrapper-04">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
                   :rotate="rotateLeft"
-                  text="ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS."
+                  :text="'ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS.'"
                   :sp-animation="false"
-                >
-                </CommonTextSegment>
+                />
               </span>
             </span>
             <span class="sp-only">
               <span class="about-title-wrapper-sp about-title-wrapper-01-sp">IN THE SUMMER OF 22, I</span>STARTED PROGRAMMING. IT WA<br>S LATER THAN MOST, BUT I THI<br>NK I FOUND SOMETHING THAT I<br>WAS PASSIONATE ABOUT. I'VE B<br>EEN WRITING CODE EVERY DAY<br>EVER SINCE. MY GREATEST STRE<br>NGTH IS MY NEVER-ENDING INQ<br>UISITIVENESS.
             </span>
             <span class="pc-only">
-              <CommonTextUnderline
-                modifier="index-about"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.6"
-                :rotate="rotateLeft"
+                :origin="'left'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
+                :modifier="'index-about'"
+              />
             </span>
             <span class="sp-only">
               <span class="about-text-underline"></span>
@@ -73,7 +67,7 @@
           </h2>
           <p class="about-read-text">
             <span class="pc-only">
-              <CommonSectionReadTitle
+              <AppSectionReadTitle
                 :state="isTextSegmentState"
                 :start="0.48"
                 :text="[
@@ -83,7 +77,7 @@
                   'BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.',
                 ]"
                 :sp-animation="false"
-              ></CommonSectionReadTitle>
+              />
             </span>
             <span class="sp-only">THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span>
           </p>
@@ -149,7 +143,7 @@ export default {
   padding: 0 56px 0 40px;
   color: $darkBlue;
   font-size: vw(80);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   text-transform: uppercase;
   line-height: 0.964;
 

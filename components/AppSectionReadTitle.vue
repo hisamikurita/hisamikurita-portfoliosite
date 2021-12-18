@@ -1,13 +1,13 @@
 <template>
   <span class="cmn-title-read-text-wrapper" :class="'cmn-title-read-text-wrapper--' + modifier">
     <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="'cmn-title-read-text-0' + index">
-      <CommonTextSegment
+      <AppTextSegment
         :state="state"
-        :start="Number(start) + index * 0.12"
+        :start="start + index * 0.12"
         :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
         :text="char"
         :sp-animation="spAnimation"
-      ></CommonTextSegment>
+      />
     </span>
   </span>
 </template>
@@ -20,8 +20,8 @@ export default {
       required: true,
     },
     start: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     modifier: {
       type: String,
@@ -29,7 +29,7 @@ export default {
     },
     state: {
       type: String,
-      required: true,
+      default: '',
     },
     spAnimation: {
       type: Boolean,
@@ -43,7 +43,7 @@ export default {
 .cmn-title-read-text-wrapper{
   display: block;
   font-size: 12px;
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
   letter-spacing: 0.02em;
   line-height: 1.04;
 

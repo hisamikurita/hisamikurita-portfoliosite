@@ -7,10 +7,8 @@
         <h1 class="hero-title">
           <span class="hero-title-read-area">
             <span class="pc-only">
-              <CommonSectionReadTitle
-                modifier="section"
+              <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :start="delay[0]"
                 :text="[
                   '・',
                   'AUTHOR : HISAMI KURITA',
@@ -19,7 +17,8 @@
                   'SERVER : NETLIFY',
                 ]"
                 :sp-animation="false"
-              ></CommonSectionReadTitle>
+                :modifier="'section'"
+              />
             </span>
             <span class="sp-only">
               <span class="hero-title-read-block-sp">AUTHOR : HISAMI KURITA</span>
@@ -30,97 +29,93 @@
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
-              <CommonTextUnderline
-                modifier="index-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[0]"
-                :rotate="rotateRight"
+                :origin="'left'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[0]"
                 :rotate="rotateRight"
-                text="FOLIO OF HISAMI KURITA"
+                :text="'FOLIO OF HISAMI KURITA'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02">
-              <CommonTextUnderline
-                modifier="index-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[1]"
-                :rotate="rotateLeft"
+                :origin="'right'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[1]"
                 :rotate="rotateLeft"
-                text="19/AUG.1996"
+                :text="'19/AUG.1996'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
               <span class="hero-title-wrapper-02-base-area">
-                <CommonTextSegment
+                <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.264"
                   :rotate="rotateLeft"
-                  text="( BASED IN TOKYO AND KAWASAKI )"
+                  :text="'( BASED IN TOKYO AND KAWASAKI )'"
                   :sp-animation="false"
-                ></CommonTextSegment>
+                />
                 <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-sometimes">
-                  <CommonTextSegment
+                  <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.352"
                     :rotate="rotateLeft"
-                    text="SOMETIMES"
+                    :text="'SOMETIMES'"
                     :sp-animation="false"
-                  ></CommonTextSegment>
+                  />
                 </span>
                 <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-allways">
-                  <CommonTextSegment
+                  <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.432"
                     :rotate="rotateLeft"
-                    text="ALLWAYS"
+                    :text="'ALLWAYS'"
                     :sp-animation="false"
-                  ></CommonTextSegment>
+                  />
                 </span>
               </span>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03">
-              <CommonTextUnderline
-                modifier="index-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[2]"
-                :rotate="rotateRight"
+                :origin="'left'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[2]"
                 :rotate="rotateRight"
-                text="CREATIVE DEVELOPER"
+                :text="'CREATIVE DEVELOPER'"
                 :sp-animation="false"
-              ></CommonTextSegment>
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04">
-              <CommonTextUnderline
-                modifier="index-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[3]"
-                :rotate="rotateLeft"
+                :origin="'right'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[3]"
                 :rotate="rotateLeft"
-                text="AT LIG INC"
+                :text="'AT LIG INC'"
                 :sp-animation="false"
-              ></CommonTextSegment>
+              />
             </span>
           </span>
           <span class="sp-only">
@@ -156,7 +151,8 @@
           </span>
         </h1>
         <div class="hero-card-item">
-          <CommonCardProject
+          <AppCardBase
+            :component-name="'MainVisualContents'"
             :name="['・','HISAMIKURITA']"
             :title="'HSMKRT'"
             :subtitle="'(ABOUT ME)'"
@@ -171,8 +167,8 @@
             :rotate="8"
             :xspeed="0.01"
             :yspeed="0.14"
-            modifier="index-hero"
-          ></CommonCardProject>
+            :modifier="'index-hero'"
+          />
         </div>
       </div>
     </div>
@@ -228,7 +224,7 @@ export default {
       if (this.hambergerMenuState) return;
 
       this.$gsap.to(this.$refs.HeroBgCircle02, {
-        duration: this.$baseAnimationConfig.duration / 3.0,
+        duration: this.$siteConfig.baseDuration / 3.0,
         ease: 'none',
         scale: (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 4.0 + 1.0,
       })
@@ -249,7 +245,7 @@ export default {
 .hero-title {
   position: relative;
   font-size: vw(180);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: -0.002em;
 
   @include sp(){
@@ -261,7 +257,7 @@ export default {
   position: absolute;
   top: 8px;
   left: 2px;
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
 
   @include sp(){
     top: -18px;
@@ -345,7 +341,7 @@ export default {
   top: 120%;
   left: vw_sp(140);
   font-size: vw_sp(20);
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
   letter-spacing: 0.02em;
 }
 
@@ -354,7 +350,7 @@ export default {
   top: 120%;
   left: vw_sp(340);
   font-size: vw_sp(20);
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
   letter-spacing: 0.02em;
 }
 
@@ -368,7 +364,7 @@ export default {
 .hero-title-wrapper-02-base-area-helvetica {
   position: absolute;
   top: vw(98);
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
   font-size: vw(14);
 }
 

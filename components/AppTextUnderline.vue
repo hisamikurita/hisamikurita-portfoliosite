@@ -1,33 +1,29 @@
 <template>
-  <span
-    ref="TextUnderline"
-    class="text-under-line"
-    :class="'text-under-line--' + modifier"
-  ></span>
+  <span ref="TextUnderline" class="text-under-line" :class="'text-under-line--' + modifier"></span>
 </template>
 
 <script>
 export default {
   props: {
-    rotate: {
-      type: [String, Number],
-      required: true,
+    origin: {
+      type: String,
+      default: 'right',
     },
     start: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     state: {
-      type: [String, Number],
-      required: true,
-    },
-    spAnimation: {
-      type: Boolean,
-      default: true,
+      type: String,
+      default: '',
     },
     modifier: {
       type: String,
       default: '',
+    },
+    spAnimation: {
+      type: Boolean,
+      default: true,
     },
   },
 
@@ -52,13 +48,13 @@ export default {
   methods: {
     init: function () {
       this.$gsap.set(this.$refs.TextUnderline, {
-        transformOrigin: this.rotate > 0 ? 'left' : 'right',
+        transformOrigin: this.origin,
       })
     },
 
     toExtend: function () {
       this.$gsap.to(this.$refs.TextUnderline, {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.transform,
         delay: Number(this.start),
         scaleX: 1,

@@ -2,15 +2,13 @@
   <div ref="Next" class="next">
     <div ref="Next" class="next">
       <div ref="ContentsLoopTitle" class="next-loop-title">
-        <CommonTextLoop
+        <AppTextLoop
           :state="'center'"
           :loop="isLoopTextState"
-          :loopdirection="-1.0"
-          :start="0"
           :rotate="rotateRight"
-          text=" NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT "
+          :text="' NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT '"
         >
-        </CommonTextLoop>
+        </AppTextLoop>
       </div>
     </div>
   </div>
@@ -46,6 +44,6 @@ export default {
 <style lang="scss" scoped>
 .next-loop-title{
   font-size: vw(140);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
 }
 </style>

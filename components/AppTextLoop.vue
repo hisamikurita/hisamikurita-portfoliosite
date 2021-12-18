@@ -1,12 +1,12 @@
 <template>
   <div ref="CmnLoopTextBlock" class="cmn-loop-text-block">
     <div ref="CmnLoopTextWrapper" class="cmn-loop-text-wrapper">
-      <CommonTextSegment
+      <AppTextSegment
         :state="state"
-        :start="Number(start)"
+        :start="start"
         :rotate="rotate"
         :text="text"
-      ></CommonTextSegment>
+      />
     </div>
   </div>
 </template>
@@ -19,24 +19,24 @@ export default {
       required: true,
     },
     start: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     rotate: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     state: {
       type: String,
-      required: true,
+      default: '',
     },
     loop: {
       type: String,
-      required: true,
+      default: '',
     },
     loopdirection: {
-      type: Number,
-      required: true,
+      type: String,
+      default: 'right',
     },
   },
   data: () => {
@@ -75,6 +75,17 @@ export default {
     },
   },
 
+  mounted(){
+    this.direction = 0;
+
+    if(this.loopdirection === 'right'){
+      this.direction = -1.0;
+    }
+    else if(this.loopdirection === 'left'){
+      this.direction = 1.0;
+    }
+  },
+
   beforeDestroy() {
     this.$asscroll.off('scroll', this.onScrollDirection);
     this.$asscroll.off('scroll', this.onScrollTween);
@@ -88,13 +99,13 @@ export default {
       const currentPos = this.$asscroll.currentPos;
       if (currentPos > this.startPos) {
         this.$gsap.to(this.isScrollDirection, {
-          duration: this.$baseAnimationConfig.duration / 2.0,
+          duration: this.$siteConfig.baseDuration / 2.0,
           ease: 'none',
           value: -1,
         });
       } else {
         this.$gsap.to(this.isScrollDirection, {
-          duration: this.$baseAnimationConfig.duration / 2.0,
+          duration: this.$siteConfig.baseDuration / 2.0,
           ease: 'none',
           value: 1,
         });
@@ -111,7 +122,7 @@ export default {
       if(this.hambergerMenuState) return;
 
       this.$gsap.to(this.tweenPosition, {
-        duration: this.$baseAnimationConfig.duration * 0.5,
+        duration: this.$siteConfig.baseDuration * 0.5,
         ease: 'none',
         value: this.$asscroll.currentPos,
       });
@@ -120,7 +131,7 @@ export default {
     render: function () {
       if(this.hambergerMenuState) return;
 
-      this.position.value += Math.floor(this.loopdirection * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed))
+      this.position.value += Math.floor(this.direction * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed))
 
       if (this.position.value < -this.$refs.CmnLoopTextBlock.clientWidth / 2.99) {
         this.position.value = 0

@@ -10,20 +10,20 @@
 export default {
   props: {
     text: {
-      type: [Object, String],
+      type: String,
       required: true,
     },
     rotate: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     start: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: 0,
     },
     state: {
       type: String,
-      required: true,
+      default: '',
     },
     spAnimation: {
       type: Boolean,
@@ -116,13 +116,13 @@ export default {
       this.$refs.CmnTextSegmentBlock.style.userSelect = 'auto'
 
       this.centerWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$baseAnimationConfig.duration * 2.0,
+        duration: this.$siteConfig.baseDuration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: 0,
       })
       this.centerArray = this.$gsap.to(this.textArray, {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         delay: Number(this.start),
         ease: this.$easing.transform,
         stagger: {
@@ -137,13 +137,13 @@ export default {
       this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
 
       this.topWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$baseAnimationConfig.duration * 2.0,
+        duration: this.$siteConfig.baseDuration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
       this.topArray = this.$gsap.to(this.textArray, {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         delay: Number(this.start),
         ease: this.$easing.transform,
         stagger: {
@@ -158,13 +158,13 @@ export default {
       this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
 
       this.bottomWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$baseAnimationConfig.duration * 2.0,
+        duration: this.$siteConfig.baseDuration * 2.0,
         ease: this.$easing.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
       this.bottomArray = this.$gsap.to(this.textArray, {
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         delay: Number(this.start),
         ease: this.$easing.transform,
         stagger: {

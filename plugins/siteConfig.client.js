@@ -7,6 +7,9 @@ const siteConfig = {
   isMobile: false,
   isTouch: false,
   isNoTouch: false,
+  baseDuration: 1.0,
+  halfBaseDuration: 0.5,
+  rotate: 3,
 }
 
 if (window.innerWidth > siteConfig.breakPoint) {
@@ -21,16 +24,24 @@ if ('ontouchstart' in document.documentElement) {
   siteConfig.isNoTouch = true;
 }
 
+export default (context, inject) => {
+  inject('siteConfig', siteConfig);
+}
+
 /**
  * asscrollのtouchデバイス判定の仕様のカバー
  * タッチデバイスからタッチデバイスではなくなった時にリロードさせる
  * https://github.com/ashthornton/asscroll/blob/master/src/Events.js
  *
  */
+
+let isTouchFlag = false;
 if (siteConfig.isTouch) {
   window.addEventListener('mousemove', function (e) {
     if (Math.abs(e.movementX) > 0 || Math.abs(e.movementY) > 0) {
+      if (isTouchFlag) return;
       reload();
+      isTouchFlag = true;
     }
   });
 }
@@ -40,10 +51,6 @@ if (siteConfig.isTouch) {
  */
 if (siteConfig.isNoTouch) {
   window.addEventListener('wheel', preEvent, { passive: false })
-}
-
-export default (context, inject) => {
-  inject('siteConfig', siteConfig);
 }
 
 /**

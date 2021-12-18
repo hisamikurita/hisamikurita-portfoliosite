@@ -12,11 +12,6 @@ const asscroll = new ASScroll({
   customScrollbar: false,
 });
 
-const baseAnimationConfig = {
-  duration: 1.0,
-  rotate: 3,
-}
-
 const easing = {
   transform: CustomEase.create('transform', 'M0,0 C0.44,0.05 0.17,1 1,1'),
   transformReverse: CustomEase.create('transformReverse', 'M0,0 C0,0.852 0.87,0.542 1,1'),
@@ -52,7 +47,6 @@ export default (context, inject) => {
   inject('ScrollTrigger', ScrollTrigger);
   inject('Draggable', Draggable);
   inject('easing', easing);
-  inject('baseAnimationConfig', baseAnimationConfig);
 }
 
 /**

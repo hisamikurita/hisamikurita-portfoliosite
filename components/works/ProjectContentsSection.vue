@@ -2,15 +2,13 @@
   <div ref="Contents" class="contents">
     <div class="contents-loop-title-wrapper">
       <span ref="ContentsLoopTitle" class="contents-loop-title">
-        <CommonTextLoop
+        <AppTextLoop
           :state="isTextSegmentState"
           :loop="isLoopTextState"
-          :loopdirection="-1.0"
           :start="-0.4"
           :rotate="rotateRight"
-          text=" M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST "
-        >
-        </CommonTextLoop>
+          :text="' M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST '"
+        />
       </span>
     </div>
     <div class="l-container">
@@ -96,7 +94,7 @@ export default {
 
 .contents-loop-title {
   font-size: vw(140);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
 }
 
 .contents-info{

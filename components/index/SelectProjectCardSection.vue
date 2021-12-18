@@ -7,59 +7,52 @@
       <div class="project-inner">
         <h2 ref="ProjectLoopTitle" class="project-loop-title">
           <span class="project-loop-title-read-area">
-            <CommonSectionReadTitle
-              modifier="project-section"
+            <AppSectionReadTitle
               :state="isTextSegmentState"
-              :start="0"
               :text="['・', 'SELECTED', 'PROJECTS']"
-            ></CommonSectionReadTitle>
+              :modifier="'project-section'"
+            />
           </span>
           <span
             class="project-loop-title-wrapper project-loop-title-wrapper-01"
           >
-            <CommonTextUnderline
-              modifier="index-project-01"
+            <AppTextUnderline
               :state="isTextUnderlineState"
-              :start="0"
-              :rotate="rotateLeft"
-            >
-            </CommonTextUnderline>
-            <CommonTextUnderline
-              modifier="index-project-02"
+              :origin="'right'"
+              :modifier="'index-project-01'"
+            />
+            <AppTextUnderline
               :state="isTextUnderlineState"
               :start="0.12"
-              :rotate="rotateRight"
-            >
-            </CommonTextUnderline>
-            <CommonTextLoop
+              :origin="'left'"
+              :modifier="'index-project-02'"
+            />
+            <AppTextLoop
               :state="isTextSegmentState"
               :loop="isLoopTextState"
-              :loopdirection="1.0"
               :start="-0.4"
               :rotate="rotateRight"
-              text=" MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. "
+              :text="' MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. '"
             >
-            </CommonTextLoop>
+            </AppTextLoop>
           </span>
           <span
             class="project-loop-title-wrapper project-loop-title-wrapper-01"
           >
-            <CommonTextUnderline
-              modifier="index-project-02"
+            <AppTextUnderline
               :state="isTextUnderlineState"
               :start="0.24"
-              :rotate="rotateLeft"
-            >
-            </CommonTextUnderline>
-            <CommonTextLoop
+              :origin="'right'"
+              :modifier="'index-project-02'"
+            />
+            <AppTextLoop
               :state="isTextSegmentState"
               :loop="isLoopTextState"
-              :loopdirection="-1.0"
+              :loopdirection="'left'"
               :start="-0.2"
               :rotate="rotateRight"
-              text=" MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. "
-            >
-            </CommonTextLoop>
+              :text="' MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. '"
+            />
           </span>
         </h2>
         <div class="project-card-area">
@@ -70,7 +63,8 @@
                   class="project-card-item"
                   :class="'project-card-item-0' + index"
                 >
-                  <CommonCardProject
+                  <AppCardBase
+                    :component-name="'ProjectContents'"
                     :name="data.name"
                     :title="data.title"
                     :link="data.link"
@@ -78,7 +72,8 @@
                     :rotate="data.rotate"
                     :xspeed="data.xspeed"
                     :yspeed="data.yspeed"
-                  ></CommonCardProject>
+                    :modifier="'index-project'"
+                  />
                 </div>
               </div>
             </div>
@@ -123,7 +118,7 @@ export default {
               scale: 0,
             },
             {
-              duration: this.$baseAnimationConfig.duration * 1.2,
+              duration: this.$siteConfig.baseDuration * 1.2,
               ease: this.$easing.transform,
               y: -window.innerHeight / 2,
               scale: 1.0,
@@ -131,7 +126,7 @@ export default {
           )
           setTimeout(()=>{
             this.$refs.ProjectBg.style.backgroundColor = '#f0efeb';
-          },this.$baseAnimationConfig.duration * 1000)
+          },this.$siteConfig.baseDuration * 1000)
           break
         case 'end':
           this.$refs.ProjectBg.style.backgroundColor = '#ffabb7';
@@ -142,7 +137,7 @@ export default {
               scale: 1.0,
             },
             {
-              duration: this.$baseAnimationConfig.duration * 1.2,
+              duration: this.$siteConfig.baseDuration * 1.2,
               ease: this.$easing.transform,
               y: -(
                 window.innerHeight / 2 +
@@ -265,7 +260,7 @@ export default {
   position: relative;
   color: $black;
   font-size: vw(140);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   white-space: nowrap;
 
   @include sp() {

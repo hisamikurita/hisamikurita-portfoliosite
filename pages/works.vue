@@ -1,9 +1,9 @@
 <template>
   <div class="works">
     <div class="works-bg">
-      <WorksHero></WorksHero>
-      <WorksContents></WorksContents>
-      <WorksNext></WorksNext>
+      <WorksMainVisualSection />
+      <WorksProjectContentsSection />
+      <WorksNextProjectSection />
     </div>
   </div>
 </template>

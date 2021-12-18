@@ -117,7 +117,7 @@ export default {
   // width: 80px;
   color: $black;
   font-size: 50px;
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: 0.04em;
   z-index: 10;
   overflow: hidden;

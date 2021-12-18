@@ -1,12 +1,12 @@
 <template>
   <div class="index">
     <div class="hero-and-about">
-      <IndexHero></IndexHero>
-      <IndexAbout></IndexAbout>
+      <IndexMainVisualSection />
+      <IndexAboutSection />
     </div>
-    <IndexPickup></IndexPickup>
-    <IndexProject></IndexProject>
-    <IndexContact></IndexContact>
+    <IndexSelectProjectPickupSection />
+    <IndexSelectProjectCardSection />
+    <IndexContactSection />
   </div>
 </template>
 

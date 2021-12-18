@@ -5,10 +5,8 @@
         <h1 class="hero-title">
           <span class="pc-only">
             <span class="hero-title-read-area">
-              <CommonSectionReadTitle
-                modifier="section"
+              <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :start="delay[0]"
                 :text="[
                   '・',
                   'ABOUT',
@@ -16,93 +14,86 @@
                   'ABOUT',
                 ]"
                 :sp-animation="false"
-              ></CommonSectionReadTitle>
+                :modifier="'section'"
+              />
             </span>
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
-              <CommonTextUnderline
-                modifier="about-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[0]"
-                :rotate="rotateRight"
+                :origin="'left'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[0]"
                 :rotate="rotateRight"
-                text="HELLO, WORLD"
+                :text="'HELLO, WORLD'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02">
-              <CommonTextUnderline
-                modifier="about-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[1]"
-                :rotate="rotateLeft"
+                :origin="'right'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[1]"
                 :rotate="rotateLeft"
-                text="HISAMI"
+                :text="'HISAMI'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[2]"
                 :rotate="rotateLeft"
-                text="KURITA"
+                :text="'KURITA'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03">
-              <CommonTextUnderline
-                modifier="about-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[3]"
-                :rotate="rotateRight"
+                :origin="'left'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[3]"
                 :rotate="rotateRight"
-                text="IS  CR"
+                :text="'IS  CR'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
-              <CommonTextSegment
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[4]"
                 :rotate="rotateRight"
-                text="EATIVE"
+                :text="'EATIVE'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04">
-              <CommonTextUnderline
-                modifier="about-hero"
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="delay[5]"
-                :rotate="rotateLeft"
+                :origin="'right'"
                 :sp-animation="false"
-              ></CommonTextUnderline>
-              <CommonTextSegment
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="delay[5]"
                 :rotate="rotateLeft"
-                text="DEVELOPER AT LIG INC SINCE 2020"
+                :text="'DEVELOPER AT LIG INC SINCE 2020'"
                 :sp-animation="false"
-              >
-              </CommonTextSegment>
+              />
             </span>
           </span>
           <span class="sp-only">
@@ -137,11 +128,11 @@
         </h1>
         <span class="pc-only">
           <span class="hero-card-item">
-            <CommonCardProject
+            <AppCardBase
+              :component-name="'CompanyContents'"
               :name="['・','LIG INC']"
               :title="'LIG INC.'"
               :subtitle="'(VISIT SITE)'"
-              :blank="true"
               :link="'https://liginc.co.jp'"
               :text="[
                 'LOREM IPSUM DOLOR SIT',
@@ -153,8 +144,8 @@
               :xspeed="0.01"
               :yspeed="0.14"
               :sp-animation="false"
-              modifier="about-hero"
-            ></CommonCardProject>
+              :modifier="'about-hero'"
+            />
           </span>
         </span>
       </div>
@@ -195,7 +186,7 @@ export default {
   position: relative;
   color: $black;
   font-size: vw(180);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: -0.002em;
 
   @include sp(){

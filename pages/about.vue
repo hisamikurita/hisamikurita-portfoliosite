@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <AboutHero></AboutHero>
-    <AboutIntro></AboutIntro>
-    <AboutAward></AboutAward>
-    <AboutProject></AboutProject>
+    <AboutMainVisualSection />
+    <AboutIntroSection />
+    <AboutAwardSection />
+    <AboutSelectProjectSideScrollSection />
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .about {
+.about {
   overflow-x: hidden;
 }
 </style>

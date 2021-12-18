@@ -1,29 +1,25 @@
 <template>
   <div ref="Project" class="project">
     <div ref="ProjectWrapper" class="project-wrapper">
-      <CommonCircleBg
+      <AppCircleBg
         ref="IntroCircleBg"
         :state="isCircleBgState"
-        modifier="about-project"
-      >
-      </CommonCircleBg>
+        :modifier="'about-project'"
+      />
       <div class="project-inner">
         <div class="l-container">
           <div ref="ProjectTitleWrapper" class="project-title-wrapper">
-            <CommonTextUnderline
-              modifier="about-project-01"
+            <AppTextUnderline
               :state="isTextUnderlineState"
-              :start="0"
-              :rotate="rotateLeft"
-            >
-            </CommonTextUnderline>
-            <CommonTextUnderline
-              modifier="about-project-02"
+              :origin="'right'"
+              :modifier="'about-project-01'"
+            />
+            <AppTextUnderline
               :state="isTextUnderlineState"
               :start="0.12"
-              :rotate="rotateRight"
-            >
-            </CommonTextUnderline>
+              :origin="'left'"
+              :modifier="'about-project-02'"
+            />
             <div ref="ProjectList" class="project-list">
               <div
                 ref="ProjectItemWrapperRotate"
@@ -86,12 +82,12 @@ export default {
               trigger: this.$refs.ProjectWrapper,
               onEnter: () => {
                 this.$gsap.to(this.wrapper, {
-                  duration: this.$baseAnimationConfig.duration * 2.0,
+                  duration: this.$siteConfig.duration * 2.0,
                   ease: this.$easing.transform,
                   rotate: 0,
                 })
                 this.$gsap.to(this.text, {
-                  duration: this.$baseAnimationConfig.duration,
+                  duration: this.$siteConfig.duration,
                   ease: this.$easing.transform,
                   yPercent: 0,
                 })
@@ -200,7 +196,7 @@ export default {
   flex-shrink: 0;
   color: $black;
   font-size: vw(140);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   white-space: nowrap;
 
   &:not(:last-of-type) {

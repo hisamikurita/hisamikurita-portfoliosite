@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="hambergerMenu"
-    :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }"
-  >
+  <div class="hambergerMenu" :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }">
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
@@ -13,13 +10,12 @@
               to="./"
               @click="onClickSameUrlReload('index')"
             >
-              <CommonTextSegment
+              <AppTextSegment
                 :state="isTextSegmentState"
-                :start="0"
                 :rotate="rotateRight"
+                :text="'HISAMIKURITA'"
                 :is-load-init="true"
-                text="HISAMIKURITA"
-              ></CommonTextSegment>
+              />
             </component>
           </span>
           <span class="hambergerMenu-title-wrapper-02">
@@ -28,23 +24,23 @@
               to="/about"
               @click="onClickSameUrlReload('about')"
             >
-              <CommonTextSegment
+              <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="rotateLeft"
+                :text="'ABOUT'"
                 :is-load-init="true"
-                text="ABOUT"
-              ></CommonTextSegment>
+              />
             </component>
           </span>
         </div>
         <div class="hambergerMenu-section-title">
-          <CommonSectionReadTitle
-            modifier="section"
+          <AppSectionReadTitle
             :state="isTextSegmentState"
             :start="0.24"
             :text="['・', 'WORKS']"
-          ></CommonSectionReadTitle>
+            :modifier="'section'"
+          />
         </div>
         <div>
           <ul class="hambergerMenu-list">
@@ -204,7 +200,7 @@ export default {
             this.itemLinkCenter = this.$gsap.to(
               this.$refs.hambergerMenuItemLink,
               {
-                duration: this.$baseAnimationConfig.duration,
+                duration: this.$siteConfig.baseDuration,
                 delay: 0.36,
                 ease: this.$easing.transform,
                 stagger: {
@@ -279,7 +275,7 @@ export default {
             this.itemLinkCenter = this.$gsap.to(
               this.$refs.hambergerMenuItemLink,
               {
-                duration: this.$baseAnimationConfig.duration,
+                duration: this.$siteConfig.baseDuration,
                 delay: 0.36,
                 ease: this.$easing.transform,
                 stagger: {
@@ -352,7 +348,7 @@ export default {
           this.itemLinkBottom = this.$gsap.to(
             this.$refs.hambergerMenuItemLink,
             {
-              duration: this.$baseAnimationConfig.duration,
+              duration: this.$siteConfig.baseDuration,
               delay: 0.36,
               ease: this.$easing.transform,
               stagger: {
@@ -452,7 +448,7 @@ export default {
           // this.itemLinkBottom = this.$gsap.to(
           //   this.$refs.hambergerMenuItemLink,
           //   {
-          //     duration: this.$baseAnimationConfig.duration,
+          //     duration: this.$siteConfig.baseDuration,
           //     delay: 0.36,
           //     ease: this.$easing.transform,
           //     stagger: {
@@ -647,7 +643,7 @@ export default {
   margin: 0 0 36px 0;
   color: #302c1a;
   font-size: 120px;
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   letter-spacing: -0.002em;
   z-index: 2;
 
@@ -700,7 +696,7 @@ export default {
   margin: -12px 0 20px 0;
   color: #302c1a;
   font-size: 56px;
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   text-align: center;
 
   @include sp() {

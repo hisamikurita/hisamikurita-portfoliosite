@@ -2,10 +2,8 @@
   <div ref="Pickup" class="pickup is-pickup-scene-00">
     <span ref="PickupCircleEnter" class="pickup-circle-bg-enter"></span>
     <span class="pickup-circle-bg-area">
-      <CommonCircleBg :state="isCircleBgState02" modifier="pickup-02">
-      </CommonCircleBg>
-      <CommonCircleBg :state="isCircleBgState03" modifier="pickup-03">
-      </CommonCircleBg>
+      <AppCircleBg :state="isCircleBgState02" :modifier="'pickup-02'" />
+      <AppCircleBg :state="isCircleBgState03" :modifier="'pickup-03'" />
     </span>
     <div class="pickup-bg">
       <div class="pickup-inner">
@@ -18,12 +16,11 @@
                 class="pickup-section-number-wrapper"
                 :class="'pickup-section-number-wrapper-0' + num"
               >
-                <CommonSectionReadTitle
-                  modifier="pickup-section"
+                <AppSectionReadTitle
                   :state="isTextSegmentState[num]"
-                  :start="0"
                   :text="['・', 'SELECTED', 'PROJECT', '0' + num]"
-                ></CommonSectionReadTitle>
+                  :modifier="'pickup-section'"
+                />
               </span>
             </p>
             <p class="pickup-section-text">
@@ -34,21 +31,18 @@
                 :class="'pickup-section-text-wrapper-0' + Number(index + 1)"
               >
                 <span class="pickup-section-text-title">
-                  <CommonTextSegment
+                  <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
-                    :start="0"
                     :rotate="rotateLeft"
                     :text="data.title"
-                  >
-                  </CommonTextSegment>
+                  />
                 </span>
                 <span>
-                  <CommonSectionReadTitle
+                  <AppSectionReadTitle
                     :state="isTextSegmentState[Number(index + 1)]"
                     :start="0.12"
                     :text="data.pickupDescArray"
-                  >
-                  </CommonSectionReadTitle>
+                  />
                 </span>
               </span>
             </p>
@@ -63,13 +57,12 @@
                   v-for="(text, tIndex) in data.pickupTextArray"
                   :key="text.id"
                 >
-                  <CommonTextSegment
+                  <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
                     :start="tIndex * 0.12"
                     :rotate="tIndex % 2 != 0 ? rotateLeft : rotateRight"
                     :text="text"
-                  >
-                  </CommonTextSegment>
+                  />
                 </span>
               </span>
             </h2>
@@ -151,7 +144,7 @@ export default {
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$baseAnimationConfig.duration,
+          duration: this.$siteConfig.baseDuration,
           ease: this.$easing.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
@@ -168,7 +161,7 @@ export default {
          */
         if (this.$siteConfig.isPc) {
             this.$gsap.to(this.$refs.PickupCircleEnter, {
-            duration: this.$baseAnimationConfig.duration * 1.2,
+            duration: this.$siteConfig.baseDuration * 1.2,
             ease: this.$easing.transform,
             delay: 0.2,
             y: window.innerHeight / 2,
@@ -177,7 +170,7 @@ export default {
         }
         else if(this.$siteConfig.isMobile){
             this.$gsap.to(this.$refs.PickupCircleEnter, {
-            duration: this.$baseAnimationConfig.duration * 1.2,
+            duration: this.$siteConfig.baseDuration * 1.2,
             ease: this.$easing.transform,
             delay: 0.2,
             scale: 1,
@@ -200,7 +193,7 @@ export default {
 
       this.$gsap.to(this.scroll, {
         value: pickupTopPos,
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)
@@ -217,7 +210,7 @@ export default {
 
       if (this.$siteConfig.isPc) {
         this.$gsap.to(this.$refs.PickupCircleEnter, {
-          duration: this.$baseAnimationConfig.duration * 1.2,
+          duration: this.$siteConfig.baseDuration * 1.2,
           ease: this.$easing.transform,
           delay: 0.2,
           y: 0,
@@ -226,7 +219,7 @@ export default {
       }
       else{
         this.$gsap.to(this.$refs.PickupCircleEnter, {
-          duration: this.$baseAnimationConfig.duration * 1.2,
+          duration: this.$siteConfig.baseDuration * 1.2,
           ease: this.$easing.transform,
           delay: 0.2,
           scale: 0,
@@ -256,7 +249,7 @@ export default {
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$baseAnimationConfig.duration,
+          duration: this.$siteConfig.baseDuration,
           ease: this.$easing.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
@@ -292,7 +285,7 @@ export default {
 
       this.$gsap.to(this.scroll, {
         value: pickupBottomPos,
-        duration: this.$baseAnimationConfig.duration,
+        duration: this.$siteConfig.baseDuration,
         ease: this.$easing.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)
@@ -541,7 +534,7 @@ export default {
   left: 45.4%;
   transform: translate3d(-50%, -50%, 0);
   font-size: vh(126);
-  font-family: 'Six Caps', sans-serif;
+  font-family: $sixcaps;
   text-align: center;
   line-height: 0.98;
 

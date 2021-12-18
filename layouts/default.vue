@@ -1,13 +1,13 @@
 <template>
   <div>
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
-      <div>
+      <div asscroll>
         <nuxt />
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
-    <LayoutHeader></LayoutHeader>
-    <LayoutHambergerMenu></LayoutHambergerMenu>
+    <BaseHeader />
+    <BaseHambergerMenu />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
-            duration: this.$baseAnimationConfig.duration / 3.0,
+            duration: this.$siteConfig.baseDuration / 3.0,
             ease: this.$easing.transform,
             x: -560,
           })
@@ -61,7 +61,7 @@ export default {
         if (this.$siteConfig.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
-            duration: this.$baseAnimationConfig.duration / 3.0,
+            duration: this.$siteConfig.baseDuration / 3.0,
             ease: this.$easing.transform,
             x: 0,
           })
