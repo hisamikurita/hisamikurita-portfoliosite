@@ -78,7 +78,9 @@ export default {
     this.cardHalfWidth = 117
     this.cardHalfHeight = 160
     this.animationFlags = []
-    this.isAllResetAnimation = false;
+    this.isAllResetAnimation = false
+    this.mouseX = 0
+    this.mouseY = 0
     for (let i = 0; i < this.items.length; i++) {
       this.animationFlags.push(false)
     }
@@ -99,9 +101,25 @@ export default {
     this.iObserver.observe(this.observe)
 
     if (this.$siteConfig.isNoTouch) {
-      this.$gsap.ticker.add(this.cardScrollPos)
-      this.$gsap.ticker.add(this.cardScrollAnimation)
-      window.addEventListener('mousemove', this.onMousemove)
+      this.animationObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.cardScrollPos)
+              this.$gsap.ticker.add(this.cardScrollAnimation)
+              window.removeEventListener('mousemove', this.saveMousemove)
+              window.addEventListener('mousemove', this.onMousemove)
+            } else {
+              this.$gsap.ticker.remove(this.cardScrollPos)
+              this.$gsap.ticker.remove(this.cardScrollAnimation)
+              window.addEventListener('mousemove', this.saveMousemove)
+              window.removeEventListener('mousemove', this.onMousemove)
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.animationObserver.observe(this.observe)
     }
   },
 
@@ -117,7 +135,6 @@ export default {
   methods: {
     cardScrollPos() {
       if (this.hambergerMenuState) return
-
       this.currentY = this.mouseY + this.$asscroll.targetPos
 
       this.$gsap.to(this.$refs.AwardCardArea, {
@@ -130,25 +147,25 @@ export default {
     cardScrollAnimation() {
       if (this.hambergerMenuState) return
 
-      const list = this.$refs.AwardList;
+      const list = this.$refs.AwardList
       const rect = list.getBoundingClientRect()
-      const startPosY = this.award.offsetTop + list.offsetTop - this.cardHalfHeight
+      const startPosY =
+        this.award.offsetTop + list.offsetTop - this.cardHalfHeight
       const startPosX = rect.left - this.cardHalfWidth
       const endPosY = startPosY + rect.height
       const endPosX = startPosX + rect.width
-        if (this.currentY < startPosY || this.mouseX < startPosX) {
-          this.allCardFadeOut();
-          // console.log('発火')
-        } else if (
-          this.currentY >= startPosY &&
-          this.currentY < endPosY &&
-          this.mouseX >= startPosX &&
-          this.mouseX < endPosX
-        ) {
-          //
-        } else {
-          this.allCardFadeOut();
-        }
+      if (this.currentY < startPosY || this.mouseX < startPosX) {
+        this.allCardFadeOut()
+      } else if (
+        this.currentY >= startPosY &&
+        this.currentY < endPosY &&
+        this.mouseX >= startPosX &&
+        this.mouseX < endPosX
+      ) {
+        //
+      } else {
+        this.allCardFadeOut()
+      }
 
       for (let i = 0; i < this.items.length; i++) {
         const target = this.items[i]
@@ -176,6 +193,10 @@ export default {
         }
       }
     },
+    saveMousemove(e){
+      this.mouseY = e.clientY - this.cardHalfHeight
+      this.mouseX = e.clientX - this.cardHalfWidth
+    },
     onMousemove(e) {
       if (this.hambergerMenuState) return
 
@@ -193,41 +214,42 @@ export default {
     cardFadeIn(target, index) {
       if (this.animationFlags[index]) return
       this.animationFlags[index] = true
-      this.hover = true;
-      this.count++;
+      this.hover = true
+      this.count++
 
-      this.$gsap.set(target,{
+      this.$gsap.set(target, {
         zIndex: this.count,
       })
-      this.$gsap.fromTo(target,
-      {
-        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'
-      },
-      {
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.transform,
-        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-      })
+      this.$gsap.fromTo(
+        target,
+        {
+          clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)',
+        },
+        {
+          duration: this.$siteConfig.halfBaseDuration,
+          ease: this.$easing.transform,
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
+        }
+      )
     },
     cardFadeOut(index) {
       if (!this.animationFlags[index]) return
       this.animationFlags[index] = false
-      this.hover = false;
+      this.hover = false
     },
-    allCardFadeOut(){
-      if(!this.hover && this.isAllResetAnimation) return;
-      this.isAllResetAnimation = true;
+    allCardFadeOut() {
+      if (!this.hover && this.isAllResetAnimation) return
+      this.isAllResetAnimation = true
 
-      this.$gsap.to(this.cards,
-      {
-        duration: this.$siteConfig.baseDuration,
+      this.$gsap.to(this.cards, {
+        duration: this.$siteConfig.halfBaseDuration,
         ease: this.$easing.transform,
-        clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)',
-        onComplete:() =>{
-          setTimeout(()=>{
-          this.isAllResetAnimation = false;
-          },100)
-        }
+        clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+        onComplete: () => {
+          setTimeout(() => {
+            this.isAllResetAnimation = false
+          }, 100)
+        },
       })
     },
     colorFadeIn(target) {

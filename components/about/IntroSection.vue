@@ -288,7 +288,7 @@ export default {
           pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
           trigger: this.$refs.IntroWrapper,
           start: 'end',
-          end: () => `+=${6500 - window.innerHeight}px`,
+          end: () => `+=${5500 - window.innerHeight}px`,
           scrub: true,
           invalidateOnRefresh: true,
         },
@@ -338,6 +338,7 @@ export default {
             opacity: 0,
           },
           {
+            duration: 0.4,
             opacity: 1,
           },
           '-=0.1'
@@ -364,16 +365,16 @@ export default {
       this.$gsap.fromTo(
         this.$refs.IntroImg,
         {
-          y: 300,
+          y: 350,
         },
         {
-          y: -300,
+          y: -350,
           ease: 'power2.in',
           scrollTrigger: {
             start: 'start',
-            end: () => `+=${4200 - window.innerHeight}px`,
+            end: () => `+=${4000 - window.innerHeight}px`,
             trigger: this.$refs.IntroSpacer02,
-            scrub: 0.001,
+            scrub: 0.1,
             invalidateOnRefresh: true,
           },
         }
@@ -391,7 +392,7 @@ export default {
 
 .intro {
   position: relative;
-  height: 6500px;
+  height: 5500px;
   margin: vw(600) 0 0 0;
 
   @include sp() {
@@ -404,7 +405,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1500px;
+  height: 1400px;
   pointer-events: none;
 }
 
@@ -413,7 +414,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 4200px;
+  height: 4000px;
   pointer-events: none;
 }
 
@@ -479,7 +480,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(100% + 600px);
+    height: calc(100% + 700px);
     margin: auto;
     object-fit: cover;
   }
