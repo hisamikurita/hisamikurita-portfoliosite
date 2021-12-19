@@ -13,203 +13,202 @@
       </div>
       <span ref="IntroBg" class="intro-bg">
         <span><img ref="IntroImg" src="/images/intro.jpg" /></span>
+        <span ref="IntroBgClip" class="intro-title-clip">
+          <span class="intro-title">
+            <span class="intro-title-read-area">
+              <AppSectionReadTitle
+                :state="isTextSegmentState"
+                :text="['・', 'ABOUT']"
+                :modifier="'section'"
+              />
+            </span>
+            <span class="pc-only">
+              <span class="intro-title-wrapper intro-title-wrapper-01">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :rotate="rotateRight"
+                  :text="'LOREM IPSUM DOLOR SITA'"
+                  :sp-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-02">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="rotateLeft"
+                  :text="'MET, CONSECTETUR ADIPISCINGELIT, L'"
+                  :sp-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-03">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.24"
+                  :rotate="rotateRight"
+                  :text="'OREM IPSUM DOLOR SIT AMET, CONSE'"
+                  :sp-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-04">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.36"
+                  :rotate="rotateLeft"
+                  :text="'CTETUR ADIPISCING ELIT, LOREM IPSU'"
+                  :sp-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-05">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.48"
+                  :rotate="rotateRight"
+                  :text="'M DOLOR SIT AMET.'"
+                  :sp-animation="false"
+                />
+              </span>
+            </span>
+            <span class="sp-only">
+              <span class="intro-title-wrapper intro-title-wrapper-sp-01">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0"
+                  :rotate="rotateRight"
+                  :text="'LOREM I'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-02">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="rotateLeft"
+                  :text="'PSUM DOLOR SI'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-03">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.24"
+                  :rotate="rotateRight"
+                  :text="'TAMET, CONSEC'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-04">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.36"
+                  :rotate="rotateLeft"
+                  :text="'TETUR ADIPISCI'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-05">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.48"
+                  :rotate="rotateRight"
+                  :text="'NGELIT, LOREM'"
+                  :pc-animation="false"
+                >
+                </AppTextSegment>
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-06">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.6"
+                  :rotate="rotateLeft"
+                  :text="'IPSUM DOLOR S'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-title-wrapper intro-title-wrapper-sp-07">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.72"
+                  :rotate="rotateRight"
+                  :text="'IT AMET.'"
+                  :pc-animation="false"
+                />
+              </span>
+            </span>
+          </span>
+          <span class="intro-note">
+            <span class="pc-only">
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :rotate="rotateRight"
+                :text="'LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
+                :sp-animation="false"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.12"
+                :rotate="rotateLeft"
+                :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
+                :sp-animation="false"
+              />
+            </span>
+            <span class="sp-only">
+              <span class="intro-note-wrapper intro-note-wrapper-sp-01">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :rotate="rotateRight"
+                  :text="'LOREM IPSUM DOLOR SIT'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-note-wrapper intro-note-wrapper-sp-02">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="rotateLeft"
+                  :text="'AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-note-wrapper intro-note-wrapper-sp-03">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.24"
+                  :rotate="rotateRight"
+                  :text="'TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-note-wrapper intro-note-wrapper-sp-04">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.36"
+                  :rotate="rotateLeft"
+                  :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-note-wrapper intro-note-wrapper-sp-05">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.48"
+                  :rotate="rotateRight"
+                  :text="'LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="intro-note-wrapper intro-note-wrapper-sp-06">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.6"
+                  :rotate="rotateLeft"
+                  :text="'AUTE IR'"
+                  :pc-animation="false"
+                />
+              </span>
+            </span>
+          </span>
+        </span>
       </span>
-      <p class="intro-title">
-        <span class="intro-title-read-area">
-          <AppSectionReadTitle
-            :state="isTextSegmentState"
-            :text="['・', 'ABOUT']"
-            :modifier="'section'"
-          />
-        </span>
-        <span class="pc-only">
-          <span class="intro-title-wrapper intro-title-wrapper-01">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0"
-              :rotate="rotateRight"
-              text="LOREM IPSUM DOLOR SITA"
-              :sp-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-02">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.12"
-              :rotate="rotateLeft"
-              text="MET, CONSECTETUR ADIPISCINGELIT, L"
-              :sp-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-03">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.24"
-              :rotate="rotateRight"
-              text="OREM IPSUM DOLOR SIT AMET, CONSE"
-              :sp-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-04">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.36"
-              :rotate="rotateLeft"
-              text="CTETUR ADIPISCING ELIT, LOREM IPSU"
-              :sp-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-05">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.48"
-              :rotate="rotateRight"
-              text="M DOLOR SIT AMET."
-              :sp-animation="false"
-            />
-          </span>
-        </span>
-        <span class="sp-only">
-          <span class="intro-title-wrapper intro-title-wrapper-sp-01">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0"
-              :rotate="rotateRight"
-              text="LOREM I"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-02">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.12"
-              :rotate="rotateLeft"
-              text="PSUM DOLOR SI"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-03">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.24"
-              :rotate="rotateRight"
-              text="TAMET, CONSEC"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-04">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.36"
-              :rotate="rotateLeft"
-              text="TETUR ADIPISCI"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-05">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.48"
-              :rotate="rotateRight"
-              text="NGELIT, LOREM"
-              :pc-animation="false"
-            >
-            </AppTextSegment>
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-06">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.6"
-              :rotate="rotateLeft"
-              text="IPSUM DOLOR S"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-title-wrapper intro-title-wrapper-sp-07">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.72"
-              :rotate="rotateRight"
-              text="IT AMET."
-              :pc-animation="false"
-            />
-          </span>
-        </span>
-      </p>
-      <p class="intro-note">
-        <span class="pc-only">
-          <AppTextSegment
-            :state="isTextSegmentState"
-            :start="0"
-            :rotate="rotateRight"
-            text="LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
-            :sp-animation="false"
-          />
-          <AppTextSegment
-            :state="isTextSegmentState"
-            :start="0.12"
-            :rotate="rotateLeft"
-            text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR"
-            :sp-animation="false"
-          />
-        </span>
-        <span class="sp-only">
-          <span class="intro-note-wrapper intro-note-wrapper-sp-01">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0"
-              :rotate="rotateRight"
-              text="LOREM IPSUM DOLOR SIT"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-note-wrapper intro-note-wrapper-sp-02">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.12"
-              :rotate="rotateLeft"
-              text="AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-note-wrapper intro-note-wrapper-sp-03">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.24"
-              :rotate="rotateRight"
-              text="TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-note-wrapper intro-note-wrapper-sp-04">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.36"
-              :rotate="rotateLeft"
-              text="ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-note-wrapper intro-note-wrapper-sp-05">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.48"
-              :rotate="rotateRight"
-              text="LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS"
-              :pc-animation="false"
-            />
-          </span>
-          <span class="intro-note-wrapper intro-note-wrapper-sp-06">
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.6"
-              :rotate="rotateLeft"
-              text="AUTE IR"
-              :pc-animation="false"
-            />
-          </span>
-        </span>
-      </p>
     </div>
   </div>
 </template>
@@ -258,15 +257,16 @@ export default {
           {
             scrollTrigger: {
               trigger: this.$refs.IntroSpacer01,
+              once: true,
               onEnter: () => {
                 this.isTextSegmentState = 'center'
               },
-              onLeaveBack: () => {
-                this.isTextSegmentState = 'top'
-                setTimeout(() => {
-                  this.isTextSegmentState = 'init'
-                }, 2000)
-              },
+              // onLeaveBack: () => {
+              //   this.isTextSegmentState = 'top'
+              //   setTimeout(() => {
+              //     this.isTextSegmentState = 'init'
+              //   }, 2000)
+              // },
             },
           }
         )
@@ -358,8 +358,20 @@ export default {
             width: () => window.innerWidth,
             height: () => window.innerHeight,
             borderRadius: 0,
-          },
-          '-=0.1'
+
+            onUpdate: () => {
+              this.$gsap.set(this.$refs.IntroBgClip, {
+                x: -this.$refs.IntroBg.getBoundingClientRect().left,
+                y: Math.min(-this.$refs.IntroBg.getBoundingClientRect().top, 0),
+              })
+            },
+            onComlete: () => {
+              this.$gsap.set(this.$refs.IntroBgClip, {
+                x: 0,
+                y: 0,
+              })
+            },
+          }
         )
 
       this.$gsap.fromTo(
@@ -486,12 +498,20 @@ export default {
   }
 }
 
-.intro-title {
+.intro-title-clip {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--viewportWidth);
+  height: var(--viewportHeight);
+}
+
+.intro-title {
+  position: fixed;
   top: 50%;
   right: 158px;
   transform: translate3d(0, -50%, 0);
-  color: $black;
+  color: $gold;
   font-size: vw(80);
   font-family: $sixcaps;
 
@@ -518,7 +538,7 @@ export default {
   position: absolute;
   bottom: 34px;
   left: 40px;
-  color: $black;
+  color: $gold;
   font-size: 12px;
   line-height: 1.2;
   letter-spacing: 0.02em;

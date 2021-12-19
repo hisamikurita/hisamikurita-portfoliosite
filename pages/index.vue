@@ -33,6 +33,6 @@ export default {
 }
 
 .index {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 </style>

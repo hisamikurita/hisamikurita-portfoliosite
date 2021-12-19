@@ -25,6 +25,6 @@ export default {
 
 <style lang="scss">
 .about {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 </style>
