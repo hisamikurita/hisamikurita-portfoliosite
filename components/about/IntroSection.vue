@@ -436,7 +436,7 @@ export default {
   left: 0;
   width: 100%;
   height: var(--viewportHeight) !important;
-  z-index: -1;
+  // z-index: -1;
 }
 
 .intro-read-text {

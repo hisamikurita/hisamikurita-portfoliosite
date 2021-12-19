@@ -34,7 +34,7 @@
                     :key="data.id"
                     class="project-item"
                   >
-                    <span>{{ data.fullTitle }}</span>
+                    <a href="./">{{ data.fullTitle }}</a>
                   </div>
                 </div>
               </div>
@@ -164,6 +164,7 @@ export default {
   width: 100%;
   height: var(--viewportHeight) !important;
   background-color: $darkBlack;
+  // z-index: -1;
 }
 
 .project-inner {
