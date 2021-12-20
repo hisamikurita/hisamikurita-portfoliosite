@@ -338,10 +338,10 @@ export default {
             opacity: 0,
           },
           {
-            duration: 0.4,
+            duration: 0.2,
             opacity: 1,
           },
-          '-=0.1'
+          '-=0.05'
         )
         .fromTo(
           this.$refs.IntroBg,
