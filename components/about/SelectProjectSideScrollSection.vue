@@ -8,33 +8,43 @@
       />
       <div class="project-inner">
         <div class="l-container">
-          <div ref="ProjectTitleWrapper" class="project-title-wrapper">
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :origin="'right'"
-              :modifier="'about-project-01'"
-            />
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :start="0.12"
-              :origin="'left'"
-              :modifier="'about-project-02'"
-            />
-            <div ref="ProjectList" class="project-list">
-              <div
-                ref="ProjectItemWrapperRotate"
-                class="project-item-wrapper-rotate"
-              >
+          <div class="project-contents">
+            <div class="project-title-read-area">
+              <AppSectionReadTitle
+                :state="isTextSegmentState"
+                :text="['・', 'SELECTED ', 'PROJECT']"
+                :modifier="'about-project-section'"
+              />
+            </div>
+            <div ref="ProjectTitleWrapper" class="project-title-wrapper">
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :origin="'right'"
+                :modifier="'about-project-01'"
+              />
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.12"
+                :origin="'left'"
+                :modifier="'about-project-02'"
+              />
+              <div ref="ProjectList" class="project-list">
                 <div
-                  ref="ProjectItemWrapperTranslate"
-                  class="project-item-wrapper-translate"
+                  ref="ProjectItemWrapperRotate"
+                  class="project-item-wrapper-rotate"
                 >
                   <div
-                    v-for="data in projectData"
-                    :key="data.id"
-                    class="project-item"
+                    ref="ProjectItemWrapperTranslate"
+                    class="project-item-wrapper-translate"
                   >
-                    <a href="./">{{ data.fullTitle }}</a>
+                    <div
+                      v-for="data in projectData"
+                      :key="data.id"
+                      class="project-item"
+                      @mouseenter="onMouseEnter"
+                    >
+                      <NuxtLink :to="'/'">{{ data.fullTitle }}</NuxtLink>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -47,13 +57,13 @@
 </template>
 
 <script>
-// import { vw, vwSp } from '../../lib/vw'
 import projectData from '@/assets/json/project.json'
 
 export default {
   data: () => {
     return {
       projectData: projectData,
+      isTextSegmentState: '',
       isCircleBgState: '',
       isTextUnderlineState: '',
     }
@@ -78,19 +88,19 @@ export default {
           {
             scrollTrigger: {
               once: true,
-              // start: 'start end',
               trigger: this.$refs.ProjectWrapper,
               onEnter: () => {
                 this.$gsap.to(this.wrapper, {
-                  duration: this.$siteConfig.duration * 2.0,
+                  duration: this.$siteConfig.baseDuration * 2.0,
                   ease: this.$easing.transform,
                   rotate: 0,
                 })
                 this.$gsap.to(this.text, {
-                  duration: this.$siteConfig.duration,
+                  duration: this.$siteConfig.baseDuration,
                   ease: this.$easing.transform,
                   yPercent: 0,
                 })
+                this.isTextSegmentState = 'center'
                 this.isCircleBgState = 'extend'
                 this.isTextUnderlineState = 'extend'
               },
@@ -105,7 +115,7 @@ export default {
       this.$gsap.fromTo(
         this.$refs.ProjectList,
         {
-          x: 0,
+          x: window.innerWidth - 80,
         },
         {
           x: () =>
@@ -114,7 +124,7 @@ export default {
               this.$refs.ProjectWrapper.clientWidth +
               80 +
               120 +
-              20
+              80
             ),
           ease: 'none',
           scrollTrigger: {
@@ -142,6 +152,20 @@ export default {
         },
       })
     },
+    onMouseEnter(e) {
+      // console.log(this.NextAll(e.target))
+    },
+    NextAll(dom) {
+      const list = []
+      let next = dom.nextElementSibling
+
+      while (next && next.nodeType === 1) {
+        list.push(next)
+        next = next.nextElementSibling
+      }
+
+      return list
+    },
   },
 }
 </script>
@@ -152,9 +176,6 @@ export default {
   height: 3500px;
 }
 
-// .project-bg{
-// }
-
 .project-wrapper {
   display: flex;
   align-items: center;
@@ -164,12 +185,19 @@ export default {
   width: 100%;
   height: var(--viewportHeight) !important;
   background-color: $darkBlack;
-  // z-index: -1;
 }
 
 .project-inner {
   width: 100%;
-  padding: 0 40px;
+  padding: 0 160px 0 40px;
+}
+
+.project-contents {
+  margin: -90px 0 0 0;
+}
+
+.project-title-read-area {
+  margin: 0 0 32px 0;
 }
 
 .project-title-wrapper {

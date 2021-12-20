@@ -16,12 +16,15 @@ body {
   width: 100%;
   padding: 0 40px;
 
-  @include sp(){
+  @include sp() {
     padding: 0 vw_sp(20);
   }
 }
 
-span::selection,dt::selection,dd::selection {
+a::selection,
+span::selection,
+dt::selection,
+dd::selection {
   background: $darkBlack;
   color: $white;
 }
