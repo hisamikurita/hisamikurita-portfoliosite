@@ -260,13 +260,7 @@ export default {
               once: true,
               onEnter: () => {
                 this.isTextSegmentState = 'center'
-              },
-              // onLeaveBack: () => {
-              //   this.isTextSegmentState = 'top'
-              //   setTimeout(() => {
-              //     this.isTextSegmentState = 'init'
-              //   }, 2000)
-              // },
+              }
             },
           }
         )
@@ -417,7 +411,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1400px;
+  height: 2000px;
   pointer-events: none;
 }
 
