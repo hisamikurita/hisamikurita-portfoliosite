@@ -1,2 +1,1 @@
-$ vi static/_redirects
-/*  /   404
+/*   /index.html   200
