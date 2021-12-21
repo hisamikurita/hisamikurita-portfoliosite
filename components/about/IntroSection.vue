@@ -13,7 +13,7 @@
       </div>
       <span ref="IntroBg" class="intro-bg">
         <span><img ref="IntroImg" src="/images/intro.jpg" /></span>
-        <span ref="IntroBgClip" class="intro-title-clip">
+        <span ref="IntroBgClip" class="intro-bg-clip">
           <span class="intro-title">
             <span class="intro-title-read-area">
               <AppSectionReadTitle
@@ -260,14 +260,20 @@ export default {
               once: true,
               onEnter: () => {
                 this.isTextSegmentState = 'center'
-              }
+              },
             },
           }
         )
 
         this.scrollFix()
-      }, 100)
-    })
+      })
+    }, 100)
+  },
+
+  beforeDestroy() {
+    this.fixSec.kill()
+    this.tl.kill()
+    this.IntroImgAnimation.kill()
   },
 
   methods: {
@@ -368,7 +374,7 @@ export default {
           }
         )
 
-      this.$gsap.fromTo(
+      this.IntroImgAnimation = this.$gsap.fromTo(
         this.$refs.IntroImg,
         {
           y: 350,
@@ -492,7 +498,7 @@ export default {
   }
 }
 
-.intro-title-clip {
+.intro-bg-clip {
   position: absolute;
   top: 0;
   left: 0;

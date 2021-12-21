@@ -172,6 +172,7 @@ export default {
 <style lang="scss" scoped>
 .hero{
   position: relative;
+  z-index: 1;
 }
 
 .hero-inner {

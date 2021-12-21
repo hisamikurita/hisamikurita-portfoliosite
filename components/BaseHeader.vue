@@ -1,6 +1,6 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top">
-    <component :is="setRootTagName" class="heade-link" to="./" @click="onClickSameUrlReload">
+    <component :is="setRootTagName" class="heade-link" to="/" @click="onClickSameUrlReload">
       H<span class="header-logo-text header-logo-fade-text">I</span
       ><span
         class="header-logo-text header-logo-move-text header-logo-move-text-01"

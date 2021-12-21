@@ -110,9 +110,15 @@ export default {
       }, 100)
     })
   },
+
+  beforeDestroy() {
+    this.fixSec.kill()
+    this.tl.kill()
+  },
+
   methods: {
     scrollFix() {
-      this.$gsap.fromTo(
+      this.tl = this.$gsap.fromTo(
         this.$refs.ProjectList,
         {
           x: window.innerWidth - 80,

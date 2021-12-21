@@ -7,7 +7,7 @@
           <span class="hambergerMenu-title-wrapper-01">
             <component
               :is="setRootTagName('index')"
-              to="./"
+              to="/"
               @click="onClickSameUrlReload('index')"
             >
               <AppTextSegment
