@@ -12,7 +12,9 @@
         <span>INTRODUCTION INTRODUCTION INT</span>
       </div>
       <span ref="IntroBg" class="intro-bg">
-        <span><img ref="IntroImg" src="/images/intro.jpg" /></span>
+        <span>
+          <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80"/>
+        </span>
         <span ref="IntroBgClip" class="intro-bg-clip">
           <span class="intro-title">
             <span class="intro-title-read-area">
@@ -375,7 +377,7 @@ export default {
         )
 
       this.IntroImgAnimation = this.$gsap.fromTo(
-        this.$refs.IntroImg,
+        this.$refs.IntroImg.$el,
         {
           y: 350,
         },

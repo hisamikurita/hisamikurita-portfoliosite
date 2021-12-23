@@ -4,13 +4,13 @@
       <div class="card-award-inner">
         <span class="card-award-title-wrapper-01">
           <span v-if="group === 'AWWWARDS'">
-            <img src="/images/awwwards.png">
+            <nuxt-img src="/images/awwwards.png" quality="80" alt="AWWWARDS" />
           </span>
           <span v-else-if="group === 'CSS DESIGN AWARDS'">
-            <img src="/images/cssda.png">
+            <nuxt-img src="/images/cssda.png" quality="80" alt="CSS DESIGN AWARDS" />
           </span>
           <span v-else-if="group === 'CSS WINNER'">
-            <img src="/images/csswinner.png">
+            <nuxt-img src="/images/csswinner.png" quality="80" alt="CSS WINNER" />
           </span>
         </span>
         <span class="card-award-title-wrapper-02">{{ rank }}</span>

@@ -28,7 +28,7 @@
                 :origin="'left'"
                 :modifier="'about-project-02'"
               />
-              <div ref="ProjectList" class="project-list">
+              <div ref="ProjectList" class="project-list" :class="{ isTextAnimationEnd : isTextAnimationState }">
                 <div
                   ref="ProjectItemWrapperRotate"
                   class="project-item-wrapper-rotate"
@@ -40,10 +40,35 @@
                     <div
                       v-for="data in projectData"
                       :key="data.id"
+                      ref="ProjectItem"
                       class="project-item"
                       @mouseenter="onMouseEnter"
+                      @mouseleave="onMouseLeave"
                     >
-                      <NuxtLink :to="'/'">{{ data.fullTitle }}</NuxtLink>
+                      <span
+                        ref="ProjectItemCircle"
+                        class="project-item-circle"
+                      ></span>
+                      <span
+                        ref="ProjectItemImg01"
+                        class="project-item-img-01"
+                      >
+                        <nuxt-img :src="data.image['01']" quality="80" :alt="data.fullTitle" />
+                      </span>
+                      <span
+                        ref="ProjectItemImg02"
+                        class="project-item-img-02"
+                      >
+                        <nuxt-img :src="data.image['02']" quality="80" :alt="data.fullTitle" />
+                      </span>
+                      <span
+                        ref="ProjectItemWrapper"
+                        class="project-item-wraper"
+                      >
+                        <NuxtLink :to="'/'" class="project-link">{{
+                          data.fullTitle
+                        }}</NuxtLink>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -57,6 +82,7 @@
 </template>
 
 <script>
+import { vw } from '../../lib/vw'
 import projectData from '@/assets/json/project.json'
 
 export default {
@@ -66,6 +92,7 @@ export default {
       isTextSegmentState: '',
       isCircleBgState: '',
       isTextUnderlineState: '',
+      isTextAnimationState: false,
     }
   },
   mounted() {
@@ -99,6 +126,9 @@ export default {
                   duration: this.$siteConfig.baseDuration,
                   ease: this.$easing.transform,
                   yPercent: 0,
+                  onComplete: () =>{
+                    this.isTextAnimationState = true;
+                  }
                 })
                 this.isTextSegmentState = 'center'
                 this.isCircleBgState = 'extend'
@@ -159,18 +189,114 @@ export default {
       })
     },
     onMouseEnter(e) {
-      // console.log(this.NextAll(e.target))
+      const nextTarget = this.NextAll(e.target)
+      const prevTarget = this.PrevAll(e.target)
+      const currentCircle = e.target.querySelector('.project-item-circle');
+      const currentImg01 = e.target.querySelector('.project-item-img-01');
+      const currentImg02 = e.target.querySelector('.project-item-img-02');
+
+      this.$gsap.to(currentCircle, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: vw(360),
+      })
+      this.$gsap.to(currentImg01, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        scale: 1,
+        rotate: -8,
+      })
+      this.$gsap.to(currentImg02, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        scale: 1,
+        rotate: 8,
+      })
+      this.$gsap.to(nextTarget.text, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: vw(360),
+      })
+      this.$gsap.to(nextTarget.circle, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: vw(360),
+      })
+
+      this.$gsap.to(prevTarget.text, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: vw(-360),
+      })
+      this.$gsap.to(prevTarget.circle, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: vw(-360),
+      })
+    },
+    onMouseLeave() {
+      this.$gsap.to(this.$refs.ProjectItemImg01, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        scale: 0,
+        rotate: 0,
+      })
+      this.$gsap.to(this.$refs.ProjectItemImg02, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        scale: 0,
+        rotate: 0,
+      })
+      this.$gsap.to(this.$refs.ProjectItemWrapper, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: 0,
+      })
+      this.$gsap.to(this.$refs.ProjectItemCircle, {
+        duration: this.$siteConfig.halfBaseDuration,
+        ease: this.$easing.transform,
+        x: 0,
+      })
     },
     NextAll(dom) {
-      const list = []
+      const textArray = []
+      const circleArray = []
+
       let next = dom.nextElementSibling
 
       while (next && next.nodeType === 1) {
-        list.push(next)
+        const text = next.querySelector('.project-item-wraper')
+        const circle = next.querySelector('.project-item-circle')
+
+        textArray.push(text)
+        circleArray.push(circle)
         next = next.nextElementSibling
       }
 
-      return list
+      return {
+        text: textArray,
+        circle: circleArray,
+      }
+    },
+    PrevAll(dom) {
+      const textArray = []
+      const circleArray = []
+
+      let prev = dom.previousElementSibling
+
+      while (prev && prev.nodeType === 1) {
+        const text = prev.querySelector('.project-item-wraper')
+        const circle = prev.querySelector('.project-item-circle')
+
+        textArray.push(text)
+        circleArray.push(circle)
+        prev = prev.previousElementSibling
+      }
+
+      return {
+        text: textArray,
+        circle: circleArray,
+      }
     },
   },
 }
@@ -220,6 +346,10 @@ export default {
   top: auto;
   left: auto;
   overflow: hidden;
+
+  &.isTextAnimationEnd{
+    overflow: visible;
+  }
 }
 
 .project-item-wrapper-translate {
@@ -236,18 +366,41 @@ export default {
 
   &:not(:last-of-type) {
     margin: 0 vw(100) 0 0;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: vw(-60);
-      transform: translate3d(0, -50%, 0);
-      width: vw(20);
-      height: vw(20);
-      border-radius: 50%;
-      background-color: $black;
-    }
   }
+}
+
+.project-item-circle {
+  position: absolute;
+  top: 50%;
+  right: vw(-60);
+  transform: translate3d(0, -50%, 0);
+  width: vw(20);
+  height: vw(20);
+  border-radius: 50%;
+  background-color: $black;
+  pointer-events: none;
+}
+
+.project-item-wraper {
+  display: block;
+  position: relative;
+}
+
+.project-item-img-01{
+  position: absolute;
+  top: vw(-40);
+  left: vw(-340);
+  width: vw(280);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.project-item-img-02{
+  position: absolute;
+  top: vw(-40);
+  right: vw(-340);
+  width: vw(280);
+  transform: scale(0);
+  pointer-events: none;
 }
 </style>

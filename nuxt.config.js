@@ -50,6 +50,7 @@ export default {
   modules: [
     'nuxt-webfontloader',
     '@nuxtjs/style-resources',
+    '@nuxt/image',
   ],
 
   styleResources: {
@@ -64,22 +65,11 @@ export default {
     }
   },
 
-  optimizedImages: {
-    optimizeImages: true,
-    optimizeImagesInDev: true,
-  },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
 
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'notFound',
-        path: '*',
-        component: resolve(__dirname, 'pages/index.vue')
-      })
-    }
+  generate: {
+    fallback: true,
   }
 }

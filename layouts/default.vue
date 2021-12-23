@@ -1,8 +1,8 @@
 <template>
   <div>
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
-      <div asscroll>
-        <nuxt />
+      <div class="asscroll" asscroll>
+        <nuxt  />
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>

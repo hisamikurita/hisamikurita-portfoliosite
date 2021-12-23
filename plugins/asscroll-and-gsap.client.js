@@ -8,7 +8,6 @@ gsap.registerPlugin(CustomEase, Draggable, InertiaPlugin, ScrollTrigger);
 
 const asscroll = new ASScroll({
   ease: 0.09,
-  // touchScrollType: 'scrollTop',
   customScrollbar: false,
 });
 
