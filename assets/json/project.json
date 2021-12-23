@@ -17,7 +17,10 @@
     "rotate": 8,
     "xspeed": 0.11,
     "yspeed": 0.21,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -37,7 +40,10 @@
     "rotate": -7,
     "xspeed": -0.05,
     "yspeed": 0.23,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -58,7 +64,10 @@
     "rotate": -5,
     "xspeed": 0.05,
     "yspeed": 0.19,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -79,7 +88,10 @@
     "rotate": -6,
     "xspeed": 0.14,
     "yspeed": 0.17,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -99,7 +111,10 @@
     "rotate": -9,
     "xspeed": -0.08,
     "yspeed": 0.25,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -119,7 +134,10 @@
     "rotate": 6,
     "xspeed": 0.01,
     "yspeed": 0.2,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -139,7 +157,10 @@
     "rotate": 7,
     "xspeed": 0.18,
     "yspeed": 0.18,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -159,7 +180,10 @@
     "rotate": -5,
     "xspeed": -0.16,
     "yspeed": 0.22,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   },
   {
     "name": [
@@ -179,6 +203,9 @@
     "rotate": -7,
     "xspeed": 0.12,
     "yspeed": 0.21,
-    "image" : "/images/nlplus.jpg"
+    "image" : {
+      "01" : "/images/nlplus-img-01.png",
+      "02" : "/images/nlplus-img-02.png"
+    }
   }
 ]

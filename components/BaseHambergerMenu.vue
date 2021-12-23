@@ -55,7 +55,7 @@
                 class="hambergerMenu-item-link"
               >
                 <div class="hambergerMenu-item-img">
-                  <img :src="data.image" :alt="data.title" />
+                  <nuxt-img :src="data.image['01']" quality="80" :alt="data.fullTitle" />
                 </div>
                 <div>
                   <p class="hambergerMenu-item-title">{{ data.title }}</p>
