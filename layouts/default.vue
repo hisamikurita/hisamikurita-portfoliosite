@@ -2,19 +2,27 @@
   <div>
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
-        <nuxt  />
+        <nuxt />
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <BaseHeader />
     <BaseHambergerMenu />
+    <!-- <div v-if="error.statusCode === 404">404</div> -->
   </div>
 </template>
 
 <script>
-import { preEvent } from "../lib/preEvent"
+import { preEvent } from '../lib/preEvent'
 
 export default {
+  // props: {
+  //   error: {
+  //     type: Object,
+  //     default: null,
+  //   },
+  // },
+
   computed: {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
@@ -44,18 +52,16 @@ export default {
         }
 
         if (this.$siteConfig.isTouch) {
-          this.$backfaceScroll(false);
-        }
-        else if(this.$siteConfig.isNoTouch) {
+          this.$backfaceScroll(false)
+        } else if (this.$siteConfig.isNoTouch) {
           this.$asscroll.disable({ inputOnly: true })
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
-      }
+      } else if (!this.hambergerMenuState) {
 
       /**
        * ハンバガーメニューが閉じた時
        */
-      else if (!this.hambergerMenuState) {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$siteConfig.isPc) {
@@ -72,25 +78,23 @@ export default {
            * ピックアップセクションだった場合はスクロール固定を解除しない
            */
           // if (this.indexPickupState) return;
-          this.$backfaceScroll(true);
-        }
-        else if(this.$siteConfig.isNoTouch) {
+          this.$backfaceScroll(true)
+        } else if (this.$siteConfig.isNoTouch) {
           window.addEventListener('wheel', preEvent, { passive: false })
           /**
            * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
            */
-          if(this.indexPickupState) return;
+          if (this.indexPickupState) return
           this.$asscroll.enable()
         }
       }
-    }
-  }
+    },
+  },
 }
-
 </script>
 
 <style lang="scss">
-.asscroll-container-cover{
+.asscroll-container-cover {
   position: fixed;
   top: 0;
   left: 0;

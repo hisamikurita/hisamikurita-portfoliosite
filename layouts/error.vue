@@ -1,4 +1,4 @@
-<template v-if="error.statusCode === 404">
+<template>
   <div class="notfound">
     <div class="notfound-bg">
       <div class="l-container">
@@ -17,9 +17,12 @@
 <script>
 export default {
   name: 'NotFound',
-  error: {
-    type: Object,
-    default: null,
+  // layout: 'default',
+  props: {
+    error: {
+      type: Object,
+      default: null,
+    },
   },
 }
 </script>

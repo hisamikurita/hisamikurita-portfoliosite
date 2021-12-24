@@ -40,15 +40,15 @@ export default {
     },
   },
   mounted() {
-    this.$asscroll.on('scroll', () => {
-      if (this.hambergerMenuState || this.indexPickupState) return
+    // this.$asscroll.on('scroll', () => {
+    //   if (this.hambergerMenuState || this.indexPickupState) return
 
-      if (this.$asscroll.targetPos < 1.0) {
-        this.$refs.HeaderLogo.classList.add('is-top')
-      } else {
-        this.$refs.HeaderLogo.classList.remove('is-top')
-      }
-    })
+    //   if (this.$asscroll.targetPos < 1.0) {
+    //     this.$refs.HeaderLogo.classList.add('is-top')
+    //   } else {
+    //     this.$refs.HeaderLogo.classList.remove('is-top')
+    //   }
+    // })
   },
 
   methods: {

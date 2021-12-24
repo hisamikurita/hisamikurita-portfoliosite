@@ -28,10 +28,10 @@ export default {
   plugins: [
     '~/plugins/viewport.client.js',
     '~/plugins/backfaceFixed.client.js',
-    '~/plugins/asscroll-and-gsap.client.js',
     '~/plugins/hambergerMenu.client.js',
     '~/plugins/siteConfig.client.js',
     '~/plugins/mixin.js',
+    '~/plugins/asscroll-and-gsap.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
