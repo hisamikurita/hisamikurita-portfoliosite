@@ -86,7 +86,6 @@ export default {
   },
 
   generate: {
-    fallback: true,
     async routes() {
       const pages = await axios
         .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=100`, {
