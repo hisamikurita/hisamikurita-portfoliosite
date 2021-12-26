@@ -65,13 +65,13 @@
                 >
                   <AppCardBase
                     :component-name="'ProjectContents'"
-                    :name="data.name"
-                    :title="data.title"
-                    :link="data.link"
-                    :text="data.textArray"
-                    :rotate="data.rotate"
-                    :xspeed="data.xspeed"
-                    :yspeed="data.yspeed"
+                    :name="data.title.full"
+                    :title="data.title.short"
+                    :link="data.id"
+                    :text="data.desc"
+                    :rotate="data.projectNum.rotate"
+                    :xspeed="data.projectNum.xspeed"
+                    :yspeed="data.projectNum.yspeed"
                     :modifier="'index-project'"
                   />
                 </div>
@@ -85,12 +85,20 @@
 </template>
 
 <script>
-import projectData from '@/assets/json/project.json'
+// import projectData from '@/assets/json/project.json'
 
 export default {
+  props: {
+    projectData: {
+      type: Array,
+      required: true,
+    },
+  },
+
+
   data: () => {
     return {
-      projectData: projectData,
+      // projectData: projectData,
       isCardSegmentState: '',
       isTextSegmentState: '',
       isTextUnderlineState: '',

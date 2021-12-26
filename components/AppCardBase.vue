@@ -59,7 +59,7 @@ export default {
       required: true,
     },
     name: {
-      type: Array,
+      type: [Array, String],
       default: null,
     },
     title: {
@@ -75,7 +75,7 @@ export default {
       default: null,
     },
     text: {
-      type: Array,
+      type: [Array, String],
       default: null,
     },
     info: {

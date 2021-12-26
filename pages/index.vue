@@ -5,7 +5,9 @@
       <IndexAboutSection />
     </div>
     <IndexSelectProjectPickupSection />
-    <IndexSelectProjectCardSection />
+    <IndexSelectProjectCardSection
+      :project-data="projectData.contents"
+    />
     <IndexContactSection />
   </div>
 </template>
@@ -13,6 +15,14 @@
 <script>
 export default {
   name: 'Index',
+
+  async asyncData({ $microcms }) {
+    const projectData = await $microcms.get({
+      endpoint: `works`,
+    })
+
+    return { projectData }
+  },
 
   mounted() {
     this.$nextTick(() => {

@@ -1,5 +1,8 @@
 <template>
-  <div class="hambergerMenu" :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }">
+  <div
+    class="hambergerMenu"
+    :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }"
+  >
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
@@ -49,19 +52,25 @@
               :key="data.id"
               class="hambergerMenu-item"
             >
-              <a
-                ref="hambergerMenuItemLink"
-                :href="data.link"
-                class="hambergerMenu-item-link"
-              >
-                <div class="hambergerMenu-item-img">
-                  <nuxt-img :src="data.image['01']" quality="80" :alt="data.fullTitle" />
-                </div>
-                <div>
-                  <p class="hambergerMenu-item-title">{{ data.title }}</p>
-                  <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
-                </div>
-              </a>
+              <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper">
+                <NuxtLink
+                  :to="`/${data.id}`"
+                  class="hambergerMenu-item-link"
+                >
+                  <div class="hambergerMenu-item-img">
+                    <img
+                      :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=80`"
+                      :width="`${data.hambergerMenuImg.width}`"
+                      :height="`${data.hambergerMenuImg.height}`"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    <p class="hambergerMenu-item-title">{{ data.title.short }}</p>
+                    <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
+                  </div>
+                </NuxtLink>
+              </div>
             </li>
           </ul>
         </div>
@@ -72,10 +81,7 @@
       class="hambergerMenu-btn"
       @click="hambergerMenuOnClick"
     >
-      <span
-        ref="HambergerMenuBtnHover"
-        class="hambergerMenu-hover"
-      >
+      <span ref="HambergerMenuBtnHover" class="hambergerMenu-hover">
         <span ref="hambergerMenuOpenarea" class="hambergerMenu-openarea">
           <span
             ref="hambergerMenuOpenareaLine01"
@@ -92,12 +98,13 @@
 </template>
 
 <script>
-import projectData from '@/assets/json/project.json'
+import axios from 'axios'
+// import projectData from '@/assets/json/project.json'
 
 export default {
   data: () => {
     return {
-      projectData: projectData,
+      projectData: '',
       isTextSegmentState: '',
     }
   },
@@ -198,7 +205,7 @@ export default {
           setTimeout(() => {
             this.isTextSegmentState = 'center'
             this.itemLinkCenter = this.$gsap.to(
-              this.$refs.hambergerMenuItemLink,
+              this.$refs.HambergerMenuItemWrapper,
               {
                 duration: this.$siteConfig.baseDuration,
                 delay: 0.36,
@@ -273,7 +280,7 @@ export default {
           setTimeout(() => {
             this.isTextSegmentState = 'center'
             this.itemLinkCenter = this.$gsap.to(
-              this.$refs.hambergerMenuItemLink,
+              this.$refs.HambergerMenuItemWrapper,
               {
                 duration: this.$siteConfig.baseDuration,
                 delay: 0.36,
@@ -346,7 +353,7 @@ export default {
            */
           this.isTextSegmentState = 'top'
           this.itemLinkBottom = this.$gsap.to(
-            this.$refs.hambergerMenuItemLink,
+            this.$refs.HambergerMenuItemWrapper,
             {
               duration: this.$siteConfig.baseDuration,
               delay: 0.36,
@@ -386,7 +393,7 @@ export default {
             })
             if (this.itemLinkCenter) this.itemLinkCenter.kill()
             if (this.itemLinkBottom) this.itemLinkBottom.kill()
-            this.$gsap.set(this.$refs.hambergerMenuItemLink, {
+            this.$gsap.set(this.$refs.HambergerMenuItemWrapper, {
               y: 180,
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
@@ -446,7 +453,7 @@ export default {
            */
           // this.isTextSegmentState = 'top'
           // this.itemLinkBottom = this.$gsap.to(
-          //   this.$refs.hambergerMenuItemLink,
+          //   this.$refs.HambergerMenuItemWrapper,
           //   {
           //     duration: this.$siteConfig.baseDuration,
           //     delay: 0.36,
@@ -468,7 +475,7 @@ export default {
             })
             if (this.itemLinkCenter) this.itemLinkCenter.kill()
             if (this.itemLinkBottom) this.itemLinkBottom.kill()
-            this.$gsap.set(this.$refs.hambergerMenuItemLink, {
+            this.$gsap.set(this.$refs.HambergerMenuItemWrapper, {
               y: 180,
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
@@ -476,6 +483,11 @@ export default {
         }
       }
     },
+  },
+  mounted() {
+    this.getData();
+        console.log(this.$route)
+
   },
   methods: {
     hambergerMenuOnClick() {
@@ -497,6 +509,15 @@ export default {
       if (this.$route.name === root) {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       }
+    },
+    async getData() {
+      const response = await axios.get(
+          `https://${process.env.serviceDomain}.microcms.io/api/v1/works`,
+          {
+            headers: { 'X-MICROCMS-API-KEY': process.env.apiKey },
+          }
+        )
+        this.projectData = response.data.contents;
     },
   },
 }
@@ -686,10 +707,13 @@ export default {
   }
 }
 
+.hambergerMenu-item-wrapper {
+  transform: translateY(180px);
+}
+
 .hambergerMenu-item-link {
   display: flex;
   align-items: center;
-  transform: translateY(180px);
 }
 
 .hambergerMenu-item-title {

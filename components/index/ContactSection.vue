@@ -295,7 +295,7 @@ export default {
 }
 
 .contact-info-index-area {
-  margin: 0 40px 0 0;
+  margin: vw(32) 40px 0 0;
 
   @include sp() {
     margin: 10px 40px 0 0;

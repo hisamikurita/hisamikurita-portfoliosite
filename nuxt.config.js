@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -44,6 +46,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    'nuxt-microcms-module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -65,7 +68,37 @@ export default {
     }
   },
 
+  env: {
+    serviceDomain: process.env.SERVICE_DOMAIN,
+    apiKey: process.env.API_KEY,
+  },
+
+  microcms: {
+    options: {
+      serviceDomain: process.env.SERVICE_DOMAIN,
+      apiKey: process.env.API_KEY,
+    },
+    mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+
+  generate: {
+    fallback: true,
+    async routes() {
+      const pages = await axios
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=100`, {
+          headers: { 'X-MICROCMS-API-KEY': process.env.API_KEY }
+        })
+        .then((res) =>
+          res.data.contents.map((content) => (
+            {
+              route: `${content.id}`,
+            }))
+        )
+      return pages
+    }
+  }
 }

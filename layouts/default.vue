@@ -16,13 +16,6 @@
 import { preEvent } from '../lib/preEvent'
 
 export default {
-  // props: {
-  //   error: {
-  //     type: Object,
-  //     default: null,
-  //   },
-  // },
-
   computed: {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
@@ -58,10 +51,9 @@ export default {
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
       } else if (!this.hambergerMenuState) {
-
-      /**
-       * ハンバガーメニューが閉じた時
-       */
+        /**
+         * ハンバガーメニューが閉じた時
+         */
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$siteConfig.isPc) {

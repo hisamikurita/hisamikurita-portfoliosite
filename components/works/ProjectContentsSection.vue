@@ -7,28 +7,28 @@
           :loop="isLoopTextState"
           :start="-0.4"
           :rotate="rotateRight"
-          :text="' M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST M-TRUST '"
+          :text="loopText"
         />
       </span>
     </div>
     <div class="l-container">
       <div class="contents-inner">
         <div class="contents-info">
-          <dl class="contents-info-dl">
+          <dl class="works-contents-info-dl">
             <dt>CLIENT</dt>
-            <dd>M-TRUST CO LTD.,</dd>
+            <dd>{{client}}</dd>
           </dl>
-          <dl class="contents-info-dl">
-            <dt>YEAR</dt>
-            <dd>2020</dd>
-          </dl>
-          <dl class="contents-info-dl">
-            <dt>LINK</dt>
-            <dd>SITE IS LIVE</dd>
-          </dl>
+          <div class="works-contents-info-dl">
+            {{freeArea}}
+          </div>
         </div>
-        <div v-for="i of 4" :key="i" class="contents-img" :class="'contents-img-0' + i">
-          <img :src="'/images/works-contents-mtrust-0' + i + '.jpg'" alt="" />
+        <div
+          v-for="index of Object.keys(contentsImg).length - 1"
+          :key="index"
+          class="contents-img"
+          :class="'contents-img-0' + index"
+        >
+          <img :src="`${contentsImg['contentsImg0' + index].url}?w=1000&h=624&q=80`" :width="`${contentsImg['contentsImg0' + index].width}`" :height="`${contentsImg['contentsImg0' + index].height}`"/>
         </div>
       </div>
     </div>
@@ -37,13 +37,34 @@
 
 <script>
 export default {
+  props: {
+    loopText: {
+      type: String,
+      required: true,
+    },
+    client: {
+      type: String,
+      required: true,
+    },
+    freeArea: {
+      type: String,
+      required: true,
+    },
+    contentsImg: {
+      type: Object,
+      required: true,
+    },
+  },
+
   data: () => {
     return {
       isTextSegmentState: '',
       isLoopTextState: '',
     }
   },
+
   mounted() {
+
     this.observe = this.$refs.ContentsLoopTitle
     /* text-animation */
     this.iObserverTextSegment = new IntersectionObserver(
@@ -84,11 +105,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contents-inner{
+.contents-inner {
   padding: 0 40px;
 }
 
-.contents-loop-title-wrapper{
+.contents-loop-title-wrapper {
   padding: 216px 0 242px;
 }
 
@@ -97,7 +118,7 @@ export default {
   font-family: $sixcaps;
 }
 
-.contents-info{
+.contents-info {
   display: flex;
   width: vw(1000);
   margin: 0 0 160px 0;
@@ -106,22 +127,22 @@ export default {
   border-top: solid 1px;
 }
 
-.contents-info-dl{
+.contents-info-dl {
   width: 33.333%;
   line-height: 1.2;
 }
 
-.contents-img{
+.contents-img {
   position: relative;
   width: vw(1000);
   height: vw(624);
   overflow: hidden;
 
-  &:not(:last-of-type){
+  &:not(:last-of-type) {
     margin: 0 0 160px 0;
   }
 
-  & img{
+  & img {
     position: absolute;
     top: 50%;
     left: 50%;

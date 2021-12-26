@@ -1,11 +1,16 @@
 <template>
-  <NuxtLink :to="link" class="card-project-link" :class="`card-project-link-${modifier}`">
+  <NuxtLink :to="`/${link}`" class="card-project-link" :class="`card-project-link-${modifier}`">
     <span class="card-project-inner">
       <span class="card-project-title-wrapper-01">
-        <span v-for="(char, index) of name" :key="index" class="card-project-title-wrapper-01-block" v-text="char"></span>
+        <span class="card-project-title-wrapper-01-block">
+          ・
+        </span>
+        <span class="card-project-title-wrapper-01-block">
+          {{ name }}
+        </span>
       </span>
       <span class="card-project-title-wrapper-02">
-        <span v-for="(char, index) of text" :key="index" class="card-project-title-wrapper-02-block" v-text="char"></span>
+        <span class="card-project-title-wrapper-02-block">{{text}}</span>
       </span>
       <span class="card-project-title-wrapper-03">
         <span class="pc-only">
@@ -28,20 +33,20 @@
 export default {
   props: {
     name: {
-      type: Array,
-      required: true,
+      type: String,
+      default: '',
     },
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     link: {
       type: String,
-      required: true,
+      default: '',
     },
     text: {
-      type: Array,
-      required: true,
+      type: String,
+      default: '',
     },
     modifier: {
       type: String,
