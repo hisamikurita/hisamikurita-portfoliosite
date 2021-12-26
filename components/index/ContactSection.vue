@@ -89,12 +89,12 @@
                   :key="data.id"
                   class="contact-info-item"
                 >
-                  <NuxtLink :to="data.link">
+                  <NuxtLink :to="`works/${data.id}`">
                     <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
                       :rotate="rotateLeft"
-                      :text="data.name[1]"
+                      :text="data.title.full"
                     />
                   </NuxtLink>
                 </span>
@@ -180,12 +180,19 @@
 </template>
 
 <script>
-import projectData from '@/assets/json/project.json'
+// import projectData from '@/assets/json/project.json'
 
 export default {
+  props: {
+    projectData: {
+      type: Array,
+      required: true,
+    },
+  },
+
   data: () => {
     return {
-      projectData: projectData,
+      // projectData: projectData,
       isTextSegmentState: '',
       isCircleBgState: '',
     }

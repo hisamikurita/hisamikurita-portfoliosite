@@ -8,7 +8,9 @@
     <IndexSelectProjectCardSection
       :project-data="projectData.contents"
     />
-    <IndexContactSection />
+    <IndexContactSection
+      :project-data="projectData.contents"
+    />
   </div>
 </template>
 

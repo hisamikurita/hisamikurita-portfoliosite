@@ -54,7 +54,7 @@
             >
               <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper">
                 <NuxtLink
-                  :to="`/${data.id}`"
+                  :to="`works/${data.id}`"
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">
@@ -486,8 +486,6 @@ export default {
   },
   mounted() {
     this.getData();
-        console.log(this.$route)
-
   },
   methods: {
     hambergerMenuOnClick() {
