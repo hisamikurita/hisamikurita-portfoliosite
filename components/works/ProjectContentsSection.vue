@@ -14,11 +14,11 @@
     <div class="l-container">
       <div class="contents-inner">
         <div class="contents-info">
-          <dl class="works-contents-info-dl">
+          <dl class="contents-info-client">
             <dt>CLIENT</dt>
             <dd>{{client}}</dd>
           </dl>
-          <div class="works-contents-info-dl">
+          <div class="contents-info-desc">
             {{freeArea}}
           </div>
         </div>
@@ -127,9 +127,15 @@ export default {
   border-top: solid 1px;
 }
 
-.contents-info-dl {
-  width: 33.333%;
+.contents-info-client {
+  flex-shrink: 0;
+  width: 250px;
   line-height: 1.2;
+}
+
+.contents-info-desc{
+  margin: -2px 0 0 0;
+  line-height: 1.36;
 }
 
 .contents-img {

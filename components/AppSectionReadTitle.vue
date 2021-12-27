@@ -179,4 +179,21 @@ export default {
   }
 }
 
+.cmn-title-read-text-wrapper--works-section{
+  font-size: 14px;
+
+  & .cmn-title-read-text-00{
+    font-size: 36px;
+    text-indent: -2px;
+    line-height: 0.79;
+
+    @include sp(){
+      display: inline-block;
+      margin: 0 0 0 -4.5px;
+      font-size: 28px;
+      text-indent: 0;
+    }
+  }
+}
+
 </style>

@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .text-under-line {
   width: 100%;
   height: 1px;
@@ -150,6 +150,11 @@ export default {
     left: 20px;
     width: calc(100% - 40px);
   }
+}
+
+.text-under-line--works {
+  display: block;
+  background-color: $white;
 }
 
 </style>

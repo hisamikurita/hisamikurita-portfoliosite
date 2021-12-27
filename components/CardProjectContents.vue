@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`works/${link}`" class="card-project-link" :class="`card-project-link-${modifier}`">
+  <NuxtLink :to="`/works/${link}`" class="card-project-link" :class="`card-project-link-${modifier}`">
     <span class="card-project-inner">
       <span class="card-project-title-wrapper-01">
         <span class="card-project-title-wrapper-01-block">

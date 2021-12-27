@@ -5,6 +5,7 @@
       :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`"
     >
       <WorksMainVisualSection
+        :project-index="currentProject.index"
         :hero-color="currentProject.siteColor.mvTextColor"
         :hero-img="currentProject.heroImg"
         :details-main-text="currentProject.detailsMainText"
@@ -26,9 +27,15 @@ export default {
   name: 'Works',
 
   async asyncData({ $microcms, params }) {
-    const currentProject = await $microcms.get({
-      endpoint: `works/${params.slug}`,
+    const response = await $microcms.get({
+      endpoint: `works`,
     })
+
+    const AllDataContents = response.contents;
+
+    const index = AllDataContents .findIndex((content) => content.id === params.slug);
+    const currentProject = AllDataContents[index];
+    currentProject.index = index + 1;
 
     return { currentProject }
   },

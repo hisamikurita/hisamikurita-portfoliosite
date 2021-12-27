@@ -54,7 +54,7 @@
             >
               <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper">
                 <NuxtLink
-                  :to="`works/${data.id}`"
+                  :to="`/works/${data.id}`"
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">
