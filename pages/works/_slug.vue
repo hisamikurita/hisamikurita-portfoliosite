@@ -31,11 +31,13 @@ export default {
       endpoint: `works`,
     })
 
-    const AllDataContents = response.contents;
+    const AllDataContents = response.contents
 
-    const index = AllDataContents .findIndex((content) => content.id === params.slug);
-    const currentProject = AllDataContents[index];
-    currentProject.index = index + 1;
+    const index = AllDataContents.findIndex(
+      (content) => content.id === params.slug
+    )
+    const currentProject = AllDataContents[index]
+    currentProject.index = index + 1
 
     return { currentProject }
   },
@@ -53,6 +55,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.works {
+  overflow: hidden;
+}
+
 .works-contents-inner {
   padding: 0 40px;
 }

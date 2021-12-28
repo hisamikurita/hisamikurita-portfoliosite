@@ -1,5 +1,10 @@
 <template>
-  <span ref="TextUnderline" class="text-under-line" :class="'text-under-line--' + modifier"></span>
+  <span
+    ref="TextUnderline"
+    class="text-under-line"
+    :class="'text-under-line--' + modifier"
+    :style="`background-color:${color};`"
+  ></span>
 </template>
 
 <script>
@@ -24,6 +29,10 @@ export default {
     spAnimation: {
       type: Boolean,
       default: true,
+    },
+    color: {
+      type: String,
+      default: '',
     },
   },
 
@@ -100,7 +109,7 @@ export default {
   width: calc(100% - 200px);
   background-color: $black;
 
-  @include sp(){
+  @include sp() {
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -113,7 +122,7 @@ export default {
   width: calc(100% - 200px);
   background-color: $black;
 
-  @include sp(){
+  @include sp() {
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -133,7 +142,7 @@ export default {
   width: calc(100% + 4px);
   background-color: $black;
 
-  @include sp(){
+  @include sp() {
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -146,7 +155,7 @@ export default {
   width: calc(100% + 4px);
   background-color: $black;
 
-  @include sp(){
+  @include sp() {
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -154,7 +163,6 @@ export default {
 
 .text-under-line--works {
   display: block;
-  background-color: $white;
+  background-color: inherit;
 }
-
 </style>
