@@ -17,7 +17,11 @@
         :free-area="currentProject.freeArea"
         :contents-img="currentProject.contentsImg"
       />
-      <WorksNextProjectSection />
+      <WorksNextProjectSection
+        :hero-color="currentProject.siteColor.mvTextColor"
+        :site-color="currentProject.siteColor.allTextColor"
+        :next-link="nextProject.id"
+      />
     </div>
   </div>
 </template>
@@ -39,7 +43,15 @@ export default {
     const currentProject = AllDataContents[index]
     currentProject.index = index + 1
 
-    return { currentProject }
+    let nextProject = null
+
+    if (index === AllDataContents.length - 1) {
+      nextProject = AllDataContents[0]
+    } else {
+      nextProject = AllDataContents[index + 1]
+    }
+
+    return { currentProject, nextProject }
   },
 
   mounted() {

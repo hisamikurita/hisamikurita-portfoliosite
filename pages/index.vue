@@ -39,12 +39,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hero-and-about {
-  position: relative;
+.index {
   overflow: hidden;
 }
 
-.index {
+.hero-and-about {
+  position: relative;
   overflow: hidden;
 }
 </style>

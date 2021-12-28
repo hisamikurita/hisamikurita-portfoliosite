@@ -1,14 +1,43 @@
 <template>
   <div ref="Next" class="next">
-    <div ref="Next" class="next">
-      <div ref="ContentsLoopTitle" class="next-loop-title">
-        <AppTextLoop
-          :state="'center'"
-          :loop="isLoopTextState"
-          :rotate="rotateRight"
-          :text="' NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT '"
-        >
-        </AppTextLoop>
+    <div class="next-inner">
+      <div class="l-container">
+        <div class="next-contents">
+          <div class="next-title-read-area" :style="`color:${heroColor};`">
+            <AppSectionReadTitle
+              :state="isTextSegmentState"
+              :text="['・', 'NEXT', 'PROJECT']"
+              :modifier="'works-section'"
+            />
+          </div>
+          <NuxtLink :to="`/works/${nextLink}`">
+            <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper">
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :color="siteColor"
+                :origin="'right'"
+                :modifier="'works-next-01'"
+              />
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.12"
+                :color="siteColor"
+                :origin="'left'"
+                :modifier="'works-next-02'"
+              />
+              <span class="next-loop-title">
+                <AppTextLoop
+                  :state="isTextSegmentState"
+                  :loop="isLoopTextState"
+                  :rotate="rotateRight"
+                  :text="' NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT '"
+                >
+                </AppTextLoop>
+              </span>
+            </span>
+          </NuxtLink>
+        </div>
+        <p class="next-backbtn" :style="`color:${heroColor};`"><NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink></p>
       </div>
     </div>
   </div>
@@ -16,14 +45,30 @@
 
 <script>
 export default {
+  props: {
+    heroColor: {
+      type: String,
+      default: '#ffffff',
+    },
+    siteColor: {
+      type: String,
+      default: '#ffffff',
+    },
+    nextLink: {
+      type: String,
+      default: '',
+    },
+  },
   data: () => {
     return {
+      isTextSegmentState: '',
+      isTextUnderlineState: '',
       isLoopTextState: '',
     }
   },
   mounted() {
     /* loop-text-animation */
-    this.observe = this.$refs.ContentsLoopTitle
+    this.observe = this.$refs.ContentsLoopTitleWrapper
     this.iObserverLoopText = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -37,13 +82,63 @@ export default {
       { rootMargin: '0%' }
     )
     this.iObserverLoopText.observe(this.observe)
+
+    this.iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.isTextSegmentState = 'center'
+            this.isTextUnderlineState = 'extend'
+            this.iObserver.unobserve(this.observe)
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    this.iObserver.observe(this.observe)
+  },
+
+  beforeDestroy() {
+    this.iObserverLoopText.unobserve(this.observe)
+    this.iObserver.unobserve(this.observe)
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.next-loop-title{
+.next-inner {
+  width: 100%;
+  padding: 0 160px 0 40px;
+}
+
+.next-contents{
+  padding: 212px 0 290px;
+}
+
+.next-title-read-area{
+  margin: 0 0 34px 0;
+}
+
+.next-loop-title-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: vw(200);
   font-size: vw(140);
   font-family: $sixcaps;
+}
+
+.next-loop-title{
+  position: absolute;
+  top: auto;
+  left: auto;
+}
+
+.next-backbtn{
+  padding: 0 0 20px 0;
+  font-size: 14px;
+  text-align: center;
+  font-family: $helvetica;
 }
 </style>

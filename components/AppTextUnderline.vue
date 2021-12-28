@@ -165,4 +165,30 @@ export default {
   display: block;
   background-color: inherit;
 }
+
+.text-under-line--works-next-01 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100%);
+  // background-color: $black;
+
+  @include sp() {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+}
+
+.text-under-line--works-next-02 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100%);
+  // background-color: $black;
+
+  @include sp() {
+    left: 20px;
+    width: calc(100% - 40px);
+  }
+}
 </style>
