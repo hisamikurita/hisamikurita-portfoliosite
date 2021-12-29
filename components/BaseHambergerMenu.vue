@@ -7,34 +7,24 @@
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
-          <span class="hambergerMenu-title-wrapper-01">
-            <component
-              :is="setRootTagName('index')"
-              to="/"
-              @click="onClickSameUrlReload('index')"
-            >
+          <span class="hambergerMenu-title-wrapper-01" @click="onClickSameUrl('index')">
+            <NuxtLink to="/">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="rotateRight"
                 :text="'HISAMIKURITA'"
-                :is-load-init="true"
               />
-            </component>
+            </NuxtLink>
           </span>
-          <span class="hambergerMenu-title-wrapper-02">
-            <component
-              :is="setRootTagName('about')"
-              to="/about"
-              @click="onClickSameUrlReload('about')"
-            >
+          <span class="hambergerMenu-title-wrapper-02" @click="onClickSameUrl('about')">
+            <NuxtLink to="/about">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="rotateLeft"
                 :text="'ABOUT'"
-                :is-load-init="true"
               />
-            </component>
+            </NuxtLink>
           </span>
         </div>
         <div class="hambergerMenu-section-title">
@@ -52,7 +42,10 @@
               :key="data.id"
               class="hambergerMenu-item"
             >
-              <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper">
+              <div
+                ref="HambergerMenuItemWrapper"
+                class="hambergerMenu-item-wrapper"
+              >
                 <NuxtLink
                   :to="`/works/${data.id}`"
                   class="hambergerMenu-item-link"
@@ -66,7 +59,9 @@
                     />
                   </div>
                   <div>
-                    <p class="hambergerMenu-item-title">{{ data.title.short }}</p>
+                    <p class="hambergerMenu-item-title">
+                      {{ data.title.short }}
+                    </p>
                     <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
                   </div>
                 </NuxtLink>
@@ -99,7 +94,6 @@
 
 <script>
 import axios from 'axios'
-// import projectData from '@/assets/json/project.json'
 
 export default {
   data: () => {
@@ -114,11 +108,6 @@ export default {
     },
     hambergerMenuDisable: function () {
       return this.$store.getters['hambergerMenu/disable']
-    },
-    setRootTagName() {
-      return function (root) {
-        return this.$route.name === root ? 'span' : 'nuxt-link'
-      }
     },
   },
   watch: {
@@ -485,7 +474,7 @@ export default {
     },
   },
   mounted() {
-    this.getData();
+    this.getData()
   },
   methods: {
     hambergerMenuOnClick() {
@@ -503,19 +492,19 @@ export default {
         x: -window.innerWidth / 2.0 + 30 + 20,
       })
     },
-    onClickSameUrlReload(root) {
+    onClickSameUrl(root) {
       if (this.$route.name === root) {
-        this.$router.go({ path: this.$router.currentRoute.path, force: true })
+        this.$store.commit('hambergerMenu/close')
       }
     },
     async getData() {
       const response = await axios.get(
-          `https://${process.env.serviceDomain}.microcms.io/api/v1/works`,
-          {
-            headers: { 'X-MICROCMS-API-KEY': process.env.apiKey },
-          }
-        )
-        this.projectData = response.data.contents;
+        `https://${process.env.serviceDomain}.microcms.io/api/v1/works`,
+        {
+          headers: { 'X-MICROCMS-API-KEY': process.env.apiKey },
+        }
+      )
+      this.projectData = response.data.contents
     },
   },
 }

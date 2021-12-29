@@ -33,15 +33,15 @@ export default {
       type: Boolean,
       default: true,
     },
-    isLoadInit: {
-      type: Boolean,
-      default: false,
-    },
   },
 
   watch: {
     state: function () {
-      if (!this.spAnimation && this.$siteConfig.isMobile || !this.pcAnimation && this.$siteConfig.isPc) return
+      if (
+        (!this.spAnimation && this.$siteConfig.isMobile) ||
+        (!this.pcAnimation && this.$siteConfig.isPc)
+      )
+        return
 
       switch (this.state) {
         case 'center':
@@ -67,25 +67,16 @@ export default {
   },
 
   mounted() {
-    if (!this.spAnimation && this.$siteConfig.isMobile || !this.pcAnimation && this.$siteConfig.isPc) return
+    if (
+      (!this.spAnimation && this.$siteConfig.isMobile) ||
+      (!this.pcAnimation && this.$siteConfig.isPc)
+    )
+      return
 
     this.wrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
 
-    if (this.isLoadInit) {
-      /**
-       * ハンバーガーメニューの同URLだった場合にリロードさせる処理とアニメーションが、
-       * タグを書き換える際にmouted内も発火するため、バッティングする。
-       * そのため初期化をロード時のみ有効化させる
-       */
-      this.textArray.style.opacity = 1.0
-      window.addEventListener('load',()=>{
-        this.init()
-      })
-    }
-    else {
-      this.init()
-    }
+    this.init()
   },
 
   methods: {

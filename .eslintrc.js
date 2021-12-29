@@ -15,6 +15,7 @@ module.exports = {
   ],
   plugins: [
   ],
+  ignorePatterns: ["**/vendor/*.js"],
   // add your custom rules here
   rules: {
     "object-shorthand": "off",
