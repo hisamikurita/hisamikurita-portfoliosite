@@ -68,7 +68,7 @@ export default {
 
 <style lang="scss" scoped>
 .works {
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .works-contents-inner {

@@ -15,12 +15,14 @@
                   'FRAMEWORK : VUE/NUXT',
                   'LIBRARY : GSAP/THREE.JS',
                   'SERVER : NETLIFY',
+                  'CMS : MICROCMS',
                 ]"
                 :sp-animation="false"
                 :modifier="'section'"
               />
             </span>
             <span class="sp-only">
+              <span class="hero-title-read-block-sp">・</span>
               <span class="hero-title-read-block-sp">AUTHOR : HISAMI KURITA</span>
               <span class="hero-title-read-block-sp">FRAMEWORK : VUE/NUXT'</span>
               <span class="hero-title-read-block-sp">LIBRARY : GSAP/THREE.JS'</span>
@@ -267,6 +269,12 @@ export default {
 
 .hero-title-read-block-sp{
   display: block;
+
+  &:nth-of-type(1){
+    display: inline-block;
+    margin: 0 0 0 -4px;
+    font-size: 32px;
+  }
 }
 
 .hero-title-wrapper {

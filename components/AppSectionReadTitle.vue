@@ -4,7 +4,7 @@
       <AppTextSegment
         :state="state"
         :start="start + index * 0.12"
-        :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
+        :rotate="rotateRight"
         :text="char"
         :sp-animation="spAnimation"
       />

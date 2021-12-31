@@ -215,7 +215,6 @@ export default {
 .card-project-inner {
   display: block;
   position: relative;
-  width: 100%;
   height: 100%;
 }
 
@@ -259,6 +258,7 @@ export default {
 
 .card-project-title-wrapper-02-block {
   display: block;
+  width: 200px;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
   letter-spacing: 0.02em;

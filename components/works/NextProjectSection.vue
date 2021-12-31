@@ -1,7 +1,7 @@
 <template>
   <div ref="Next" class="next">
-    <div class="next-inner">
-      <div class="l-container">
+    <!-- <div class="next-inner">
+      <div class="l-container"> -->
         <div class="next-contents">
           <div class="next-title-read-area" :style="`color:${heroColor};`">
             <AppSectionReadTitle
@@ -30,7 +30,7 @@
                   :state="isTextSegmentState"
                   :loop="isLoopTextState"
                   :rotate="rotateRight"
-                  :text="' NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT '"
+                  :text="'NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT'"
                 >
                 </AppTextLoop>
               </span>
@@ -39,8 +39,8 @@
         </div>
         <p class="next-backbtn" :style="`color:${heroColor};`"><NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink></p>
       </div>
-    </div>
-  </div>
+    <!-- </div>
+  </div> -->
 </template>
 
 <script>
