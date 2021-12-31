@@ -4,13 +4,9 @@
       <IndexMainVisualSection />
       <IndexAboutSection />
     </div>
-    <IndexSelectProjectPickupSection />
-    <IndexSelectProjectCardSection
-      :project-data="projectData.contents"
-    />
-    <IndexContactSection
-      :project-data="projectData.contents"
-    />
+    <IndexSelectProjectPickupSection :pickup-data="pickupData" />
+    <IndexSelectProjectCardSection :project-data="projectData.contents" :pickup-end-data="pickupData[2]" />
+    <IndexContactSection :project-data="projectData.contents" />
   </div>
 </template>
 
@@ -23,18 +19,20 @@ export default {
       endpoint: `works`,
     })
 
-    return { projectData }
+    const pickupData = projectData.contents.filter((v) => v.pickup.pickupFlag)
+
+    return { projectData, pickupData }
   },
 
   mounted() {
     this.$nextTick(() => {
       this.$asscroll.enable({ reset: true })
-    });
+    })
   },
 
   beforeDestroy() {
     this.$asscroll.disable()
-  }
+  },
 }
 </script>
 

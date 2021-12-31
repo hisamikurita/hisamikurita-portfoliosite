@@ -93,7 +93,7 @@
                     <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
-                      :rotate="rotateLeft"
+                      :rotate="rotateRight"
                       :text="data.title.full"
                     />
                   </NuxtLink>
@@ -180,7 +180,6 @@
 </template>
 
 <script>
-// import projectData from '@/assets/json/project.json'
 
 export default {
   props: {
@@ -192,7 +191,6 @@ export default {
 
   data: () => {
     return {
-      // projectData: projectData,
       isTextSegmentState: '',
       isCircleBgState: '',
     }

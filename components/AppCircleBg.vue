@@ -1,5 +1,12 @@
 <template>
-  <span class="circle-bg" :class="'circle-bg-' + modifier"><span ref="CircleBgElement" class="circle-bg-element" :class="'circle-bg-element-' + modifier"></span></span>
+  <span class="circle-bg" :class="'circle-bg-' + modifier"
+    ><span
+      ref="CircleBgElement"
+      class="circle-bg-element"
+      :class="'circle-bg-element-' + modifier"
+      :style="`background-color:${color}`"
+    ></span
+  ></span>
 </template>
 
 <script>
@@ -10,6 +17,10 @@ export default {
       default: '',
     },
     modifier: {
+      type: String,
+      default: '',
+    },
+    color: {
       type: String,
       default: '',
     },
@@ -27,26 +38,26 @@ export default {
     },
   },
   methods: {
-    toExtend: function (){
+    toExtend: function () {
       this.$gsap.to(this.$refs.CircleBgElement, {
         duration: this.$siteConfig.baseDuration * 1.2,
         ease: this.$easing.transform,
         scale: 1,
       })
     },
-    toShrink: function(){
+    toShrink: function () {
       this.$gsap.to(this.$refs.CircleBgElement, {
         duration: this.$siteConfig.baseDuration * 1.2,
         ease: this.$easing.transform,
         scale: 0,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.circle-bg{
+.circle-bg {
   display: block;
   position: absolute;
   top: 50%;
@@ -56,14 +67,14 @@ export default {
   height: 142vmax;
   pointer-events: none;
 
-  @include sp(){
+  @include sp() {
     left: 50%;
     width: 120vmax;
     height: 120vmax;
   }
 }
 
-.circle-bg-element{
+.circle-bg-element {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,19 +86,15 @@ export default {
 
 //modifier
 
-.circle-bg-element-pickup-02{
-  background-color: $thinPurple;
-}
+// .circle-bg-element-pickup-02{
+//   background-color: $thinPurple;
+// }
 
-.circle-bg-element-pickup-03{
-  background-color: $thinPink;
-}
+// .circle-bg-element-pickup-03{
+//   background-color: $thinPink;
+// }
 
-.circle-bg-element-pickup-04{
-  background-color: $skinColor;
-}
-
-.circle-bg-index-contact{
+.circle-bg-index-contact {
   top: 0;
   width: 160vmax;
   height: 160vmax;
@@ -98,22 +105,22 @@ export default {
     height: 180vmax;
   }
 
-  @include sp(){
+  @include sp() {
     left: 50%;
     width: 180vmax;
     height: 360vmax;
   }
 }
 
-.circle-bg-element-index-contact{
+.circle-bg-element-index-contact {
   background-color: $thinPink;
 }
 
-.circle-bg-element-about-intro{
+.circle-bg-element-about-intro {
   background-color: $thinPink;
 }
 
-.circle-bg-element-about-project{
+.circle-bg-element-about-project {
   background-color: $skinColor;
 }
 </style>

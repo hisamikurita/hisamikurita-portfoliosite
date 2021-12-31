@@ -1,6 +1,6 @@
 <template>
   <div ref="Project" class="project">
-    <div ref="ProjectBg" class="project-bg">
+    <div ref="ProjectBg" class="project-bg" :style="`background-color:${pickupEndData.siteColor.bodyContentsColor};`">
       <span class="project-circle-bg-enter"
         ><span ref="ProjectCircleEnter" class="project-circle-bg-element"></span
       ></span>
@@ -32,7 +32,7 @@
               :loop="isLoopTextState"
               :start="-0.4"
               :rotate="rotateRight"
-              :text="' MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. '"
+              :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             >
             </AppTextLoop>
           </span>
@@ -51,7 +51,7 @@
               :loopdirection="'left'"
               :start="-0.2"
               :rotate="rotateRight"
-              :text="' MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON. '"
+              :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             />
           </span>
         </h2>
@@ -93,8 +93,11 @@ export default {
       type: Array,
       required: true,
     },
+    pickupEndData: {
+      type: Object,
+      required: true,
+    },
   },
-
 
   data: () => {
     return {
@@ -132,12 +135,12 @@ export default {
               scale: 1.0,
             }
           )
-          setTimeout(()=>{
-            this.$refs.ProjectBg.style.backgroundColor = '#f0efeb';
-          },this.$siteConfig.baseDuration * 1000)
+          setTimeout(() => {
+            this.$refs.ProjectBg.style.backgroundColor = '#f0efeb'
+          }, this.$siteConfig.baseDuration * 1000)
           break
         case 'end':
-          this.$refs.ProjectBg.style.backgroundColor = '#ffabb7';
+          this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
@@ -160,6 +163,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.pickupEndData)
     /* circle */
     this.$nextTick(() => {
       this.$gsap.set(this.$refs.ProjectCircleEnter, {
@@ -230,7 +234,7 @@ export default {
   height: 142vmax;
   pointer-events: none;
 
-  @include sp(){
+  @include sp() {
     left: 50%;
     width: 120vmax;
     height: 120vmax;
@@ -251,7 +255,7 @@ export default {
 
 .project-bg {
   position: relative;
-  background-color: $thinPink;
+  // background-color: $thinPink;
 }
 
 .project-inner {

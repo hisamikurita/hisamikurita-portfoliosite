@@ -45,6 +45,7 @@
               <div
                 ref="HambergerMenuItemWrapper"
                 class="hambergerMenu-item-wrapper"
+                @click="onClickSameUrl(data.id)"
               >
                 <NuxtLink
                   :to="`/works/${data.id}`"
@@ -493,7 +494,7 @@ export default {
       })
     },
     onClickSameUrl(root) {
-      if (this.$route.name === root) {
+      if (this.$route.name === root || this.$route.params.slug) {
         this.$store.commit('hambergerMenu/close')
       }
     },

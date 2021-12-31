@@ -1,17 +1,25 @@
 <template>
   <div ref="Pickup" class="pickup is-pickup-scene-00">
-    <span ref="PickupCircleEnter" class="pickup-circle-bg-enter"></span>
+    <span ref="PickupCircleEnter" class="pickup-circle-bg-enter" :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"></span>
     <span class="pickup-circle-bg-area">
-      <AppCircleBg :state="isCircleBgState02" :modifier="'pickup-02'" />
-      <AppCircleBg :state="isCircleBgState03" :modifier="'pickup-03'" />
+      <AppCircleBg :state="isCircleBgState02" :modifier="'pickup-02'" :color="pickupData[1].siteColor.bodyContentsColor" />
+      <AppCircleBg :state="isCircleBgState03" :modifier="'pickup-03'" :color="pickupData[2].siteColor.bodyContentsColor" />
     </span>
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
+          <span
+            v-for="(data, index) in pickupData"
+            :key="data.id"
+            class="pickup-link"
+            :class="`pickup-link-0${index + 1}`"
+          >
+            <NuxtLink :to="`/works/${data.id}`"> </NuxtLink>
+          </span>
           <div class="pickup-clip">
             <p class="pickup-section-number">
               <span
-                v-for="num in 3"
+                v-for="num in pickupData.length"
                 :key="num.id"
                 class="pickup-section-number-wrapper"
                 :class="'pickup-section-number-wrapper-0' + num"
@@ -29,20 +37,27 @@
                 :key="data.id"
                 class="pickup-section-text-wrapper"
                 :class="'pickup-section-text-wrapper-0' + Number(index + 1)"
+                :style="`color:${data.siteColor.allTextColor};`"
               >
                 <span class="pickup-section-text-title">
                   <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
-                    :rotate="rotateLeft"
-                    :text="data.title"
+                    :rotate="rotateRight"
+                    :text="data.title.full"
                   />
                 </span>
                 <span>
-                  <AppSectionReadTitle
-                    :state="isTextSegmentState[Number(index + 1)]"
-                    :start="0.12"
-                    :text="data.pickupDescArray"
-                  />
+                  <span
+                    v-for="tIndex of Object.keys(data.pickup.text[0]).length -
+                    1"
+                    :key="tIndex"
+                  >
+                    <AppTextSegment
+                      :state="isTextSegmentState[Number(index + 1)]"
+                      :start="tIndex * 0.12"
+                      :text="`${data.pickup.text[0]['text0' + tIndex]}`"
+                    />
+                  </span>
                 </span>
               </span>
             </p>
@@ -52,16 +67,17 @@
                 :key="data.id"
                 class="pickup-title-wrapper"
                 :class="'pickup-title-wrapper-0' + Number(index + 1)"
+                :style="`color:${data.siteColor.allTextColor};`"
               >
                 <span
-                  v-for="(text, tIndex) in data.pickupTextArray"
-                  :key="text.id"
+                  v-for="tIndex of Object.keys(data.pickup.title[0]).length - 1"
+                  :key="tIndex"
                 >
                   <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
                     :start="tIndex * 0.12"
                     :rotate="tIndex % 2 != 0 ? rotateLeft : rotateRight"
-                    :text="text"
+                    :text="`${data.pickup.title[0]['text0' + tIndex]}`"
                   />
                 </span>
               </span>
@@ -74,13 +90,18 @@
 </template>
 
 <script>
-import { preEvent, preEventTouch } from "../../lib/preEvent"
-import pickupData from '@/assets/json/pickup.json'
+import { preEvent, preEventTouch } from '../../lib/preEvent'
 
 export default {
+  props: {
+    pickupData: {
+      type: Array,
+      required: true,
+    },
+  },
+
   data: () => {
     return {
-      pickupData: pickupData,
       pickupSectionOldCurrentNum: 0,
       pickupSectionCurrentNum: 0,
       isScrollAnimation: false,
@@ -112,15 +133,16 @@ export default {
   },
 
   mounted() {
-    this.$gsap.ticker.add(this.pickupToTopEnterScroll);
+    console.log(this.pickupData)
+    this.$gsap.ticker.add(this.pickupToTopEnterScroll)
   },
 
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
-    this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
-    this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
-    this.removeAllEvent();
-    this.removeAllPreEvent();
+    this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
+    this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
+    this.removeAllEvent()
+    this.removeAllPreEvent()
   },
 
   methods: {
@@ -133,10 +155,10 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
-        this.addAllPreEvent();
+        this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('hambergerMenu/disable')
-        this.$gsap.ticker.remove(this.pickupToTopEnterScroll);
+        this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
         this.$store.commit('indexPickup/enter')
@@ -151,7 +173,7 @@ export default {
           },
           onComplete: () => {
             this.pickupSceneNext()
-            this.addAllEvent();
+            this.addAllEvent()
             this.$store.commit('hambergerMenu/enable')
           },
         })
@@ -160,16 +182,15 @@ export default {
          * 侵入した時の最初のサークルアニメーション
          */
         if (this.$siteConfig.isPc) {
-            this.$gsap.to(this.$refs.PickupCircleEnter, {
+          this.$gsap.to(this.$refs.PickupCircleEnter, {
             duration: this.$siteConfig.baseDuration * 1.2,
             ease: this.$easing.transform,
             delay: 0.2,
             y: window.innerHeight / 2,
             scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
           })
-        }
-        else if(this.$siteConfig.isMobile){
-            this.$gsap.to(this.$refs.PickupCircleEnter, {
+        } else if (this.$siteConfig.isMobile) {
+          this.$gsap.to(this.$refs.PickupCircleEnter, {
             duration: this.$siteConfig.baseDuration * 1.2,
             ease: this.$easing.transform,
             delay: 0.2,
@@ -186,7 +207,7 @@ export default {
       this.disable(3000)
       this.$store.commit('hambergerMenu/disable')
       this.$store.commit('indexPickup/leave')
-      this.removeAllEvent();
+      this.removeAllEvent()
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -200,8 +221,8 @@ export default {
         },
         onComplete: () => {
           setTimeout(() => {
-            this.$gsap.ticker.add(this.pickupToTopEnterScroll);
-            this.removeAllPreEvent();
+            this.$gsap.ticker.add(this.pickupToTopEnterScroll)
+            this.removeAllPreEvent()
             this.$asscroll.enable()
             this.$store.commit('hambergerMenu/enable')
           }, 100)
@@ -216,8 +237,7 @@ export default {
           y: 0,
           scale: 1,
         })
-      }
-      else{
+      } else {
         this.$gsap.to(this.$refs.PickupCircleEnter, {
           duration: this.$siteConfig.baseDuration * 1.2,
           ease: this.$easing.transform,
@@ -231,21 +251,21 @@ export default {
      * ピックアップセクションに下から侵入する時
      */
     pickupToBottomEnterScroll() {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.scroll.value = this.$asscroll.targetPos
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        this.$gsap.ticker.remove(this.pickupToBottomEnterScroll);
+        this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
         this.$store.commit('hambergerMenu/disable')
-        this.addAllPreEvent();
+        this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
-        this.$store.commit('indexPickup/setProjectAnimationState','end')
+        this.$store.commit('indexPickup/setProjectAnimationState', 'end')
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
@@ -256,10 +276,10 @@ export default {
           },
           onComplete: () => {
             this.pickupScenePrev()
-            this.addAllEvent();
+            this.addAllEvent()
             this.$store.commit('hambergerMenu/enable')
           },
-        });
+        })
 
         /**
          * 下から侵入する時にサイズと位置を更新する
@@ -278,7 +298,7 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
-      this.removeAllEvent();
+      this.removeAllEvent()
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
@@ -293,8 +313,8 @@ export default {
         onComplete: () => {
           setTimeout(() => {
             this.$asscroll.enable()
-            this.removeAllPreEvent();
-            this.$gsap.ticker.add(this.pickupToBottomEnterScroll);
+            this.removeAllPreEvent()
+            this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
             this.$store.commit('hambergerMenu/enable')
           }, 100)
         },
@@ -327,16 +347,16 @@ export default {
           }, this.wheelInterval * 1000)
           break
         case 4.0:
-          this.isTextSegmentState[3] = 'top';
+          this.isTextSegmentState[3] = 'top'
           this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
-            this.$store.commit('indexPickup/setProjectAnimationState','start')
+            this.$store.commit('indexPickup/setProjectAnimationState', 'start')
             this.pickupToBottomLeaveScroll()
           }, this.wheelInterval * 1000)
           break
       }
 
-      this.pickupSceneClassToggle();
+      this.pickupSceneClassToggle()
     },
 
     /**
@@ -370,7 +390,7 @@ export default {
           break
       }
 
-      this.pickupSceneClassToggle();
+      this.pickupSceneClassToggle()
     },
 
     /**
@@ -381,40 +401,42 @@ export default {
 
       if (e.deltaY > this.wheelRatio) {
         this.pickupSceneNext()
-        this.disable();
-      }
-      else if (e.deltaY < -this.wheelRatio) {
+        this.disable()
+      } else if (e.deltaY < -this.wheelRatio) {
         this.pickupScenePrev()
-        this.disable();
+        this.disable()
       }
     },
 
     pickupSceneTouchManager(e) {
       if (this.isScrollAnimation || this.hambergerMenuState) return
 
-      const touchY = e.touches[0].clientY;
-      const deltaY = -(touchY - this.prevTouchY);
+      const touchY = e.touches[0].clientY
+      const deltaY = -(touchY - this.prevTouchY)
 
       if (deltaY > this.touchRatio) {
         this.pickupSceneNext()
-        this.disable();
-      }
-      else if (deltaY < -this.touchRatio) {
+        this.disable()
+      } else if (deltaY < -this.touchRatio) {
         this.pickupScenePrev()
-        this.disable();
+        this.disable()
       }
     },
 
-    pickupSceneClassToggle(){
-      this.$refs.Pickup.classList.remove(`is-pickup-scene-0${this.pickupSectionOldCurrentNum}`);
-      this.$refs.Pickup.classList.add(`is-pickup-scene-0${this.pickupSectionCurrentNum}`);
+    pickupSceneClassToggle() {
+      this.$refs.Pickup.classList.remove(
+        `is-pickup-scene-0${this.pickupSectionOldCurrentNum}`
+      )
+      this.$refs.Pickup.classList.add(
+        `is-pickup-scene-0${this.pickupSectionCurrentNum}`
+      )
     },
 
-    setTouchY(e){
-      this.prevTouchY = e.touches[0].clientY;
+    setTouchY(e) {
+      this.prevTouchY = e.touches[0].clientY
     },
 
-    pickupResize(){
+    pickupResize() {
       /**
        * リサイズした時に一番目の円の位置と大きさを更新する
        */
@@ -423,8 +445,7 @@ export default {
           y: window.innerHeight / 2,
           scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
         })
-      }
-      else{
+      } else {
         this.$gsap.set(this.$refs.PickupCircleEnter, {
           scale: 1,
         })
@@ -444,51 +465,57 @@ export default {
      */
     disable(interval = 2000) {
       this.isScrollAnimation = true
-      if(this.clear) clearTimeout(this.clear);
+      if (this.clear) clearTimeout(this.clear)
 
-      this.clear = setTimeout(this.clearAnimation, interval);
+      this.clear = setTimeout(this.clearAnimation, interval)
     },
 
-    clearAnimation(){
+    clearAnimation() {
       this.isScrollAnimation = false
     },
 
     /**
      * デフォルトのイベントを止める
      */
-    addAllPreEvent(){
-      window.addEventListener('touchstart', preEventTouch, { passive: false });
-      window.addEventListener('touchmove', preEventTouch, { passive: false });
+    addAllPreEvent() {
+      window.addEventListener('touchstart', preEventTouch, { passive: false })
+      window.addEventListener('touchmove', preEventTouch, { passive: false })
       window.addEventListener('wheel', preEvent, { passive: false })
     },
 
     /**
      * イベントをセットする
      */
-    addAllEvent(){
-      window.addEventListener('touchstart', this.setTouchY);
-      window.addEventListener('touchmove', this.pickupSceneTouchManager);
-      window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
-      window.addEventListener('resize', this.pickupResize);
+    addAllEvent() {
+      window.addEventListener('touchstart', this.setTouchY)
+      window.addEventListener('touchmove', this.pickupSceneTouchManager)
+      window.addEventListener('wheel', this.pickupSceneWheelManager, {
+        passive: false,
+      })
+      window.addEventListener('resize', this.pickupResize)
     },
 
     /**
      * デフォルトのイベントを戻す
      */
-    removeAllPreEvent(){
-      window.removeEventListener('touchstart', preEventTouch, { passive: false });
-      window.removeEventListener('touchmove', preEventTouch, { passive: false });
+    removeAllPreEvent() {
+      window.removeEventListener('touchstart', preEventTouch, {
+        passive: false,
+      })
+      window.removeEventListener('touchmove', preEventTouch, { passive: false })
       window.removeEventListener('wheel', preEvent, { passive: false })
     },
 
     /**
      * イベントを削除する
      */
-    removeAllEvent(){
-      window.removeEventListener('touchstart', this.setTouchY);
-      window.removeEventListener('touchmove', this.pickupSceneTouchManager);
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false })
-      window.removeEventListener('resize', this.pickupResize);
+    removeAllEvent() {
+      window.removeEventListener('touchstart', this.setTouchY)
+      window.removeEventListener('touchmove', this.pickupSceneTouchManager)
+      window.removeEventListener('wheel', this.pickupSceneWheelManager, {
+        passive: false,
+      })
+      window.removeEventListener('resize', this.pickupResize)
     },
   },
 }
@@ -503,7 +530,7 @@ export default {
 .pickup {
   position: relative;
 
-  @include sp(){
+  @include sp() {
     overflow: hidden;
   }
 }
@@ -520,6 +547,23 @@ export default {
 
 .pickup .l-container {
   height: 100%;
+}
+
+.pickup-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+
+  & a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .pickup-clip {
@@ -556,21 +600,6 @@ export default {
   }
 }
 
-.pickup-title-wrapper-01,
-.pickup-section-text-wrapper-01 {
-  color: $darkBlue;
-}
-
-.pickup-title-wrapper-02,
-.pickup-section-text-wrapper-02 {
-  color: $purple;
-}
-
-.pickup-title-wrapper-03,
-.pickup-section-text-wrapper-03 {
-  color: $darkPink;
-}
-
 .pickup-section-text-wrapper {
   position: absolute;
   bottom: 86px;
@@ -604,7 +633,6 @@ export default {
   right: 0;
   left: -10%;
   margin: 0 auto;
-  background-color: $blue;
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -620,7 +648,7 @@ export default {
   }
 }
 
-.pickup-circle-bg-area{
+.pickup-circle-bg-area {
   position: absolute;
   top: 0;
   left: 0;
@@ -633,16 +661,23 @@ export default {
 //z-index
 
 @for $i from 1 through 3 {
-  .is-pickup-scene-0#{$i} .pickup-title-wrapper-0#{$i}{
-    z-index: 1;
-  }
+  .is-pickup-scene-0#{$i} {
+    & .pickup-title-wrapper-0#{$i} {
+      z-index: 1;
+    }
 
-  .is-pickup-scene-0#{$i} .pickup-section-text-wrapper-0#{$i}{
-    z-index: 1;
-  }
+    .pickup-section-text-wrapper-0#{$i} {
+      z-index: 1;
+    }
 
-  .is-pickup-scene-0#{$i} .pickup-section-number-wrapper-0#{$i}{
-    z-index: 1;
+    .pickup-section-number-wrapper-0#{$i} {
+      z-index: 1;
+    }
+
+    & .pickup-link-0#{$i} {
+      pointer-events: auto;
+      user-select: auto;
+    }
   }
 }
 </style>
