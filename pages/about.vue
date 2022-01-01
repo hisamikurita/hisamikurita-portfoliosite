@@ -3,7 +3,7 @@
     <AboutMainVisualSection />
     <AboutIntroSection />
     <AboutAwardSection />
-    <AboutSelectProjectSideScrollSection />
+    <AboutSelectProjectSideScrollSection :project-data="projectData.contents" />
   </div>
 </template>
 
@@ -11,15 +11,23 @@
 export default {
   name: 'About',
 
+  async asyncData({ $microcms }) {
+    const projectData = await $microcms.get({
+      endpoint: `works`,
+    })
+
+    return { projectData }
+  },
+
   mounted() {
     this.$nextTick(() => {
       this.$asscroll.enable({ reset: true })
-    });
+    })
   },
 
   beforeDestroy() {
     this.$asscroll.disable()
-  }
+  },
 }
 </script>
 

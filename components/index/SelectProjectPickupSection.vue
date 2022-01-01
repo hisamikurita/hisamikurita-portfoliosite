@@ -133,7 +133,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.pickupData)
     this.$gsap.ticker.add(this.pickupToTopEnterScroll)
   },
 

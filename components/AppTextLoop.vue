@@ -74,8 +74,6 @@ export default {
   },
 
   mounted() {
-    this.direction = 0
-
     if (this.loopdirection === 'right') {
       this.direction = -1.0
     } else if (this.loopdirection === 'left') {

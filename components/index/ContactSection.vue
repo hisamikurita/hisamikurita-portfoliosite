@@ -123,22 +123,22 @@
               :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
               :info="[
                 {
-                  link: 'https://twitter.com/kentiy1229',
-                  text: 'TWITTER @KENTIY1229',
+                  link: contactData[1].list01.link,
+                  text: contactData[1].list01.text,
                 },
                 {
-                  link: 'https://dribbble.com/keeeeentisi',
-                  text: 'DRIBBBLE @KEEEEENTISI',
+                  link: contactData[1].list02.link,
+                  text: contactData[1].list02.text,
                 },
                 {
-                  link: 'https://www.linkedin.com/in/kento-ishiduka-84bb26135',
-                  text: 'LINKED IN @KENTOISHIDUKA',
+                  link: contactData[1].list03.link,
+                  text: contactData[1].list03.text,
                 },
               ]"
               :title="{
-                text: 'KNTISDK',
-                link: 'https://www.awwwards.com/',
-                subtext: '(VISIT SITE)',
+                text: contactData[1].mainTitle.title,
+                link: contactData[1].mainTitle.link,
+                subtext: contactData[1].mainTitle.subtitle,
               }"
               :rotate="-10"
               :xspeed="-0.08"
@@ -151,22 +151,22 @@
               :name="['・', 'CODED BY', '(HISAMI KURITA)']"
               :info="[
                 {
-                  link: 'https://twitter.com/AAA00832745',
-                  text: 'TWITTER @AAA00832745',
+                  link: contactData[0].list01.link,
+                  text: contactData[0].list01.text,
                 },
                 {
-                  link: 'https://github.com/hisamikurita',
-                  text: 'GITHUB @HISAMIKURITA',
+                  link: contactData[0].list02.link,
+                  text: contactData[0].list02.text,
                 },
                 {
-                  link: 'https://codepen.io/hisamikurita',
-                  text: 'CODEPEN @HISAMIKURITA',
+                  link: contactData[0].list03.link,
+                  text: contactData[0].list03.text,
                 },
               ]"
               :title="{
-                text: 'HSMKRT',
-                link: 'mailto:kuritahisami@gmail.com',
-                subtext: '(CONTACT)',
+                text: contactData[0].mainTitle.title,
+                link: contactData[0].mainTitle.link,
+                subtext: contactData[0].mainTitle.subtitle,
               }"
               :rotate="8"
               :xspeed="0.051"
@@ -184,6 +184,10 @@
 export default {
   props: {
     projectData: {
+      type: Array,
+      required: true,
+    },
+    contactData: {
       type: Array,
       required: true,
     },
@@ -223,7 +227,6 @@ export default {
 <style scoped lang="scss">
 .contact {
   position: relative;
-  overflow: hidden;
 }
 
 .contact-bg {

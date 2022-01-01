@@ -28,7 +28,11 @@
                 :origin="'left'"
                 :modifier="'about-project-02'"
               />
-              <div ref="ProjectList" class="project-list" :class="{ isTextAnimationEnd : isTextAnimationState }">
+              <div
+                ref="ProjectList"
+                class="project-list"
+                :class="{ isTextAnimationEnd: isTextAnimationState }"
+              >
                 <div
                   ref="ProjectItemWrapperRotate"
                   class="project-item-wrapper-rotate"
@@ -49,24 +53,26 @@
                         ref="ProjectItemCircle"
                         class="project-item-circle"
                       ></span>
-                      <span
-                        ref="ProjectItemImg01"
-                        class="project-item-img-01"
-                      >
-                        <nuxt-img :src="data.image['01']" quality="80" :alt="data.fullTitle" />
+                      <span ref="ProjectItemImg01" class="project-item-img-01">
+                        <nuxt-img
+                          :src="'/'"
+                          quality="80"
+                          :alt="data.title.full"
+                        />
                       </span>
-                      <span
-                        ref="ProjectItemImg02"
-                        class="project-item-img-02"
-                      >
-                        <nuxt-img :src="data.image['02']" quality="80" :alt="data.fullTitle" />
+                      <span ref="ProjectItemImg02" class="project-item-img-02">
+                        <nuxt-img
+                          :src="'/'"
+                          quality="80"
+                          :alt="data.title.full"
+                        />
                       </span>
                       <span
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
-                        <NuxtLink :to="'/'" class="project-link">{{
-                          data.fullTitle
+                        <NuxtLink :to="`/works/${data.id}`" class="project-link">{{
+                          data.title.full
                         }}</NuxtLink>
                       </span>
                     </div>
@@ -83,12 +89,17 @@
 
 <script>
 import { vw } from '../../lib/vw'
-import projectData from '@/assets/json/project.json'
 
 export default {
+  props: {
+    projectData: {
+      type: Array,
+      required: true,
+    },
+  },
+
   data: () => {
     return {
-      projectData: projectData,
       isTextSegmentState: '',
       isCircleBgState: '',
       isTextUnderlineState: '',
@@ -126,9 +137,9 @@ export default {
                   duration: this.$siteConfig.baseDuration,
                   ease: this.$easing.transform,
                   yPercent: 0,
-                  onComplete: () =>{
-                    this.isTextAnimationState = true;
-                  }
+                  onComplete: () => {
+                    this.isTextAnimationState = true
+                  },
                 })
                 this.isTextSegmentState = 'center'
                 this.isCircleBgState = 'extend'
@@ -191,9 +202,9 @@ export default {
     onMouseEnter(e) {
       const nextTarget = this.NextAll(e.target)
       const prevTarget = this.PrevAll(e.target)
-      const currentCircle = e.target.querySelector('.project-item-circle');
-      const currentImg01 = e.target.querySelector('.project-item-img-01');
-      const currentImg02 = e.target.querySelector('.project-item-img-02');
+      const currentCircle = e.target.querySelector('.project-item-circle')
+      const currentImg01 = e.target.querySelector('.project-item-img-01')
+      const currentImg02 = e.target.querySelector('.project-item-img-02')
 
       this.$gsap.to(currentCircle, {
         duration: this.$siteConfig.halfBaseDuration,
@@ -347,7 +358,7 @@ export default {
   left: auto;
   overflow: hidden;
 
-  &.isTextAnimationEnd{
+  &.isTextAnimationEnd {
     overflow: visible;
   }
 }
@@ -386,7 +397,7 @@ export default {
   position: relative;
 }
 
-.project-item-img-01{
+.project-item-img-01 {
   position: absolute;
   top: vw(-40);
   left: vw(-340);
@@ -395,7 +406,7 @@ export default {
   pointer-events: none;
 }
 
-.project-item-img-02{
+.project-item-img-02 {
   position: absolute;
   top: vw(-40);
   right: vw(-340);

@@ -5,8 +5,11 @@
       <IndexAboutSection />
     </div>
     <IndexSelectProjectPickupSection :pickup-data="pickupData" />
-    <IndexSelectProjectCardSection :project-data="projectData.contents" :pickup-end-data="pickupData[2]" />
-    <IndexContactSection :project-data="projectData.contents" />
+    <IndexSelectProjectCardSection
+      :project-data="projectData.contents"
+      :pickup-end-data="pickupData[2]"
+    />
+    <IndexContactSection :project-data="projectData.contents" :contact-data="contactData.contents" />
   </div>
 </template>
 
@@ -18,10 +21,12 @@ export default {
     const projectData = await $microcms.get({
       endpoint: `works`,
     })
-
+    const contactData = await $microcms.get({
+      endpoint: `contact`,
+    })
     const pickupData = projectData.contents.filter((v) => v.pickup.pickupFlag)
 
-    return { projectData, pickupData }
+    return { projectData, pickupData, contactData }
   },
 
   mounted() {

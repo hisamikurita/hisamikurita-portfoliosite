@@ -85,8 +85,6 @@
 </template>
 
 <script>
-// import projectData from '@/assets/json/project.json'
-
 export default {
   props: {
     projectData: {
@@ -101,7 +99,6 @@ export default {
 
   data: () => {
     return {
-      // projectData: projectData,
       isCardSegmentState: '',
       isTextSegmentState: '',
       isTextUnderlineState: '',
@@ -163,7 +160,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.pickupEndData)
     /* circle */
     this.$nextTick(() => {
       this.$gsap.set(this.$refs.ProjectCircleEnter, {
@@ -255,13 +251,11 @@ export default {
 
 .project-bg {
   position: relative;
-  // background-color: $thinPink;
 }
 
 .project-inner {
   position: relative;
   padding: 206px 0 0 0;
-  overflow: hidden;
 
   @include sp() {
     padding: 150px 0 0 0;
