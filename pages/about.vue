@@ -2,7 +2,7 @@
   <div class="about">
     <AboutMainVisualSection />
     <AboutIntroSection />
-    <AboutAwardSection />
+    <AboutAwardSection :award-data="awardData.contents" :award-data-length="awardDataLength" />
     <AboutSelectProjectSideScrollSection :project-data="projectData.contents" />
   </div>
 </template>
@@ -15,8 +15,32 @@ export default {
     const projectData = await $microcms.get({
       endpoint: `works`,
     })
+    const awardData = await $microcms.get({
+      endpoint: `award`,
+      queries: { limit: 30 },
+    })
 
-    return { projectData }
+    let awwwwardsLength = 0
+    let cssdesignawardsLength = 0
+    let csswinnerLength = 0
+
+    awardData.contents.forEach((v) => {
+      if (v.group === 'AWWWARDS') {
+        awwwwardsLength++
+      } else if (v.group === 'CSS DESIGN AWARDS') {
+        cssdesignawardsLength++
+      } else if (v.group === 'CSS WINNER') {
+        csswinnerLength++
+      }
+    })
+
+    const awardDataLength = {
+      awwwwardsTotalLength: awwwwardsLength,
+      cssdesignawardsTotalLength: cssdesignawardsLength,
+      csswinnerTotalLength: csswinnerLength,
+    }
+
+    return { projectData, awardData, awardDataLength }
   },
 
   mounted() {

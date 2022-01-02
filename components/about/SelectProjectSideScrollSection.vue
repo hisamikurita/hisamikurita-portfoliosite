@@ -54,18 +54,18 @@
                         class="project-item-circle"
                       ></span>
                       <span ref="ProjectItemImg01" class="project-item-img-01">
-                        <nuxt-img
+                        <!-- <nuxt-img
                           :src="'/'"
                           quality="80"
                           :alt="data.title.full"
-                        />
+                        /> -->
                       </span>
                       <span ref="ProjectItemImg02" class="project-item-img-02">
-                        <nuxt-img
+                        <!-- <nuxt-img
                           :src="'/'"
                           quality="80"
                           :alt="data.title.full"
-                        />
+                        /> -->
                       </span>
                       <span
                         ref="ProjectItemWrapper"

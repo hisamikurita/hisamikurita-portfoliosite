@@ -43,9 +43,15 @@
           </div>
           <span class="pc-only">
             <ul class="award-total-list">
-              <li class="award-total-item">AWWWARDS*6</li>
-              <li class="award-total-item">CSSDA*16</li>
-              <li class="award-total-item">CSSWINNER*2</li>
+              <li class="award-total-item">
+                AWWWARDS*{{ awardDataLength.awwwwardsTotalLength }}
+              </li>
+              <li class="award-total-item">
+                CSSDA*{{ awardDataLength.cssdesignawardsTotalLength }}
+              </li>
+              <li class="award-total-item">
+                CSSWINNER*{{ awardDataLength.csswinnerTotalLength }}
+              </li>
             </ul>
           </span>
         </div>
@@ -55,12 +61,20 @@
 </template>
 
 <script>
-import awardData from '@/assets/json/award.json'
-
 export default {
+  props: {
+    awardData: {
+      type: Array,
+      required: true,
+    },
+    awardDataLength: {
+      type: Object,
+      required: true,
+    },
+  },
+
   data: () => {
     return {
-      awardData: awardData,
       isTextSegmentState: '',
       count: 0,
     }
@@ -194,7 +208,7 @@ export default {
         }
       }
     },
-    saveMousemove(e){
+    saveMousemove(e) {
       this.mouseY = e.clientY - this.cardHalfHeight
       this.mouseX = e.clientX - this.cardHalfWidth
     },

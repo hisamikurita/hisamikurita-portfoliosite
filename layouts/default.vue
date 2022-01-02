@@ -8,7 +8,6 @@
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <BaseHeader />
     <BaseHambergerMenu />
-    <!-- <div v-if="error.statusCode === 404">404</div> -->
   </div>
 </template>
 
