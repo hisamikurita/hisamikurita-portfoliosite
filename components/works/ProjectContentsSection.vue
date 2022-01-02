@@ -5,7 +5,7 @@
         <AppTextLoop
           :state="isTextSegmentState"
           :loop="isLoopTextState"
-          :start="-0.4"
+          :start="-0.2"
           :rotate="rotateRight"
           :text="loopText"
         />

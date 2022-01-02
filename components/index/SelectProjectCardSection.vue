@@ -30,7 +30,6 @@
             <AppTextLoop
               :state="isTextSegmentState"
               :loop="isLoopTextState"
-              :start="-0.4"
               :rotate="rotateRight"
               :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             >
@@ -49,7 +48,6 @@
               :state="isTextSegmentState"
               :loop="isLoopTextState"
               :loopdirection="'left'"
-              :start="-0.2"
               :rotate="rotateRight"
               :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             />

@@ -1,9 +1,18 @@
 <template>
   <div ref="CmnLoopTextInner" class="cmn-loop-text-inner">
     <div ref="CmnLoopTextWrapper" class="cmn-loop-text-wrapper">
-      <span v-for="num in 3" :key="num" ref="CmnLoopTextBlock" class="cmn-loop-text-block">
-        {{ text }}
-      </span>
+      <div ref="CmnLoopTextRotate" class="cmn-loop-text-rotate">
+        <div ref="CmnLoopTextTranslate" class="cmn-loop-text-translate">
+          <span
+            v-for="num in 3"
+            :key="num"
+            ref="CmnLoopTextBlock"
+            class="cmn-loop-text-block"
+          >
+            {{ text }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -79,12 +88,48 @@ export default {
     } else if (this.loopdirection === 'left') {
       this.direction = 1.0
     }
+
+    this.loopWrapper = this.$refs.CmnLoopTextRotate
+    this.loopText = this.$refs.CmnLoopTextTranslate
+    this.$gsap.set(this.loopWrapper, {
+      rotate: 3,
+      transformOrigin: 'left',
+    })
+    this.$gsap.set(this.loopText, {
+      yPercent: 103.8,
+    })
+
+    this.observe = this.$refs.CmnLoopTextInner
+    this.iObserverTextSegment = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$gsap.to(this.loopWrapper, {
+              duration: this.$siteConfig.baseDuration * 2.0,
+              delay: Number(this.start),
+              ease: this.$easing.transform,
+              rotate: 0,
+            })
+            this.$gsap.to(this.loopText, {
+              duration: this.$siteConfig.baseDuration,
+              delay: Number(this.start),
+              ease: this.$easing.transform,
+              yPercent: 0,
+            })
+            this.iObserverTextSegment.unobserve(this.observe)
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    this.iObserverTextSegment.observe(this.observe)
   },
 
   beforeDestroy() {
     this.$asscroll.off('scroll', this.onScrollDirection)
     this.$asscroll.off('scroll', this.onScrollTween)
     this.$gsap.ticker.remove(this.render)
+    this.iObserverTextSegment.unobserve(this.observe)
   },
 
   methods: {
@@ -126,13 +171,19 @@ export default {
     render: function () {
       if (this.hambergerMenuState) return
 
-      const standard = this.$refs.CmnLoopTextBlock[0].clientWidth;
-      this.position.value += Math.floor(this.direction * ((this.scrollSpeed * this.isScrollDirection.value) - (this.$asscroll.currentPos - this.tweenPosition.value) * this.tweenScrollSpeed))
+      console.log('はっk')
+
+      const standard = this.$refs.CmnLoopTextBlock[0].clientWidth
+      this.position.value += Math.floor(
+        this.direction *
+          (this.scrollSpeed * this.isScrollDirection.value -
+            (this.$asscroll.currentPos - this.tweenPosition.value) *
+              this.tweenScrollSpeed)
+      )
 
       if (this.position.value < -standard) {
         this.position.value = 0
-      }
-      else if(this.position.value > standard){
+      } else if (this.position.value > standard) {
         this.position.value = 0
       }
 
@@ -149,12 +200,12 @@ export default {
   overflow: hidden;
 }
 
-.cmn-loop-text-wrapper {
+.cmn-loop-text-translate {
   display: flex;
   position: relative;
 }
 
-.cmn-loop-text-block{
+.cmn-loop-text-block {
   padding: 0 vw(6);
 }
 </style>
