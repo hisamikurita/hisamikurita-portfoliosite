@@ -1,7 +1,7 @@
 <template>
   <div ref="Next" class="next">
-    <!-- <div class="next-inner">
-      <div class="l-container"> -->
+    <div class="next-inner">
+      <div class="l-container">
         <div class="next-contents">
           <div class="next-title-read-area" :style="`color:${heroColor};`">
             <AppSectionReadTitle
@@ -39,8 +39,8 @@
         </div>
         <p class="next-backbtn" :style="`color:${heroColor};`"><NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink></p>
       </div>
-    <!-- </div>
-  </div> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -132,7 +132,7 @@ export default {
 .next-loop-title{
   position: absolute;
   top: auto;
-  left: auto;
+  left: -80px;
 }
 
 .next-backbtn{

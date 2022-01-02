@@ -21,6 +21,8 @@ body {
   }
 }
 
+div::selection,
+p::selection,
 a::selection,
 span::selection,
 dt::selection,
