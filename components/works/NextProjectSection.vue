@@ -10,8 +10,22 @@
               :modifier="'works-section'"
             />
           </div>
-          <NuxtLink :to="`/works/${nextLink}`">
-            <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper">
+          <NuxtLink :to="`/works/${nextProject.id}`">
+            <span
+              ref="ContentsLoopTitleWrapper"
+              class="next-loop-title-wrapper"
+            >
+              <span class="next-loop-card">
+                <AppCardBase
+                  :component-name="'WorksContents'"
+                  :name="nextProject.title.full"
+                  :title="nextProject.title.short"
+                  :text="nextProject.desc"
+                  :rotate="nextProject.projectNum.rotate"
+                  :xspeed="nextProject.projectNum.xspeed"
+                  :yspeed="nextProject.projectNum.yspeed"
+                />
+              </span>
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :color="siteColor"
@@ -37,7 +51,9 @@
             </span>
           </NuxtLink>
         </div>
-        <p class="next-backbtn" :style="`color:${heroColor};`"><NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink></p>
+        <p class="next-backbtn" :style="`color:${heroColor};`">
+          <NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink>
+        </p>
       </div>
     </div>
   </div>
@@ -54,9 +70,9 @@ export default {
       type: String,
       default: '#ffffff',
     },
-    nextLink: {
-      type: String,
-      default: '',
+    nextProject: {
+      type: Object,
+      required: true,
     },
   },
   data: () => {
@@ -111,11 +127,11 @@ export default {
   padding: 0 160px 0 40px;
 }
 
-.next-contents{
+.next-contents {
   padding: 212px 0 290px;
 }
 
-.next-title-read-area{
+.next-title-read-area {
   margin: 0 0 34px 0;
 }
 
@@ -129,13 +145,26 @@ export default {
   font-family: $sixcaps;
 }
 
-.next-loop-title{
+.next-loop-title {
   position: absolute;
   top: auto;
   left: -80px;
 }
 
-.next-backbtn{
+.next-loop-card{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 293px;
+  height: 400px;
+  margin: auto;
+  z-index: 10;
+  // pointer-events: none;
+}
+
+.next-backbtn {
   padding: 0 0 20px 0;
   font-size: 14px;
   text-align: center;

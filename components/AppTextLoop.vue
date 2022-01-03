@@ -155,14 +155,14 @@ export default {
       this.scrollDirectionFlag = true
       setTimeout(() => {
         this.scrollDirectionFlag = false
-      }, 500)
+      }, 600)
     },
 
     onScrollTween: function () {
       if (this.hambergerMenuState) return
 
       this.$gsap.to(this.tweenPosition, {
-        duration: this.$siteConfig.halfBaseDuration,
+        duration: this.$siteConfig.baseDuration,
         ease: 'none',
         value: this.$asscroll.currentPos,
       })
@@ -170,8 +170,6 @@ export default {
 
     render: function () {
       if (this.hambergerMenuState) return
-
-      console.log('はっk')
 
       const standard = this.$refs.CmnLoopTextBlock[0].clientWidth
       this.position.value += Math.floor(

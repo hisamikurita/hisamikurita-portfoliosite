@@ -20,7 +20,7 @@
       <WorksNextProjectSection
         :hero-color="currentProject.siteColor.mvTextColor"
         :site-color="currentProject.siteColor.allTextColor"
-        :next-link="nextProject.id"
+        :next-project="nextProject"
       />
     </div>
   </div>

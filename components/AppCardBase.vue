@@ -28,6 +28,15 @@
         :modifier="modifier"
         :state="state"
       />
+      <CardWorksContents
+        v-if="componentName === 'WorksContents'"
+        :name="name"
+        :title="title"
+        :link="link"
+        :text="text"
+        :modifier="modifier"
+        :state="state"
+      />
       <CardContactContents
         v-if="componentName === 'ContactContents'"
         :name="name"
@@ -98,6 +107,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    dragAnimation: {
+      type: Boolean,
+      default: true,
+    },
     modifier: {
       type: String,
       default: '',
@@ -111,21 +124,25 @@ export default {
   mounted() {
     if (!this.spAnimation && this.$siteConfig.isMobile) return
 
-    this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
-      type: 'x,y',
-      bounds: this.$parent.$el,
-      edgeResistance: 0.9,
-      inertia: true,
-      allowEventDefault: true,
+    /* drag-animation */
+    if (this.dragAnimation) {
+      this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
+        type: 'x,y',
+        bounds: this.$parent.$el,
+        edgeResistance: 0.9,
+        inertia: true,
+        allowEventDefault: true,
 
-      onThrowUpdate: () => {
-        this.$gsap.set(this.$refs.CardProjectObserver, {
-          x: this.drag[0].x,
-          y: this.drag[0].y,
-        })
-      },
-    })
+        onThrowUpdate: () => {
+          this.$gsap.set(this.$refs.CardProjectObserver, {
+            x: this.drag[0].x,
+            y: this.drag[0].y,
+          })
+        },
+      })
+    }
 
+    /* card-animation */
     this.observe = this.$refs.CardProjectObserver
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
@@ -140,24 +157,27 @@ export default {
     )
     this.iObserverTextSegment.observe(this.observe)
 
-    new IntersectionObserver(
+    this.iObserverAnimation = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.cardPallax);
+            this.$gsap.ticker.add(this.cardPallax)
           } else {
-            this.$gsap.ticker.remove(this.cardPallax);
+            this.$gsap.ticker.remove(this.cardPallax)
           }
         })
       },
       {
         rootMargin: '0%',
       }
-    ).observe(this.observe)
+    )
+    this.iObserverAnimation.observe(this.observe)
   },
 
   beforeDestroy() {
-    this.$gsap.ticker.remove(this.cardPallax);
+    this.$gsap.ticker.remove(this.cardPallax)
+    this.iObserverTextSegment.unobserve(this.observe)
+    this.iObserverAnimation.unobserve(this.observe)
   },
 
   methods: {
@@ -236,6 +256,7 @@ export default {
 .card-project-title-wrapper-01-block {
   display: block;
   font-size: 20px;
+  font-family: $helvetica;
   line-height: 1.2;
 
   @include sp() {
@@ -260,7 +281,7 @@ export default {
   display: block;
   width: 200px;
   font-size: 12px;
-  font-family: Helvetica, sans-serif;
+  font-family: $helvetica;
   letter-spacing: 0.02em;
   line-height: 1.24;
 

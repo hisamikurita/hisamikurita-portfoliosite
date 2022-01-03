@@ -1,7 +1,7 @@
 <template>
   <div ref="Hero" class="hero">
     <div class="hero-bg">
-      <div class="hero-img"><img :src="`${heroImg.url}?w=1000&h=624&q=80`" :width="`${heroImg.width}`" :height="`${heroImg.height}`" alt=""></div>
+      <div class="hero-img"><img :src="`${heroImg.url}?w=2560&h=1600&q=80`" :width="`${heroImg.width}`" :height="`${heroImg.height}`" alt=""></div>
       <div class="hero-title" :style="`color:${heroColor};`">
         <h1>
           <span class="hero-title-read-area">
