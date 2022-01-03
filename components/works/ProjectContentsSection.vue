@@ -1,7 +1,21 @@
 <template>
   <div ref="Contents" class="contents">
     <div class="contents-loop-title-wrapper">
-      <span ref="ContentsLoopTitle" class="contents-loop-title">
+      <div ref="ContentsLoopTitle" class="contents-loop-title">
+        <span class="contents-loop-video-shadow">
+          <span class="contents-loop-video-wrapper"
+            ><video :src="`/movie/${name}.mp4`" autoplay loop muted></video
+          ></span>
+        </span>
+        <span class="contents-loop-card">
+          <AppCardBase
+            :component-name="'WorksLinkContents'"
+            :drag-animation="false"
+            :color="siteColor"
+            :external-link="externalLink"
+            :modifier="'works-contents-external'"
+          />
+        </span>
         <AppTextLoop
           :state="isTextSegmentState"
           :loop="isLoopTextState"
@@ -9,7 +23,7 @@
           :rotate="rotateRight"
           :text="loopText"
         />
-      </span>
+      </div>
     </div>
     <div class="l-container">
       <div class="contents-inner">
@@ -46,6 +60,18 @@
 <script>
 export default {
   props: {
+    name: {
+      type: String,
+      default: '',
+    },
+    siteColor: {
+      type: String,
+      default: '',
+    },
+    externalLink: {
+      type: String,
+      default: null,
+    },
     loopText: {
       type: String,
       required: true,
@@ -151,12 +177,70 @@ export default {
 }
 
 .contents-loop-title-wrapper {
-  padding: 216px 0 242px;
+  padding: vw(216) 0 vw(242);
 }
 
 .contents-loop-title {
+  position: relative;
   font-size: vw(140);
   font-family: $sixcaps;
+}
+
+.contents-loop-video-shadow {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  bottom: 0;
+  left: -120px;
+  width: vw(480);
+  height: vw(353);
+  margin: auto;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 20px 60px 10px #101237;
+    border-radius: 12px;
+    opacity: 0.6;
+  }
+}
+
+.contents-loop-video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+
+  & video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.contents-loop-card {
+  position: absolute;
+  top: 560px;
+  right: 0;
+  bottom: 0;
+  left: 238px;
+  width: 147px;
+  height: 200px;
+  margin: auto;
+  z-index: 10;
+  transform: rotate(16deg);
 }
 
 .contents-info {

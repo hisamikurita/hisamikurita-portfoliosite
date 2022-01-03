@@ -12,6 +12,9 @@
         :details-main-desc="currentProject.detailsMainDesc"
       />
       <WorksProjectContentsSection
+        :name="currentProject.id"
+        :site-color="currentProject.siteColor.allTextColor"
+        :external-link="currentProject.siteLink"
         :loop-text="currentProject.loopText"
         :client="currentProject.client"
         :free-area="currentProject.freeArea"

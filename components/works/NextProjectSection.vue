@@ -24,6 +24,7 @@
                   :rotate="nextProject.projectNum.rotate"
                   :xspeed="nextProject.projectNum.xspeed"
                   :yspeed="nextProject.projectNum.yspeed"
+                  :drag-animation="false"
                 />
               </span>
               <AppTextUnderline
@@ -153,12 +154,12 @@ export default {
 
 .next-loop-card{
   position: absolute;
-  top: 0;
+  top: -160px;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 293px;
-  height: 400px;
+  width: 0;
+  height: 0;
   margin: auto;
   z-index: 10;
   // pointer-events: none;

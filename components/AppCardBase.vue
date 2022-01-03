@@ -6,7 +6,7 @@
   >
     <article
       ref="CardProjectArticle"
-      :style="{ transform: 'rotate(' + rotate + 'deg' + ')' }"
+      :style="`transform: rotate(${rotate}deg); color:${color};`"
       class="card-project-article"
     >
       <CardMainVisualContents
@@ -34,6 +34,12 @@
         :title="title"
         :link="link"
         :text="text"
+        :modifier="modifier"
+        :state="state"
+      />
+      <CardWorksLinkContents
+        v-if="componentName === 'WorksLinkContents'"
+        :external-link="externalLink"
         :modifier="modifier"
         :state="state"
       />
@@ -67,6 +73,10 @@ export default {
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      default: '',
+    },
     name: {
       type: [Array, String],
       default: null,
@@ -80,6 +90,10 @@ export default {
       default: null,
     },
     link: {
+      type: String,
+      default: null,
+    },
+    externalLink: {
       type: String,
       default: null,
     },
@@ -212,12 +226,13 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 293px;
+  height: 400px;
   pointer-events: none;
 }
 
 .card-project-article {
+  position: relative;
   width: 293px;
   height: 400px;
   padding: 28px 18px;
@@ -327,5 +342,56 @@ export default {
 
 .card-project-about-hero .card-project-article {
   background-color: #d9d9d9;
+}
+
+.card-project-works-contents-external {
+  & .card-project-article {
+    width: 147px;
+    height: 220px;
+    padding: 12px 8px;
+    border-radius: 7px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 20px 60px 10px #101237;
+      border-radius: 12px;
+      opacity: 0.6;
+    }
+  }
+
+  & .card-project-title-wrapper-01 {
+    margin: 0 0 10px 0;
+  }
+
+  & .card-project-title-wrapper-01-block {
+    font-size: 12px;
+
+    &:first-of-type {
+      font-size: 36px;
+      line-height: 0.6;
+    }
+  }
+
+  & .card-project-title-wrapper-02 {
+    font-size: 10px;
+  }
+
+  & .card-project-title-wrapper-02-block {
+    width: 110%;
+    line-height: 1.4;
+    transform: scale(0.82);
+    transform-origin: left;
+  }
+
+  & .card-project-title-wrapper-03 {
+    bottom: 0;
+    left: 0;
+    font-size: 50px;
+  }
 }
 </style>
