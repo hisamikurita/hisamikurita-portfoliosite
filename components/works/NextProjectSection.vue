@@ -144,6 +144,10 @@ export default {
   height: vw(200);
   font-size: vw(140);
   font-family: $sixcaps;
+
+  @include sp() {
+    font-size: vw_sp(160);
+  }
 }
 
 .next-loop-title {
@@ -152,7 +156,7 @@ export default {
   left: -80px;
 }
 
-.next-loop-card{
+.next-loop-card {
   position: absolute;
   top: -160px;
   right: 0;

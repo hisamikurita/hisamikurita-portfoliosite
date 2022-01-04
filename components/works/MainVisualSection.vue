@@ -102,8 +102,8 @@ export default {
 
 <style lang="scss" scoped>
 :root {
-  --viewportWidth: 0;
-  --viewportHeight: 0;
+  --viewportWidth: 1280px;
+  --viewportHeight: 800px;
 }
 
 .hero-bg{

@@ -174,6 +174,10 @@ export default {
 <style lang="scss" scoped>
 .contents-inner {
   padding: 0 40px;
+
+  @include sp() {
+    padding: 0;
+  }
 }
 
 .contents-loop-title-wrapper {
@@ -184,6 +188,10 @@ export default {
   position: relative;
   font-size: vw(140);
   font-family: $sixcaps;
+
+  @include sp() {
+    font-size: vw_sp(160);
+  }
 }
 
 .contents-loop-video-shadow {
@@ -250,12 +258,23 @@ export default {
   padding: 38px 0 0 0;
   font-size: 12px;
   border-top: solid 1px;
+
+  @include sp() {
+    display: block;
+    width: 100%;
+    font-size: 10px;
+  }
 }
 
 .contents-info-client {
   flex-shrink: 0;
   width: 250px;
   line-height: 1.2;
+
+  @include sp() {
+    width: 100%;
+    margin: 0 0 28px 0;
+  }
 }
 
 .contents-info-desc {
