@@ -144,6 +144,7 @@ export default {
   height: vw(200);
   font-size: vw(140);
   font-family: $sixcaps;
+  
 
   @include sp() {
     font-size: vw_sp(160);
