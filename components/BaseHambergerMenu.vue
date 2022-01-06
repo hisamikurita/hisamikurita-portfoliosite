@@ -7,7 +7,10 @@
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <span ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
-          <span class="hambergerMenu-title-wrapper-01" @click="onClickSameUrl('index')">
+          <span
+            class="hambergerMenu-title-wrapper-01"
+            @click="onClickSameUrl('index')"
+          >
             <NuxtLink to="/">
               <AppTextSegment
                 :state="isTextSegmentState"
@@ -16,7 +19,10 @@
               />
             </NuxtLink>
           </span>
-          <span class="hambergerMenu-title-wrapper-02" @click="onClickSameUrl('about')">
+          <span
+            class="hambergerMenu-title-wrapper-02"
+            @click="onClickSameUrl('about')"
+          >
             <NuxtLink to="/about">
               <AppTextSegment
                 :state="isTextSegmentState"

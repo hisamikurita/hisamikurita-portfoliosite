@@ -2,62 +2,64 @@
   <div ref="Hero" class="hero">
     <div class="hero-bg">
       <div class="hero-img"><img :src="`${heroImg.url}?w=2560&h=1600&q=80`" :width="`${heroImg.width}`" :height="`${heroImg.height}`" alt=""></div>
-      <div class="hero-title" :style="`color:${heroColor};`">
-        <h1>
-          <span class="hero-title-read-area">
-            <AppSectionReadTitle
-              :state="isTextSegmentState"
-              :text="[
-                '・',
-                `WORKS 0${projectIndex}`,
-              ]"
-              :sp-animation="false"
-              :modifier="'works-section'"
-            />
-          </span>
-          <span class="hero-title-wrapper-block">
-            <span
-              v-for="index of Object.keys(detailsMainText).length - 1"
-              :key="index"
-              class="hero-title-wrapper"
-              :class="'hero-title-wrapper-0' + index"
-            >
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="index * 0.12"
-              :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
-              :text="`${detailsMainText['text0' + index]}`"
-              :sp-animation="false"
-            />
+      <div class="pc-only">
+        <div class="hero-title" :style="`color:${heroColor};`">
+          <h1>
+            <span class="hero-title-read-area">
+              <AppSectionReadTitle
+                :state="isTextSegmentState"
+                :text="[
+                  '・',
+                  `WORKS 0${projectIndex}`,
+                ]"
+                :sp-animation="false"
+                :modifier="'works-section'"
+              />
             </span>
-          </span>
-          <span class="hero-title-line">
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :start="0.72"
-              :color="heroColor"
-              :origin="'left'"
-              :sp-animation="false"
-              :modifier="'works'"
-            />
-          </span>
-        </h1>
-        <p class="hero-desc">
-          <span
-            v-for="index of Object.keys(detailsMainDesc).length - 1"
-            :key="index"
-            class="hero-desc-wrapper"
-            :class="'hero-desc-wrapper-0' + index"
-          >
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="index * 0.12 + 0.84"
-              :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
-              :text="`${detailsMainDesc['text0' + index]}`"
-              :sp-animation="false"
-            />
-          </span>
-        </p>
+            <span class="hero-title-wrapper-block">
+              <span
+                v-for="index of Object.keys(detailsMainText).length - 1"
+                :key="index"
+                class="hero-title-wrapper"
+                :class="'hero-title-wrapper-0' + index"
+              >
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="index * 0.12"
+                :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
+                :text="`${detailsMainText['text0' + index]}`"
+                :sp-animation="false"
+              />
+              </span>
+            </span>
+            <span class="hero-title-line">
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.72"
+                :color="heroColor"
+                :origin="'left'"
+                :sp-animation="false"
+                :modifier="'works'"
+              />
+            </span>
+          </h1>
+          <p class="hero-desc">
+            <span
+              v-for="index of Object.keys(detailsMainDesc).length - 1"
+              :key="index"
+              class="hero-desc-wrapper"
+              :class="'hero-desc-wrapper-0' + index"
+            >
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="index * 0.12 + 0.84"
+                :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
+                :text="`${detailsMainDesc['text0' + index]}`"
+                :sp-animation="false"
+              />
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   </div>

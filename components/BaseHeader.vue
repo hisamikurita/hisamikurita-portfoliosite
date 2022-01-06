@@ -1,4 +1,4 @@
-<template>
+a<template>
   <div ref="HeaderLogo" class="header-logo is-top">
     <component :is="setRootTagName" class="heade-link" to="/" @click="onClickSameUrlReload">
       H<span class="header-logo-text header-logo-fade-text">I</span
