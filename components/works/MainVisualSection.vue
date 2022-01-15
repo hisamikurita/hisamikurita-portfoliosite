@@ -1,7 +1,21 @@
 <template>
   <div ref="Hero" class="hero">
     <div class="hero-bg">
-      <div class="hero-img"><img :src="`${heroImg.url}?w=2560&h=1600&q=80`" :width="`${heroImg.width}`" :height="`${heroImg.height}`" alt=""></div>
+      <div class="hero-img">
+        <picture>
+          <source
+            :srcset="`${heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
+            :width="`${heroImg.width}`"
+            :height="`${heroImg.height}`"
+            type="image/webp"
+          >
+          <img
+            :src="`${heroImg.url}?w=2560&h=1600&q=50`"
+            :width="`${heroImg.width}`"
+            :height="`${heroImg.height}`"
+          >
+        </picture>
+      </div>
       <div class="pc-only">
         <div class="hero-title" :style="`color:${heroColor};`">
           <h1>

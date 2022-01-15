@@ -58,12 +58,19 @@
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">
-                    <img
-                      :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=80`"
-                      :width="`${data.hambergerMenuImg.width}`"
-                      :height="`${data.hambergerMenuImg.height}`"
-                      alt=""
-                    />
+                    <picture>
+                      <source
+                        :srcset="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
+                        :width="`${data.hambergerMenuImg.width}`"
+                        :height="`${data.hambergerMenuImg.height}`"
+                        type="image/webp"
+                      >
+                      <img
+                        :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=50`"
+                        :width="`${data.hambergerMenuImg.width}`"
+                        :height="`${data.hambergerMenuImg.height}`"
+                      />
+                    </picture>
                   </div>
                   <div>
                     <p class="hambergerMenu-item-title">
