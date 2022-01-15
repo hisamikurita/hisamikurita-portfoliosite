@@ -6,9 +6,7 @@
       :award-data="awardData.contents"
       :award-data-length="awardDataLength"
     />
-    <AboutSelectProjectSideScrollSection
-      :project-data="projectData.contents"
-    />
+    <AboutSelectProjectSideScrollSection :project-data="projectData.contents" />
   </div>
 </template>
 
@@ -50,11 +48,18 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
+      const render = () => {
+        this.raf = window.requestAnimationFrame(render)
+        this.$ScrollTrigger.update()
+      }
+      render()
+
       this.$asscroll.enable({ reset: true })
     })
   },
 
   beforeDestroy() {
+    window.cancelAnimationFrame(this.raf);
     this.$asscroll.disable()
   },
 }

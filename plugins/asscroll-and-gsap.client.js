@@ -33,11 +33,6 @@ ScrollTrigger.scrollerProxy(asscroll.containerElement, {
   },
 });
 
-function render() {
-  window.requestAnimationFrame(render)
-  ScrollTrigger.update()
-}
-render();
 ScrollTrigger.addEventListener("refresh", asscroll.resize);
 
 export default (context, inject) => {

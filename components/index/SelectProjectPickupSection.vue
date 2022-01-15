@@ -312,6 +312,9 @@ export default {
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent()
+            this.$asscroll.enable()
+
+      console.log(this.scroll)
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight
@@ -325,7 +328,6 @@ export default {
         },
         onComplete: () => {
           setTimeout(() => {
-            this.$asscroll.enable()
             this.removeAllPreEvent()
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
             this.$store.commit('hambergerMenu/enable')

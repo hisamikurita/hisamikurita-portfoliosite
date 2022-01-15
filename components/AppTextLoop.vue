@@ -198,6 +198,10 @@ export default {
   overflow: hidden;
 }
 
+.cmn-loop-text-wrapper{
+  will-change: transform;
+}
+
 .cmn-loop-text-translate {
   display: flex;
   position: relative;
