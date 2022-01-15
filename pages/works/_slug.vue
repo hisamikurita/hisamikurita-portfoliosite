@@ -2,24 +2,13 @@
   <div class="works">
     <div class="works-bg" :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`">
       <WorksMainVisualSection
-        :project-index="currentProject.index"
-        :hero-color="currentProject.siteColor.mvTextColor"
-        :hero-img="currentProject.heroImg"
-        :details-main-text="currentProject.detailsMainText"
-        :details-main-desc="currentProject.detailsMainDesc"
+        :current-project="currentProject"
       />
       <WorksProjectContentsSection
-        :name="currentProject.id"
-        :site-color="currentProject.siteColor.allTextColor"
-        :external-link="currentProject.siteLink"
-        :loop-text="currentProject.loopText"
-        :client="currentProject.client"
-        :free-area="currentProject.freeArea"
-        :contents-img="currentProject.contentsImg"
+        :current-project="currentProject"
       />
       <WorksNextProjectSection
-        :hero-color="currentProject.siteColor.mvTextColor"
-        :site-color="currentProject.siteColor.allTextColor"
+        :current-project="currentProject"
         :next-project="nextProject"
       />
     </div>

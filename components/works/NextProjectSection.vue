@@ -3,7 +3,7 @@
     <div class="next-inner">
       <div class="l-container">
         <div class="next-contents">
-          <div class="next-title-read-area" :style="`color:${heroColor};`">
+          <div class="next-title-read-area" :style="`color:${currentProject.siteColor.mvTextColor};`">
             <AppSectionReadTitle
               :state="isTextSegmentState"
               :text="['・', 'NEXT', 'PROJECT']"
@@ -29,14 +29,14 @@
               </span>
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :color="siteColor"
+                :color="currentProject.siteColor.allTextColor"
                 :origin="'right'"
                 :modifier="'works-next-01'"
               />
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.12"
-                :color="siteColor"
+                :color="currentProject.siteColor.allTextColor"
                 :origin="'left'"
                 :modifier="'works-next-02'"
               />
@@ -52,7 +52,7 @@
             </span>
           </NuxtLink>
         </div>
-        <p class="next-backbtn" :style="`color:${heroColor};`">
+        <p class="next-backbtn" :style="`color:${currentProject.siteColor.mvTextColor};`">
           <NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink>
         </p>
       </div>
@@ -63,13 +63,9 @@
 <script>
 export default {
   props: {
-    heroColor: {
-      type: String,
-      default: '#ffffff',
-    },
-    siteColor: {
-      type: String,
-      default: '#ffffff',
+    currentProject: {
+      type: Object,
+      required: true,
     },
     nextProject: {
       type: Object,

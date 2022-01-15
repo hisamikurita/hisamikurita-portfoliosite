@@ -4,53 +4,52 @@
       <div class="hero-img">
         <picture>
           <source
-            :srcset="`${heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
-            :width="`${heroImg.width}`"
-            :height="`${heroImg.height}`"
+            :srcset="`${currentProject.heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
+            :width="`${currentProject.heroImg.width}`"
+            :height="`${currentProject.heroImg.height}`"
             type="image/webp"
-          >
+          />
           <img
-            :src="`${heroImg.url}?w=2560&h=1600&q=50`"
-            :width="`${heroImg.width}`"
-            :height="`${heroImg.height}`"
-          >
+            :src="`${currentProject.heroImg.url}?w=2560&h=1600&q=50`"
+            :width="`${currentProject.heroImg.width}`"
+            :height="`${currentProject.heroImg.height}`"
+          />
         </picture>
       </div>
       <div class="pc-only">
-        <div class="hero-title" :style="`color:${heroColor};`">
+        <div class="hero-title" :style="`color:${currentProject.siteColor.mvTextColor};`">
           <h1>
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :text="[
-                  '・',
-                  `WORKS 0${projectIndex}`,
-                ]"
+                :text="['・', `WORKS 0${currentProject.index}`]"
                 :sp-animation="false"
                 :modifier="'works-section'"
               />
             </span>
             <span class="hero-title-wrapper-block">
               <span
-                v-for="index of Object.keys(detailsMainText).length - 1"
+                v-for="index of Object.keys(currentProject.detailsMainText).length - 1"
                 :key="index"
                 class="hero-title-wrapper"
                 :class="`hero-title-wrapper-0${index}`"
               >
-              <AppTextSegment
-                :state="isTextSegmentState"
-                :start="index * 0.12"
-                :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
-                :text="`${detailsMainText['text0' + index]}`"
-                :sp-animation="false"
-              />
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="index * 0.12"
+                  :rotate="
+                    index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right
+                  "
+                  :text="`${currentProject.detailsMainText['text0' + index]}`"
+                  :sp-animation="false"
+                />
               </span>
             </span>
             <span class="hero-title-line">
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.72"
-                :color="heroColor"
+                :color="currentProject.siteColor.mvTextColor"
                 :origin="'left'"
                 :sp-animation="false"
                 :modifier="'works'"
@@ -59,7 +58,7 @@
           </h1>
           <p class="hero-desc">
             <span
-              v-for="index of Object.keys(detailsMainDesc).length - 1"
+              v-for="index of Object.keys(currentProject.detailsMainDesc).length - 1"
               :key="index"
               class="hero-desc-wrapper"
               :class="`hero-desc-wrapper-0${index}`"
@@ -68,7 +67,7 @@
                 :state="isTextSegmentState"
                 :start="index * 0.12 + 0.84"
                 :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
-                :text="`${detailsMainDesc['text0' + index]}`"
+                :text="`${currentProject.detailsMainDesc['text0' + index]}`"
                 :sp-animation="false"
               />
             </span>
@@ -82,23 +81,7 @@
 <script>
 export default {
   props: {
-    projectIndex: {
-      type: Number,
-      required: true,
-    },
-    heroColor: {
-      type: String,
-      default: '#ffffff',
-    },
-    heroImg: {
-      type: Object,
-      required: true,
-    },
-    detailsMainText: {
-      type: Object,
-      required: true,
-    },
-    detailsMainDesc: {
+    currentProject: {
       type: Object,
       required: true,
     },
@@ -111,7 +94,7 @@ export default {
   },
   mounted() {
     this.isTextSegmentState = 'center'
-    this.isTextUnderlineState = 'extend';
+    this.isTextUnderlineState = 'extend'
   },
 }
 </script>
@@ -122,12 +105,12 @@ export default {
   --viewportHeight: 0;
 }
 
-.hero-bg{
+.hero-bg {
   position: relative;
   height: var(--viewportHeight, 100vh);
 }
 
-.hero-img{
+.hero-img {
   position: absolute;
   top: 0;
   left: 0;
@@ -136,7 +119,7 @@ export default {
   pointer-events: none;
   user-select: none;
 
-  & img{
+  & img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -147,7 +130,7 @@ export default {
   }
 }
 
-.hero-title{
+.hero-title {
   position: absolute;
   top: calc(50.2% + 53px);
   left: 80px;
@@ -159,27 +142,27 @@ export default {
   line-height: 1.04;
 }
 
-.hero-title-wrapper-block{
+.hero-title-wrapper-block {
   display: block;
   margin: 0 0 37px 0;
 }
 
-.hero-title-wrapper-01{
+.hero-title-wrapper-01 {
   text-align: right;
 }
 
-.hero-title-read-area{
+.hero-title-read-area {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.hero-title-line{
+.hero-title-line {
   display: block;
   margin: 0 0 36px 0;
 }
 
-.hero-desc{
+.hero-desc {
   color: inherit;
   font-size: 12px;
   font-family: $helvetica;

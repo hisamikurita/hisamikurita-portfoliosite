@@ -4,15 +4,15 @@
       <div ref="ContentsLoopTitle" class="contents-loop-title">
         <span class="contents-loop-video-shadow">
           <span class="contents-loop-video-wrapper"
-            ><video :src="`/movie/${name}.mp4`" autoplay loop muted></video
+            ><video :src="`/movie/${currentProject.id}.mp4`" autoplay loop muted></video
           ></span>
         </span>
         <span class="contents-loop-card">
           <AppCardBase
             :component-name="'WorksLinkContents'"
             :drag-animation="false"
-            :color="siteColor"
-            :external-link="externalLink"
+            :color="currentProject.siteColor.allTextColor"
+            :external-link="currentProject.siteLink"
             :modifier="'works-contents-external'"
           />
         </span>
@@ -21,7 +21,7 @@
           :loop="isLoopTextState"
           :start="-0.2"
           :rotate="$BASEROTATE.right"
-          :text="loopText"
+          :text="currentProject.loopText"
         />
       </div>
     </div>
@@ -30,28 +30,66 @@
         <div class="contents-info">
           <dl class="contents-info-client">
             <dt>CLIENT</dt>
-            <dd>{{ client }}</dd>
+            <dd>{{ currentProject.client }}</dd>
           </dl>
           <div class="contents-info-desc">
-            {{ freeArea }}
+            {{ currentProject.freeArea }}
           </div>
         </div>
-        <!-- <div
-          v-for="index of Object.keys(contentsImg).length - 1"
+        <div
+          v-for="(image, index) in currentProject.contentsImg"
           :key="index"
           ref="ContentsImgWrapper"
-          class="contents-img full"
-          :class="`contents-img-0${index}`"
+          class="contents-img"
+          :class="`contents-img-0${index + 1} ${image.fieldId}`"
         >
-          <img
-            ref="ContentsImg"
-            :src="`${
-              contentsImg['contentsImg0' + index].url
-            }?w=2000&h=1248&q=80`"
-            :width="`${contentsImg['contentsImg0' + index].width}`"
-            :height="`${contentsImg['contentsImg0' + index].height}`"
-          />
-        </div> -->
+          <span v-if="image.fieldId === 'default' || image.fieldId === 'full'">
+            <picture>
+              <source
+                :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
+                :width="`${image.object.width}`"
+                :height="`${image.object.height}`"
+                type="image/webp"
+              >
+              <img
+                ref="ContentsImg"
+                :src="`${image.object.url}?w=2000&h=1248&q=50`"
+                :width="`${image.object.width}`"
+                :height="`${image.object.height}`"
+              />
+            </picture>
+          </span>
+          <span v-else class="contents-img-split">
+            <picture>
+              <source
+                :srcset="`${image.split1.url}?fm=webp&w=2000&h=1248&q=50`"
+                :width="`${image.split1.width}`"
+                :height="`${image.split1.height}`"
+                type="image/webp"
+              >
+              <img
+                ref="ContentsImg"
+                :src="`${image.split1.url}?w=2000&h=1248&q=50`"
+                :width="`${image.split1.width}`"
+                :height="`${image.split1.height}`"
+              />
+            </picture>
+            <picture>
+              <source
+                :srcset="`${image.split2.url}?fm=webp&w=2000&h=1248&q=50`"
+                :width="`${image.split2.width}`"
+                :height="`${image.split2.height}`"
+                type="image/webp"
+              >
+              <img
+                ref="ContentsImg"
+                :src="`${image.split2.url}?w=2000&h=1248&q=50`"
+                :width="`${image.split2.width}`"
+                :height="`${image.split2.height}`"
+              />
+            </picture>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -60,34 +98,10 @@
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      default: '',
-    },
-    siteColor: {
-      type: String,
-      default: '',
-    },
-    externalLink: {
-      type: String,
-      default: null,
-    },
-    loopText: {
-      type: String,
+    currentProject: {
+      type: Object,
       required: true,
     },
-    client: {
-      type: String,
-      required: true,
-    },
-    freeArea: {
-      type: String,
-      required: true,
-    },
-    // contentsImg: {
-    //   type: Object,
-    //   required: true,
-    // },
   },
 
   data: () => {
@@ -135,38 +149,38 @@ export default {
     this.imgWrapper = this.$refs.ContentsImgWrapper
     this.img = this.$refs.ContentsImg
 
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    //     this.imgWrapper.forEach((item, index) => {
-    //       this.imgTriggerArray.push(
-    //         this.$ScrollTrigger.create({
-    //           trigger: item,
-    //           start: 'top bottom',
-    //           once: true,
-    //           onEnter: () => {
-    //             this.$gsap.to(this.imgWrapper[index], {
-    //               duration: this.$siteConfig.baseDuration,
-    //               ease: this.$easing.transform,
-    //               scale: 1.0,
-    //             })
-    //             this.$gsap.to(this.img[index], {
-    //               duration: this.$siteConfig.baseDuration,
-    //               ease: this.$easing.transform,
-    //               scale: 1.0,
-    //             })
-    //           },
-    //         })
-    //       )
-    //     })
-    //   }, 100)
-    // })
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.imgWrapper.forEach((item, index) => {
+          this.imgTriggerArray.push(
+            this.$ScrollTrigger.create({
+              trigger: item,
+              start: 'top bottom',
+              once: true,
+              onEnter: () => {
+                this.$gsap.to(this.imgWrapper[index], {
+                  duration: this.$SITECONFIG.baseDuration,
+                  ease: this.$EASING.transform,
+                  scale: 1.0,
+                })
+                this.$gsap.to(this.img[index], {
+                  duration: this.$SITECONFIG.baseDuration,
+                  ease: this.$EASING.transform,
+                  scale: 1.0,
+                })
+              },
+            })
+          )
+        })
+      }, 100)
+    })
   },
   beforeDestroy() {
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverLoopText.unobserve(this.observe)
-    // this.imgTriggerArray.forEach((item) => {
-    //   item.kill()
-    // })
+    this.imgTriggerArray.forEach((item) => {
+      item.kill()
+    })
   },
 }
 </script>
@@ -287,17 +301,26 @@ export default {
   margin: 0 0 160px 0;
   transform: scale(0.7);
 
-  &.default{
+  & img {
+    width: 100%;
+  }
+
+  &.default {
     width: vw(1000);
   }
 
-  &.full{
+  &.full {
     width: calc(100% + 160px);
     margin: 0 0 160px -80px;
   }
 
-  & img{
-    width: 100%;
+  &.split {
+    width: calc(100% + 160px);
+    margin: 0 0 160px -80px;
   }
+}
+
+.contents-img-split {
+  display: flex;
 }
 </style>

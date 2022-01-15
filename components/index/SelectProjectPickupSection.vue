@@ -312,9 +312,7 @@ export default {
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent()
-            this.$asscroll.enable()
-
-      console.log(this.scroll)
+      this.$asscroll.enable()
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupBottomPos = pickupPos + window.innerHeight

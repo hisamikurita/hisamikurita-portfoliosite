@@ -34,17 +34,16 @@ export default (context, inject) => {
  * https://github.com/ashthornton/asscroll/blob/master/src/Events.js
  *
  */
-
-let isTouchFlag = false;
-if (SITECONFIG.isTouch) {
-  window.addEventListener('mousemove', function (e) {
-    if (Math.abs(e.movementX) > 0 || Math.abs(e.movementY) > 0) {
-      if (isTouchFlag) return;
-      reload();
-      isTouchFlag = true;
-    }
-  });
-}
+// let isTouchFlag = false;
+// if (SITECONFIG.isTouch) {
+//   window.addEventListener('mousemove', function (e) {
+//     if (Math.abs(e.movementX) > 0 || Math.abs(e.movementY) > 0) {
+//       if (isTouchFlag) return;
+//       reload();
+//       isTouchFlag = true;
+//     }
+//   });
+// }
 
 /**
  * タッチデバイスではない時にホイールイベントのデフォルトの動作を止める
