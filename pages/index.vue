@@ -4,12 +4,17 @@
       <IndexMainVisualSection />
       <IndexAboutSection />
     </div>
-    <IndexSelectProjectPickupSection :pickup-data="pickupData" />
+    <IndexSelectProjectPickupSection
+      :pickup-data="pickupData"
+    />
     <IndexSelectProjectCardSection
       :project-data="projectData.contents"
       :pickup-end-data="pickupData[2]"
     />
-    <IndexContactSection :project-data="projectData.contents" :contact-data="contactData.contents" />
+    <IndexContactSection
+      :project-data="projectData.contents"
+      :contact-data="contactData.contents"
+    />
   </div>
 </template>
 

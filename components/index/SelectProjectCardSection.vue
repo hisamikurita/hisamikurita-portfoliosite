@@ -30,7 +30,7 @@
             <AppTextLoop
               :state="isTextSegmentState"
               :loop="isLoopTextState"
-              :rotate="rotateRight"
+              :rotate="$BASEROTATE.right"
               :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             >
             </AppTextLoop>
@@ -48,7 +48,7 @@
               :state="isTextSegmentState"
               :loop="isLoopTextState"
               :loopdirection="'left'"
-              :rotate="rotateRight"
+              :rotate="$BASEROTATE.right"
               :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
             />
           </span>
@@ -59,7 +59,7 @@
               <div v-for="(data, index) in projectData" :key="data.id">
                 <div
                   class="project-card-item"
-                  :class="'project-card-item-0' + index"
+                  :class="`project-card-item-0${index}`"
                 >
                   <AppCardBase
                     :component-name="'ProjectContents'"
@@ -124,15 +124,15 @@ export default {
               scale: 0,
             },
             {
-              duration: this.$siteConfig.baseDuration * 1.2,
-              ease: this.$easing.transform,
+              duration: this.$SITECONFIG.baseDuration * 1.2,
+              ease: this.$EASING.transform,
               y: -window.innerHeight / 2,
               scale: 1.0,
             }
           )
           setTimeout(() => {
             this.$refs.ProjectBg.style.backgroundColor = '#f0efeb'
-          }, this.$siteConfig.baseDuration * 1000)
+          }, this.$SITECONFIG.baseDuration * 1000)
           break
         case 'end':
           this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor
@@ -143,8 +143,8 @@ export default {
               scale: 1.0,
             },
             {
-              duration: this.$siteConfig.baseDuration * 1.2,
-              ease: this.$easing.transform,
+              duration: this.$SITECONFIG.baseDuration * 1.2,
+              ease: this.$EASING.transform,
               y: -(
                 window.innerHeight / 2 +
                 this.$refs.ProjectCircleEnter.clientHeight / 2

@@ -13,7 +13,7 @@
         <a :href="title.link" target="_blank" rel="noopener" class="card-project-title-wrapper-03-link">
           <AppTextSegment
             :state="state"
-            :rotate="rotateLeft"
+            :rotate="$BASEROTATE.left"
             :text="title.text"
             :sp-animation="false"
           />
@@ -21,7 +21,7 @@
             <AppTextSegment
               :state="state"
               :start="0.28"
-              :rotate="rotateLeft"
+              :rotate="$BASEROTATE.left"
               :text="title.subtext"
               :sp-animation="false"
             />
@@ -66,7 +66,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-//
-</style>

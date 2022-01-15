@@ -20,7 +20,7 @@
           :state="isTextSegmentState"
           :loop="isLoopTextState"
           :start="-0.2"
-          :rotate="rotateRight"
+          :rotate="$BASEROTATE.right"
           :text="loopText"
         />
       </div>
@@ -36,12 +36,12 @@
             {{ freeArea }}
           </div>
         </div>
-        <div
+        <!-- <div
           v-for="index of Object.keys(contentsImg).length - 1"
           :key="index"
           ref="ContentsImgWrapper"
-          class="contents-img"
-          :class="'contents-img-0' + index"
+          class="contents-img full"
+          :class="`contents-img-0${index}`"
         >
           <img
             ref="ContentsImg"
@@ -51,7 +51,7 @@
             :width="`${contentsImg['contentsImg0' + index].width}`"
             :height="`${contentsImg['contentsImg0' + index].height}`"
           />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -84,16 +84,16 @@ export default {
       type: String,
       required: true,
     },
-    contentsImg: {
-      type: Object,
-      required: true,
-    },
+    // contentsImg: {
+    //   type: Object,
+    //   required: true,
+    // },
   },
 
   data: () => {
     return {
-      isTextSegmentState: '',
-      isLoopTextState: '',
+      isTextSegmentState: 'default',
+      isLoopTextState: 'default',
     }
   },
 
@@ -135,38 +135,38 @@ export default {
     this.imgWrapper = this.$refs.ContentsImgWrapper
     this.img = this.$refs.ContentsImg
 
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.imgWrapper.forEach((item, index) => {
-          this.imgTriggerArray.push(
-            this.$ScrollTrigger.create({
-              trigger: item,
-              start: 'top bottom',
-              once: true,
-              onEnter: () => {
-                this.$gsap.to(this.imgWrapper[index], {
-                  duration: this.$siteConfig.baseDuration,
-                  ease: this.$easing.transform,
-                  scale: 1.0,
-                })
-                this.$gsap.to(this.img[index], {
-                  duration: this.$siteConfig.baseDuration,
-                  ease: this.$easing.transform,
-                  scale: 1.0,
-                })
-              },
-            })
-          )
-        })
-      }, 100)
-    })
+    // this.$nextTick(() => {
+    //   setTimeout(() => {
+    //     this.imgWrapper.forEach((item, index) => {
+    //       this.imgTriggerArray.push(
+    //         this.$ScrollTrigger.create({
+    //           trigger: item,
+    //           start: 'top bottom',
+    //           once: true,
+    //           onEnter: () => {
+    //             this.$gsap.to(this.imgWrapper[index], {
+    //               duration: this.$siteConfig.baseDuration,
+    //               ease: this.$easing.transform,
+    //               scale: 1.0,
+    //             })
+    //             this.$gsap.to(this.img[index], {
+    //               duration: this.$siteConfig.baseDuration,
+    //               ease: this.$easing.transform,
+    //               scale: 1.0,
+    //             })
+    //           },
+    //         })
+    //       )
+    //     })
+    //   }, 100)
+    // })
   },
   beforeDestroy() {
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverLoopText.unobserve(this.observe)
-    this.imgTriggerArray.forEach((item) => {
-      item.kill()
-    })
+    // this.imgTriggerArray.forEach((item) => {
+    //   item.kill()
+    // })
   },
 }
 </script>
@@ -284,26 +284,20 @@ export default {
 
 .contents-img {
   position: relative;
-  width: vw(1000);
-  height: vw(624);
-  overflow: hidden;
+  margin: 0 0 160px 0;
   transform: scale(0.7);
 
-  &:not(:last-of-type) {
-    margin: 0 0 160px 0;
+  &.default{
+    width: vw(1000);
   }
 
-  & img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
+  &.full{
+    width: calc(100% + 160px);
+    margin: 0 0 160px -80px;
+  }
+
+  & img{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.6);
   }
 }
 </style>

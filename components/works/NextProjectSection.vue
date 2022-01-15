@@ -44,7 +44,7 @@
                 <AppTextLoop
                   :state="isTextSegmentState"
                   :loop="isLoopTextState"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT'"
                 >
                 </AppTextLoop>
@@ -78,9 +78,9 @@ export default {
   },
   data: () => {
     return {
-      isTextSegmentState: '',
-      isTextUnderlineState: '',
-      isLoopTextState: '',
+      isTextSegmentState: 'default',
+      isTextUnderlineState: 'default',
+      isLoopTextState: 'default',
     }
   },
   mounted() {
@@ -144,7 +144,6 @@ export default {
   height: vw(200);
   font-size: vw(140);
   font-family: $sixcaps;
-  
 
   @include sp() {
     font-size: vw_sp(160);
@@ -167,7 +166,6 @@ export default {
   height: 0;
   margin: auto;
   z-index: 10;
-  // pointer-events: none;
 }
 
 .next-backbtn {

@@ -105,15 +105,15 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.$gsap.to(this.loopWrapper, {
-              duration: this.$siteConfig.baseDuration * 2.0,
-              delay: Number(this.start),
-              ease: this.$easing.transform,
+              duration: this.$SITECONFIG.baseDuration * 2.0,
+              delay: this.start,
+              ease: this.$EASING.transform,
               rotate: 0,
             })
             this.$gsap.to(this.loopText, {
-              duration: this.$siteConfig.baseDuration,
-              delay: Number(this.start),
-              ease: this.$easing.transform,
+              duration: this.$SITECONFIG.baseDuration,
+              delay: this.start,
+              ease: this.$EASING.transform,
               yPercent: 0,
             })
             this.iObserverTextSegment.unobserve(this.observe)
@@ -139,13 +139,13 @@ export default {
       const currentPos = this.$asscroll.currentPos
       if (currentPos > this.startPos) {
         this.$gsap.to(this.isScrollDirection, {
-          duration: this.$siteConfig.baseDuration / 2.0,
+          duration: this.$SITECONFIG.baseDuration / 2.0,
           ease: 'none',
           value: -1,
         })
       } else {
         this.$gsap.to(this.isScrollDirection, {
-          duration: this.$siteConfig.baseDuration / 2.0,
+          duration: this.$SITECONFIG.baseDuration / 2.0,
           ease: 'none',
           value: 1,
         })
@@ -162,7 +162,7 @@ export default {
       if (this.hambergerMenuState) return
 
       this.$gsap.to(this.tweenPosition, {
-        duration: this.$siteConfig.baseDuration,
+        duration: this.$SITECONFIG.baseDuration,
         ease: 'none',
         value: this.$asscroll.currentPos,
       })

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BaseMouse />
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
         <nuxt />
@@ -12,17 +13,17 @@
 </template>
 
 <script>
-import { preEvent } from '../lib/preEvent'
+import { preEvent } from '../assets/js/preEvent'
 
 export default {
   computed: {
-    hambergerMenuState: function () {
+    hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
-    indexPickupState: function () {
+    indexPickupState() {
       return this.$store.getters['indexPickup/state']
     },
-    indexPickupPos: function () {
+    indexPickupPos() {
       return this.$store.getters['indexPickup/pos']
     },
   },
@@ -34,18 +35,18 @@ export default {
       if (this.hambergerMenuState) {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
-            duration: this.$siteConfig.baseDuration / 3.0,
-            ease: this.$easing.transform,
+            duration: this.$SITECONFIG.baseDuration / 3.0,
+            ease: this.$EASING.transform,
             x: -560,
           })
         }
 
-        if (this.$siteConfig.isTouch) {
+        if (this.$SITECONFIG.isTouch) {
           this.$backfaceScroll(false)
-        } else if (this.$siteConfig.isNoTouch) {
+        } else if (this.$SITECONFIG.isNoTouch) {
           this.$asscroll.disable({ inputOnly: true })
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
@@ -55,22 +56,22 @@ export default {
          */
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
             delay: 0.2,
-            duration: this.$siteConfig.baseDuration / 3.0,
-            ease: this.$easing.transform,
+            duration: this.$SITECONFIG.baseDuration / 3.0,
+            ease: this.$EASING.transform,
             x: 0,
           })
         }
 
-        if (this.$siteConfig.isTouch) {
+        if (this.$SITECONFIG.isTouch) {
           /**
            * ピックアップセクションだった場合はスクロール固定を解除しない
            */
           // if (this.indexPickupState) return;
           this.$backfaceScroll(true)
-        } else if (this.$siteConfig.isNoTouch) {
+        } else if (this.$SITECONFIG.isNoTouch) {
           window.addEventListener('wheel', preEvent, { passive: false })
           /**
            * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
@@ -84,7 +85,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .asscroll-container-cover {
   position: fixed;
   top: 0;

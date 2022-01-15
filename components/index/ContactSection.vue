@@ -16,7 +16,7 @@
               <span class="contact-title-wrapper contact-title-wrapper-01">
                 <AppTextSegment
                   :state="isTextSegmentState"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'I AM CREATIVE DEVELOPER'"
                   :sp-animation="false"
                 />
@@ -25,7 +25,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'FOCUSED ON CREATING THINGS'"
                   :sp-animation="false"
                 />
@@ -34,7 +34,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'WITH INTERACTION & ANIMATION'"
                   :sp-animation="false"
                 />
@@ -43,7 +43,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'AS MY MAIN FOCUS.'"
                   :sp-animation="false"
                 />
@@ -93,7 +93,7 @@
                     <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
-                      :rotate="rotateRight"
+                      :rotate="$BASEROTATE.right"
                       :text="data.title.full"
                     />
                   </NuxtLink>
@@ -106,7 +106,7 @@
                   <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.48"
-                    :rotate="rotateRight"
+                    :rotate="$BASEROTATE.right"
                     :text="'HISAMI KURITA'"
                     :sp-animation="false"
                   />

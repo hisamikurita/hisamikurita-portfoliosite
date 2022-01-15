@@ -28,7 +28,7 @@
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :rotate="rotateRight"
+                :rotate="$BASEROTATE.right"
                 :text="'HELLO, WORLD'"
                 :sp-animation="false"
               />
@@ -36,22 +36,22 @@
             <span class="hero-title-wrapper hero-title-wrapper-02">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[1]"
+                :start="0.176"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[1]"
-                :rotate="rotateLeft"
+                :start="0.176"
+                :rotate="$BASEROTATE.left"
                 :text="'HISAMI'"
                 :sp-animation="false"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[2]"
-                :rotate="rotateLeft"
+                :start="0.4"
+                :rotate="$BASEROTATE.left"
                 :text="'KURITA'"
                 :sp-animation="false"
               />
@@ -59,22 +59,22 @@
             <span class="hero-title-wrapper hero-title-wrapper-03">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[3]"
+                :start="0.42"
                 :origin="'left'"
                 :sp-animation="false"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[3]"
-                :rotate="rotateRight"
+                :start="0.42"
+                :rotate="$BASEROTATE.right"
                 :text="'IS  CR'"
                 :sp-animation="false"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[4]"
-                :rotate="rotateRight"
+                :start="0.6"
+                :rotate="$BASEROTATE.right"
                 :text="'EATIVE'"
                 :sp-animation="false"
               />
@@ -82,15 +82,15 @@
             <span class="hero-title-wrapper hero-title-wrapper-04">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[5]"
+                :start="0.7"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[5]"
-                :rotate="rotateLeft"
+                :start="0.7"
+                :rotate="$BASEROTATE.right"
                 :text="'DEVELOPER AT LIG INC SINCE 2020'"
                 :sp-animation="false"
               />
@@ -158,8 +158,8 @@ export default {
   data: () => {
     return {
       delay: [0, 0.176, 0.4, 0.42, 0.6, 0.7],
-      isTextSegmentState: '',
-      isTextUnderlineState: '',
+      isTextSegmentState: 'default',
+      isTextUnderlineState: 'default',
     }
   },
   mounted() {
@@ -169,7 +169,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .hero{
   position: relative;
   z-index: 1;

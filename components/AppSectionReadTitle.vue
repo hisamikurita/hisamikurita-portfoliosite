@@ -1,10 +1,10 @@
 <template>
-  <span class="cmn-title-read-text-wrapper" :class="'cmn-title-read-text-wrapper--' + modifier">
-    <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="'cmn-title-read-text-0' + index">
+  <span class="cmn-title-read-text-wrapper" :class="`cmn-title-read-text-wrapper--${modifier}`">
+    <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="`cmn-title-read-text-0${index}`">
       <AppTextSegment
         :state="state"
         :start="start + index * 0.12"
-        :rotate="rotateRight"
+        :rotate="$BASEROTATE.right"
         :text="char"
         :sp-animation="spAnimation"
       />
@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .cmn-title-read-text-wrapper{
   display: block;
   font-size: 12px;

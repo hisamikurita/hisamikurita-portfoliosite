@@ -1,31 +1,31 @@
-import { reload } from "../lib/reload"
-import { preEvent } from "../lib/preEvent"
+import { reload } from "../assets/js/reload"
+import { preEvent } from "../assets/js/preEvent"
 
-const siteConfig = {
+const SITECONFIG = {
   breakPoint: 767,
   isPc: false,
   isMobile: false,
   isTouch: false,
   isNoTouch: false,
+  fullDuration: 2.0,
   baseDuration: 1.0,
   halfBaseDuration: 0.5,
-  rotate: 3,
 }
 
-if (window.innerWidth > siteConfig.breakPoint) {
-  siteConfig.isPc = true;
+if (window.innerWidth > SITECONFIG.breakPoint) {
+  SITECONFIG.isPc = true;
 } else {
-  siteConfig.isMobile = true;
+  SITECONFIG.isMobile = true;
 }
 
 if ('ontouchstart' in document.documentElement) {
-  siteConfig.isTouch = true;
+  SITECONFIG.isTouch = true;
 } else {
-  siteConfig.isNoTouch = true;
+  SITECONFIG.isNoTouch = true;
 }
 
 export default (context, inject) => {
-  inject('siteConfig', siteConfig);
+  inject('SITECONFIG', SITECONFIG);
 }
 
 /**
@@ -36,7 +36,7 @@ export default (context, inject) => {
  */
 
 let isTouchFlag = false;
-if (siteConfig.isTouch) {
+if (SITECONFIG.isTouch) {
   window.addEventListener('mousemove', function (e) {
     if (Math.abs(e.movementX) > 0 || Math.abs(e.movementY) > 0) {
       if (isTouchFlag) return;
@@ -49,7 +49,7 @@ if (siteConfig.isTouch) {
 /**
  * タッチデバイスではない時にホイールイベントのデフォルトの動作を止める
  */
-if (siteConfig.isNoTouch) {
+if (SITECONFIG.isNoTouch) {
   window.addEventListener('wheel', preEvent, { passive: false })
 }
 

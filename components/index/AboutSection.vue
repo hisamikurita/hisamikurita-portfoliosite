@@ -3,7 +3,7 @@
     <div class="about-bg">
       <div class="about-inner">
         <div class="l-container">
-          <h2 ref="AboutTitleTrigger" class="about-title">
+          <h2 ref="AboutTitle" class="about-title">
             <span class="about-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
@@ -16,7 +16,7 @@
               <span class="about-title-wrapper about-title-wrapper-01">
                 <AppTextSegment
                   :state="isTextSegmentState"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'"
                   :sp-animation="false"
                 />
@@ -25,7 +25,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'"
                   :sp-animation="false"
                 />
@@ -34,7 +34,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
                   :sp-animation="false"
                 />
@@ -43,14 +43,19 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS.'"
                   :sp-animation="false"
                 />
               </span>
             </span>
             <span class="sp-only">
-              <span class="about-title-wrapper-sp about-title-wrapper-01-sp">IN THE SUMMER OF 22, I</span>STARTED PROGRAMMING. IT WA<br>S LATER THAN MOST, BUT I THI<br>NK I FOUND SOMETHING THAT I<br>WAS PASSIONATE ABOUT. I'VE B<br>EEN WRITING CODE EVERY DAY<br>EVER SINCE. MY GREATEST STRE<br>NGTH IS MY NEVER-ENDING INQ<br>UISITIVENESS.
+              <span class="about-title-wrapper-sp about-title-wrapper-01-sp"
+                >IN THE SUMMER OF 22, I</span
+              >STARTED PROGRAMMING. IT WA<br />S LATER THAN MOST, BUT I THI<br />NK
+              I FOUND SOMETHING THAT I<br />WAS PASSIONATE ABOUT. I'VE B<br />EEN
+              WRITING CODE EVERY DAY<br />EVER SINCE. MY GREATEST STRE<br />NGTH
+              IS MY NEVER-ENDING INQ<br />UISITIVENESS.
             </span>
             <span class="pc-only">
               <AppTextUnderline
@@ -79,7 +84,12 @@
                 :sp-animation="false"
               />
             </span>
-            <span class="sp-only">THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span>
+            <span class="sp-only"
+              >THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE
+              AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO
+              EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB
+              OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span
+            >
           </p>
         </div>
       </div>
@@ -91,13 +101,13 @@
 export default {
   data: () => {
     return {
-      isTextSegmentState: '',
-      isTextUnderlineState: '',
+      isTextSegmentState: 'default',
+      isTextUnderlineState: 'default',
     }
   },
   mounted() {
     /* text-animation */
-    this.observe = this.$refs.AboutTitleTrigger
+    this.observe = this.$refs.AboutTitle
     this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -120,10 +130,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.about-bg{
+.about-bg {
   position: relative;
 
-  @include sp(){
+  @include sp() {
     overflow: hidden;
   }
 }
@@ -131,7 +141,7 @@ export default {
 .about-inner {
   padding: 333px 0 258px 0;
 
-  @include sp(){
+  @include sp() {
     padding: 118px 0;
   }
 }
@@ -152,7 +162,7 @@ export default {
     line-height: 1;
   }
 
-  @include sp(){
+  @include sp() {
     width: auto;
     margin: 0 0 54px 0;
     padding: 0 vw_sp(20);
@@ -167,7 +177,7 @@ export default {
   left: 42px;
   color: $white;
 
-  @include sp(){
+  @include sp() {
     left: 9px;
   }
 }
@@ -185,7 +195,7 @@ export default {
   padding: 0 vw(150) 0 0;
 }
 
-.about-title-wrapper-01-sp{
+.about-title-wrapper-01-sp {
   display: block;
   text-align: right;
 }
@@ -202,7 +212,7 @@ export default {
     padding: 0 vw(56) 0 vw(40);
   }
 
-  @include sp(){
+  @include sp() {
     width: calc(270px + #{vw_sp(20)});
     margin: 0 0 0 auto;
     padding: 0 vw_sp(20);

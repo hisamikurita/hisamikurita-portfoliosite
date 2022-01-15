@@ -38,8 +38,8 @@ export default {
   watch: {
     state: function () {
       if (
-        (!this.spAnimation && this.$siteConfig.isMobile) ||
-        (!this.pcAnimation && this.$siteConfig.isPc)
+        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+        (!this.pcAnimation && this.$SITECONFIG.isPc)
       )
         return
 
@@ -68,54 +68,46 @@ export default {
 
   mounted() {
     if (
-      (!this.spAnimation && this.$siteConfig.isMobile) ||
-      (!this.pcAnimation && this.$siteConfig.isPc)
+      (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+      (!this.pcAnimation && this.$SITECONFIG.isPc)
     )
       return
 
-    this.wrapper = this.$refs.CmnTextSegmentWrapper
+    this.textBlock = this.$refs.CmnTextSegmentBlock
+    this.textWrapper = this.$refs.CmnTextSegmentWrapper
     this.textArray = this.$refs.CmnTextSegment
 
     this.init()
   },
 
   methods: {
-    init: function () {
-      if (this.state === 'center') {
-        this.$gsap.set(this.wrapper, {
-          rotate: 0,
-          transformOrigin: this.rotate > 0 ? 'left' : 'right',
-        })
-        this.$gsap.set(this.textArray, {
-          opacity: 1.0,
-          yPercent: 0,
-        })
-      } else {
-        this.$gsap.set(this.wrapper, {
-          rotate: this.rotate,
-          transformOrigin: this.rotate > 0 ? 'left' : 'right',
-        })
-        this.$gsap.set(this.textArray, {
-          opacity: 1.0,
-          yPercent: 103.8,
-        })
-      }
+    init() {
+      this.$gsap.set(this.textWrapper, {
+        rotate: this.rotate,
+        transformOrigin: this.rotate > 0 ? 'left' : 'right',
+      })
+      this.$gsap.set(this.textArray, {
+        opacity: 1.0,
+        yPercent: 103.8,
+      })
     },
 
-    toCenter: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'auto'
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'auto'
+    toCenter() {
+      this.$gsap.set(this.textBlock, {
+        pointerEvents: 'auto',
+        userSelect: 'auto',
+      })
 
-      this.centerWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$siteConfig.baseDuration * 2.0,
-        ease: this.$easing.transform,
+      this.centerWrapper = this.$gsap.to(this.textWrapper, {
+        duration: this.$SITECONFIG.fullDuration,
+        ease: this.$EASING.transform,
         delay: Number(this.start),
         rotate: 0,
       })
       this.centerArray = this.$gsap.to(this.textArray, {
-        duration: this.$siteConfig.baseDuration,
+        duration: this.$SITECONFIG.baseDuration,
         delay: Number(this.start),
-        ease: this.$easing.transform,
+        ease: this.$EASING.transform,
         stagger: {
           each: 0.008,
         },
@@ -123,20 +115,22 @@ export default {
       })
     },
 
-    toTop: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none'
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
+    toTop() {
+      this.$gsap.set(this.textBlock, {
+        pointerEvents: 'auto',
+        userSelect: 'auto',
+      })
 
-      this.topWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$siteConfig.baseDuration * 2.0,
-        ease: this.$easing.transform,
+      this.topWrapper = this.$gsap.to(this.textWrapper, {
+        duration: this.$SITECONFIG.fullDuration,
+        ease: this.$EASING.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
       this.topArray = this.$gsap.to(this.textArray, {
-        duration: this.$siteConfig.baseDuration,
+        duration: this.$SITECONFIG.baseDuration,
         delay: Number(this.start),
-        ease: this.$easing.transform,
+        ease: this.$EASING.transform,
         stagger: {
           each: 0.008,
         },
@@ -144,20 +138,22 @@ export default {
       })
     },
 
-    toBottom: function () {
-      this.$refs.CmnTextSegmentBlock.style.pointerEvents = 'none'
-      this.$refs.CmnTextSegmentBlock.style.userSelect = 'none'
+    toBottom() {
+      this.$gsap.set(this.textBlock, {
+        pointerEvents: 'auto',
+        userSelect: 'auto',
+      })
 
-      this.bottomWrapper = this.$gsap.to(this.wrapper, {
-        duration: this.$siteConfig.baseDuration * 2.0,
-        ease: this.$easing.transform,
+      this.bottomWrapper = this.$gsap.to(this.textWrapper, {
+        duration: this.$SITECONFIG.fullDuration,
+        ease: this.$EASING.transform,
         delay: Number(this.start),
         rotate: this.rotate,
       })
       this.bottomArray = this.$gsap.to(this.textArray, {
-        duration: this.$siteConfig.baseDuration,
+        duration: this.$SITECONFIG.baseDuration,
         delay: Number(this.start),
-        ease: this.$easing.transform,
+        ease: this.$EASING.transform,
         stagger: {
           each: 0.008,
         },
@@ -168,7 +164,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .cmn-text-segment-block {
   display: block;
   pointer-events: none;

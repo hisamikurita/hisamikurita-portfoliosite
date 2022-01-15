@@ -1,9 +1,6 @@
 <template>
   <div class="works">
-    <div
-      class="works-bg"
-      :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`"
-    >
+    <div class="works-bg" :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`">
       <WorksMainVisualSection
         :project-index="currentProject.index"
         :hero-color="currentProject.siteColor.mvTextColor"

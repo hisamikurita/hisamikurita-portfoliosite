@@ -12,6 +12,15 @@ body {
   }
 }
 
+* {
+  cursor: none !important;
+}
+
+*::selection {
+  background: $darkBlack;
+  color: $white;
+}
+
 .l-container {
   width: 100%;
   padding: 0 40px;
@@ -19,14 +28,4 @@ body {
   @include sp() {
     padding: 0 vw_sp(20);
   }
-}
-
-div::selection,
-p::selection,
-a::selection,
-span::selection,
-dt::selection,
-dd::selection {
-  background: $darkBlack;
-  color: $white;
 }

@@ -2,8 +2,8 @@
   <span
     ref="TextUnderline"
     class="text-under-line"
-    :class="'text-under-line--' + modifier"
-    :style="`background-color:${color};`"
+    :class="`text-under-line--${modifier}`"
+    :style="`background-color:${color}; transform-origin:${origin};`"
   ></span>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 
   watch: {
     state: function () {
-      if (!this.spAnimation && this.$siteConfig.isMobile) return
+      if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
       switch (this.state) {
         case 'extend':
@@ -48,23 +48,11 @@ export default {
     },
   },
 
-  mounted() {
-    if (!this.spAnimation && this.$siteConfig.isMobile) return
-
-    this.init()
-  },
-
   methods: {
-    init: function () {
-      this.$gsap.set(this.$refs.TextUnderline, {
-        transformOrigin: this.origin,
-      })
-    },
-
-    toExtend: function () {
+    toExtend() {
       this.$gsap.to(this.$refs.TextUnderline, {
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
         delay: Number(this.start),
         scaleX: 1,
       })
@@ -171,7 +159,6 @@ export default {
   top: 0;
   left: 0;
   width: calc(100%);
-  // background-color: $black;
 
   @include sp() {
     left: 20px;
@@ -184,7 +171,6 @@ export default {
   bottom: 0;
   left: 0;
   width: calc(100%);
-  // background-color: $black;
 
   @include sp() {
     left: 20px;

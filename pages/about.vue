@@ -6,7 +6,9 @@
       :award-data="awardData.contents"
       :award-data-length="awardDataLength"
     />
-    <AboutSelectProjectSideScrollSection :project-data="projectData.contents" />
+    <AboutSelectProjectSideScrollSection
+      :project-data="projectData.contents"
+    />
   </div>
 </template>
 

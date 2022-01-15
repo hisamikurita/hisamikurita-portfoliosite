@@ -1,7 +1,7 @@
 <template>
   <div
     class="hambergerMenu"
-    :class="{ 'is-disable': hambergerMenuDisable, isOpen: hambergerMenuState }"
+    :class="{ 'is-disable': hambergerMenuDisable, 'is-open': hambergerMenuState }"
   >
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
@@ -14,7 +14,7 @@
             <NuxtLink to="/">
               <AppTextSegment
                 :state="isTextSegmentState"
-                :rotate="rotateRight"
+                :rotate="$BASEROTATE.right"
                 :text="'HISAMIKURITA'"
               />
             </NuxtLink>
@@ -27,7 +27,7 @@
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
-                :rotate="rotateLeft"
+                :rotate="$BASEROTATE.left"
                 :text="'ABOUT'"
               />
             </NuxtLink>
@@ -106,14 +106,14 @@ export default {
   data: () => {
     return {
       projectData: '',
-      isTextSegmentState: '',
+      isTextSegmentState: 'default',
     }
   },
   computed: {
-    hambergerMenuState: function () {
+    hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
-    hambergerMenuDisable: function () {
+    hambergerMenuDisable() {
       return this.$store.getters['hambergerMenu/disable']
     },
   },
@@ -123,7 +123,7 @@ export default {
        * ハンバガーメニューが開いた時
        */
       if (this.hambergerMenuState) {
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           /**
            * contents
            */
@@ -137,12 +137,12 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             x: -520,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             width: 86,
             height: 86,
             borderRadius: 100,
@@ -150,7 +150,7 @@ export default {
           })
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
-            ease: this.$easing.colorAndOpacity,
+            ease: this.$EASING.colorAndOpacity,
             boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 50%)',
           })
           /**
@@ -158,7 +158,7 @@ export default {
            */
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             top: 3,
             height: 9,
             borderRadius: 4,
@@ -166,7 +166,7 @@ export default {
           })
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             bottom: 2,
             height: 9,
             borderRadius: 4,
@@ -174,7 +174,7 @@ export default {
           })
           this.$gsap.to(this.$refs.hambergerMenuOpenarea, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scale: 0.6,
           })
           /**
@@ -183,7 +183,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleX: 5.1,
             scaleY: 1.1,
             x: 10,
@@ -192,7 +192,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.3,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleX: 1.0,
           })
           /**
@@ -203,9 +203,9 @@ export default {
             this.itemLinkCenter = this.$gsap.to(
               this.$refs.HambergerMenuItemWrapper,
               {
-                duration: this.$siteConfig.baseDuration,
+                duration: this.$SITECONFIG.baseDuration,
                 delay: 0.36,
-                ease: this.$easing.transform,
+                ease: this.$EASING.transform,
                 stagger: {
                   each: 0.12,
                 },
@@ -213,7 +213,7 @@ export default {
               }
             )
           }, 300)
-        } else if (this.$siteConfig.isMobile) {
+        } else if (this.$SITECONFIG.isMobile) {
           /**
            * contents
            */
@@ -226,17 +226,17 @@ export default {
            */
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             x: -window.innerWidth / 2.0 + 30 + 20,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             borderRadius: 100,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
-            ease: this.$easing.colorAndOpacity,
+            ease: this.$EASING.colorAndOpacity,
             boxShadow: 'none',
           })
           window.addEventListener('resize', this.hambergerMenuBtnOnResize)
@@ -245,13 +245,13 @@ export default {
            */
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             top: 5,
             rotate: 45,
           })
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             bottom: 4,
             rotate: -45,
           })
@@ -261,13 +261,13 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleY: 1,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.4,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleY: 1,
           })
           /**
@@ -278,9 +278,9 @@ export default {
             this.itemLinkCenter = this.$gsap.to(
               this.$refs.HambergerMenuItemWrapper,
               {
-                duration: this.$siteConfig.baseDuration,
+                duration: this.$SITECONFIG.baseDuration,
                 delay: 0.36,
-                ease: this.$easing.transform,
+                ease: this.$EASING.transform,
                 stagger: {
                   each: 0.12,
                 },
@@ -293,19 +293,19 @@ export default {
         /**
          * ハンバガーメニューが閉じた時
          */
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           /**
            * btn
            */
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             x: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             width: '100%',
             height: '100%',
             borderRadius: 10,
@@ -314,7 +314,7 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.colorAndOpacity,
+            ease: this.$EASING.colorAndOpacity,
             boxShadow: 'none',
           })
           /**
@@ -323,13 +323,13 @@ export default {
           this.$gsap.to(this.$refs.hambergerMenuOpenarea, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scale: 1,
           })
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             top: 0,
             height: 4,
             borderRadius: 2,
@@ -338,7 +338,7 @@ export default {
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             bottom: 0,
             height: 4,
             borderRadius: 2,
@@ -351,9 +351,9 @@ export default {
           this.itemLinkBottom = this.$gsap.to(
             this.$refs.HambergerMenuItemWrapper,
             {
-              duration: this.$siteConfig.baseDuration,
+              duration: this.$SITECONFIG.baseDuration,
               delay: 0.36,
-              ease: this.$easing.transform,
+              ease: this.$EASING.transform,
               stagger: {
                 each: 0.12,
               },
@@ -366,13 +366,13 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleX: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
             delay: 0.3,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleX: 1.0,
             scaleY: 1.0,
             x: 0,
@@ -394,23 +394,23 @@ export default {
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
           }, 300)
-        } else if (this.$siteConfig.isMobile) {
+        } else if (this.$SITECONFIG.isMobile) {
           /**
            * btn
            */
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             x: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtn, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             borderRadius: 10,
           })
           this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
             duration: 0.2,
-            ease: this.$easing.colorAndOpacity,
+            ease: this.$EASING.colorAndOpacity,
             boxShadow: 'none',
           })
           window.removeEventListener('resize', this.hambergerMenuBtnOnResize)
@@ -419,13 +419,13 @@ export default {
            */
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine01, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             top: 0,
             rotate: 0,
           })
           this.$gsap.to(this.$refs.hambergerMenuOpenareaLine02, {
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             bottom: 0,
             rotate: 0,
           })
@@ -435,13 +435,13 @@ export default {
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
             delay: 0.2,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleY: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.4,
             duration: 0.2,
-            ease: this.$easing.transform,
+            ease: this.$EASING.transform,
             scaleY: 0,
           })
           /**
@@ -451,9 +451,9 @@ export default {
           // this.itemLinkBottom = this.$gsap.to(
           //   this.$refs.HambergerMenuItemWrapper,
           //   {
-          //     duration: this.$siteConfig.baseDuration,
+          //     duration: this.$SITECONFIG.baseDuration,
           //     delay: 0.36,
-          //     ease: this.$easing.transform,
+          //     ease: this.$EASING.transform,
           //     stagger: {
           //       each: 0.12,
           //     },
@@ -517,7 +517,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 :root {
   --viewportWidth: 0;
   --viewportHeight: 0;
@@ -577,14 +577,14 @@ export default {
     top: 22px;
     left: calc(-100vw + 60px + 20px);
     width: 100vw;
-    height: calc(var(--viewportHeight) - 32px);
+    height: calc(var(--viewportHeight, 100vh) - 32px);
     border-radius: 0;
     transform: scaleY(0);
     transform-origin: top;
   }
 }
 
-.hambergerMenu.isOpen .hambergerMenu-overlay-01 {
+.hambergerMenu.is-open .hambergerMenu-overlay-01 {
   &::before {
     opacity: 1;
   }
@@ -793,7 +793,7 @@ export default {
   }
 }
 
-.hambergerMenu.isOpen .hambergerMenu-hover {
+.hambergerMenu.is-open .hambergerMenu-hover {
   @include hover() {
     transform: scale(1.1, 1.1);
 

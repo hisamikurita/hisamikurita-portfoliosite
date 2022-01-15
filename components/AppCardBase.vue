@@ -136,7 +136,7 @@ export default {
     }
   },
   mounted() {
-    if (!this.spAnimation && this.$siteConfig.isMobile) return
+    if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
     /* drag-animation */
     if (this.dragAnimation) {
@@ -198,8 +198,8 @@ export default {
     cardViewAnimation() {
       this.state = 'center'
       this.$gsap.to(this.$refs.CardProjectArticle, {
-        duration: this.$siteConfig.baseDuration * 1.5,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration * 1.5,
+        ease: this.$EASING.transform,
         y: -280,
         rotate: 0,
       })
@@ -207,7 +207,7 @@ export default {
 
     cardPallax() {
       this.$gsap.to(this.$refs.CardProject, {
-        duration: this.$siteConfig.baseDuration / 3.0,
+        duration: this.$SITECONFIG.baseDuration / 3.0,
         ease: 'none',
         x: this.$refs.CardProject.getBoundingClientRect().top * this.xspeed,
         y: this.$refs.CardProject.getBoundingClientRect().top * this.yspeed,

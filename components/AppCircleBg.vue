@@ -1,9 +1,9 @@
 <template>
-  <span class="circle-bg" :class="'circle-bg-' + modifier"
+  <span class="circle-bg" :class="`circle-bg-${modifier}`"
     ><span
       ref="CircleBgElement"
       class="circle-bg-element"
-      :class="'circle-bg-element-' + modifier"
+      :class="`circle-bg-element-${modifier}`"
       :style="`background-color:${color}`"
     ></span
   ></span>
@@ -40,15 +40,15 @@ export default {
   methods: {
     toExtend: function () {
       this.$gsap.to(this.$refs.CircleBgElement, {
-        duration: this.$siteConfig.baseDuration * 1.2,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration * 1.2,
+        ease: this.$EASING.transform,
         scale: 1,
       })
     },
     toShrink: function () {
       this.$gsap.to(this.$refs.CircleBgElement, {
-        duration: this.$siteConfig.baseDuration * 1.2,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration * 1.2,
+        ease: this.$EASING.transform,
         scale: 0,
       })
     },
@@ -85,14 +85,6 @@ export default {
 }
 
 //modifier
-
-// .circle-bg-element-pickup-02{
-//   background-color: $thinPurple;
-// }
-
-// .circle-bg-element-pickup-03{
-//   background-color: $thinPink;
-// }
 
 .circle-bg-index-contact {
   top: 0;

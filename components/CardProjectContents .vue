@@ -16,7 +16,7 @@
         <span class="pc-only">
           <AppTextSegment
             :state="state"
-            :rotate="rotateLeft"
+            :rotate="$BASEROTATE.left"
             :text="title"
             :sp-animation="false"
           />

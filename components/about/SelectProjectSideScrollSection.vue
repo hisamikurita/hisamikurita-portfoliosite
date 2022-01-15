@@ -31,7 +31,7 @@
               <div
                 ref="ProjectList"
                 class="project-list"
-                :class="{ isTextAnimationEnd: isTextAnimationState }"
+                :class="{ 'is-text-animation-end': isTextAnimationState }"
               >
                 <div
                   ref="ProjectItemWrapperRotate"
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { vw } from '../../lib/vw'
+import { vw } from '../../assets/js/vw'
 
 export default {
   props: {
@@ -129,13 +129,13 @@ export default {
               trigger: this.$refs.ProjectWrapper,
               onEnter: () => {
                 this.$gsap.to(this.wrapper, {
-                  duration: this.$siteConfig.baseDuration * 2.0,
-                  ease: this.$easing.transform,
+                  duration: this.$SITECONFIG.baseDuration * 2.0,
+                  ease: this.$EASING.transform,
                   rotate: 0,
                 })
                 this.$gsap.to(this.text, {
-                  duration: this.$siteConfig.baseDuration,
-                  ease: this.$easing.transform,
+                  duration: this.$SITECONFIG.baseDuration,
+                  ease: this.$EASING.transform,
                   yPercent: 0,
                   onComplete: () => {
                     this.isTextAnimationState = true
@@ -190,7 +190,7 @@ export default {
         ease: 'none',
         scrollTrigger: {
           pin: true,
-          pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
+          pinType: this.$SITECONFIG.isTouch ? 'fixed' : 'transform',
           trigger: this.$refs.ProjectWrapper,
           start: 'end',
           end: () => `+=${5000 - window.innerHeight}px`,
@@ -207,65 +207,65 @@ export default {
       const currentImg02 = e.target.querySelector('.project-item-img-02')
 
       this.$gsap.to(currentCircle, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: vw(360),
       })
       this.$gsap.to(currentImg01, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         scale: 1,
         rotate: -8,
       })
       this.$gsap.to(currentImg02, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         scale: 1,
         rotate: 8,
       })
       this.$gsap.to(nextTarget.text, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: vw(360),
       })
       this.$gsap.to(nextTarget.circle, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: vw(360),
       })
 
       this.$gsap.to(prevTarget.text, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: vw(-360),
       })
       this.$gsap.to(prevTarget.circle, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: vw(-360),
       })
     },
     onMouseLeave() {
       this.$gsap.to(this.$refs.ProjectItemImg01, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         scale: 0,
         rotate: 0,
       })
       this.$gsap.to(this.$refs.ProjectItemImg02, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         scale: 0,
         rotate: 0,
       })
       this.$gsap.to(this.$refs.ProjectItemWrapper, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: 0,
       })
       this.$gsap.to(this.$refs.ProjectItemCircle, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         x: 0,
       })
     },
@@ -358,7 +358,7 @@ export default {
   left: auto;
   overflow: hidden;
 
-  &.isTextAnimationEnd {
+  &.is-text-animation-end {
     overflow: visible;
   }
 }

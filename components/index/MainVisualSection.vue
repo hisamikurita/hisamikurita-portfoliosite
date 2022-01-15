@@ -23,9 +23,15 @@
             </span>
             <span class="sp-only">
               <span class="hero-title-read-block-sp">・</span>
-              <span class="hero-title-read-block-sp">AUTHOR : HISAMI KURITA</span>
-              <span class="hero-title-read-block-sp">FRAMEWORK : VUE/NUXT'</span>
-              <span class="hero-title-read-block-sp">LIBRARY : GSAP/THREE.JS'</span>
+              <span class="hero-title-read-block-sp"
+                >AUTHOR : HISAMI KURITA</span
+              >
+              <span class="hero-title-read-block-sp"
+                >FRAMEWORK : VUE/NUXT'</span
+              >
+              <span class="hero-title-read-block-sp"
+                >LIBRARY : GSAP/THREE.JS'</span
+              >
               <span class="hero-title-read-block-sp">SERVER : NETLIFY'</span>
             </span>
           </span>
@@ -39,7 +45,7 @@
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :rotate="rotateRight"
+                :rotate="$BASEROTATE.right"
                 :text="'FOLIO OF HISAMI KURITA'"
                 :sp-animation="false"
               />
@@ -47,15 +53,15 @@
             <span class="hero-title-wrapper hero-title-wrapper-02">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[1]"
+                :start="0.176"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[1]"
-                :rotate="rotateLeft"
+                :start="0.176"
+                :rotate="$BASEROTATE.left"
                 :text="'19/AUG.1996'"
                 :sp-animation="false"
               />
@@ -63,24 +69,34 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.264"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'( BASED IN TOKYO AND KAWASAKI )'"
                   :sp-animation="false"
                 />
-                <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-sometimes">
+                <span
+                  class="
+                    hero-title-wrapper-02-base-area-helvetica
+                    hero-title-wrapper-02-base-area-helvetica-sometimes
+                  "
+                >
                   <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.352"
-                    :rotate="rotateLeft"
+                    :rotate="$BASEROTATE.left"
                     :text="'SOMETIMES'"
                     :sp-animation="false"
                   />
                 </span>
-                <span class="hero-title-wrapper-02-base-area-helvetica hero-title-wrapper-02-base-area-helvetica-allways">
+                <span
+                  class="
+                    hero-title-wrapper-02-base-area-helvetica
+                    hero-title-wrapper-02-base-area-helvetica-allways
+                  "
+                >
                   <AppTextSegment
                     :state="isTextSegmentState"
                     :start="0.432"
-                    :rotate="rotateLeft"
+                    :rotate="$BASEROTATE.left"
                     :text="'ALLWAYS'"
                     :sp-animation="false"
                   />
@@ -90,15 +106,15 @@
             <span class="hero-title-wrapper hero-title-wrapper-03">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[2]"
+                :start="0.4"
                 :origin="'left'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[2]"
-                :rotate="rotateRight"
+                :start="0.4"
+                :rotate="$BASEROTATE.right"
                 :text="'CREATIVE DEVELOPER'"
                 :sp-animation="false"
               />
@@ -106,15 +122,15 @@
             <span class="hero-title-wrapper hero-title-wrapper-04">
               <AppTextUnderline
                 :state="isTextUnderlineState"
-                :start="delay[3]"
+                :start="0.42"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
-                :start="delay[3]"
-                :rotate="rotateLeft"
+                :start="0.42"
+                :rotate="$BASEROTATE.left"
                 :text="'AT LIG INC'"
                 :sp-animation="false"
               />
@@ -181,57 +197,60 @@
 export default {
   data: () => {
     return {
-      delay: [0, 0.176, 0.4, 0.42],
-      isTextSegmentState: '',
-      isTextUnderlineState: '',
+      isTextSegmentState: 'default',
+      isTextUnderlineState: 'default',
     }
   },
 
   computed: {
-    hambergerMenuState: function () {
+    hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
   },
 
   mounted() {
-    this.isTextSegmentState = 'center';
-    this.isTextUnderlineState = 'extend';
+    this.isTextSegmentState = 'center'
+    this.isTextUnderlineState = 'extend'
 
     /* scroll-animation */
+    this.observe = this.$refs.Hero
     this.$nextTick(() => {
-      const observe = this.$refs.Hero
-      new IntersectionObserver(
+      this.iObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              this.$gsap.ticker.add(this.bgCircleScaleChangeScroll);
+              this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
             } else {
-              this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
+              this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
             }
           })
         },
         {
           rootMargin: '0%',
         }
-      ).observe(observe)
+      )
+      this.iObserver.observe(this.observe)
     })
   },
 
   beforeDestroy() {
-    this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll);
+    this.iObserver.unobserve(this.observe)
+    this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
   },
 
   methods: {
     bgCircleScaleChangeScroll() {
-      if (this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.$gsap.to(this.$refs.HeroBgCircle02, {
-        duration: this.$siteConfig.baseDuration / 3.0,
+        duration: this.$SITECONFIG.baseDuration / 3.0,
         ease: 'none',
-        scale: (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 4.0 + 1.0,
+        scale:
+          (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 4.0 +
+          1.0,
       })
     },
-  }
+  },
 }
 </script>
 
@@ -239,7 +258,7 @@ export default {
 .hero-inner {
   padding: 92px 0;
 
-  @include sp(){
+  @include sp() {
     padding: 106px vw_sp(20);
   }
 }
@@ -250,7 +269,7 @@ export default {
   font-family: $sixcaps;
   letter-spacing: -0.002em;
 
-  @include sp(){
+  @include sp() {
     font-size: vw_sp(220);
   }
 }
@@ -261,16 +280,16 @@ export default {
   left: 2px;
   font-family: $helvetica;
 
-  @include sp(){
+  @include sp() {
     top: -18px;
     font-size: 10px;
   }
 }
 
-.hero-title-read-block-sp{
+.hero-title-read-block-sp {
   display: block;
 
-  &:nth-of-type(1){
+  &:nth-of-type(1) {
     display: inline-block;
     margin: 0 0 0 -4px;
     font-size: 32px;
@@ -281,7 +300,7 @@ export default {
   display: block;
   position: relative;
 
-  @include sp(){
+  @include sp() {
     margin: 0 0 20px 0;
     white-space: nowrap;
   }
@@ -309,42 +328,42 @@ export default {
   margin: 0 0 0 vw(206);
 }
 
-.hero-title-wrapper-01-sp{
+.hero-title-wrapper-01-sp {
   width: vw_sp(335);
   margin: 0 0 vw_sp(40) auto;
 }
 
-.hero-title-wrapper-02-sp{
+.hero-title-wrapper-02-sp {
   width: vw_sp(586);
   margin: 0 0 vw_sp(34) 0;
 }
 
-.hero-title-wrapper-03-sp{
+.hero-title-wrapper-03-sp {
   width: vw_sp(504);
   margin: 0 0 vw_sp(28) 42px;
 }
 
-.hero-title-wrapper-04-sp{
+.hero-title-wrapper-04-sp {
   position: relative;
   margin: 0 0 vw_sp(76) 45px;
   font-size: vw_sp(80);
 }
 
-.hero-title-wrapper-05-sp{
+.hero-title-wrapper-05-sp {
   width: vw_sp(367);
   margin: 0 0 vw_sp(40) 18px;
 }
 
-.hero-title-wrapper-06-sp{
+.hero-title-wrapper-06-sp {
   width: vw_sp(420);
   margin: 0 0 vw_sp(40) 102px;
 }
 
-.hero-title-wrapper-07-sp{
+.hero-title-wrapper-07-sp {
   width: vw_sp(406);
 }
 
-.hero-title-wrapper-04-01-sp{
+.hero-title-wrapper-04-01-sp {
   position: absolute;
   top: 120%;
   left: vw_sp(140);
@@ -353,7 +372,7 @@ export default {
   letter-spacing: 0.02em;
 }
 
-.hero-title-wrapper-04-02-sp{
+.hero-title-wrapper-04-02-sp {
   position: absolute;
   top: 120%;
   left: vw_sp(340);
@@ -384,7 +403,7 @@ export default {
   left: vw(380);
 }
 
-.hero-text-underline{
+.hero-text-underline {
   position: absolute;
   top: -7px;
   left: 0;
@@ -403,7 +422,7 @@ export default {
   border-radius: 50%;
   pointer-events: none;
 
-  @include sp(){
+  @include sp() {
     top: vw_sp(-184);
     right: auto;
     left: 9px;
@@ -422,7 +441,7 @@ export default {
   border-radius: 50%;
   pointer-events: none;
 
-  @include sp(){
+  @include sp() {
     top: vw_sp(650);
     left: vw_sp(-610);
     width: vw_sp(1345);
@@ -430,13 +449,13 @@ export default {
   }
 }
 
-.hero-card-item{
+.hero-card-item {
   position: absolute;
   top: 27.8%;
   left: 9%;
   transform: rotate(10deg);
 
-  @include sp(){
+  @include sp() {
     top: 17.8%;
     left: 57%;
   }

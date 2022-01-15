@@ -1,6 +1,11 @@
 a<template>
   <div ref="HeaderLogo" class="header-logo is-top">
-    <component :is="setRootTagName" class="heade-link" to="/" @click="onClickSameUrlReload">
+    <component
+      :is="setRootTagName"
+      class="heade-link"
+      to="/"
+      @click="onClickSameUrlReload"
+    >
       H<span class="header-logo-text header-logo-fade-text">I</span
       ><span
         class="header-logo-text header-logo-move-text header-logo-move-text-01"
@@ -29,14 +34,14 @@ a<template>
 <script>
 export default {
   computed: {
-    hambergerMenuState: function () {
+    hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
-    indexPickupState: function () {
+    indexPickupState() {
       return this.$store.getters['indexPickup/state']
     },
     setRootTagName() {
-      return this.$route.name === 'index' ? 'span' : 'nuxt-link';
+      return this.$route.name === 'index' ? 'span' : 'nuxt-link'
     },
   },
   mounted() {
@@ -52,16 +57,16 @@ export default {
   },
 
   methods: {
-    onClickSameUrlReload(){
+    onClickSameUrlReload() {
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .header-logo-text {
   display: inline-block;
   transition: transform $base-duration $transform-easing;
@@ -106,7 +111,6 @@ export default {
 }
 
 .header-logo.is-top {
-  // width: 154px;
   transition-delay: 0s;
 }
 
@@ -114,7 +118,6 @@ export default {
   position: fixed;
   top: 20px;
   left: 40px;
-  // width: 80px;
   color: $black;
   font-size: 50px;
   font-family: $sixcaps;
@@ -131,10 +134,10 @@ export default {
     left: 20px;
   }
 
-  & .heade-link  {
+  & .heade-link {
     display: block;
 
-    @include hover(){
+    @include hover() {
       & .header-logo-move-text {
         transform: translateX(0);
         transition-delay: 0s;

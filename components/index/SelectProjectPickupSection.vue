@@ -1,9 +1,21 @@
 <template>
   <div ref="Pickup" class="pickup is-pickup-scene-00">
-    <span ref="PickupCircleEnter" class="pickup-circle-bg-enter" :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"></span>
+    <span
+      ref="PickupCircleEnter"
+      class="pickup-circle-bg-enter"
+      :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"
+    ></span>
     <span class="pickup-circle-bg-area">
-      <AppCircleBg :state="isCircleBgState02" :modifier="'pickup-02'" :color="pickupData[1].siteColor.bodyContentsColor" />
-      <AppCircleBg :state="isCircleBgState03" :modifier="'pickup-03'" :color="pickupData[2].siteColor.bodyContentsColor" />
+      <AppCircleBg
+        :state="isCircleBgState02"
+        :modifier="'pickup-02'"
+        :color="pickupData[1].siteColor.bodyContentsColor"
+      />
+      <AppCircleBg
+        :state="isCircleBgState03"
+        :modifier="'pickup-03'"
+        :color="pickupData[2].siteColor.bodyContentsColor"
+      />
     </span>
     <div class="pickup-bg">
       <div class="pickup-inner">
@@ -36,13 +48,13 @@
                 v-for="(data, index) in pickupData"
                 :key="data.id"
                 class="pickup-section-text-wrapper"
-                :class="'pickup-section-text-wrapper-0' + Number(index + 1)"
+                :class="`pickup-section-text-wrapper-0${index + 1}`"
                 :style="`color:${data.siteColor.allTextColor};`"
               >
                 <span class="pickup-section-text-title">
                   <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
-                    :rotate="rotateRight"
+                    :rotate="$BASEROTATE.right"
                     :text="data.title.full"
                   />
                 </span>
@@ -53,7 +65,7 @@
                     :key="tIndex"
                   >
                     <AppTextSegment
-                      :state="isTextSegmentState[Number(index + 1)]"
+                      :state="isTextSegmentState[index + 1]"
                       :start="tIndex * 0.12"
                       :text="`${data.pickup.text[0]['text0' + tIndex]}`"
                     />
@@ -66,7 +78,7 @@
                 v-for="(data, index) in pickupData"
                 :key="data.id"
                 class="pickup-title-wrapper"
-                :class="'pickup-title-wrapper-0' + Number(index + 1)"
+                :class="`pickup-title-wrapper-0${index + 1}`"
                 :style="`color:${data.siteColor.allTextColor};`"
               >
                 <span
@@ -76,7 +88,9 @@
                   <AppTextSegment
                     :state="isTextSegmentState[Number(index + 1)]"
                     :start="tIndex * 0.12"
-                    :rotate="tIndex % 2 != 0 ? rotateLeft : rotateRight"
+                    :rotate="
+                      tIndex % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right
+                    "
                     :text="`${data.pickup.title[0]['text0' + tIndex]}`"
                   />
                 </span>
@@ -90,7 +104,7 @@
 </template>
 
 <script>
-import { preEvent, preEventTouch } from '../../lib/preEvent'
+import { preEvent, preEventTouch } from '../../assets/js/preEvent'
 
 export default {
   props: {
@@ -165,8 +179,8 @@ export default {
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$siteConfig.baseDuration,
-          ease: this.$easing.transform,
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
           },
@@ -180,18 +194,18 @@ export default {
         /**
          * 侵入した時の最初のサークルアニメーション
          */
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.PickupCircleEnter, {
-            duration: this.$siteConfig.baseDuration * 1.2,
-            ease: this.$easing.transform,
+            duration: this.$SITECONFIG.baseDuration * 1.2,
+            ease: this.$EASING.transform,
             delay: 0.2,
             y: window.innerHeight / 2,
             scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
           })
-        } else if (this.$siteConfig.isMobile) {
+        } else if (this.$SITECONFIG.isMobile) {
           this.$gsap.to(this.$refs.PickupCircleEnter, {
-            duration: this.$siteConfig.baseDuration * 1.2,
-            ease: this.$easing.transform,
+            duration: this.$SITECONFIG.baseDuration * 1.2,
+            ease: this.$EASING.transform,
             delay: 0.2,
             scale: 1,
           })
@@ -213,8 +227,8 @@ export default {
 
       this.$gsap.to(this.scroll, {
         value: pickupTopPos,
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)
         },
@@ -228,18 +242,18 @@ export default {
         },
       })
 
-      if (this.$siteConfig.isPc) {
+      if (this.$SITECONFIG.isPc) {
         this.$gsap.to(this.$refs.PickupCircleEnter, {
-          duration: this.$siteConfig.baseDuration * 1.2,
-          ease: this.$easing.transform,
+          duration: this.$SITECONFIG.baseDuration * 1.2,
+          ease: this.$EASING.transform,
           delay: 0.2,
           y: 0,
           scale: 1,
         })
       } else {
         this.$gsap.to(this.$refs.PickupCircleEnter, {
-          duration: this.$siteConfig.baseDuration * 1.2,
-          ease: this.$easing.transform,
+          duration: this.$SITECONFIG.baseDuration * 1.2,
+          ease: this.$EASING.transform,
           delay: 0.2,
           scale: 0,
         })
@@ -268,8 +282,8 @@ export default {
 
         this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$siteConfig.baseDuration,
-          ease: this.$easing.transform,
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
           },
@@ -283,7 +297,7 @@ export default {
         /**
          * 下から侵入する時にサイズと位置を更新する
          */
-        if (this.$siteConfig.isPc) {
+        if (this.$SITECONFIG.isPc) {
           this.$gsap.set(this.$refs.PickupCircleEnter, {
             y: window.innerHeight / 2,
             scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
@@ -304,8 +318,8 @@ export default {
 
       this.$gsap.to(this.scroll, {
         value: pickupBottomPos,
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)
         },
@@ -439,7 +453,7 @@ export default {
       /**
        * リサイズした時に一番目の円の位置と大きさを更新する
        */
-      if (this.$siteConfig.isPc) {
+      if (this.$SITECONFIG.isPc) {
         this.$gsap.set(this.$refs.PickupCircleEnter, {
           y: window.innerHeight / 2,
           scale: Math.max(window.innerWidth, window.innerHeight) / 54.0,
@@ -539,7 +553,7 @@ export default {
 }
 
 .pickup-inner {
-  height: var(--viewportHeight);
+  height: var(--viewportHeight, 100vh);
   backface-visibility: hidden;
   transform: translateZ(0);
 }

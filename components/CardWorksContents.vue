@@ -16,7 +16,7 @@
         <span class="pc-only">
           <AppTextSegment
             :state="state"
-            :rotate="rotateLeft"
+            :rotate="$BASEROTATE.left"
             :text="title"
             :sp-animation="false"
           />
@@ -59,7 +59,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-  //
-</style>

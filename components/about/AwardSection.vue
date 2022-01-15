@@ -75,16 +75,17 @@ export default {
 
   data: () => {
     return {
-      isTextSegmentState: '',
+      isTextSegmentState: 'default',
       count: 0,
     }
   },
   computed: {
-    hambergerMenuState: function () {
+    hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
   },
   mounted() {
+    // init
     this.award = this.$refs.Award
     this.cards = this.$refs.AwardCardItem
     this.items = this.$refs.AwardItem
@@ -114,7 +115,7 @@ export default {
     )
     this.iObserver.observe(this.observe)
 
-    if (this.$siteConfig.isNoTouch) {
+    if (this.$SITECONFIG.isNoTouch) {
       this.animationObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -139,7 +140,7 @@ export default {
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
-    if (this.$siteConfig.isNoTouch) {
+    if (this.$SITECONFIG.isNoTouch) {
       this.$gsap.ticker.remove(this.cardScrollPos)
       this.$gsap.ticker.remove(this.cardScrollAnimation)
       window.removeEventListener('mousemove', this.onMousemove)
@@ -241,8 +242,8 @@ export default {
           clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)',
         },
         {
-          duration: this.$siteConfig.halfBaseDuration,
-          ease: this.$easing.transform,
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
           clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
         }
       )
@@ -257,8 +258,8 @@ export default {
       this.isAllResetAnimation = true
 
       this.$gsap.to(this.cards, {
-        duration: this.$siteConfig.halfBaseDuration,
-        ease: this.$easing.transform,
+        duration: this.$SITECONFIG.halfBaseDuration,
+        ease: this.$EASING.transform,
         clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
         onComplete: () => {
           setTimeout(() => {
@@ -269,15 +270,15 @@ export default {
     },
     colorFadeIn(target) {
       this.$gsap.to(target, {
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.colorAndOpacity,
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.colorAndOpacity,
         color: '#ffffff',
       })
     },
     colorFadeOut(target) {
       this.$gsap.to(target, {
-        duration: this.$siteConfig.baseDuration,
-        ease: this.$easing.colorAndOpacity,
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.colorAndOpacity,
         color: '#828282',
       })
     },

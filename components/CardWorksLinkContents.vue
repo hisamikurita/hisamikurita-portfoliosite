@@ -21,7 +21,7 @@
         <span class="pc-only">
           <AppTextSegment
             :state="state"
-            :rotate="rotateLeft"
+            :rotate="$BASEROTATE.left"
             :text="'VISIT SITE'"
             :sp-animation="false"
           />
@@ -50,13 +50,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-// .card-project-title-wrapper-01-block{
-  
-// }
-
-// .card-project-title-wrapper-01-block {
-//   font-size: 12px;
-// }
-</style>

@@ -21,12 +21,12 @@
                 v-for="index of Object.keys(detailsMainText).length - 1"
                 :key="index"
                 class="hero-title-wrapper"
-                :class="'hero-title-wrapper-0' + index"
+                :class="`hero-title-wrapper-0${index}`"
               >
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="index * 0.12"
-                :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
+                :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
                 :text="`${detailsMainText['text0' + index]}`"
                 :sp-animation="false"
               />
@@ -48,12 +48,12 @@
               v-for="index of Object.keys(detailsMainDesc).length - 1"
               :key="index"
               class="hero-desc-wrapper"
-              :class="'hero-desc-wrapper-0' + index"
+              :class="`hero-desc-wrapper-0${index}`"
             >
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="index * 0.12 + 0.84"
-                :rotate="index % 2 != 0 ? rotateLeft : rotateRight"
+                :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
                 :text="`${detailsMainDesc['text0' + index]}`"
                 :sp-animation="false"
               />
@@ -91,8 +91,8 @@ export default {
   },
   data: () => {
     return {
-      isTextSegmentState: '',
-      isTextUnderlineState: '',
+      isTextSegmentState: 'default',
+      isTextUnderlineState: 'default',
     }
   },
   mounted() {
@@ -104,13 +104,13 @@ export default {
 
 <style lang="scss" scoped>
 :root {
-  --viewportWidth: 1280px;
-  --viewportHeight: 800px;
+  --viewportWidth: 0;
+  --viewportHeight: 0;
 }
 
 .hero-bg{
   position: relative;
-  height: var(--viewportHeight);
+  height: var(--viewportHeight, 100vh);
 }
 
 .hero-img{

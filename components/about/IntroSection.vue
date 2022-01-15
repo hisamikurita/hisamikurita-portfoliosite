@@ -9,11 +9,11 @@
         :modifier="'about-intro'"
       />
       <div ref="IntroReadText" class="intro-read-text">
-        <span>INTRODUCTION INTRODUCTION INT</span>
+        INTRODUCTION INTRODUCTION INT
       </div>
       <span ref="IntroBg" class="intro-bg">
         <span>
-          <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80"/>
+          <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80" />
         </span>
         <span ref="IntroBgClip" class="intro-bg-clip">
           <span class="intro-title">
@@ -28,7 +28,7 @@
               <span class="intro-title-wrapper intro-title-wrapper-01">
                 <AppTextSegment
                   :state="isTextSegmentState"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'LOREM IPSUM DOLOR SITA'"
                   :sp-animation="false"
                 />
@@ -37,7 +37,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'MET, CONSECTETUR ADIPISCINGELIT, L'"
                   :sp-animation="false"
                 />
@@ -46,7 +46,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'OREM IPSUM DOLOR SIT AMET, CONSE'"
                   :sp-animation="false"
                 />
@@ -55,7 +55,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'CTETUR ADIPISCING ELIT, LOREM IPSU'"
                   :sp-animation="false"
                 />
@@ -64,7 +64,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.48"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'M DOLOR SIT AMET.'"
                   :sp-animation="false"
                 />
@@ -75,7 +75,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'LOREM I'"
                   :pc-animation="false"
                 />
@@ -84,7 +84,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'PSUM DOLOR SI'"
                   :pc-animation="false"
                 />
@@ -93,7 +93,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'TAMET, CONSEC'"
                   :pc-animation="false"
                 />
@@ -102,7 +102,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'TETUR ADIPISCI'"
                   :pc-animation="false"
                 />
@@ -111,7 +111,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.48"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'NGELIT, LOREM'"
                   :pc-animation="false"
                 >
@@ -121,7 +121,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.6"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'IPSUM DOLOR S'"
                   :pc-animation="false"
                 />
@@ -130,7 +130,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.72"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'IT AMET.'"
                   :pc-animation="false"
                 />
@@ -141,14 +141,14 @@
             <span class="pc-only">
               <AppTextSegment
                 :state="isTextSegmentState"
-                :rotate="rotateRight"
+                :rotate="$BASEROTATE.right"
                 :text="'LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
                 :sp-animation="false"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
-                :rotate="rotateLeft"
+                :rotate="$BASEROTATE.left"
                 :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
                 :sp-animation="false"
               />
@@ -157,7 +157,7 @@
               <span class="intro-note-wrapper intro-note-wrapper-sp-01">
                 <AppTextSegment
                   :state="isTextSegmentState"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'LOREM IPSUM DOLOR SIT'"
                   :pc-animation="false"
                 />
@@ -166,7 +166,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.12"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD'"
                   :pc-animation="false"
                 />
@@ -175,7 +175,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.24"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
                   :pc-animation="false"
                 />
@@ -184,7 +184,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.36"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO'"
                   :pc-animation="false"
                 />
@@ -193,7 +193,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.48"
-                  :rotate="rotateRight"
+                  :rotate="$BASEROTATE.right"
                   :text="'LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS'"
                   :pc-animation="false"
                 />
@@ -202,7 +202,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="0.6"
-                  :rotate="rotateLeft"
+                  :rotate="$BASEROTATE.left"
                   :text="'AUTE IR'"
                   :pc-animation="false"
                 />
@@ -216,13 +216,13 @@
 </template>
 
 <script>
-import { vw, vwSp } from '../../lib/vw'
+import { vw, vwSp } from '../../assets/js/vw'
 
 export default {
   data: () => {
     return {
-      isTextSegmentState: '',
-      isCircleBgState: '',
+      isTextSegmentState: 'default',
+      isCircleBgState: 'default',
     }
   },
 
@@ -287,7 +287,7 @@ export default {
         ease: 'none',
         scrollTrigger: {
           pin: true,
-          pinType: this.$siteConfig.isTouch ? 'fixed' : 'transform',
+          pinType: this.$SITECONFIG.isTouch ? 'fixed' : 'transform',
           trigger: this.$refs.IntroWrapper,
           start: 'end',
           end: () => `+=${5500 - window.innerHeight}px`,
@@ -296,7 +296,7 @@ export default {
         },
       })
 
-      if (this.$siteConfig.isTouch) {
+      if (this.$SITECONFIG.isTouch) {
         this.$gsap.set(this.$refs.IntroWrapper, {
           zIndex: -1,
         })
@@ -304,15 +304,15 @@ export default {
     },
 
     scrollTl() {
-      const textInit = this.$siteConfig.isPc ? vw(1280) : vwSp(750)
-      const textMove = this.$siteConfig.isPc
+      const textInit = this.$SITECONFIG.isPc ? vw(1280) : vwSp(750)
+      const textMove = this.$SITECONFIG.isPc
         ? vw(-1758 + 1280)
         : vwSp(-1858 + 750)
-      const bgWidth = this.$siteConfig.isPc ? vw(54) : vwSp(81)
-      const bgHeight = this.$siteConfig.isPc ? vw(245) : vwSp(365)
-      const bgRadius = this.$siteConfig.isPc ? vw(24) : vwSp(36)
-      const bgX = this.$siteConfig.isPc ? vw(-49) : vwSp(121)
-      const bgY = this.$siteConfig.isPc ? vw(7.8) : vwSp(39)
+      const bgWidth = this.$SITECONFIG.isPc ? vw(54) : vwSp(81)
+      const bgHeight = this.$SITECONFIG.isPc ? vw(245) : vwSp(365)
+      const bgRadius = this.$SITECONFIG.isPc ? vw(24) : vwSp(36)
+      const bgX = this.$SITECONFIG.isPc ? vw(-49) : vwSp(121)
+      const bgY = this.$SITECONFIG.isPc ? vw(7.8) : vwSp(39)
 
       this.tl = this.$gsap.timeline({
         scrollTrigger: {
@@ -437,7 +437,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--viewportHeight) !important;
+  height: var(--viewportHeight, 100vh) !important;
   // z-index: -1;
 }
 
@@ -504,8 +504,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: var(--viewportWidth);
-  height: var(--viewportHeight);
+  width: var(--viewportWidth, 100vw);
+  height: var(--viewportHeight, 100vh);
 }
 
 .intro-title {
