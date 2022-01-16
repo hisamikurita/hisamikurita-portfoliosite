@@ -2,7 +2,8 @@
   <div ref="Contents" class="contents">
     <div class="contents-loop-title-wrapper">
       <div ref="ContentsLoopTitle" class="contents-loop-title">
-        <span class="contents-loop-video-shadow">
+        <span class="contents-loop-video">
+          <span class="contents-loop-video-shadow" :style="`box-shadow:0 20px 60px 10px ${currentProject.siteColor.shadowColor}`"></span>
           <span class="contents-loop-video-wrapper"
             ><video :src="`/movie/${currentProject.id}.mp4`" autoplay loop muted></video
           ></span>
@@ -11,7 +12,7 @@
           <AppCardBase
             :component-name="'WorksLinkContents'"
             :drag-animation="false"
-            :color="currentProject.siteColor.allTextColor"
+            :shadow-color="currentProject.siteColor.shadowColor"
             :external-link="currentProject.siteLink"
             :modifier="'works-contents-external'"
           />
@@ -208,7 +209,7 @@ export default {
   }
 }
 
-.contents-loop-video-shadow {
+.contents-loop-video {
   position: absolute;
   top: 8px;
   right: 0;
@@ -218,18 +219,17 @@ export default {
   height: vw(353);
   margin: auto;
   z-index: 10;
+}
 
-  &::before {
-    content: '';
+.contents-loop-video-shadow{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 20px 60px 10px #101237;
+    // box-shadow: 0 20px 60px 10px #101237;
     border-radius: 12px;
     opacity: 0.6;
-  }
 }
 
 .contents-loop-video-wrapper {

@@ -2,7 +2,7 @@
   <div class="works">
     <div
       class="works-bg"
-      :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`"
+      :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor};`"
     >
       <WorksMainVisualSection :current-project="currentProject" />
       <WorksProjectContentsSection :current-project="currentProject" />

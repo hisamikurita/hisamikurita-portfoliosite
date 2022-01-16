@@ -39,6 +39,7 @@
       />
       <CardWorksLinkContents
         v-if="componentName === 'WorksLinkContents'"
+        :shadow-color="shadowColor"
         :external-link="externalLink"
         :modifier="modifier"
         :state="state"
@@ -74,6 +75,10 @@ export default {
       required: true,
     },
     color: {
+      type: String,
+      default: '',
+    },
+    shadowColor: {
       type: String,
       default: '',
     },
@@ -351,17 +356,10 @@ export default {
     padding: 12px 8px;
     border-radius: 7px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-shadow: 0 20px 60px 10px #101237;
-      border-radius: 12px;
-      opacity: 0.6;
-    }
+    // &::before {
+    //   content: '';
+
+    // }
   }
 
   & .card-project-title-wrapper-01 {
@@ -393,5 +391,16 @@ export default {
     left: 0;
     font-size: 50px;
   }
+}
+
+.card-project-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 20px 60px 10px #101237;
+  border-radius: 12px;
+  opacity: 0.6;
 }
 </style>
