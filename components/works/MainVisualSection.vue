@@ -29,7 +29,7 @@
             </span>
             <span class="hero-title-wrapper-block">
               <span
-                v-for="index of Object.keys(currentProject.detailsMainText).length - 1"
+                v-for="index of Object.keys(currentProject.detailsMainTextPc).length - 1"
                 :key="index"
                 class="hero-title-wrapper"
                 :class="`hero-title-wrapper-0${index}`"
@@ -40,7 +40,7 @@
                   :rotate="
                     index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right
                   "
-                  :text="`${currentProject.detailsMainText['text0' + index]}`"
+                  :text="`${currentProject.detailsMainTextPc['text0' + index]}`"
                   :sp-animation="false"
                 />
               </span>
@@ -58,7 +58,7 @@
           </h1>
           <p class="hero-desc">
             <span
-              v-for="index of Object.keys(currentProject.detailsMainDesc).length - 1"
+              v-for="index of Object.keys(currentProject.detailsMainDescPc).length - 1"
               :key="index"
               class="hero-desc-wrapper"
               :class="`hero-desc-wrapper-0${index}`"
@@ -67,11 +67,51 @@
                 :state="isTextSegmentState"
                 :start="index * 0.12 + 0.84"
                 :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
-                :text="`${currentProject.detailsMainDesc['text0' + index]}`"
+                :text="`${currentProject.detailsMainDescPc['text0' + index]}`"
                 :sp-animation="false"
               />
             </span>
           </p>
+        </div>
+      </div>
+    </div>
+    <div class="sp-only">
+      <div class="hero-inner">
+        <div class="l-container">
+          <div class="hero-title-sp-area">
+            <h1 class="hero-title-sp">
+              <span class="hero-title-wrapper-block">
+                <span
+                  v-for="index of Object.keys(currentProject.detailsMainTextSp).length - 1"
+                  :key="index"
+                  class="hero-title-wrapper-sp"
+                  :class="`hero-title-wrapper-sp-0${index}`"
+                >
+                  {{currentProject.detailsMainTextSp['text0' + index]}}
+                </span>
+              </span>
+              <span class="hero-title-line">
+                <AppTextUnderline
+                  :state="isTextUnderlineState"
+                  :start="0.72"
+                  :color="currentProject.siteColor.mvTextColor"
+                  :origin="'left'"
+                  :sp-animation="false"
+                  :modifier="'works'"
+                />
+              </span>
+            </h1>
+            <p class="hero-desc-sp">
+              <span
+                v-for="index of Object.keys(currentProject.detailsMainDescSp).length - 1"
+                :key="index"
+                class="hero-desc-wrapper-sp"
+                :class="`hero-desc-wrapper-sp-0${index}`"
+              >
+                {{currentProject.detailsMainDescSp['text0' + index]}}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -110,6 +150,10 @@ export default {
   height: var(--viewportHeight, 100vh);
 }
 
+.hero-inner{
+  padding: 93px vw_sp(20);
+}
+
 .hero-img {
   position: absolute;
   top: 0;
@@ -136,7 +180,6 @@ export default {
   left: 80px;
   transform: translate3d(0, -50%, 0);
   width: vw(494);
-  color: $white;
   font-size: vw(80);
   font-family: $sixcaps;
   line-height: 1.04;
@@ -163,8 +206,31 @@ export default {
 }
 
 .hero-desc {
-  color: inherit;
   font-size: 12px;
+  font-family: $helvetica;
+}
+
+.hero-title-sp{
+  font-size: vw_sp(120);
+  font-family: $sixcaps;
+  line-height: 1.1;
+}
+
+.hero-title-wrapper-sp{
+  display: block;
+  white-space: nowrap;
+
+  &:first-of-type{
+    text-align: right;
+  }
+}
+
+.hero-desc-wrapper-sp{
+  display: block;
+}
+
+.hero-desc-sp{
+  font-size: 10px;
   font-family: $helvetica;
 }
 </style>

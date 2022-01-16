@@ -194,6 +194,8 @@ export default {
   },
 
   beforeDestroy() {
+    if (!this.spAnimation && this.$SITECONFIG.isMobile) return
+
     this.$gsap.ticker.remove(this.cardPallax)
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverAnimation.unobserve(this.observe)

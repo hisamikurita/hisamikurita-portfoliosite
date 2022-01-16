@@ -30,6 +30,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
+      // aboutページのみscrolltriggerのフレームレートを上げる
       const render = () => {
         this.raf = window.requestAnimationFrame(render)
         this.$ScrollTrigger.update()

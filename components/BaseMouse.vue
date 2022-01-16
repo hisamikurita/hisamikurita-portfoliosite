@@ -1,6 +1,6 @@
 <template>
   <div ref="Mouse" class="mouse">
-    <nuxt-img src="/images/mouse.png" quality="80" />
+    <nuxt-img src="/images/mouse.png" width="191" height="234" quality="80" />
   </div>
 </template>
 

@@ -2,7 +2,11 @@
   <div class="works">
     <div
       class="works-bg"
-      :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor};`"
+      :style="`
+      background-color:${currentProject.siteColor.bodyContentsColor};
+      color:${currentProject.siteColor.allTextColor};
+      border-color:${currentProject.siteColor.allTextColor};
+      `"
     >
       <WorksMainVisualSection :current-project="currentProject" />
       <WorksProjectContentsSection :current-project="currentProject" />
@@ -21,24 +25,22 @@ export default {
   name: 'Works',
 
   async asyncData({ $microcms, params }) {
-    const response = await $microcms.get({
+    const projectResponse = await $microcms.get({
       endpoint: `works`,
     })
 
-    const AllDataContents = response.contents
-
-    const index = AllDataContents.findIndex(
+    const index = projectResponse.contents.findIndex(
       (content) => content.id === params.slug
     )
-    const currentProject = AllDataContents[index]
+    const currentProject = projectResponse.contents[index]
     currentProject.index = index + 1
 
     let nextProject = null
 
-    if (index === AllDataContents.length - 1) {
-      nextProject = AllDataContents[0]
+    if (index === projectResponse.contents.length - 1) {
+      nextProject = projectResponse.contents[0]
     } else {
-      nextProject = AllDataContents[index + 1]
+      nextProject = projectResponse.contents[index + 1]
     }
 
     return { currentProject, nextProject }
