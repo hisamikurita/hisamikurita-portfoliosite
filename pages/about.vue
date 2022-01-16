@@ -3,47 +3,29 @@
     <AboutMainVisualSection />
     <AboutIntroSection />
     <AboutAwardSection
-      :award-data="awardData.contents"
-      :award-data-length="awardDataLength"
+      :award-data="getAwardData"
+      :award-data-length="getAwardDataLength"
     />
-    <AboutSelectProjectSideScrollSection :project-data="projectData.contents" />
+    <AboutSelectProjectSideScrollSection :project-data="getProjectData" />
   </div>
 </template>
 
 <script>
+import ImagesLoaded from 'imagesloaded'
+
 export default {
   name: 'About',
 
-  async asyncData({ $microcms }) {
-    const projectData = await $microcms.get({
-      endpoint: `works`,
-    })
-    const awardData = await $microcms.get({
-      endpoint: `award`,
-      queries: { limit: 30 },
-    })
-
-    let awwwwardsLength = 0
-    let cssdesignawardsLength = 0
-    let csswinnerLength = 0
-
-    awardData.contents.forEach((v) => {
-      if (v.group === 'AWWWARDS') {
-        awwwwardsLength++
-      } else if (v.group === 'CSS DESIGN AWARDS') {
-        cssdesignawardsLength++
-      } else if (v.group === 'CSS WINNER') {
-        csswinnerLength++
-      }
-    })
-
-    const awardDataLength = {
-      awwwwardsTotalLength: awwwwardsLength,
-      cssdesignawardsTotalLength: cssdesignawardsLength,
-      csswinnerTotalLength: csswinnerLength,
-    }
-
-    return { projectData, awardData, awardDataLength }
+  computed: {
+    getProjectData() {
+      return this.$store.getters.projectData
+    },
+    getAwardData() {
+      return this.$store.getters.awardData
+    },
+    getAwardDataLength() {
+      return this.$store.getters.awardDataLength
+    },
   },
 
   mounted() {
@@ -54,13 +36,19 @@ export default {
       }
       render()
 
-      this.$asscroll.enable({ reset: true })
+      const images = document.querySelectorAll('.about img')
+      const imagesLoaded = ImagesLoaded(images)
+      imagesLoaded.on('always', () => {
+        this.$asscroll.enable({ reset: true })
+        this.$store.commit('imageLoaded/loaded')
+      })
     })
   },
 
   beforeDestroy() {
-    window.cancelAnimationFrame(this.raf);
+    window.cancelAnimationFrame(this.raf)
     this.$asscroll.disable()
+    this.$store.commit('imageLoaded/init')
   },
 }
 </script>

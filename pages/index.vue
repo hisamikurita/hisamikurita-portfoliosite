@@ -4,44 +4,50 @@
       <IndexMainVisualSection />
       <IndexAboutSection />
     </div>
-    <IndexSelectProjectPickupSection
-      :pickup-data="pickupData"
-    />
+    <IndexSelectProjectPickupSection :pickup-data="getPickupData" />
     <IndexSelectProjectCardSection
-      :project-data="projectData.contents"
-      :pickup-end-data="pickupData[2]"
+      :project-data="getProjectData"
+      :pickup-end-data="getPickupData[2]"
     />
     <IndexContactSection
-      :project-data="projectData.contents"
-      :contact-data="contactData.contents"
+      :project-data="getProjectData"
+      :contact-data="getContactData"
     />
   </div>
 </template>
 
 <script>
+import ImagesLoaded from 'imagesloaded'
+
 export default {
   name: 'Index',
 
-  async asyncData({ $microcms }) {
-    const projectData = await $microcms.get({
-      endpoint: `works`,
-    })
-    const contactData = await $microcms.get({
-      endpoint: `contact`,
-    })
-    const pickupData = projectData.contents.filter((v) => v.pickup.pickupFlag)
-
-    return { projectData, pickupData, contactData }
+  computed: {
+    getProjectData() {
+      return this.$store.getters.projectData
+    },
+    getContactData() {
+      return this.$store.getters.contactData
+    },
+    getPickupData() {
+      return this.$store.getters.pickupData
+    },
   },
 
   mounted() {
     this.$nextTick(() => {
-      this.$asscroll.enable({ reset: true })
+      const images = document.querySelectorAll('.index img')
+      const imagesLoaded = ImagesLoaded(images)
+      imagesLoaded.on('always', () => {
+        this.$asscroll.enable({ reset: true })
+        this.$store.commit('imageLoaded/loaded')
+      })
     })
   },
 
   beforeDestroy() {
     this.$asscroll.disable()
+    this.$store.commit('imageLoaded/init')
   },
 }
 </script>

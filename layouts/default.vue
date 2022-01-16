@@ -100,7 +100,7 @@ export default {
   }
 }
 
-.asscroll{
+.asscroll {
   will-change: transform;
 }
 </style>

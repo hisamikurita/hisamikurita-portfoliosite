@@ -1,7 +1,10 @@
 <template>
   <div
     class="hambergerMenu"
-    :class="{ 'is-disable': hambergerMenuDisable, 'is-open': hambergerMenuState }"
+    :class="{
+      'is-disable': hambergerMenuDisable,
+      'is-open': hambergerMenuState,
+    }"
   >
     <span ref="HambergerMenuOverlay01" class="hambergerMenu-overlay-01"></span>
     <span ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
@@ -44,7 +47,7 @@
         <div>
           <ul class="hambergerMenu-list">
             <li
-              v-for="data in projectData"
+              v-for="data in getProjectData"
               :key="data.id"
               class="hambergerMenu-item"
             >
@@ -64,7 +67,7 @@
                         :width="`${data.hambergerMenuImg.width}`"
                         :height="`${data.hambergerMenuImg.height}`"
                         type="image/webp"
-                      >
+                      />
                       <img
                         :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=50`"
                         :width="`${data.hambergerMenuImg.width}`"
@@ -107,8 +110,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data: () => {
     return {
@@ -122,6 +123,9 @@ export default {
     },
     hambergerMenuDisable() {
       return this.$store.getters['hambergerMenu/disable']
+    },
+    getProjectData() {
+      return this.$store.getters.projectData
     },
   },
   watch: {
@@ -487,9 +491,6 @@ export default {
       }
     },
   },
-  mounted() {
-    this.getData()
-  },
   methods: {
     hambergerMenuOnClick() {
       /**
@@ -510,15 +511,6 @@ export default {
       if (this.$route.name === root || this.$route.params.slug) {
         this.$store.commit('hambergerMenu/close')
       }
-    },
-    async getData() {
-      const response = await axios.get(
-        `https://${process.env.serviceDomain}.microcms.io/api/v1/works`,
-        {
-          headers: { 'X-MICROCMS-API-KEY': process.env.apiKey },
-        }
-      )
-      this.projectData = response.data.contents
     },
   },
 }

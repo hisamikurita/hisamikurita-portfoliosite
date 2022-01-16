@@ -226,9 +226,15 @@ export default {
     }
   },
 
-  mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
+  computed: {
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    imageLoaded: function () {
+      if (this.imageLoaded) {
         /**
          * タイムライン
          */
@@ -268,8 +274,8 @@ export default {
         )
 
         this.scrollFix()
-      })
-    }, 100)
+      }
+    },
   },
 
   beforeDestroy() {
@@ -479,6 +485,7 @@ export default {
   transform: translate(vw(-48), vw(8));
   opacity: 0;
   pointer-events: none;
+  will-change: width, height;
 
   @include sp() {
     width: vw_sp(81);

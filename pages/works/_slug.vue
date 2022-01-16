@@ -1,12 +1,11 @@
 <template>
   <div class="works">
-    <div class="works-bg" :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`">
-      <WorksMainVisualSection
-        :current-project="currentProject"
-      />
-      <WorksProjectContentsSection
-        :current-project="currentProject"
-      />
+    <div
+      class="works-bg"
+      :style="`background-color:${currentProject.siteColor.bodyContentsColor};color:${currentProject.siteColor.allTextColor};border-color:${currentProject.siteColor.allTextColor}`"
+    >
+      <WorksMainVisualSection :current-project="currentProject" />
+      <WorksProjectContentsSection :current-project="currentProject" />
       <WorksNextProjectSection
         :current-project="currentProject"
         :next-project="nextProject"
@@ -16,6 +15,8 @@
 </template>
 
 <script>
+import ImagesLoaded from 'imagesloaded'
+
 export default {
   name: 'Works',
 
@@ -45,12 +46,18 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      this.$asscroll.enable({ reset: true })
+      const images = document.querySelectorAll('.works img')
+      const imagesLoaded = ImagesLoaded(images)
+      imagesLoaded.on('always', () => {
+        this.$asscroll.enable({ reset: true })
+        this.$store.commit('imageLoaded/loaded')
+      })
     })
   },
 
   beforeDestroy() {
     this.$asscroll.disable()
+    this.$store.commit('imageLoaded/init')
   },
 }
 </script>

@@ -71,9 +71,11 @@
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
-                        <NuxtLink :to="`/works/${data.id}`" class="project-link">{{
-                          data.title.full
-                        }}</NuxtLink>
+                        <NuxtLink
+                          :to="`/works/${data.id}`"
+                          class="project-link"
+                          >{{ data.title.full }}</NuxtLink
+                        >
                       </span>
                     </div>
                   </div>
@@ -106,19 +108,16 @@ export default {
       isTextAnimationState: false,
     }
   },
-  mounted() {
-    this.wrapper = this.$refs.ProjectItemWrapperRotate
-    this.text = this.$refs.ProjectItemWrapperTranslate
-    this.$gsap.set(this.wrapper, {
-      rotate: 3,
-      transformOrigin: 'left',
-    })
-    this.$gsap.set(this.text, {
-      yPercent: 103.8,
-    })
 
-    this.$nextTick(() => {
-      setTimeout(() => {
+  computed: {
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    imageLoaded: function () {
+      if (this.imageLoaded) {
         this.scrollFix()
 
         this.$gsap.to(
@@ -148,7 +147,19 @@ export default {
             },
           }
         )
-      }, 100)
+      }
+    },
+  },
+
+  mounted() {
+    this.wrapper = this.$refs.ProjectItemWrapperRotate
+    this.text = this.$refs.ProjectItemWrapperTranslate
+    this.$gsap.set(this.wrapper, {
+      rotate: 3,
+      transformOrigin: 'left',
+    })
+    this.$gsap.set(this.text, {
+      yPercent: 103.8,
     })
   },
 
@@ -314,6 +325,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:root {
+  --viewportWidth: 0;
+  --viewportHeight: 0;
+}
+
 .project {
   position: relative;
   height: 3500px;
@@ -326,7 +342,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--viewportHeight) !important;
+  height: var(--viewportHeight, 100vh) !important;
   background-color: $darkBlack;
 }
 
