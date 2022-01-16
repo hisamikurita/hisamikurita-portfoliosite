@@ -29,11 +29,11 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/viewport.client.js',
-    '~/plugins/backfaceFixed.client.js',
-    '~/plugins/hambergerMenu.client.js',
-    '~/plugins/siteConfig.client.js',
-    '~/plugins/mixin.js',
+    '~/plugins/backface-fixed.client.js',
+    '~/plugins/hamberger-menu.client.js',
+    '~/plugins/config.client.js',
     '~/plugins/asscroll-and-gsap.client.js',
+    '~/plugins/constants.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
