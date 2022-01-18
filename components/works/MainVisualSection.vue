@@ -80,7 +80,7 @@
         <div class="l-container">
           <div class="hero-title-sp-area">
             <h1 class="hero-title-sp">
-              <span class="hero-title-wrapper-block">
+              <span class="hero-title-wrapper-block-sp">
                 <span
                   v-for="index of Object.keys(currentProject.detailsMainTextSp).length - 1"
                   :key="index"
@@ -89,16 +89,6 @@
                 >
                   {{currentProject.detailsMainTextSp['text0' + index]}}
                 </span>
-              </span>
-              <span class="hero-title-line">
-                <AppTextUnderline
-                  :state="isTextUnderlineState"
-                  :start="0.72"
-                  :color="currentProject.siteColor.mvTextColor"
-                  :origin="'left'"
-                  :sp-animation="false"
-                  :modifier="'works'"
-                />
               </span>
             </h1>
             <p class="hero-desc-sp">
@@ -151,7 +141,7 @@ export default {
 }
 
 .hero-inner{
-  padding: 93px vw_sp(20);
+  padding: 93px vw_sp(20) 163px;
 }
 
 .hero-img {
@@ -211,9 +201,16 @@ export default {
 }
 
 .hero-title-sp{
+  margin: 0 0 23px 0;
   font-size: vw_sp(120);
   font-family: $sixcaps;
   line-height: 1.1;
+  border-bottom: solid 1px;
+}
+
+.hero-title-wrapper-block-sp{
+  display: block;
+  margin: 0 0 26px 0;
 }
 
 .hero-title-wrapper-sp{
@@ -232,5 +229,6 @@ export default {
 .hero-desc-sp{
   font-size: 10px;
   font-family: $helvetica;
+  line-height: 1.21;
 }
 </style>

@@ -1,6 +1,14 @@
 <template>
-  <span class="cmn-title-read-text-wrapper" :class="`cmn-title-read-text-wrapper--${modifier}`">
-    <span v-for="(char, index) of text" :key="index" class="cmn-title-read-text" :class="`cmn-title-read-text-0${index}`">
+  <span
+    class="cmn-title-read-text-wrapper"
+    :class="`cmn-title-read-text-wrapper--${modifier}`"
+  >
+    <span
+      v-for="(char, index) of text"
+      :key="index"
+      class="cmn-title-read-text"
+      :class="`cmn-title-read-text-0${index}`"
+    >
       <AppTextSegment
         :state="state"
         :start="start + index * 0.12"
@@ -40,27 +48,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.cmn-title-read-text-wrapper{
+.cmn-title-read-text-wrapper {
   display: block;
   font-size: 12px;
   font-family: $helvetica;
   letter-spacing: 0.02em;
   line-height: 1.04;
 
-  @include sp(){
+  @include sp() {
     font-size: 10px;
   }
 }
 
 //modifier
 
-.cmn-title-read-text-wrapper--section{
-  & .cmn-title-read-text-00{
+.cmn-title-read-text-wrapper--section {
+  & .cmn-title-read-text-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       display: inline-block;
       margin: 0 0 0 -4.5px;
       font-size: 28px;
@@ -69,15 +77,15 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--project-section{
-  & .cmn-title-read-text-00{
+.cmn-title-read-text-wrapper--project-section {
+  & .cmn-title-read-text-00 {
     position: relative;
     right: -6px;
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       font-size: 28px;
       text-indent: 0;
       line-height: 1;
@@ -85,7 +93,7 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--pickup-section{
+.cmn-title-read-text-wrapper--pickup-section {
   font-size: 14px;
   text-align: right;
 
@@ -93,13 +101,13 @@ export default {
     font-size: 10px;
   }
 
-  & .cmn-title-read-text-00{
+  & .cmn-title-read-text-00 {
     position: relative;
     left: 4px;
     font-size: 36px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       font-size: 28px;
       text-indent: 0;
       line-height: 0.86;
@@ -107,37 +115,37 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--contact-section{
-  & .cmn-title-read-text-00{
+.cmn-title-read-text-wrapper--contact-section {
+  & .cmn-title-read-text-00 {
     display: block;
     margin: 0 0 6px 0;
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.8;
 
-    @include sp(){
+    @include sp() {
       margin: 0 0 3px 0;
       font-size: 28px;
       text-indent: -1.5px;
     }
   }
 
-  & .cmn-title-read-text-01{
+  & .cmn-title-read-text-01 {
     font-size: 20px;
 
-    @include sp(){
+    @include sp() {
       font-size: 10px;
     }
   }
 }
 
-.cmn-title-read-text-wrapper--award-section{
-  & .cmn-title-read-text-00{
+.cmn-title-read-text-wrapper--award-section {
+  & .cmn-title-read-text-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       display: inline-block;
       margin: 0 0 0 -4.5px;
       font-size: 28px;
@@ -145,24 +153,24 @@ export default {
     }
   }
 
-  & .cmn-title-read-text-01{
+  & .cmn-title-read-text-01 {
     font-size: 14px;
 
-    @include sp(){
+    @include sp() {
       font-size: 10px;
     }
   }
 }
 
-.cmn-title-read-text-wrapper--about-project-section{
+.cmn-title-read-text-wrapper--about-project-section {
   color: $black;
 
-  & .cmn-title-read-text-00{
+  & .cmn-title-read-text-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       display: inline-block;
       margin: 0 0 0 -4.5px;
       font-size: 28px;
@@ -170,30 +178,35 @@ export default {
     }
   }
 
-  & .cmn-title-read-text-01,& .cmn-title-read-text-02{
+  & .cmn-title-read-text-01,
+  & .cmn-title-read-text-02 {
     font-size: 14px;
 
-    @include sp(){
+    @include sp() {
       font-size: 10px;
     }
   }
 }
 
-.cmn-title-read-text-wrapper--works-section{
+.cmn-title-read-text-wrapper--works-section {
   font-size: 14px;
 
-  & .cmn-title-read-text-00{
+  @include sp() {
+    font-size: 10px;
+    line-height: 1.1;
+  }
+
+  & .cmn-title-read-text-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
 
-    @include sp(){
+    @include sp() {
       display: inline-block;
       margin: 0 0 0 -4.5px;
-      font-size: 28px;
+      font-size: 26px;
       text-indent: 0;
     }
   }
 }
-
 </style>

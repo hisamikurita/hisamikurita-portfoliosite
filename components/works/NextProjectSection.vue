@@ -122,6 +122,10 @@ export default {
 .next-inner {
   width: 100%;
   padding: 0 160px 0 40px;
+
+  @include sp() {
+    padding: 0 vw_sp(20);
+  }
 }
 
 .next-contents {
@@ -130,6 +134,10 @@ export default {
 
 .next-title-read-area {
   margin: 0 0 34px 0;
+
+  @include sp() {
+  margin: 0 0 36px 0;
+  }
 }
 
 .next-loop-title-wrapper {
@@ -142,6 +150,7 @@ export default {
   font-family: $sixcaps;
 
   @include sp() {
+    height: vw_sp(202);
     font-size: vw_sp(160);
   }
 }

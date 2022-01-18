@@ -161,8 +161,8 @@ export default {
   width: calc(100%);
 
   @include sp() {
-    left: 20px;
-    width: calc(100% - 40px);
+    left: 0;
+    width: 100%;
   }
 }
 
@@ -173,8 +173,8 @@ export default {
   width: calc(100%);
 
   @include sp() {
-    left: 20px;
-    width: calc(100% - 40px);
+    left: 0;
+    width: 100%;
   }
 }
 </style>
