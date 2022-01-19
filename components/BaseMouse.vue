@@ -64,7 +64,7 @@ export default {
     }
 
     if (this.$SITECONFIG.isTouch) {
-      this.$refs.Mouse.style.display = 'none'
+      this.$refs.MouseArea.style.display = 'none'
     }
   },
 }

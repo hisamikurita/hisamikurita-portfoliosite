@@ -99,8 +99,4 @@ export default {
     display: none;
   }
 }
-
-.asscroll {
-  will-change: transform;
-}
 </style>

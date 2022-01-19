@@ -135,10 +135,11 @@
               :subtitle="'(VISIT SITE)'"
               :link="'https://liginc.co.jp'"
               :text="[
-                'LOREM IPSUM DOLOR SIT',
-                'AMET, CONSECTETUR',
-                'ADIPISCING ELIT, SED DO',
-                'EIUSMOD TEMPOR INCIDI'
+                'WEB PRODUCTION,',
+                'SYSTEM DEVELOPMENT,',
+                'MARKETING SUPPORT,',
+                'WEB CREATOR SCHOOL,',
+                'WERE ROLLING IT OUT.',
               ]"
               :rotate="8"
               :xspeed="0.01"
@@ -152,7 +153,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data: () => {

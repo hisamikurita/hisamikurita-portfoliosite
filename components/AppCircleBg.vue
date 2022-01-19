@@ -67,10 +67,15 @@ export default {
   height: 142vmax;
   pointer-events: none;
 
+    @include tab() {
+    width: 150vmax;
+    height: 150vmax;
+  }
+
   @include sp() {
     left: 50%;
-    width: 120vmax;
-    height: 120vmax;
+    width: 140vmax;
+    height: 140vmax;
   }
 }
 

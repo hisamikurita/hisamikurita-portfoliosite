@@ -139,7 +139,7 @@
           </span>
           <span class="intro-note">
             <span class="pc-only">
-              <AppTextSegment
+              <!-- <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="$BASEROTATE.right"
                 :text="'LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
@@ -151,7 +151,8 @@
                 :rotate="$BASEROTATE.left"
                 :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
                 :sp-animation="false"
-              />
+              /> -->
+              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UTENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR
             </span>
             <span class="sp-only">
               <span class="intro-note-wrapper intro-note-wrapper-sp-01">
@@ -235,6 +236,8 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
+        this.scrollFix()
+
         /**
          * タイムライン
          */
@@ -272,8 +275,6 @@ export default {
             },
           }
         )
-
-        this.scrollFix()
       }
     },
   },
@@ -302,11 +303,11 @@ export default {
         },
       })
 
-      if (this.$SITECONFIG.isTouch) {
-        this.$gsap.set(this.$refs.IntroWrapper, {
-          zIndex: -1,
-        })
-      }
+      // if (this.$SITECONFIG.isTouch) {
+      //   this.$gsap.set(this.$refs.IntroWrapper, {
+      //     zIndex: -1,
+      //   })
+      // }
     },
 
     scrollTl() {
@@ -444,7 +445,6 @@ export default {
   left: 0;
   width: 100%;
   height: var(--viewportHeight, 100vh) !important;
-  // z-index: -1;
 }
 
 .intro-read-text {
@@ -546,9 +546,11 @@ export default {
 .intro-note {
   position: absolute;
   bottom: 34px;
+  right: 158px;
   left: 40px;
   color: $gold;
   font-size: 12px;
+  text-indent: 180px;
   line-height: 1.2;
   letter-spacing: 0.02em;
 
