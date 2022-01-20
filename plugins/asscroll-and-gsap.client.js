@@ -17,6 +17,21 @@ const EASING = {
   colorAndOpacity: CustomEase.create('colorAndOpacity', 'M0,0 C0.26,0.16 0.1,1 1,1 '),
 }
 
+const fixSection = (trigger, deveice, height) => {
+  return gsap.to(trigger, {
+    ease: 'none',
+    scrollTrigger: {
+      pin: true,
+      pinType: deveice ? 'fixed' : 'transform',
+      trigger: trigger,
+      start: 'start end',
+      end: () => `+=${height - window.innerHeight}px`,
+      scrub: true,
+      invalidateOnRefresh: true,
+    },
+  })
+}
+
 ScrollTrigger.defaults({
   scroller: asscroll.containerElement
 })
@@ -41,4 +56,5 @@ export default (context, inject) => {
   inject('ScrollTrigger', ScrollTrigger);
   inject('Draggable', Draggable);
   inject('EASING', EASING);
+  inject('fixSection', fixSection);
 }

@@ -118,13 +118,49 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.scrollFix()
+        console.log('発火sidescroll')
+        this.fixSection = this.$fixSection(
+          this.$refs.ProjectWrapper,
+          this.$SITECONFIG.isTouch,
+          3500
+        )
+        console.log(this.fixSection)
 
-        this.$gsap.to(
+        this.synchronousScroll = this.$gsap.fromTo(
+          this.$refs.ProjectList,
+          {
+            x: window.innerWidth - 80,
+          },
+          {
+            x: () =>
+              -(
+                this.$refs.ProjectList.clientWidth -
+                this.$refs.ProjectWrapper.clientWidth +
+                80 +
+                120 +
+                80
+              ),
+            ease: 'none',
+            scrollTrigger: {
+              start: 'center center',
+              end: () => `+=${3500 - window.innerHeight}px`,
+              trigger: this.$refs.ProjectWrapper,
+              scrub: 0.8,
+              invalidateOnRefresh: true,
+            },
+          }
+        )
+
+        // setTimeout(() => {
+          this.synchronousScroll.scrollTrigger.refresh()
+          this.fixSection.scrollTrigger.refresh()
+
+            this.$gsap.to(
           {},
           {
             scrollTrigger: {
               once: true,
+              // start: 'start end',
               trigger: this.$refs.ProjectWrapper,
               onEnter: () => {
                 this.$gsap.to(this.wrapper, {
@@ -147,6 +183,9 @@ export default {
             },
           }
         )
+        // }, 1000)
+
+      
       }
     },
   },
@@ -164,52 +203,11 @@ export default {
   },
 
   beforeDestroy() {
-    this.fixSec.kill()
-    this.tl.kill()
+    this.fixSection.kill()
+    this.synchronousScroll.kill()
   },
 
   methods: {
-    scrollFix() {
-      this.tl = this.$gsap.fromTo(
-        this.$refs.ProjectList,
-        {
-          x: window.innerWidth - 80,
-        },
-        {
-          x: () =>
-            -(
-              this.$refs.ProjectList.clientWidth -
-              this.$refs.ProjectWrapper.clientWidth +
-              80 +
-              120 +
-              80
-            ),
-          ease: 'none',
-          scrollTrigger: {
-            start: 'center center',
-            end: () => `+=${3500 - window.innerHeight}px`,
-            trigger: this.$refs.ProjectWrapper,
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-          },
-        }
-      )
-      /**
-       * セクション固定
-       */
-      this.fixSec = this.$gsap.to(this.$refs.ProjectWrapper, {
-        ease: 'none',
-        scrollTrigger: {
-          pin: true,
-          pinType: this.$SITECONFIG.isTouch ? 'fixed' : 'transform',
-          trigger: this.$refs.ProjectWrapper,
-          start: 'end',
-          end: () => `+=${5000 - window.innerHeight}px`,
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      })
-    },
     onMouseEnter(e) {
       const nextTarget = this.NextAll(e.target)
       const prevTarget = this.PrevAll(e.target)
@@ -342,17 +340,26 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--viewportHeight, 100vh) !important;
+  height: 100vh;
+  // height: var(--viewportHeight, 100vh) !important;
   background-color: $darkBlack;
 }
 
 .project-inner {
   width: 100%;
   padding: 0 160px 0 40px;
+
+  @include sp() {
+    padding: 0;
+  }
 }
 
 .project-contents {
   margin: -90px 0 0 0;
+
+  @include sp() {
+    margin: 0;
+  }
 }
 
 .project-title-read-area {
@@ -390,6 +397,10 @@ export default {
   font-size: vw(140);
   font-family: $sixcaps;
   white-space: nowrap;
+
+  @include sp() {
+    font-size: vw_sp(160);
+  }
 
   &:not(:last-of-type) {
     margin: 0 vw(100) 0 0;

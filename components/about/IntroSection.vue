@@ -152,7 +152,10 @@
                 :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
                 :sp-animation="false"
               /> -->
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UTENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR
+              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED
+              DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA.
+              UTENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
+              NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR
             </span>
             <span class="sp-only">
               <span class="intro-note-wrapper intro-note-wrapper-sp-01">
@@ -236,7 +239,12 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.scrollFix()
+        console.log('発火intro')
+        this.fixSection = this.$fixSection(
+          this.$refs.IntroWrapper,
+          this.$SITECONFIG.isTouch,
+          5500
+        )
 
         /**
          * タイムライン
@@ -280,36 +288,12 @@ export default {
   },
 
   beforeDestroy() {
-    this.fixSec.kill()
+    this.fixSection.kill()
     this.tl.kill()
     this.IntroImgAnimation.kill()
   },
 
   methods: {
-    scrollFix() {
-      /**
-       * セクション固定
-       */
-      this.fixSec = this.$gsap.to(this.$refs.IntroWrapper, {
-        ease: 'none',
-        scrollTrigger: {
-          pin: true,
-          pinType: this.$SITECONFIG.isTouch ? 'fixed' : 'transform',
-          trigger: this.$refs.IntroWrapper,
-          start: 'end',
-          end: () => `+=${5500 - window.innerHeight}px`,
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      })
-
-      // if (this.$SITECONFIG.isTouch) {
-      //   this.$gsap.set(this.$refs.IntroWrapper, {
-      //     zIndex: -1,
-      //   })
-      // }
-    },
-
     scrollTl() {
       const textInit = this.$SITECONFIG.isPc ? vw(1280) : vwSp(750)
       const textMove = this.$SITECONFIG.isPc
@@ -444,7 +428,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--viewportHeight, 100vh) !important;
+  height: 100vh;
+  // height: var(--viewportHeight, 100vh) !important;
 }
 
 .intro-read-text {

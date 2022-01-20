@@ -42,6 +42,7 @@ export default {
       imagesLoaded.on('always', () => {
         this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
+        console.log('発火1')
       })
     })
   },
