@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <div class="test"></div> -->
     <BaseMouse />
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
@@ -99,4 +100,14 @@ export default {
     display: none;
   }
 }
+
+// .test{
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: url('~static/images/codepen-01.png') no-repeat center / cover;
+//   z-index: 100;
+// }
 </style>

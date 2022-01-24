@@ -1,5 +1,6 @@
 <template>
   <div ref="Hero" class="hero">
+    <div ref="HeroCanvas" class="hero-canvas"></div>
     <div class="hero-inner">
       <div class="l-container">
         <h1 class="hero-title">
@@ -7,12 +8,7 @@
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :text="[
-                  '・',
-                  'ABOUT',
-                  'ABOUTABOUTABOUTABOUT',
-                  'ABOUT',
-                ]"
+                :text="['・', 'ABOUT', 'ABOUTABOUTABOUTABOUT', 'ABOUT']"
                 :sp-animation="false"
                 :modifier="'section'"
               />
@@ -130,7 +126,7 @@
           <span class="hero-card-item">
             <AppCardBase
               :component-name="'CompanyContents'"
-              :name="['・','LIG INC']"
+              :name="['・', 'LIG INC']"
               :title="'LIG INC.'"
               :subtitle="'(VISIT SITE)'"
               :link="'https://liginc.co.jp'"
@@ -154,6 +150,9 @@
   </div>
 </template>
 <script>
+import Mesh from '../canvas/about/mv'
+import Stage from '../canvas/stage'
+
 export default {
   data: () => {
     return {
@@ -163,6 +162,28 @@ export default {
     }
   },
   mounted() {
+    const stage = new Stage(this.$refs.HeroCanvas)
+    stage.init()
+
+    const mesh = new Mesh(stage)
+    mesh.init()
+
+    window.addEventListener('resize', () => {
+      mesh.onResize()
+      stage.onResize()
+    })
+
+    const _raf = () => {
+      window.requestAnimationFrame(() => {
+        _raf()
+
+        stage.onRaf()
+        mesh.onRaf()
+      })
+    }
+
+    _raf()
+
     this.isTextSegmentState = 'center'
     this.isTextUnderlineState = 'extend'
   },
@@ -170,15 +191,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.hero{
+.hero {
   position: relative;
   z-index: 1;
+}
+
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
 }
 
 .hero-inner {
   padding: 92px 0 333px;
 
-  @include sp(){
+  @include sp() {
     padding: 106px 0 148px;
   }
 }
@@ -190,7 +220,7 @@ export default {
   font-family: $sixcaps;
   letter-spacing: -0.002em;
 
-  @include sp(){
+  @include sp() {
     font-size: vw_sp(220);
   }
 }
@@ -201,11 +231,11 @@ export default {
   left: 40px;
 }
 
-.hero-title-wrapper{
+.hero-title-wrapper {
   display: block;
   position: relative;
 
-  @include sp(){
+  @include sp() {
     display: flex;
     justify-content: space-between;
     margin: 0 auto 18px;
@@ -214,12 +244,12 @@ export default {
   }
 }
 
-.hero-title-wrapper-01{
+.hero-title-wrapper-01 {
   width: vw(450);
   margin: 0 0 24px vw(310);
 }
 
-.hero-title-wrapper-02{
+.hero-title-wrapper-02 {
   display: flex;
   justify-content: space-between;
   width: vw(987);
@@ -227,42 +257,42 @@ export default {
   padding: 0 26px 0 34px;
 }
 
-.hero-title-wrapper-03{
+.hero-title-wrapper-03 {
   display: flex;
   justify-content: space-between;
   width: vw(860);
   margin: 0 0 24px vw(112);
 }
 
-.hero-title-wrapper-04{
+.hero-title-wrapper-04 {
   width: vw(1077);
 }
 
-.hero-title-wrapper-01-sp{
+.hero-title-wrapper-01-sp {
   width: vw_sp(550);
 }
 
-.hero-title-wrapper-02-sp{
+.hero-title-wrapper-02-sp {
   width: vw_sp(670);
 }
 
-.hero-title-wrapper-03-sp{
+.hero-title-wrapper-03-sp {
   width: vw_sp(590);
 }
 
-.hero-title-wrapper-04-sp{
+.hero-title-wrapper-04-sp {
   width: vw_sp(670);
 }
 
-.hero-title-wrapper-05-sp{
+.hero-title-wrapper-05-sp {
   width: vw_sp(573);
 }
 
-.hero-title-wrapper-06-sp{
+.hero-title-wrapper-06-sp {
   width: vw_sp(452);
 }
 
-.hero-text-underline{
+.hero-text-underline {
   position: absolute;
   top: -7px;
   left: 0;
@@ -271,7 +301,7 @@ export default {
   height: 1px;
 }
 
-.hero-card-item{
+.hero-card-item {
   position: absolute;
   top: 82.8%;
   left: 33%;

@@ -23,7 +23,8 @@
     "gsap": "^3.7.1",
     "nuxt": "^2.15.8",
     "nuxt-microcms-module": "^2.0.0",
-    "nuxt-webfontloader": "^1.1.0"
+    "nuxt-webfontloader": "^1.1.0",
+    "three": "^0.136.0"
   },
   "devDependencies": {
     "@aceforth/nuxt-optimized-images": "^1.4.0",
@@ -40,12 +41,14 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.12.1",
     "fibers": "^5.0.0",
+    "glslify-loader": "^2.0.0",
     "husky": "^6.0.0",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagesloaded": "^4.1.4",
     "lint-staged": "^10.5.4",
     "prettier": "^2.3.2",
+    "raw-loader": "^4.0.2",
     "sass": "^1.39.0",
     "sass-loader": "^10.2.0",
     "stylelint": "^13.13.1",

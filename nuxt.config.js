@@ -10,15 +10,28 @@ export default {
     htmlAttrs: {
       lang: 'en'
     },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'robots', name: 'robots', content: 'noindex' },
-      { name: 'format-detection', content: 'telephone=no' }
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'robots',
+        name: 'robots',
+        content: 'noindex'
+      },
+      {
+        name: 'format-detection',
+        content: 'telephone=no'
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -83,19 +96,30 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: [
+      'three'
+    ],
+    extend(config) {
+      config.module.rules.push({
+        test: /\.(glsl|vs|fs|vert|frag)$/,
+        exclude: /node_modules/,
+        use: ['raw-loader', 'glslify-loader']
+      })
+    },
   },
 
   generate: {
     async routes() {
       const pages = await axios
         .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=100`, {
-          headers: { 'X-MICROCMS-API-KEY': process.env.API_KEY }
+          headers: {
+            'X-MICROCMS-API-KEY': process.env.API_KEY
+          }
         })
         .then((res) =>
-          res.data.contents.map((content) => (
-            {
-              route: `works/${content.id}`,
-            }))
+          res.data.contents.map((content) => ({
+            route: `works/${content.id}`,
+          }))
         )
       return pages
     }
