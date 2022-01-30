@@ -1,6 +1,9 @@
 <template>
   <div ref="Project" class="project">
     <div ref="ProjectWrapper" class="project-wrapper">
+      <div class="project-canvas">
+        <canvas ref="Canvas"></canvas>
+      </div>
       <AppCircleBg
         ref="IntroCircleBg"
         :state="isCircleBgState"
@@ -90,6 +93,7 @@
 </template>
 
 <script>
+import Particle from '../canvas/about/sidescroll/particle'
 import { vw } from '../../assets/js/vw'
 
 export default {
@@ -118,13 +122,11 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        console.log('発火sidescroll')
         this.fixSection = this.$fixSection(
           this.$refs.ProjectWrapper,
           this.$SITECONFIG.isTouch,
           3500
         )
-        console.log(this.fixSection)
 
         this.synchronousScroll = this.$gsap.fromTo(
           this.$refs.ProjectList,
@@ -152,10 +154,10 @@ export default {
         )
 
         // setTimeout(() => {
-          this.synchronousScroll.scrollTrigger.refresh()
-          this.fixSection.scrollTrigger.refresh()
+        this.synchronousScroll.scrollTrigger.refresh()
+        this.fixSection.scrollTrigger.refresh()
 
-            this.$gsap.to(
+        this.$gsap.to(
           {},
           {
             scrollTrigger: {
@@ -184,8 +186,6 @@ export default {
           }
         )
         // }, 1000)
-
-      
       }
     },
   },
@@ -200,11 +200,45 @@ export default {
     this.$gsap.set(this.text, {
       yPercent: 103.8,
     })
+
+    const particle = new Particle(this.$refs.Canvas)
+    particle.init()
+
+    const tweenPosition = {
+      value: 0,
+    }
+
+    const raf = () => {
+      this.$gsap.to(tweenPosition, {
+        duration: 1.0,
+        ease: 'none',
+        value: this.$asscroll.currentPos,
+      })
+      particle._drawParticles(this.$asscroll.currentPos,tweenPosition.value)
+    }
+    this.$gsap.ticker.add(raf)
+
+    this.observe = this.$refs.ProjectWrapper
+    this.iObserver =new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+                this.$gsap.ticker.add(raf)
+          }
+          else{
+                this.$gsap.ticker.remove(raf)
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    this.iObserver.observe(this.observe)
   },
 
   beforeDestroy() {
     this.fixSection.kill()
     this.synchronousScroll.kill()
+    this.iObserver.unobserve(this.observe)
   },
 
   methods: {
@@ -345,9 +379,27 @@ export default {
   background-color: $darkBlack;
 }
 
+.project-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  & canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .project-inner {
+  position: relative;
   width: 100%;
   padding: 0 160px 0 40px;
+  z-index: 1;
 
   @include sp() {
     padding: 0;

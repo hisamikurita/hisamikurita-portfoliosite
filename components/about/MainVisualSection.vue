@@ -150,7 +150,7 @@
   </div>
 </template>
 <script>
-import Mesh from '../canvas/about/mv'
+import Mesh from '../canvas/about/mainvisual/mv'
 import Stage from '../canvas/stage'
 
 export default {
@@ -203,6 +203,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
+  pointer-events: none;
 }
 
 .hero-inner {
