@@ -8,7 +8,7 @@
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :text="['・', 'ABOUT', 'ABOUTABOUTABOUTABOUT', 'ABOUT']"
+                :text="['・', 'MYSKILL', 'HTML/CSS/JAVASCRIPT', 'VUE/NUXT/THREE.JS']"
                 :sp-animation="false"
                 :modifier="'section'"
               />

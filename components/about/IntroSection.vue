@@ -29,7 +29,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :rotate="$BASEROTATE.right"
-                  :text="'LOREM IPSUM DOLOR SITA'"
+                  :text="'HI, I WORK FULL REMOTE'"
                   :sp-animation="false"
                 />
               </span>
@@ -38,7 +38,7 @@
                   :state="isTextSegmentState"
                   :start="0.12"
                   :rotate="$BASEROTATE.left"
-                  :text="'MET, CONSECTETUR ADIPISCINGELIT, L'"
+                  :text="'DURING THE WEEK, BUT I ALSO DO CREA'"
                   :sp-animation="false"
                 />
               </span>
@@ -47,7 +47,7 @@
                   :state="isTextSegmentState"
                   :start="0.24"
                   :rotate="$BASEROTATE.right"
-                  :text="'OREM IPSUM DOLOR SIT AMET, CONSE'"
+                  :text="'TIVE CODING AS A HOBBY ON MY DAYS O'"
                   :sp-animation="false"
                 />
               </span>
@@ -56,7 +56,7 @@
                   :state="isTextSegmentState"
                   :start="0.36"
                   :rotate="$BASEROTATE.left"
-                  :text="'CTETUR ADIPISCING ELIT, LOREM IPSU'"
+                  :text="'FF. OTHER THAN THAT, I PLAY ANIME AND'"
                   :sp-animation="false"
                 />
               </span>
@@ -65,7 +65,7 @@
                   :state="isTextSegmentState"
                   :start="0.48"
                   :rotate="$BASEROTATE.right"
-                  :text="'M DOLOR SIT AMET.'"
+                  :text="'GAMES. MY SPECIAL SKILL IS GO.'"
                   :sp-animation="false"
                 />
               </span>
@@ -152,10 +152,7 @@
                 :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
                 :sp-animation="false"
               /> -->
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED
-              DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA.
-              UTENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
-              NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
             </span>
             <span class="sp-only">
               <span class="intro-note-wrapper intro-note-wrapper-sp-01">
@@ -239,7 +236,6 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        console.log('発火intro')
         this.fixSection = this.$fixSection(
           this.$refs.IntroWrapper,
           this.$SITECONFIG.isTouch,

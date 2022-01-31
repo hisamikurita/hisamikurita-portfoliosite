@@ -1,40 +1,10 @@
-// import ASScroll from '@ashthornton/asscroll'
-// import gsap from 'gsap';
-
-// const asscroll = new ASScroll({
-//     ease: 0.04,
-//     customScrollbar: false,
-// })
-
-// const tweenPosition = {
-//     value: 0,
-// }
-
-// const tweenSpeed = 0.0001;
-
-// asscroll.on('update', () => {
-//     gsap.to(tweenPosition, {
-//         duration: 1.0,
-//         ease: 'none',
-//         value: asscroll.currentPos,
-//     })
-// })
-
-
-// window.addEventListener('load', () => {
-//     asscroll.enable({
-//         reset: true,
-//         restore:true
-//     })
-// })
-
 export default class Particle {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.dpr = window.devicePixelRatio;
     this.particles = [];
-    this.num = 9;
+    this.num = 8;
     this.speed = 1.4;
 
     this.particlesInit = [{
@@ -46,11 +16,6 @@ export default class Particle {
         x: 1060,
         y: 220,
         r: 198,
-      },
-      {
-        x: 660,
-        y: 600,
-        r: 180,
       },
       {
         x: 110,
@@ -88,7 +53,7 @@ export default class Particle {
   _update(currentPos, tweenPosition) {
     for (let i = 0; i < this.particles.length; i++) {
       const particle = this.particles[i];
-      const tween = Math.abs((currentPos - tweenPosition) * 0.00004);
+      const tween = Math.abs((currentPos - tweenPosition) * 0.00002);
       particle.vx += -tween
       particle.nextx = (particle.x + particle.vx)
       particle.nexty = (particle.y + particle.vy)

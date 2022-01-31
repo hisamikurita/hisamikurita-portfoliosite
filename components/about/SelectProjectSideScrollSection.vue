@@ -208,7 +208,7 @@ export default {
       value: 0,
     }
 
-    const raf = () => {
+    this.raf = () => {
       this.$gsap.to(tweenPosition, {
         duration: 1.0,
         ease: 'none',
@@ -216,17 +216,17 @@ export default {
       })
       particle._drawParticles(this.$asscroll.currentPos,tweenPosition.value)
     }
-    this.$gsap.ticker.add(raf)
+    this.$gsap.ticker.add(this.raf)
 
     this.observe = this.$refs.ProjectWrapper
     this.iObserver =new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-                this.$gsap.ticker.add(raf)
+                this.$gsap.ticker.add(this.raf)
           }
           else{
-                this.$gsap.ticker.remove(raf)
+                this.$gsap.ticker.remove(this.raf)
           }
         })
       },
@@ -239,6 +239,7 @@ export default {
     this.fixSection.kill()
     this.synchronousScroll.kill()
     this.iObserver.unobserve(this.observe)
+                this.$gsap.ticker.remove(this.raf)
   },
 
   methods: {
