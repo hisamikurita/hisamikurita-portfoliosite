@@ -1,6 +1,10 @@
 <template>
   <div ref="Project" class="project">
-    <div ref="ProjectBg" class="project-bg" :style="`background-color:${pickupEndData.siteColor.bodyContentsColor};`">
+    <div
+      ref="ProjectBg"
+      class="project-bg"
+      :style="`background-color:${pickupEndData.siteColor.bodyContentsColor};`"
+    >
       <span class="project-circle-bg-enter"
         ><span ref="ProjectCircleEnter" class="project-circle-bg-element"></span
       ></span>
@@ -135,7 +139,8 @@ export default {
           }, this.$SITECONFIG.baseDuration * 1000)
           break
         case 'end':
-          this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor
+          this.$refs.ProjectBg.style.backgroundColor =
+            this.pickupEndData.siteColor.bodyContentsColor
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
@@ -160,7 +165,9 @@ export default {
   mounted() {
     /* circle */
     this.$nextTick(() => {
+      // this.$refs.ProjectBg.style.backgroundColor = '#f0efeb'
       this.$gsap.set(this.$refs.ProjectCircleEnter, {
+        // backgroundColor: '#f0efeb',
         y: -(
           window.innerHeight / 2 +
           this.$refs.ProjectCircleEnter.clientHeight / 2

@@ -214,19 +214,18 @@ export default {
         ease: 'none',
         value: this.$asscroll.currentPos,
       })
-      particle._drawParticles(this.$asscroll.currentPos,tweenPosition.value)
+      particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
     }
     this.$gsap.ticker.add(this.raf)
 
     this.observe = this.$refs.ProjectWrapper
-    this.iObserver =new IntersectionObserver(
+    this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-                this.$gsap.ticker.add(this.raf)
-          }
-          else{
-                this.$gsap.ticker.remove(this.raf)
+            this.$gsap.ticker.add(this.raf)
+          } else {
+            this.$gsap.ticker.remove(this.raf)
           }
         })
       },
@@ -239,7 +238,7 @@ export default {
     this.fixSection.kill()
     this.synchronousScroll.kill()
     this.iObserver.unobserve(this.observe)
-                this.$gsap.ticker.remove(this.raf)
+    this.$gsap.ticker.remove(this.raf)
   },
 
   methods: {

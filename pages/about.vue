@@ -29,6 +29,8 @@ export default {
   },
 
   mounted() {
+    this.$asscroll.enable({ reset: true })
+
     this.$nextTick(() => {
       // aboutページのみカクツキ防止のためscrolltriggerのフレームレートを上げる
       const render = () => {
@@ -40,6 +42,7 @@ export default {
       const images = document.querySelectorAll('.about img')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
+        this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
       })

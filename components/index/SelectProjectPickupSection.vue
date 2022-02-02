@@ -3,6 +3,7 @@
     <span
       ref="PickupCircleEnter"
       class="pickup-circle-bg-enter"
+      :class="{ 'is-enter': indexPickupState }"
       :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"
     ></span>
     <span class="pickup-circle-bg-area">
@@ -147,11 +148,14 @@ export default {
   },
 
   mounted() {
-    this.$gsap.ticker.add(this.pickupToTopEnterScroll)
+    setTimeout(() => {
+      this.$gsap.ticker.add(this.pickupToTopEnterScroll)
+    }, 100)
   },
 
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
+    this.$store.commit('indexPickup/setProjectAnimationState', 'end')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
     this.removeAllEvent()
@@ -639,6 +643,9 @@ export default {
   }
 }
 
+// @use "sass:math";
+// $dist: pow((0 - var(--viewportWidth)}), 2);
+
 .pickup-circle-bg-enter {
   display: block;
   position: absolute;
@@ -650,6 +657,10 @@ export default {
   height: 80px;
   border-radius: 50%;
   pointer-events: none;
+
+  // &.is-enter {
+  //   width: $dist / 2;
+  // }
 
   @include sp() {
     top: 50%;

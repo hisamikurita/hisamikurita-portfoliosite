@@ -8,7 +8,12 @@
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :text="['・', 'MYSKILL', 'HTML/CSS/JAVASCRIPT', 'VUE/NUXT/THREE.JS']"
+                :text="[
+                  '・',
+                  'MYSKILL',
+                  'HTML/CSS/JAVASCRIPT',
+                  'VUE/NUXT/THREE.JS',
+                ]"
                 :sp-animation="false"
                 :modifier="'section'"
               />
@@ -173,19 +178,19 @@ export default {
       stage.onResize()
     })
 
-    const _raf = () => {
-      window.requestAnimationFrame(() => {
-        _raf()
-
-        stage.onRaf()
-        mesh.onRaf()
-      })
+    this._raf = () => {
+      stage.onRaf()
+      mesh.onRaf()
     }
 
-    _raf()
+    this.$gsap.ticker.add(this._raf)
 
     this.isTextSegmentState = 'center'
     this.isTextUnderlineState = 'extend'
+  },
+
+  beforeDestroy() {
+    this.$gsap.ticker.remove(this._raf)
   },
 }
 </script>

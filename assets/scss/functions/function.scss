@@ -23,3 +23,11 @@
 @function vh_sp($size) {
   @return math.div($size, 750) * 100vh;
 }
+
+@function pow($value, $num) {
+  @return math.pow($value, $num);
+}
+
+@function sqrt($value) {
+  @return math.sqrt($value);
+}
