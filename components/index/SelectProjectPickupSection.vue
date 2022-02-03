@@ -18,6 +18,52 @@
         :color="pickupData[2].siteColor.bodyContentsColor"
       />
     </span>
+    <div class="pickup-canvas">
+      <canvas ref="Canvas"></canvas>
+    </div>
+    <p class="pickup-section-number">
+      <span
+        v-for="num in pickupData.length"
+        :key="num.id"
+        class="pickup-section-number-wrapper"
+        :class="'pickup-section-number-wrapper-0' + num"
+      >
+        <AppSectionReadTitle
+          :state="isTextSegmentState[num]"
+          :text="['・', 'SELECTED', 'PROJECT', '0' + num]"
+          :modifier="'pickup-section'"
+        />
+      </span>
+    </p>
+    <p class="pickup-section-text">
+      <span
+        v-for="(data, index) in pickupData"
+        :key="data.id"
+        class="pickup-section-text-wrapper"
+        :class="`pickup-section-text-wrapper-0${index + 1}`"
+        :style="`color:${data.siteColor.allTextColor};`"
+      >
+        <span class="pickup-section-text-title">
+          <AppTextSegment
+            :state="isTextSegmentState[Number(index + 1)]"
+            :rotate="$BASEROTATE.right"
+            :text="data.title.full"
+          />
+        </span>
+        <span>
+          <span
+            v-for="tIndex of Object.keys(data.pickup.text[0]).length - 1"
+            :key="tIndex"
+          >
+            <AppTextSegment
+              :state="isTextSegmentState[index + 1]"
+              :start="tIndex * 0.12"
+              :text="`${data.pickup.text[0]['text0' + tIndex]}`"
+            />
+          </span>
+        </span>
+      </span>
+    </p>
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
@@ -30,7 +76,7 @@
             <NuxtLink :to="`/works/${data.id}`"> </NuxtLink>
           </span>
           <div class="pickup-clip">
-            <p class="pickup-section-number">
+            <!-- <p class="pickup-section-number">
               <span
                 v-for="num in pickupData.length"
                 :key="num.id"
@@ -43,8 +89,8 @@
                   :modifier="'pickup-section'"
                 />
               </span>
-            </p>
-            <p class="pickup-section-text">
+            </p> -->
+            <!-- <p class="pickup-section-text">
               <span
                 v-for="(data, index) in pickupData"
                 :key="data.id"
@@ -73,7 +119,7 @@
                   </span>
                 </span>
               </span>
-            </p>
+            </p> -->
             <h2 class="pickup-title">
               <span
                 v-for="(data, index) in pickupData"
@@ -105,6 +151,7 @@
 </template>
 
 <script>
+import Particle from '../canvas/index/pickup/particle'
 import { preEvent, preEventTouch } from '../../assets/js/preEvent'
 
 export default {
@@ -148,6 +195,27 @@ export default {
   },
 
   mounted() {
+    const color = [
+      {
+        dark: this.pickupData[0].pickup.color01,
+        light: this.pickupData[0].pickup.color02,
+      },
+      {
+        dark: this.pickupData[1].pickup.color01,
+        light: this.pickupData[1].pickup.color02,
+      },
+      {
+        dark: this.pickupData[2].pickup.color01,
+        light: this.pickupData[2].pickup.color02,
+      },
+    ]
+    this.particle = new Particle(this.$refs.Canvas, color)
+    this.particle.init()
+
+    this.raf = () => {
+      this.particle._drawParticles()
+    }
+
     setTimeout(() => {
       this.$gsap.ticker.add(this.pickupToTopEnterScroll)
     }, 100)
@@ -158,6 +226,7 @@ export default {
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
+    this.$gsap.ticker.remove(this.raf)
     this.removeAllEvent()
     this.removeAllPreEvent()
   },
@@ -175,6 +244,7 @@ export default {
         this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('hambergerMenu/disable')
+        this.$gsap.ticker.add(this.raf)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
@@ -225,6 +295,7 @@ export default {
       this.$store.commit('hambergerMenu/disable')
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent()
+      this.$gsap.ticker.remove(this.raf)
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -275,6 +346,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        this.$gsap.ticker.add(this.raf)
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
         this.$store.commit('hambergerMenu/disable')
@@ -315,6 +387,7 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
+      this.$gsap.ticker.remove(this.raf)
       this.removeAllEvent()
       this.$asscroll.enable()
 
@@ -348,9 +421,11 @@ export default {
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
           this.isTextSegmentState[1] = 'center'
+          this.particle.setScene01()
           break
         case 2.0:
           this.isTextSegmentState[1] = 'top'
+          this.particle.setScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
@@ -358,6 +433,7 @@ export default {
           break
         case 3.0:
           this.isTextSegmentState[2] = 'top'
+          this.particle.setScene03()
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
@@ -365,6 +441,7 @@ export default {
           break
         case 4.0:
           this.isTextSegmentState[3] = 'top'
+          this.particle.setScene03()
           this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState', 'start')
@@ -387,9 +464,11 @@ export default {
         case 0.0:
           this.pickupToTopLeaveScroll()
           this.isTextSegmentState[1] = 'bottom'
+          this.particle.setScene01()
           break
         case 1.0:
           this.isTextSegmentState[2] = 'bottom'
+          this.particle.setScene01()
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
@@ -397,6 +476,7 @@ export default {
           break
         case 2.0:
           this.isTextSegmentState[3] = 'bottom'
+          this.particle.setScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
@@ -404,6 +484,7 @@ export default {
           break
         case 3.0:
           this.isTextSegmentState[3] = 'center'
+          this.particle.setScene03()
           break
       }
 
@@ -552,6 +633,22 @@ export default {
   }
 }
 
+.pickup-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+
+  & canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .pickup-bg {
   background-color: $lightBlue;
 }
@@ -606,15 +703,27 @@ export default {
   }
 }
 
+.pickup-section-number {
+  position: absolute;
+  top: 0;
+  right: 155px;
+}
+
 .pickup-section-number-wrapper {
   position: absolute;
   top: 70px;
-  right: 115px;
+  right: 0;
 
   @include sp() {
     top: 72px;
     right: 0;
   }
+}
+
+.pickup-section-text {
+  position: absolute;
+  bottom: 0;
+  left: 40px;
 }
 
 .pickup-section-text-wrapper {

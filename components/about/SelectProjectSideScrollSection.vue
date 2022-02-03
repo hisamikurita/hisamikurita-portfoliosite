@@ -57,18 +57,34 @@
                         class="project-item-circle"
                       ></span>
                       <span ref="ProjectItemImg01" class="project-item-img-01">
-                        <!-- <nuxt-img
-                          :src="'/'"
-                          quality="80"
-                          :alt="data.title.full"
-                        /> -->
+                        <picture>
+                          <source
+                            :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
+                            :width="`${data.aboutImages.img01.width}`"
+                            :height="`${data.aboutImages.img01.height}`"
+                            type="image/webp"
+                          />
+                          <img
+                            :src="`${data.aboutImages.img01.url}?w=2560&h=1600&q=50`"
+                            :width="`${data.aboutImages.img01.width}`"
+                            :height="`${data.aboutImages.img01.height}`"
+                          />
+                        </picture>
                       </span>
                       <span ref="ProjectItemImg02" class="project-item-img-02">
-                        <!-- <nuxt-img
-                          :src="'/'"
-                          quality="80"
-                          :alt="data.title.full"
-                        /> -->
+                        <picture>
+                          <source
+                            :srcset="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
+                            :width="`${data.aboutImages.img02.width}`"
+                            :height="`${data.aboutImages.img02.height}`"
+                            type="image/webp"
+                          />
+                          <img
+                            :src="`${data.aboutImages.img02.url}?w=2560&h=1600&q=50`"
+                            :width="`${data.aboutImages.img02.width}`"
+                            :height="`${data.aboutImages.img02.height}`"
+                          />
+                        </picture>
                       </span>
                       <span
                         ref="ProjectItemWrapper"
@@ -374,8 +390,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  // height: var(--viewportHeight, 100vh) !important;
+  // height: 100vh;
+  height: var(--viewportHeight, 100vh) !important;
   background-color: $darkBlack;
 }
 
@@ -442,6 +458,18 @@ export default {
   display: flex;
 }
 
+.project-item-circle {
+  position: absolute;
+  top: 50%;
+  right: vw(-60);
+  transform: translate3d(0, -50%, 0);
+  width: vw(20);
+  height: vw(20);
+  border-radius: 50%;
+  background-color: $black;
+  pointer-events: none;
+}
+
 .project-item {
   position: relative;
   flex-shrink: 0;
@@ -457,18 +485,12 @@ export default {
   &:not(:last-of-type) {
     margin: 0 vw(100) 0 0;
   }
-}
 
-.project-item-circle {
-  position: absolute;
-  top: 50%;
-  right: vw(-60);
-  transform: translate3d(0, -50%, 0);
-  width: vw(20);
-  height: vw(20);
-  border-radius: 50%;
-  background-color: $black;
-  pointer-events: none;
+   &:last-of-type {
+    & .project-item-circle {
+      display: none;
+    }
+  }
 }
 
 .project-item-wraper {
