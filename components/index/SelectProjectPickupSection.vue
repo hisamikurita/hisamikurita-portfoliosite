@@ -209,7 +209,7 @@ export default {
         light: this.pickupData[2].pickup.color02,
       },
     ]
-    this.particle = new Particle(this.$refs.Canvas, color)
+    this.particle = new Particle(this.$SITECONFIG, this.$refs.Canvas, color)
     this.particle.init()
 
     this.raf = () => {
@@ -295,7 +295,6 @@ export default {
       this.$store.commit('hambergerMenu/disable')
       this.$store.commit('indexPickup/leave')
       this.removeAllEvent()
-      this.$gsap.ticker.remove(this.raf)
 
       const pickupPos = this.$refs.Pickup.offsetTop
       const pickupTopPos = pickupPos - window.innerHeight
@@ -313,6 +312,7 @@ export default {
             this.removeAllPreEvent()
             this.$asscroll.enable()
             this.$store.commit('hambergerMenu/enable')
+            this.$gsap.ticker.remove(this.raf)
           }, 100)
         },
       })
@@ -387,7 +387,6 @@ export default {
      */
     pickupToBottomLeaveScroll() {
       this.$store.commit('indexPickup/leave')
-      this.$gsap.ticker.remove(this.raf)
       this.removeAllEvent()
       this.$asscroll.enable()
 
@@ -404,6 +403,7 @@ export default {
         onComplete: () => {
           setTimeout(() => {
             this.removeAllPreEvent()
+            this.$gsap.ticker.remove(this.raf)
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
             this.$store.commit('hambergerMenu/enable')
           }, 100)
@@ -421,19 +421,24 @@ export default {
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
           this.isTextSegmentState[1] = 'center'
-          this.particle.setScene01()
+          this.particle.setNextScene01()
           break
         case 2.0:
           this.isTextSegmentState[1] = 'top'
-          this.particle.setScene02()
+          setTimeout(() => {
+            this.particle.setNextScene02()
+          }, (this.wheelInterval / 2) * 1000)
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
+            this.particle.setNextScene02()
           }, this.wheelInterval * 1000)
           break
         case 3.0:
           this.isTextSegmentState[2] = 'top'
-          this.particle.setScene03()
+          setTimeout(() => {
+            this.particle.setNextScene03()
+          }, (this.wheelInterval / 2) * 1000)
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
@@ -441,7 +446,7 @@ export default {
           break
         case 4.0:
           this.isTextSegmentState[3] = 'top'
-          this.particle.setScene03()
+          this.particle.setNextScene04()
           this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState', 'start')
@@ -464,11 +469,13 @@ export default {
         case 0.0:
           this.pickupToTopLeaveScroll()
           this.isTextSegmentState[1] = 'bottom'
-          this.particle.setScene01()
+          this.particle.setPrevScene00()
           break
         case 1.0:
           this.isTextSegmentState[2] = 'bottom'
-          this.particle.setScene01()
+          setTimeout(() => {
+            this.particle.setPrevScene01()
+          }, (this.wheelInterval / 2) * 1000)
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
@@ -476,7 +483,9 @@ export default {
           break
         case 2.0:
           this.isTextSegmentState[3] = 'bottom'
-          this.particle.setScene02()
+               setTimeout(() => {
+            this.particle.setPrevScene02()
+          }, (this.wheelInterval / 2) * 1000)
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
@@ -484,7 +493,7 @@ export default {
           break
         case 3.0:
           this.isTextSegmentState[3] = 'center'
-          this.particle.setScene03()
+          this.particle.setPrevScene03()
           break
       }
 
