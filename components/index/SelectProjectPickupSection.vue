@@ -425,20 +425,15 @@ export default {
           break
         case 2.0:
           this.isTextSegmentState[1] = 'top'
-          setTimeout(() => {
-            this.particle.setNextScene02()
-          }, (this.wheelInterval / 2) * 1000)
+          this.particle.setNextScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
-            this.particle.setNextScene02()
           }, this.wheelInterval * 1000)
           break
         case 3.0:
           this.isTextSegmentState[2] = 'top'
-          setTimeout(() => {
-            this.particle.setNextScene03()
-          }, (this.wheelInterval / 2) * 1000)
+          this.particle.setNextScene03()
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
@@ -473,9 +468,7 @@ export default {
           break
         case 1.0:
           this.isTextSegmentState[2] = 'bottom'
-          setTimeout(() => {
-            this.particle.setPrevScene01()
-          }, (this.wheelInterval / 2) * 1000)
+          this.particle.setPrevScene01()
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
@@ -483,9 +476,7 @@ export default {
           break
         case 2.0:
           this.isTextSegmentState[3] = 'bottom'
-               setTimeout(() => {
-            this.particle.setPrevScene02()
-          }, (this.wheelInterval / 2) * 1000)
+          this.particle.setPrevScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'

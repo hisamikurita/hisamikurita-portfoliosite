@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -25,78 +27,50 @@ export default class Particle {
         x: 160,
         y: 160,
         r: 140,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].dark,
-        color02: this.color[1].dark,
-        color03: this.color[2].dark,
+        clipR: 0,
+        color: this.color[0].dark,
       },
       {
         x: 1060,
         y: 220,
         r: 198,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].dark,
-        color02: this.color[1].dark,
-        color03: this.color[2].dark,
+        clipR: 0,
+        color: this.color[0].dark,
       },
       {
         x: 110,
         y: 630,
         r: 100,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].dark,
-        color02: this.color[1].dark,
-        color03: this.color[2].dark,
+        clipR: 0,
+        color: this.color[0].dark,
       },
       {
         x: 1080,
         y: 530,
         r: 74,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].dark,
-        color02: this.color[1].dark,
-        color03: this.color[2].dark,
+        clipR: 0,
+        color: this.color[0].dark,
       },
       {
         x: 410,
         y: 500,
         r: 60,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].light,
-        color02: this.color[1].light,
-        color03: this.color[2].light,
+        clipR: 0,
+        color: this.color[0].light,
       },
       {
         x: 910,
         y: 500,
         r: 60,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].light,
-        color02: this.color[1].light,
-        color03: this.color[2].light,
+        clipR: 0,
+        color: this.color[0].light,
       },
       {
         x: 1076,
         y: 684,
         r: 46,
-        c1: 0,
-        c2: 0,
-        c3: 0,
-        color01: this.color[0].light,
-        color02: this.color[1].light,
-        color03: this.color[2].light,
+        clipR: 0,
+        color: this.color[0].light,
       },
     ]
   }
@@ -194,28 +168,10 @@ export default class Particle {
 
       this.ctx.save();
       this.ctx.beginPath();
-      this.ctx.arc(particle.x, particle.y, particle.c1, 0, 2 * Math.PI, false);
+      this.ctx.arc(particle.x, particle.y, particle.clipR, 0, 2 * Math.PI, false);
       this.ctx.clip();
       this.ctx.arc(particle.x, particle.y, particle.r, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = particle.color01
-      this.ctx.fill();
-      this.ctx.restore();
-
-      this.ctx.save();
-      this.ctx.beginPath();
-      this.ctx.arc(particle.x, particle.y, particle.c2, 0, 2 * Math.PI, false);
-      this.ctx.clip();
-      this.ctx.arc(particle.x, particle.y, particle.r, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = particle.color02
-      this.ctx.fill();
-      this.ctx.restore();
-
-      this.ctx.save();
-      this.ctx.beginPath();
-      this.ctx.arc(particle.x, particle.y, particle.c3, 0, 2 * Math.PI, false);
-      this.ctx.clip();
-      this.ctx.arc(particle.x, particle.y, particle.r, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = particle.color03
+      this.ctx.fillStyle = particle.color;
       this.ctx.fill();
       this.ctx.restore();
     }
@@ -224,12 +180,8 @@ export default class Particle {
   _initParticles() {
     for (let i = 0; i < this.num; i++) {
       let p = null;
-      const color01 = this.particlesInit[i].color01;
-      const color02 = this.particlesInit[i].color02;
-      const color03 = this.particlesInit[i].color03;
-      const c1 = this.particlesInit[i].c1;
-      const c2 = this.particlesInit[i].c2;
-      const c3 = this.particlesInit[i].c3;
+      const color = this.particlesInit[i].color;
+      const clipR = this.particlesInit[i].clipR;
       const r = this.particlesInit[i].r;
       const x = (this.particlesInit[i].x / 1280) * window.innerWidth;
       const y = (this.particlesInit[i].y / 800) * window.innerHeight;
@@ -242,12 +194,8 @@ export default class Particle {
         x: x,
         y: y,
         r: r,
-        color01: color01,
-        color02: color02,
-        color03: color03,
-        c1: c1,
-        c2: c2,
-        c3: c3,
+        color: color,
+        clipR: clipR,
         s: s,
         angle: angle,
         radians: radians,
@@ -282,11 +230,11 @@ export default class Particle {
 
   setPrevScene00() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c1: 0,
+        clipR: 0,
       })
     }
   }
@@ -294,33 +242,65 @@ export default class Particle {
 
   setNextScene01() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c1: this.radius[i],
+        clipR: this.radius[i],
       })
     }
   }
 
   setPrevScene01() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c2: 0,
+        clipR: 0,
+
+        onComplete: () => {
+          if(i < 4){
+            this.particles[i].color = this.color[0].dark;
+          }
+          else{
+            this.particles[i].color = this.color[0].light;
+          }
+
+          gsap.to(this.particles[i], {
+            duration: this.config.halfBaseDuration,
+            delay: i * 0.08,
+            ease: this.config.transform,
+            clipR: this.radius[i],
+          });
+        }
       })
     }
   }
 
   setNextScene02() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c2: this.radius[i],
+        clipR: 0,
+
+        onComplete: () => {
+          if(i < 4){
+            this.particles[i].color = this.color[1].dark;
+          }
+          else{
+            this.particles[i].color = this.color[1].light;
+          }
+
+          gsap.to(this.particles[i], {
+            duration: this.config.baseDuration,
+            delay: i * 0.08,
+            ease: this.config.transform,
+            clipR: this.radius[i],
+          });
+        }
       })
     }
   }
@@ -328,48 +308,76 @@ export default class Particle {
 
   setPrevScene02() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c3: 0,
+        clipR: 0,
+
+        onComplete: () => {
+          if(i < 4){
+            this.particles[i].color = this.color[1].dark;
+          }
+          else{
+            this.particles[i].color = this.color[1].light;
+          }
+
+          gsap.to(this.particles[i], {
+            duration: this.config.halfBaseDuration,
+            delay: i * 0.08,
+            ease: this.config.transform,
+            clipR: this.radius[i],
+          });
+        }
       })
     }
   }
 
   setNextScene03() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c3: this.radius[i],
+        clipR: 0,
+
+        onComplete: () => {
+          if(i < 4){
+            this.particles[i].color = this.color[2].dark;
+          }
+          else{
+            this.particles[i].color = this.color[2].light;
+          }
+
+          gsap.to(this.particles[i], {
+            duration: this.config.halfBaseDuration,
+            delay: i * 0.08,
+            ease: this.config.transform,
+            clipR: this.radius[i],
+          });
+        }
       })
     }
   }
 
   setPrevScene03() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c1: this.radius[i],
-        c2: this.radius[i],
-        c3: this.radius[i],
+        clipR: this.radius[i],
       })
     }
   }
 
   setNextScene04() {
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i],{
+      gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.1,
+        delay: i * 0.08,
         ease: this.config.transform,
-        c1: 0,
-        c2: 0,
-        c3: 0,
+        clipR: 0,
       })
     }
   }
