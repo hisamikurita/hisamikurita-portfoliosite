@@ -268,7 +268,7 @@ export default class Particle {
           }
 
           gsap.to(this.particles[i], {
-            duration: this.config.halfBaseDuration,
+            duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
             clipR: this.radius[i],
@@ -323,7 +323,7 @@ export default class Particle {
           }
 
           gsap.to(this.particles[i], {
-            duration: this.config.halfBaseDuration,
+            duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
             clipR: this.radius[i],
@@ -350,7 +350,7 @@ export default class Particle {
           }
 
           gsap.to(this.particles[i], {
-            duration: this.config.halfBaseDuration,
+            duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
             clipR: this.radius[i],
