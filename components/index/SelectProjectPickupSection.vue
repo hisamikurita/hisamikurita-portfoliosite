@@ -552,7 +552,7 @@ export default {
         })
       } else {
         this.$gsap.set(this.$refs.PickupCircleEnter, {
-          scale: 1,
+            scale: 1.2,
         })
       }
 
@@ -714,6 +714,10 @@ export default {
   position: absolute;
   top: 0;
   right: 155px;
+
+  @include sp() {
+    right: 20px;
+  }
 }
 
 .pickup-section-number-wrapper {
@@ -731,6 +735,11 @@ export default {
   position: absolute;
   bottom: 0;
   left: 40px;
+
+  @include sp() {
+    left: 0;
+  width: 100%;
+  }
 }
 
 .pickup-section-text-wrapper {

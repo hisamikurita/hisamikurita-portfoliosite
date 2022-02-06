@@ -130,7 +130,7 @@ export default {
             {
               duration: this.$SITECONFIG.baseDuration * 1.2,
               ease: this.$EASING.transform,
-              y: -window.innerHeight / 2,
+              y: window.innerWidth > 767 ? -window.innerWidth / 2 : -200,
               scale: 1.0,
             }
           )
@@ -144,7 +144,7 @@ export default {
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
-              y: -window.innerHeight / 2,
+              y: window.innerWidth > 767 ? -window.innerWidth / 2 : -200,
               scale: 1.0,
             },
             {
@@ -237,8 +237,8 @@ export default {
 
   @include sp() {
     left: 50%;
-    width: 120vmax;
-    height: 120vmax;
+    width: 142vmax;
+    height: 142vmax;
   }
 }
 
@@ -341,7 +341,7 @@ export default {
   right: 34.6%;
 
   @include sp() {
-    top: -1.2%;
+    top: 3.8%;
     right: 69.6%;
   }
 }
@@ -351,7 +351,7 @@ export default {
   left: 34.5%;
 
   @include sp() {
-    top: 20.3%;
+    top: 25.3%;
     left: 34.5%;
   }
 }
@@ -361,7 +361,7 @@ export default {
   left: 11%;
 
   @include sp() {
-    top: 31%;
+    top: 36%;
   }
 }
 
@@ -370,7 +370,7 @@ export default {
   left: 3.4%;
 
   @include sp() {
-    top: 9%;
+    top: 14%;
     left: 0%;
   }
 }
@@ -380,7 +380,7 @@ export default {
   right: 27%;
 
   @include sp() {
-    top: 40.5%;
+    top: 44.5%;
   }
 }
 
@@ -389,7 +389,7 @@ export default {
   right: 58%;
 
   @include sp() {
-    top: 51%;
+    top: 56%;
     right: 72%;
   }
 }
@@ -399,7 +399,7 @@ export default {
   right: 32.8%;
 
   @include sp() {
-    top: 62%;
+    top: 67%;
     right: 44.8%;
   }
 }
@@ -409,7 +409,7 @@ export default {
   left: 22.4%;
 
   @include sp() {
-    top: 72%;
+    top: 77%;
     left: 33.4%;
   }
 }
@@ -419,7 +419,7 @@ export default {
   left: 4%;
 
   @include sp() {
-    top: 83%;
+    top: 88%;
     left: 9%;
   }
 }

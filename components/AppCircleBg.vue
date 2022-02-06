@@ -104,8 +104,8 @@ export default {
 
   @include sp() {
     left: 50%;
-    width: 180vmax;
-    height: 360vmax;
+    width: 195vmax;
+    height: 375vmax;
   }
 }
 
