@@ -1,6 +1,4 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {

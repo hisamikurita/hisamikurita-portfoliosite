@@ -131,8 +131,8 @@ export default {
   background-color: $black;
 
   @include sp() {
-    left: 20px;
-    width: calc(100% - 40px);
+    left: 0;
+    width: 100%;
   }
 }
 
@@ -144,8 +144,8 @@ export default {
   background-color: $black;
 
   @include sp() {
-    left: 20px;
-    width: calc(100% - 40px);
+    left: 0;
+    width: 100%;
   }
 }
 

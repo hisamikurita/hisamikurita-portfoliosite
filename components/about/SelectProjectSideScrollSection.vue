@@ -169,39 +169,39 @@ export default {
           }
         )
 
-        // setTimeout(() => {
-        this.synchronousScroll.scrollTrigger.refresh()
-        this.fixSection.scrollTrigger.refresh()
+        setTimeout(() => {
+          this.synchronousScroll.scrollTrigger.refresh()
+          this.fixSection.scrollTrigger.refresh()
 
-        this.$gsap.to(
-          {},
-          {
-            scrollTrigger: {
-              once: true,
-              // start: 'start end',
-              trigger: this.$refs.ProjectWrapper,
-              onEnter: () => {
-                this.$gsap.to(this.wrapper, {
-                  duration: this.$SITECONFIG.baseDuration * 2.0,
-                  ease: this.$EASING.transform,
-                  rotate: 0,
-                })
-                this.$gsap.to(this.text, {
-                  duration: this.$SITECONFIG.baseDuration,
-                  ease: this.$EASING.transform,
-                  yPercent: 0,
-                  onComplete: () => {
-                    this.isTextAnimationState = true
-                  },
-                })
-                this.isTextSegmentState = 'center'
-                this.isCircleBgState = 'extend'
-                this.isTextUnderlineState = 'extend'
+          this.$gsap.to(
+            {},
+            {
+              scrollTrigger: {
+                once: true,
+                // start: 'start end',
+                trigger: this.$refs.ProjectWrapper,
+                onEnter: () => {
+                  this.$gsap.to(this.wrapper, {
+                    duration: this.$SITECONFIG.baseDuration * 2.0,
+                    ease: this.$EASING.transform,
+                    rotate: 0,
+                  })
+                  this.$gsap.to(this.text, {
+                    duration: this.$SITECONFIG.baseDuration,
+                    ease: this.$EASING.transform,
+                    yPercent: 0,
+                    onComplete: () => {
+                      this.isTextAnimationState = true
+                    },
+                  })
+                  this.isTextSegmentState = 'center'
+                  this.isCircleBgState = 'extend'
+                  this.isTextUnderlineState = 'extend'
+                },
               },
-            },
-          }
-        )
-        // }, 1000)
+            }
+          )
+        }, 0)
       }
     },
   },
@@ -224,7 +224,7 @@ export default {
       value: 0,
     }
 
-    this.raf = () => {
+    this.pRaf = () => {
       this.$gsap.to(tweenPosition, {
         duration: 1.0,
         ease: 'none',
@@ -232,29 +232,36 @@ export default {
       })
       particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
     }
-    this.$gsap.ticker.add(this.raf)
+    this.$gsap.ticker.add(this.pRaf)
 
     this.observe = this.$refs.ProjectWrapper
     this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.raf)
+            this.$gsap.ticker.add(this.pRaf)
           } else {
-            this.$gsap.ticker.remove(this.raf)
+            this.$gsap.ticker.remove(this.pRaf)
           }
         })
       },
       { rootMargin: '0%' }
     )
     this.iObserver.observe(this.observe)
+
+    this.pResize = () => {
+      particle.onResize()
+    }
+
+    window.addEventListener('resize', this.pResize)
   },
 
   beforeDestroy() {
     this.fixSection.kill()
     this.synchronousScroll.kill()
     this.iObserver.unobserve(this.observe)
-    this.$gsap.ticker.remove(this.raf)
+    this.$gsap.ticker.remove(this.pRaf)
+    window.removeEventListener('resize', this.pResize)
   },
 
   methods: {
@@ -418,7 +425,7 @@ export default {
   z-index: 1;
 
   @include sp() {
-    padding: 0;
+    padding: 0 vw_sp(20);
   }
 }
 
@@ -432,6 +439,10 @@ export default {
 
 .project-title-read-area {
   margin: 0 0 32px 0;
+
+  @include sp() {
+    margin: 0 0 35px 0;
+  }
 }
 
 .project-title-wrapper {
@@ -441,6 +452,10 @@ export default {
   width: 100%;
   height: vw(200);
   margin: 0 40px 0 0;
+
+  @include sp() {
+    height: vw_sp(200);
+  }
 }
 
 .project-list {
@@ -468,6 +483,12 @@ export default {
   border-radius: 50%;
   background-color: $black;
   pointer-events: none;
+
+  @include sp() {
+    right: vw_sp(-72);
+    width: vw_sp(20);
+    height: vw_sp(20);
+  }
 }
 
 .project-item {
@@ -484,9 +505,13 @@ export default {
 
   &:not(:last-of-type) {
     margin: 0 vw(100) 0 0;
+
+    @include sp() {
+      margin: 0 vw_sp(130) 0 0;
+    }
   }
 
-   &:last-of-type {
+  &:last-of-type {
     & .project-item-circle {
       display: none;
     }
