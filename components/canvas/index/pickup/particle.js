@@ -10,10 +10,10 @@ export default class Particle {
     this.dpr = window.devicePixelRatio;
     this.particles = [];
     this.num = 7;
-    this.speed = 1.4;
+    this.speed = window.innerWidth > 767 ? 1.4 : 0.7;
     this.color = color;
 
-    this.radius = [
+    this.radiusPc = [
       140,
       198,
       100,
@@ -23,52 +23,62 @@ export default class Particle {
       46
     ]
 
+    this.radiusSp = [
+      65,
+      37,
+      60,
+      47,
+      18,
+      24,
+      20
+    ]
+
     this.particlesInit = [{
-        x: 160,
-        y: 160,
-        r: 140,
+        x: window.innerWidth > 767 ? 160 : 500,
+        y: window.innerWidth > 767 ? 160 : 150,
+        r: window.innerWidth > 767 ? this.radiusPc[0] : this.radiusSp[0],
         clipR: 0,
         color: this.color[0].dark,
       },
       {
-        x: 1060,
-        y: 220,
-        r: 198,
+        x: window.innerWidth > 767 ? 1060 : 560,
+        y: window.innerWidth > 767 ? 220 : 550,
+        r: window.innerWidth > 767 ? this.radiusPc[1] : this.radiusSp[1],
         clipR: 0,
         color: this.color[0].dark,
       },
       {
-        x: 110,
-        y: 630,
-        r: 100,
+        x: window.innerWidth > 767 ? 110 : 150,
+        y: window.innerWidth > 767 ? 630 : 630,
+        r: window.innerWidth > 767 ? this.radiusPc[2] : this.radiusSp[2],
         clipR: 0,
         color: this.color[0].dark,
       },
       {
-        x: 1080,
-        y: 530,
-        r: 74,
+        x: window.innerWidth > 767 ? 1080 : 200,
+        y: window.innerWidth > 767 ? 530 : 930,
+        r: window.innerWidth > 767 ? this.radiusPc[3] : this.radiusSp[3],
         clipR: 0,
         color: this.color[0].dark,
       },
       {
-        x: 410,
-        y: 500,
-        r: 60,
+        x: window.innerWidth > 767 ? 410 : 280,
+        y: window.innerWidth > 767 ? 500 : 780,
+        r: window.innerWidth > 767 ? this.radiusPc[4] : this.radiusSp[4],
         clipR: 0,
         color: this.color[0].light,
       },
       {
-        x: 910,
-        y: 500,
-        r: 60,
+        x: window.innerWidth > 767 ? 910 : 630,
+        y: window.innerWidth > 767 ? 500 : 400,
+        r: window.innerWidth > 767 ? this.radiusPc[5] : this.radiusSp[5],
         clipR: 0,
         color: this.color[0].light,
       },
       {
-        x: 1076,
-        y: 684,
-        r: 46,
+        x: window.innerWidth > 767 ? 1076 : 680,
+        y: window.innerWidth > 767 ? 684 : 684,
+        r: window.innerWidth > 767 ? this.radiusPc[6] : this.radiusSp[6],
         clipR: 0,
         color: this.color[0].light,
       },
@@ -183,8 +193,8 @@ export default class Particle {
       const color = this.particlesInit[i].color;
       const clipR = this.particlesInit[i].clipR;
       const r = this.particlesInit[i].r;
-      const x = (this.particlesInit[i].x / 1280) * window.innerWidth;
-      const y = (this.particlesInit[i].y / 800) * window.innerHeight;
+      const x = window.innerWidth > 767 ? (this.particlesInit[i].x / 1280) * window.innerWidth : (this.particlesInit[i].x / 750) * window.innerWidth;
+      const y = window.innerWidth > 767 ? (this.particlesInit[i].y / 800) * window.innerHeight : (this.particlesInit[i].y / 1100) * window.innerHeight;
       const s = Math.random() * this.speed;
       const angle = Math.floor(Math.random() * 360)
       const radians = angle * Math.PI / 180;
@@ -246,7 +256,7 @@ export default class Particle {
         duration: this.config.baseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
-        clipR: this.radius[i],
+        clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
     }
   }
@@ -271,7 +281,7 @@ export default class Particle {
             duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
-            clipR: this.radius[i],
+            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
         }
       })
@@ -298,7 +308,7 @@ export default class Particle {
             duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
-            clipR: this.radius[i],
+            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
         }
       })
@@ -326,7 +336,7 @@ export default class Particle {
             duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
-            clipR: this.radius[i],
+            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
         }
       })
@@ -353,7 +363,7 @@ export default class Particle {
             duration: this.config.baseDuration,
             delay: i * 0.08,
             ease: this.config.transform,
-            clipR: this.radius[i],
+            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
         }
       })
@@ -366,7 +376,7 @@ export default class Particle {
         duration: this.config.baseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
-        clipR: this.radius[i],
+        clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
     }
   }

@@ -212,7 +212,13 @@ export default {
     this.particle = new Particle(this.$SITECONFIG, this.$refs.Canvas, color)
     this.particle.init()
 
-    this.raf = () => {
+    this.pResize = () =>{
+      this.particle.onResize();
+    }
+
+    window.addEventListener('resize', this.pResize);
+
+    this.pRaf = () => {
       this.particle._drawParticles()
     }
 
@@ -226,9 +232,10 @@ export default {
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
-    this.$gsap.ticker.remove(this.raf)
+    this.$gsap.ticker.remove(this.pRaf)
     this.removeAllEvent()
     this.removeAllPreEvent()
+    window.removeEventListener('resize', this.pResize);
   },
 
   methods: {
@@ -244,7 +251,7 @@ export default {
         this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('hambergerMenu/disable')
-        this.$gsap.ticker.add(this.raf)
+        this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
@@ -281,7 +288,7 @@ export default {
             duration: this.$SITECONFIG.baseDuration * 1.2,
             ease: this.$EASING.transform,
             delay: 0.2,
-            scale: 1,
+            scale: 1.2,
           })
         }
       }
@@ -312,7 +319,7 @@ export default {
             this.removeAllPreEvent()
             this.$asscroll.enable()
             this.$store.commit('hambergerMenu/enable')
-            this.$gsap.ticker.remove(this.raf)
+            this.$gsap.ticker.remove(this.pRaf)
           }, 100)
         },
       })
@@ -346,7 +353,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        this.$gsap.ticker.add(this.raf)
+        this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
         this.$store.commit('hambergerMenu/disable')
@@ -403,7 +410,7 @@ export default {
         onComplete: () => {
           setTimeout(() => {
             this.removeAllPreEvent()
-            this.$gsap.ticker.remove(this.raf)
+            this.$gsap.ticker.remove(this.pRaf)
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
             this.$store.commit('hambergerMenu/enable')
           }, 100)

@@ -456,7 +456,7 @@ export default {
   transform: rotate(10deg);
 
   @include sp() {
-    top: 17.8%;
+    top: 25%;
     left: 57%;
   }
 }
