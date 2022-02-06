@@ -1,7 +1,7 @@
 <template>
   <div class="about">
-    <!-- <AboutMainVisualSection />
-    <AboutIntroSection /> -->
+    <AboutMainVisualSection />
+    <AboutIntroSection />
     <AboutAwardSection
       :award-data="getAwardData"
       :award-data-length="getAwardDataLength"
