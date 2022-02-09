@@ -178,12 +178,13 @@ export default {
       stage.onResize()
     })
 
-    this._raf = () => {
+setTimeout(()=>{
+      this._raf = () => {
       stage.onRaf()
       mesh.onRaf()
     }
-
     this.$gsap.ticker.add(this._raf)
+},1000)
 
     this.isTextSegmentState = 'center'
     this.isTextUnderlineState = 'extend'

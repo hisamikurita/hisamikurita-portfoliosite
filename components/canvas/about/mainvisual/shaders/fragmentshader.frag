@@ -19,5 +19,9 @@ void main() {
     vec4 texture = texture2D(u_texture, uv);
     vec4 video_texture = texture2D(u_video_texture, uv);
 
-    gl_FragColor = vec4(texture.rgb, video_texture.r);
+    // if(video_texture.r > 1.0){
+    //    float a = video_texture.r = 1.0
+        gl_FragColor = vec4(texture.rgb, video_texture.r);
+    //     return;
+    // }
 }

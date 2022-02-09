@@ -1,3 +1,4 @@
+// import { gsap } from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
@@ -24,27 +25,14 @@ export default class Particle {
     ];
 
     // texture
-    this.video = document.createElement("video");
-    this.video.src = "../images/metaball.mp4";
-    this.video.crossOrigin = "anonymous";
-    this.video.muted = true;
-    this.video.setAttribute("playsinline", "playsinline");
-    this.video.loop = true;
-    this.video.play();
-  }
+    // this.video = document.createElement("video");
+    // this.video.src = "../images/metaball.mp4";
+    // this.video.crossOrigin = "anonymous";
+    // this.video.muted = true;
+    // this.video.setAttribute("playsinline", "playsinline");
+    // this.video.loop = true;
+    // this.video.play();
 
-  init() {
-    this._setMesh();
-    this._setMeshScale();
-  }
-
-  // _canvasTexture() {
-  //   // const random = (min, max) => Math.random() * (max - min) + min;
-
- 
-  // }
-
-  _setMesh() {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
@@ -56,32 +44,13 @@ export default class Particle {
     c.width = c2.width = w;
     c.height = c2.height = h;
 
-    const THRESHOLD = 200;
-
-    // const circle = {
-    //   size: 300,
-    //   x: w / 2,
-    //   y: h / 2
-    // };
-
-    // const mouseCircle = {
-    //   size: 300,
-    //   x: (w / 2) + 200,
-    //   y: (h / 2) + 200
-    // };
-
-    // const mousemove = e => {
-    //   mouseCircle.x = e.clientX;
-    //   mouseCircle.y = e.clientY;
-    // };
-
-    // c.addEventListener('mousemove', mousemove);
+    const THRESHOLD = 100;
 
     const makeCircle = () => {
       for (let i = 0; i < 5; i++) {
-        const range = 600;
+        const range = 700;
         const circle = {
-          size: (100 * Math.random()) + 200,
+          size: (50 * Math.random()) + 100,
           x:  (Math.random() * range - range / 2) + (w / 2),
           y: (Math.random() * range - range / 2) + (h / 2),
         };
@@ -102,25 +71,16 @@ export default class Particle {
         ctx2.arc(circle.x, circle.y, circle.size, 0, Math.PI * 2);
         ctx2.fill();
       }
- 
-
-      // ctx2.beginPath();
-      // const gradientMouse = ctx2.createRadialGradient(
-      //   mouseCircle.x,
-      //   mouseCircle.y,
-      //   1,
-      //   mouseCircle.x,
-      //   mouseCircle.y,
-      //   mouseCircle.size
-      // );
-      // gradientMouse.addColorStop(0, `rgba(255, 255, 255, 1)`);
-      // gradientMouse.addColorStop(1, `rgba(255, 255, 255, 0)`);
-      // ctx2.fillStyle = gradientMouse;
-      // ctx2.arc(mouseCircle.x, mouseCircle.y, mouseCircle.size, 0, Math.PI * 2);
-      // ctx2.fill();
     }
 
-    const tick = () => {
+    let count = 0;
+
+    this.tick = () => {
+      count++;
+      if(count % 2 ===0) return
+
+      console.log('発火')
+
       ctx2.fillStyle = 'rgba(0, 0, 0, 1)';
       ctx2.fillRect(0, 0, w, h);
       makeCircle();
@@ -128,20 +88,37 @@ export default class Particle {
       const imageData = ctx2.getImageData(0, 0, w, h);
       const pixel = imageData.data;
 
-      for (let i = 0; i < pixel.length; i++) {
+      for (let i = 3; i < pixel.length; i += 4) {
         if (pixel[i] < THRESHOLD) {
-          pixel[i] = 1;
+          pixel[i] = 0;
         }
       }
 
       ctx.putImageData(imageData, 1, 1)
-      requestAnimationFrame(tick)
+      // requestAnimationFrame(tick)
       //   console.log(pixel[1 + 70])
     }
 
-    tick()
+    // gsap.ticker.add(this.tick)
+
   
-    const texture = new THREE.CanvasTexture(c);
+    this.texture = new THREE.CanvasTexture(c);
+    console.log(this.texture)
+  }
+
+  init() {
+    this._setMesh();
+    this._setMeshScale();
+  }
+
+  // _canvasTexture() {
+  //   // const random = (min, max) => Math.random() * (max - min) + min;
+
+ 
+  // }
+
+  _setMesh() {
+  
 
     const geometry = new THREE.PlaneBufferGeometry(
       this.geometryParm.width,
@@ -160,7 +137,7 @@ export default class Particle {
         },
         u_video_texture: {
           type: "t",
-          value: texture
+          value: this.texture
         },
         u_resolution: {
           type: "v2",
@@ -205,6 +182,8 @@ export default class Particle {
 
   _render() {
     this.mesh.material.uniforms.u_video_texture.needsUpdate = true;
+    // if(this.mesh) this.tick();
+    this.tick();
   }
 
   onRaf() {

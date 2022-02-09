@@ -4,7 +4,7 @@ import * as THREE from 'three';
 export default class Stage {
   constructor(canvas) {
     this.renderParam = {
-      // clearColor: 0x000000,
+      clearColor: 0x000000,
       width: window.innerWidth,
       height: window.innerHeight
     };
