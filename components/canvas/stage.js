@@ -37,15 +37,15 @@ export default class Stage {
 
   _setScene() {
     this.scene = new THREE.Scene();
-    // this.scene.add(new THREE.GridHelper(1000, 100));
-    // this.scene.add(new THREE.AxesHelper(100));
+    this.scene.add(new THREE.GridHelper(1000, 100));
+    this.scene.add(new THREE.AxesHelper(100));
   }
 
   _setRender() {
     this.renderer = new THREE.WebGLRenderer({
       alpha: true
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    // this.renderer.setPixelRatio(window.devicePixelRatio);
     // this.renderer.setClearColor(new THREE.Color(this.renderParam.clearColor));
     this.renderer.setSize(this.renderParam.width, this.renderParam.height);
     this.canvas.appendChild(this.renderer.domElement);
@@ -74,12 +74,13 @@ export default class Stage {
     this.camera.aspect = windowWidth / windowHeight;
 
     // ちょうどスクリーンいっぱいになる視野角を計算する
-    this.camera.fov =
-      THREE.MathUtils.radToDeg(
-        Math.atan(
-          windowWidth / this.camera.aspect / (2 * this.camera.position.z)
-        )
-      ) * 2;
+    // this.camera.fov =
+    //   THREE.MathUtils.radToDeg(
+    //     Math.atan(
+    //       windowWidth / this.camera.aspect / (2 * this.camera.position.z)
+    //     )
+    //   ) * 2;
+    this.camera.fov = this.cameraParam.fov;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(windowWidth, windowHeight);
   }
