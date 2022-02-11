@@ -40,20 +40,33 @@ export default class Particle {
   }
 
   _setMesh() {
-    const numMetaballs = 30;
+    const numMetaballs = 2;
     const metaballs = [];
 
+    const metaball = [
+      {
+        x: 500,
+        y: 500,
+        r: 80,
+      },
+      {
+        x: 720,
+        y: 500,
+        r: 80,
+      },
+    ]
+
     for (let i = 0; i < numMetaballs; i++) {
-      const radius = Math.random() * 60 + 10;
+      // const radius = Math.random() * 100 + 400;
 
       metaballs.push(
-        (window.innerWidth / 2) + (Math.random() - 0.5) * 500,
-        (window.innerHeight / 2) + (Math.random() - 0.5) * 500,
-        radius * 0.75
+        metaball[i].x,
+        metaball[i].y,
+        metaball[i].r,
       );
     }
 
-    const geometry = new THREE.BufferGeometry();
+    const geometry = new THREE.PlaneBufferGeometry(2, 2, 1,1);
 
     // console.log(BufferGeometryUtils)
 
@@ -61,20 +74,20 @@ export default class Particle {
     // console.log(geometry)
     // mesh.setDrawMode( THREE.TriangleStripDrawMode );
 
-    const vertices = new Float32Array([
-      -1.0,  1.0,  0.0,
-      1.0,  1.0,  0.0,
-     -1.0, -1.0,  0.0,
-      1.0, -1.0,  0.0
-    ]);
-    const uv = new Float32Array([
-      0.0, 0.0,
-      1.0, 0.0,
-      0.0, 1.0,
-      1.0, 1.0
-    ]);
-    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    geometry.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+    // const vertices = new Float32Array([
+    //   -1.0,  1.0,  0.0,
+    //   1.0,  1.0,  0.0,
+    //  -1.0, -1.0,  0.0,
+    //   1.0, -1.0,  0.0
+    // ]);
+    // const uv = new Float32Array([
+    //   0.0, 0.0,
+    //   1.0, 0.0,
+    //   0.0, 1.0,
+    //   1.0, 1.0
+    // ]);
+    // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    // geometry.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
 
     const material = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
@@ -117,7 +130,7 @@ export default class Particle {
     this.mesh = new THREE.Mesh(geometry, material);
     this.stage.scene.add(this.mesh);
 
-    // console.log(this.mesh)
+    console.log(this.mesh)
   }
 
   _setMeshScale() {

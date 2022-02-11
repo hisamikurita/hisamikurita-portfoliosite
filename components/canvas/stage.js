@@ -37,8 +37,8 @@ export default class Stage {
 
   _setScene() {
     this.scene = new THREE.Scene();
-    this.scene.add(new THREE.GridHelper(1000, 100));
-    this.scene.add(new THREE.AxesHelper(100));
+    // this.scene.add(new THREE.GridHelper(1000, 100));
+    // this.scene.add(new THREE.AxesHelper(100));
   }
 
   _setRender() {

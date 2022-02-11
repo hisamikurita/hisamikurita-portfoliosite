@@ -8,6 +8,8 @@ export const state = () => ({
   isCurrent: false,
   pickupPos: 0,
   projectAnimation: '',
+  sceneAnimation: '',
+  scene: '',
 });
 
 export const getters = {
@@ -19,6 +21,12 @@ export const getters = {
   },
   projectAnimationState(state) {
     return state.projectAnimation;
+  },
+  sceneAnimationState(state) {
+    return state.sceneAnimation;
+  },
+  scene(state) {
+    return state.scene;
   }
 };
 
@@ -34,5 +42,11 @@ export const mutations = {
   },
   setProjectAnimationState(state, progress) {
     state.projectAnimation = progress;
+  },
+  sceneAnimationState(state, progress) {
+    state.sceneAnimation = progress;
+  },
+  setScene(state, scene) {
+    state.scene = scene;
   }
 };

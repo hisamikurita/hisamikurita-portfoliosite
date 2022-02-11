@@ -18,9 +18,6 @@
         :color="pickupData[2].siteColor.bodyContentsColor"
       />
     </span>
-    <div class="pickup-canvas">
-      <canvas ref="Canvas"></canvas>
-    </div>
     <p class="pickup-section-number">
       <span
         v-for="num in pickupData.length"
@@ -151,7 +148,6 @@
 </template>
 
 <script>
-import Particle from '../canvas/index/pickup/particle'
 import { preEvent, preEventTouch } from '../../assets/js/preEvent'
 
 export default {
@@ -195,33 +191,6 @@ export default {
   },
 
   mounted() {
-    const color = [
-      {
-        dark: this.pickupData[0].pickup.color01,
-        light: this.pickupData[0].pickup.color02,
-      },
-      {
-        dark: this.pickupData[1].pickup.color01,
-        light: this.pickupData[1].pickup.color02,
-      },
-      {
-        dark: this.pickupData[2].pickup.color01,
-        light: this.pickupData[2].pickup.color02,
-      },
-    ]
-    this.particle = new Particle(this.$SITECONFIG, this.$refs.Canvas, color)
-    this.particle.init()
-
-    this.pResize = () =>{
-      this.particle.onResize();
-    }
-
-    window.addEventListener('resize', this.pResize);
-
-    this.pRaf = () => {
-      this.particle._drawParticles()
-    }
-
     setTimeout(() => {
       this.$gsap.ticker.add(this.pickupToTopEnterScroll)
     }, 100)
@@ -232,10 +201,10 @@ export default {
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
-    this.$gsap.ticker.remove(this.pRaf)
+    // this.$gsap.ticker.remove(this.pRaf)
     this.removeAllEvent()
     this.removeAllPreEvent()
-    window.removeEventListener('resize', this.pResize);
+    window.removeEventListener('resize', this.pResize)
   },
 
   methods: {
@@ -251,11 +220,12 @@ export default {
         this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('hambergerMenu/disable')
-        this.$gsap.ticker.add(this.pRaf)
+        // this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
 
         this.$store.commit('indexPickup/enter')
+        this.$store.commit('indexPickup/sceneAnimationState', true)
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
 
         this.$gsap.to(this.scroll, {
@@ -319,8 +289,10 @@ export default {
             this.removeAllPreEvent()
             this.$asscroll.enable()
             this.$store.commit('hambergerMenu/enable')
-            this.$gsap.ticker.remove(this.pRaf)
+            this.$store.commit('indexPickup/sceneAnimationState', false)
           }, 100)
+          // setTimeout(() => {
+          // }, 300)
         },
       })
 
@@ -353,13 +325,14 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        this.$gsap.ticker.add(this.pRaf)
+        // this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
         this.$store.commit('hambergerMenu/disable')
         this.addAllPreEvent()
         this.disable(2000)
         this.$store.commit('indexPickup/enter')
+        this.$store.commit('indexPickup/sceneAnimationState', true)
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
         this.$store.commit('indexPickup/setProjectAnimationState', 'end')
 
@@ -410,7 +383,7 @@ export default {
         onComplete: () => {
           setTimeout(() => {
             this.removeAllPreEvent()
-            this.$gsap.ticker.remove(this.pRaf)
+            this.$store.commit('indexPickup/sceneAnimationState', false)
             this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
             this.$store.commit('hambergerMenu/enable')
           }, 100)
@@ -427,28 +400,36 @@ export default {
 
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
+          this.$store.commit('indexPickup/setScene', 'next01')
+
           this.isTextSegmentState[1] = 'center'
-          this.particle.setNextScene01()
+          // this.particle.setNextScene01()
           break
         case 2.0:
+          this.$store.commit('indexPickup/setScene', 'next02')
+
           this.isTextSegmentState[1] = 'top'
-          this.particle.setNextScene02()
+          // this.particle.setNextScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
+          this.$store.commit('indexPickup/setScene', 'next03')
+
           this.isTextSegmentState[2] = 'top'
-          this.particle.setNextScene03()
+          // this.particle.setNextScene03()
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
           }, this.wheelInterval * 1000)
           break
         case 4.0:
+          this.$store.commit('indexPickup/setScene', 'next04')
+
           this.isTextSegmentState[3] = 'top'
-          this.particle.setNextScene04()
+          // this.particle.setNextScene04()
           this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState', 'start')
@@ -469,29 +450,37 @@ export default {
 
       switch (this.pickupSectionCurrentNum) {
         case 0.0:
+          this.$store.commit('indexPickup/setScene', 'prev00')
+
           this.pickupToTopLeaveScroll()
           this.isTextSegmentState[1] = 'bottom'
-          this.particle.setPrevScene00()
+          // this.particle.setPrevScene00()
           break
         case 1.0:
+          this.$store.commit('indexPickup/setScene', 'prev01')
+
           this.isTextSegmentState[2] = 'bottom'
-          this.particle.setPrevScene01()
+          // this.particle.setPrevScene01()
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 2.0:
+          this.$store.commit('indexPickup/setScene', 'prev02')
+
           this.isTextSegmentState[3] = 'bottom'
-          this.particle.setPrevScene02()
+          // this.particle.setPrevScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
           }, this.wheelInterval * 1000)
           break
         case 3.0:
+          this.$store.commit('indexPickup/setScene', 'prev03')
+
           this.isTextSegmentState[3] = 'center'
-          this.particle.setPrevScene03()
+          // this.particle.setPrevScene03()
           break
       }
 
@@ -552,7 +541,7 @@ export default {
         })
       } else {
         this.$gsap.set(this.$refs.PickupCircleEnter, {
-            scale: 1.2,
+          scale: 1.2,
         })
       }
 
@@ -640,22 +629,6 @@ export default {
   }
 }
 
-.pickup-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-
-  & canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-}
-
 .pickup-bg {
   background-color: $lightBlue;
 }
@@ -738,7 +711,7 @@ export default {
 
   @include sp() {
     left: 0;
-  width: 100%;
+    width: 100%;
   }
 }
 

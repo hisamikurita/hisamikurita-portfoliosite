@@ -240,7 +240,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
       })
@@ -252,7 +252,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
@@ -263,7 +263,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
 
@@ -277,7 +277,7 @@ export default class Particle {
 
           gsap.to(this.particles[i], {
             duration: this.config.baseDuration,
-            delay: i * 0.08,
+            delay: i * 0.04,
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
@@ -290,7 +290,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
 
@@ -304,7 +304,7 @@ export default class Particle {
 
           gsap.to(this.particles[i], {
             duration: this.config.baseDuration,
-            delay: i * 0.08,
+            delay: i * 0.04,
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
@@ -318,7 +318,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
 
@@ -332,7 +332,7 @@ export default class Particle {
 
           gsap.to(this.particles[i], {
             duration: this.config.baseDuration,
-            delay: i * 0.08,
+            delay: i * 0.04,
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
@@ -345,7 +345,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
 
@@ -359,7 +359,7 @@ export default class Particle {
 
           gsap.to(this.particles[i], {
             duration: this.config.baseDuration,
-            delay: i * 0.08,
+            delay: i * 0.04,
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
@@ -372,7 +372,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
@@ -383,7 +383,7 @@ export default class Particle {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
-        delay: i * 0.08,
+        delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
       })
