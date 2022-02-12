@@ -69,8 +69,9 @@
             :key="data.id"
             class="pickup-link"
             :class="`pickup-link-0${index + 1}`"
+            @click="nextPage"
           >
-            <NuxtLink :to="`/works/${data.id}`"> </NuxtLink>
+            <!-- <NuxtLink :to="`/works/${data.id}`"> </NuxtLink> -->
           </span>
           <div class="pickup-clip">
             <!-- <p class="pickup-section-number">
@@ -610,6 +611,19 @@ export default {
         passive: false,
       })
       window.removeEventListener('resize', this.pickupResize)
+    },
+
+    nextPage() {
+      this.$store.commit('indexPickup/setScene', 'nextpage')
+
+      setTimeout(() => {
+        this.$router.push('/works/mtrust')
+      }, (this.$SITECONFIG.baseDuration + (7 * 0.08)) * 1000)
+
+      setTimeout(() => {
+        this.$store.commit('indexPickup/sceneAnimationState', false)
+      }, ((this.$SITECONFIG.fullDuration + (7 * 0.08)) * 1000) + 20)
+
     },
   },
 }

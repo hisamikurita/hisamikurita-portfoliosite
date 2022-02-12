@@ -4,6 +4,7 @@ uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
 uniform sampler2D u_texture;
 uniform float u_scale;
+uniform float u_alpha;
 uniform vec2 u_metaballsPos[7];
 uniform float u_metaballsRadius[7];
 varying vec2 vUv;
@@ -31,17 +32,15 @@ void main() {
     for (int i = 0; i < 7; i++) {
         vec2 metaball = u_metaballsPos[i];
         float metaballRadius = u_metaballsRadius[i];
-        float dx = metaball.x - x;
-        float dy = metaball.y - y;
+        float dx = (metaball.x + (u_resolution.x / 2.0)) - x;
+        float dy = (metaball.y + (u_resolution.y / 2.0)) - y;
         float radius = metaballRadius;
 
         sum += (radius * radius) / (dx * dx + dy * dy);
     }
 
-    float cc = smoothstep(1.0,1.01,sum);
-
     if (sum > 1.0) {
-        gl_FragColor = vec4(texture.rgb, 1.0);
+        gl_FragColor = vec4(texture.rgb, u_alpha);
         return;
     }
 

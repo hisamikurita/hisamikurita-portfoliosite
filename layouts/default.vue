@@ -99,45 +99,56 @@ export default {
       // current
       if (this.indexPickupIsAnimation) {
         this.$gsap.ticker.add(this.pRaf)
+        this.$gsap.ticker.add(this.mRaf)
       }
       // no current
       else {
+        // setTimeout(()=>{
         this.$gsap.ticker.remove(this.pRaf)
+        this.$gsap.ticker.remove(this.mRaf)
+        // },100)
       }
     },
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
-          this.particle.setNextScene01()
+          this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
         case 'next02':
-          this.particle.setNextScene02()
+          this.particle.setScene(2)
           this.mesh.setScene(2)
           break
         case 'next03':
-          this.particle.setNextScene03()
+          this.particle.setScene(3)
           this.mesh.setScene(3)
           break
         case 'next04':
-          this.particle.setNextScene04()
+          this.particle.setSceneEnd()
           this.mesh.setSceneEnd()
           break
         case 'prev00':
-          this.particle.setPrevScene00()
+          this.particle.setSceneEnd()
           this.mesh.setSceneEnd()
           break
         case 'prev01':
-          this.particle.setPrevScene01()
+          this.particle.setScene(1)
           this.mesh.setScene(1)
           break
         case 'prev02':
-          this.particle.setPrevScene02()
+          this.particle.setScene(2)
           this.mesh.setScene(2)
           break
         case 'prev03':
-          this.particle.setPrevScene03()
+          this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
+          break
+        case 'init':
+          this.mesh.initAnimation()
+          break
+        case 'nextpage':
+          this.particle.setNextPage()
+          this.mesh.setNextPage()
           break
       }
     },
@@ -189,12 +200,14 @@ export default {
       stage.onResize()
     })
 
-    this._raf = () => {
+    // setTimeout(()=>{
+    //   this.mesh.setNextPage();
+    // },3000);
+
+    this.mRaf = () => {
       stage.onRaf()
       this.mesh.onRaf()
     }
-
-    this.$gsap.ticker.add(this._raf)
   },
 }
 </script>
@@ -231,7 +244,7 @@ export default {
 }
 
 .particle {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

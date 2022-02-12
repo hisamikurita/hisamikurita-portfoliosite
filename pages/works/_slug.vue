@@ -61,6 +61,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.$store.commit('indexPickup/setScene', 'init');
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

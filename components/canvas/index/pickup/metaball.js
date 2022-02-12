@@ -79,8 +79,8 @@ export default class Particle {
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
-        this.metaball[i].x + (this.width / 2),
-        this.metaball[i].y + (this.height / 2),
+        this.metaball[i].x,
+        this.metaball[i].y,
       );
 
       metaballsRadius.push(
@@ -124,6 +124,10 @@ export default class Particle {
           type: 'f',
           value: 0.0
         },
+        u_alpha: {
+          type: 'f',
+          value: 1.0
+        },
         u_time: {
           type: 'f',
           value: 0.0
@@ -155,6 +159,7 @@ export default class Particle {
         }
       })
     }
+    console.log(this.mesh)
   }
 
   setScene(sceneNumber) {
@@ -201,6 +206,36 @@ export default class Particle {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         }
       })
+    }
+  }
+
+  initAnimation() {
+    this.stage.canvas.style.opacity = 1;
+  }
+
+  setNextPage() {
+    for (let i = 0; i < this.numMetaballs; i++) {
+      const r = {
+        value: this.metaballRadius[i]
+      }
+      gsap.to(r, {
+        duration: this.config.fullDuration,
+        delay: i * 0.08,
+        ease: this.config.transform,
+        value: window.innerWidth / 4.0,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
+        },
+        // onComplete: () => {
+        //   this.mesh.material.uniforms.u_alpha.value = 0
+        // }
+      })
+
+      setTimeout(() => {
+        for (let i = 0; i < this.numMetaballs; i++) {
+          this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
+        }
+      }, (this.config.fullDuration + (7 * 0.08)) * 1000)
     }
   }
 

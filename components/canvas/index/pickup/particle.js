@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -236,19 +238,7 @@ export default class Particle {
     this._setCanvasSize();
   }
 
-  setPrevScene00() {
-    for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
-        clipR: 0,
-      })
-    }
-  }
-
-
-  setNextScene01() {
+  setSceneFirst() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
@@ -259,7 +249,18 @@ export default class Particle {
     }
   }
 
-  setPrevScene01() {
+  setSceneEnd() {
+    for (let i = 0; i < this.particles.length; i++) {
+      gsap.to(this.particles[i], {
+        duration: this.config.baseDuration,
+        delay: i * 0.04,
+        ease: this.config.transform,
+        clipR: 0,
+      })
+    }
+  }
+
+  setScene(sceneNumber) {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
@@ -268,11 +269,10 @@ export default class Particle {
         clipR: 0,
 
         onComplete: () => {
-          if(i < 4){
-            this.particles[i].color = this.color[0].dark;
-          }
-          else{
-            this.particles[i].color = this.color[0].light;
+          if (i < 4) {
+            this.particles[i].color = this.color[sceneNumber - 1].dark;
+          } else {
+            this.particles[i].color = this.color[sceneNumber - 1].light;
           }
 
           gsap.to(this.particles[i], {
@@ -286,100 +286,7 @@ export default class Particle {
     }
   }
 
-  setNextScene02() {
-    for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
-        clipR: 0,
-
-        onComplete: () => {
-          if(i < 4){
-            this.particles[i].color = this.color[1].dark;
-          }
-          else{
-            this.particles[i].color = this.color[1].light;
-          }
-
-          gsap.to(this.particles[i], {
-            duration: this.config.baseDuration,
-            delay: i * 0.04,
-            ease: this.config.transform,
-            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
-          });
-        }
-      })
-    }
-  }
-
-
-  setPrevScene02() {
-    for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
-        clipR: 0,
-
-        onComplete: () => {
-          if(i < 4){
-            this.particles[i].color = this.color[1].dark;
-          }
-          else{
-            this.particles[i].color = this.color[1].light;
-          }
-
-          gsap.to(this.particles[i], {
-            duration: this.config.baseDuration,
-            delay: i * 0.04,
-            ease: this.config.transform,
-            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
-          });
-        }
-      })
-    }
-  }
-
-  setNextScene03() {
-    for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
-        clipR: 0,
-
-        onComplete: () => {
-          if(i < 4){
-            this.particles[i].color = this.color[2].dark;
-          }
-          else{
-            this.particles[i].color = this.color[2].light;
-          }
-
-          gsap.to(this.particles[i], {
-            duration: this.config.baseDuration,
-            delay: i * 0.04,
-            ease: this.config.transform,
-            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
-          });
-        }
-      })
-    }
-  }
-
-  setPrevScene03() {
-    for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
-        clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
-      })
-    }
-  }
-
-  setNextScene04() {
+  setNextPage() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,

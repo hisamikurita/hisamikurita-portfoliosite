@@ -17,7 +17,10 @@
         </picture>
       </div>
       <div class="pc-only">
-        <div class="hero-title" :style="`color:${currentProject.siteColor.mvTextColor};`">
+        <div
+          class="hero-title"
+          :style="`color:${currentProject.siteColor.mvTextColor};`"
+        >
           <h1>
             <span class="hero-title-read-area">
               <AppSectionReadTitle
@@ -29,7 +32,8 @@
             </span>
             <span class="hero-title-wrapper-block">
               <span
-                v-for="index of Object.keys(currentProject.detailsMainTextPc).length - 1"
+                v-for="index of Object.keys(currentProject.detailsMainTextPc)
+                  .length - 1"
                 :key="index"
                 class="hero-title-wrapper"
                 :class="`hero-title-wrapper-0${index}`"
@@ -58,7 +62,8 @@
           </h1>
           <p class="hero-desc">
             <span
-              v-for="index of Object.keys(currentProject.detailsMainDescPc).length - 1"
+              v-for="index of Object.keys(currentProject.detailsMainDescPc)
+                .length - 1"
               :key="index"
               class="hero-desc-wrapper"
               :class="`hero-desc-wrapper-0${index}`"
@@ -82,23 +87,25 @@
             <h1 class="hero-title-sp">
               <span class="hero-title-wrapper-block-sp">
                 <span
-                  v-for="index of Object.keys(currentProject.detailsMainTextSp).length - 1"
+                  v-for="index of Object.keys(currentProject.detailsMainTextSp)
+                    .length - 1"
                   :key="index"
                   class="hero-title-wrapper-sp"
                   :class="`hero-title-wrapper-sp-0${index}`"
                 >
-                  {{currentProject.detailsMainTextSp['text0' + index]}}
+                  {{ currentProject.detailsMainTextSp['text0' + index] }}
                 </span>
               </span>
             </h1>
             <p class="hero-desc-sp">
               <span
-                v-for="index of Object.keys(currentProject.detailsMainDescSp).length - 1"
+                v-for="index of Object.keys(currentProject.detailsMainDescSp)
+                  .length - 1"
                 :key="index"
                 class="hero-desc-wrapper-sp"
                 :class="`hero-desc-wrapper-sp-0${index}`"
               >
-                {{currentProject.detailsMainDescSp['text0' + index]}}
+                {{ currentProject.detailsMainDescSp['text0' + index] }}
               </span>
             </p>
           </div>
@@ -123,8 +130,10 @@ export default {
     }
   },
   mounted() {
-    this.isTextSegmentState = 'center'
-    this.isTextUnderlineState = 'extend'
+    setTimeout(() => {
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
+    }, 300)
   },
 }
 </script>
@@ -140,7 +149,7 @@ export default {
   height: var(--viewportHeight, 100vh);
 }
 
-.hero-inner{
+.hero-inner {
   padding: 93px vw_sp(20) 163px;
 }
 
@@ -200,7 +209,7 @@ export default {
   font-family: $helvetica;
 }
 
-.hero-title-sp{
+.hero-title-sp {
   margin: 0 0 23px 0;
   font-size: vw_sp(120);
   font-family: $sixcaps;
@@ -208,25 +217,25 @@ export default {
   border-bottom: solid 1px;
 }
 
-.hero-title-wrapper-block-sp{
+.hero-title-wrapper-block-sp {
   display: block;
   margin: 0 0 26px 0;
 }
 
-.hero-title-wrapper-sp{
+.hero-title-wrapper-sp {
   display: block;
   white-space: nowrap;
 
-  &:first-of-type{
+  &:first-of-type {
     text-align: right;
   }
 }
 
-.hero-desc-wrapper-sp{
+.hero-desc-wrapper-sp {
   display: block;
 }
 
-.hero-desc-sp{
+.hero-desc-sp {
   font-size: 10px;
   font-family: $helvetica;
   line-height: 1.21;
