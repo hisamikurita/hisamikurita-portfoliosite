@@ -159,7 +159,6 @@ export default class Particle {
         }
       })
     }
-    console.log(this.mesh)
   }
 
   setScene(sceneNumber) {
@@ -209,33 +208,27 @@ export default class Particle {
     }
   }
 
-  initAnimation() {
-    this.stage.canvas.style.opacity = 1;
-  }
-
   setNextPage() {
     for (let i = 0; i < this.numMetaballs; i++) {
       const r = {
         value: this.metaballRadius[i]
       }
       gsap.to(r, {
-        duration: this.config.fullDuration,
+        duration: this.config.baseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
         value: window.innerWidth / 4.0,
         onUpdate: () => {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         },
-        // onComplete: () => {
-        //   this.mesh.material.uniforms.u_alpha.value = 0
-        // }
       })
 
       setTimeout(() => {
+        this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
         for (let i = 0; i < this.numMetaballs; i++) {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
         }
-      }, (this.config.fullDuration + (7 * 0.08)) * 1000)
+      }, (this.config.baseDuration + (7 * 0.08)) * 1000)
     }
   }
 

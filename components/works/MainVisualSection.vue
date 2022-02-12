@@ -133,7 +133,7 @@ export default {
     setTimeout(() => {
       this.isTextSegmentState = 'center'
       this.isTextUnderlineState = 'extend'
-    }, 300)
+    }, 400)
   },
 }
 </script>

@@ -69,7 +69,7 @@
             :key="data.id"
             class="pickup-link"
             :class="`pickup-link-0${index + 1}`"
-            @click="nextPage"
+            @click="nextPage(data)"
           >
             <!-- <NuxtLink :to="`/works/${data.id}`"> </NuxtLink> -->
           </span>
@@ -613,16 +613,17 @@ export default {
       window.removeEventListener('resize', this.pickupResize)
     },
 
-    nextPage() {
+    nextPage(data) {
+      this.removeAllEvent();
       this.$store.commit('indexPickup/setScene', 'nextpage')
 
       setTimeout(() => {
-        this.$router.push('/works/mtrust')
-      }, (this.$SITECONFIG.baseDuration + (7 * 0.08)) * 1000)
+        this.$router.push(`/works/${data.id}`)
+      }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08)) * 1000)
 
       setTimeout(() => {
         this.$store.commit('indexPickup/sceneAnimationState', false)
-      }, ((this.$SITECONFIG.fullDuration + (7 * 0.08)) * 1000) + 20)
+      }, ((this.$SITECONFIG.baseDuration + (7 * 0.08)) * 1000) + 20)
 
     },
   },

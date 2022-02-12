@@ -143,9 +143,6 @@ export default {
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
-        case 'init':
-          this.mesh.initAnimation()
-          break
         case 'nextpage':
           this.particle.setNextPage()
           this.mesh.setNextPage()

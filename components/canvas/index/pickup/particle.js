@@ -295,5 +295,15 @@ export default class Particle {
         clipR: 0,
       })
     }
+
+    setTimeout(() => {
+      for (let i = 0; i < this.particles.length; i++) {
+        if (i < 4) {
+          this.particles[i].color = this.color[0].dark;
+        } else {
+          this.particles[i].color = this.color[0].light;
+        }
+      }
+    }, (this.config.baseDuration + (7 * 0.08)) * 1000)
   }
 }
