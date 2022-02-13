@@ -1,9 +1,9 @@
 <template>
   <div class="index">
-    <!-- <div class="hero-and-about">
+    <div class="hero-and-about">
       <IndexMainVisualSection />
       <IndexAboutSection />
-    </div> -->
+    </div>
     <IndexSelectProjectPickupSection :pickup-data="getPickupData" />
     <IndexSelectProjectCardSection
       :project-data="getProjectData"
