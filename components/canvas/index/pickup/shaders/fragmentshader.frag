@@ -5,6 +5,8 @@ uniform vec2 u_resolution;
 uniform sampler2D u_texture;
 uniform float u_scale;
 uniform float u_alpha;
+uniform float u_time;
+uniform float u_rand[7];
 uniform vec2 u_metaballsPos[7];
 uniform float u_metaballsRadius[7];
 varying vec2 vUv;
@@ -32,8 +34,11 @@ void main() {
     for (int i = 0; i < 7; i++) {
         vec2 metaball = u_metaballsPos[i];
         float metaballRadius = u_metaballsRadius[i];
-        float dx = (metaball.x + (u_resolution.x / 2.0)) - x;
-        float dy = (metaball.y + (u_resolution.y / 2.0)) - y;
+        float rand = u_rand[i];
+        float sx = metaball.x + cos(u_time * rand) * ((120.0 * rand * uv.x) + 40.0);
+        float sy = metaball.y + sin(u_time * rand) * ((120.0 * rand * uv.y) + 40.0);
+        float dx = (sx + (u_resolution.x / 2.0)) - x;
+        float dy = (sy + (u_resolution.y / 2.0)) - y;
         float radius = metaballRadius;
 
         sum += (radius * radius) / (dx * dx + dy * dy);
@@ -43,11 +48,4 @@ void main() {
         gl_FragColor = vec4(texture.rgb, u_alpha);
         return;
     }
-
-    // gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
-    }
-
-    // vec4 video_texture = texture2D(u_video_texture, uv);
-
-    // gl_FragColor = vec4(texture.rgb, video_texture.r);
-// }
+}

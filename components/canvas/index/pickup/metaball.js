@@ -36,6 +36,7 @@ export default class Particle {
   _setMesh() {
     const metaballsPosition = [];
     const metaballsRadius = [];
+    const rands = [];
 
     this.numMetaballs = 7;
     this.metaball = [{
@@ -85,7 +86,9 @@ export default class Particle {
 
       metaballsRadius.push(
         0
-      )
+      );
+
+      rands.push(Math.random());
     }
 
     const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
@@ -119,6 +122,10 @@ export default class Particle {
             x: this.naturalSize.x,
             y: this.naturalSize.y
           }
+        },
+        u_rand: {
+          type: '1fv',
+          value: rands
         },
         u_scale: {
           type: 'f',
@@ -233,7 +240,7 @@ export default class Particle {
   }
 
   _render() {
-    //
+    this.mesh.material.uniforms.u_time.value += 0.020;
   }
 
   onRaf() {
