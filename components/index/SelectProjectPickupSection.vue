@@ -614,16 +614,17 @@ export default {
     },
 
     nextPage(data) {
+      this.removeAllPreEvent();
       this.removeAllEvent();
       this.$store.commit('indexPickup/setScene', 'nextpage')
 
       setTimeout(() => {
         this.$router.push(`/works/${data.id}`)
-      }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08)) * 1000)
+      }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08) / 4.0) * 1000)
 
-      setTimeout(() => {
-        this.$store.commit('indexPickup/sceneAnimationState', false)
-      }, ((this.$SITECONFIG.baseDuration + (7 * 0.08)) * 1000) + 20)
+      // setTimeout(() => {
+      //   this.$store.commit('indexPickup/sceneAnimationState', false)
+      // }, ((this.$SITECONFIG.halfBaseDuration + (7 * 0.08)) * 1000) + 100)
 
     },
   },
@@ -723,10 +724,12 @@ export default {
   position: absolute;
   bottom: 0;
   left: 40px;
+  font-size: 12px;
 
   @include sp() {
     left: 0;
     width: 100%;
+    font-size: 10px;
   }
 }
 

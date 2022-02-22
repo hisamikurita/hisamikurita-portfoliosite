@@ -178,7 +178,7 @@ export default {
         this.mouseX >= startPosX &&
         this.mouseX < endPosX
       ) {
-        //
+        ;
       } else {
         this.allCardFadeOut()
       }

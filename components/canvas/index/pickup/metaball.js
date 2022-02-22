@@ -36,7 +36,6 @@ export default class Particle {
   _setMesh() {
     const metaballsPosition = [];
     const metaballsRadius = [];
-    const rands = [];
 
     this.numMetaballs = 7;
     this.metaball = [{
@@ -77,6 +76,15 @@ export default class Particle {
       80,
       40,
     ]
+    this.rands = [
+      0.84,
+      0.66,
+      0.62,
+      -0.43,
+      0.81,
+      -0.49,
+      -0.67,
+    ]
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
@@ -87,8 +95,6 @@ export default class Particle {
       metaballsRadius.push(
         0
       );
-
-      rands.push(Math.random());
     }
 
     const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
@@ -125,7 +131,7 @@ export default class Particle {
         },
         u_rand: {
           type: '1fv',
-          value: rands
+          value: this.rands
         },
         u_scale: {
           type: 'f',
@@ -157,8 +163,8 @@ export default class Particle {
         value: 0
       }
       gsap.to(r, {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         value: this.metaballRadius[i],
         onUpdate: () => {
@@ -174,8 +180,8 @@ export default class Particle {
         value: this.metaballRadius[i]
       }
       gsap.to(r, {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         value: 0,
         onUpdate: () => {
@@ -185,8 +191,8 @@ export default class Particle {
           this.mesh.material.uniforms.u_texture.value = this.imgPath[sceneNumber - 1]
 
           gsap.to(r, {
-            duration: this.config.baseDuration,
-            delay: i * 0.04,
+            duration: 0.60 + Math.random() * 0.75,
+            delay: i * 0.08,
             ease: this.config.transform,
             value: this.metaballRadius[i],
             onUpdate: () => {
@@ -204,8 +210,8 @@ export default class Particle {
         value: this.metaballRadius[i]
       }
       gsap.to(r, {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         value: 0,
         onUpdate: () => {
@@ -221,7 +227,7 @@ export default class Particle {
         value: this.metaballRadius[i]
       }
       gsap.to(r, {
-        duration: this.config.baseDuration,
+        duration: this.config.halfBaseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
         value: window.innerWidth / 4.0,
@@ -235,12 +241,12 @@ export default class Particle {
         for (let i = 0; i < this.numMetaballs; i++) {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
         }
-      }, (this.config.baseDuration + (7 * 0.08)) * 1000)
+      }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
     }
   }
 
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0.020;
+    this.mesh.material.uniforms.u_time.value += 0.036;
   }
 
   onRaf() {

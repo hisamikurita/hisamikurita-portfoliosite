@@ -1,6 +1,4 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -10,7 +8,7 @@ export default class Particle {
     this.dpr = window.devicePixelRatio;
     this.particles = [];
     this.num = 7;
-    this.speed = window.innerWidth > 767 ? 1.4 : 0.7;
+    this.speed = window.innerWidth > 767 ? 2.4 : 1.2;
     this.color = color;
 
     this.radiusPc = [
@@ -241,8 +239,8 @@ export default class Particle {
   setSceneFirst() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
@@ -252,8 +250,8 @@ export default class Particle {
   setSceneEnd() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         clipR: 0,
       })
@@ -263,8 +261,8 @@ export default class Particle {
   setScene(sceneNumber) {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
-        delay: i * 0.04,
+        duration: 0.60 + Math.random() * 0.75,
+        delay: i * 0.08,
         ease: this.config.transform,
         clipR: 0,
 
@@ -276,8 +274,8 @@ export default class Particle {
           }
 
           gsap.to(this.particles[i], {
-            duration: this.config.baseDuration,
-            delay: i * 0.04,
+            duration: 0.60 + Math.random() * 0.75,
+            delay: i * 0.08,
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
@@ -289,7 +287,7 @@ export default class Particle {
   setNextPage() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
-        duration: this.config.baseDuration,
+        duration: this.config.halfBaseDuration,
         delay: i * 0.04,
         ease: this.config.transform,
         clipR: 0,
@@ -304,6 +302,6 @@ export default class Particle {
           this.particles[i].color = this.color[0].light;
         }
       }
-    }, (this.config.baseDuration + (7 * 0.08)) * 1000)
+    }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
   }
 }

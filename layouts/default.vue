@@ -112,14 +112,17 @@ export default {
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
+          console.log('next1')
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
         case 'next02':
+          console.log('next2')
           this.particle.setScene(2)
           this.mesh.setScene(2)
           break
         case 'next03':
+          console.log('next3')
           this.particle.setScene(3)
           this.mesh.setScene(3)
           break

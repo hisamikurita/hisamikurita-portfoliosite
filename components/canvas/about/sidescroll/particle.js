@@ -1,5 +1,8 @@
+import { gsap } from 'gsap';
+
 export default class Particle {
-  constructor(canvas) {
+  constructor(config, canvas) {
+    this.config = config;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.dpr = window.devicePixelRatio;
@@ -30,44 +33,52 @@ export default class Particle {
     ]
 
     this.particlesInit = [{
-        x: window.innerWidth > 767 ? 160 : 500,
-        y: window.innerWidth > 767 ? 160 : 150,
-        r: window.innerWidth > 767 ? this.radiusPc[0] : this.radiusSp[0],
+        x: this.config.isPc ? 160 : 500,
+        y: this.config.isPc ? 160 : 150,
+        r: this.config.isPc ? this.radiusPc[0] : this.radiusSp[0],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 1060 : 560,
-        y: window.innerWidth > 767 ? 220 : 550,
-        r: window.innerWidth > 767 ? this.radiusPc[1] : this.radiusSp[1],
+        x: this.config.isPc ? 1060 : 560,
+        y: this.config.isPc ? 220 : 550,
+        r: this.config.isPc ? this.radiusPc[1] : this.radiusSp[1],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 110 : 150,
-        y: window.innerWidth > 767 ? 630 : 630,
-        r: window.innerWidth > 767 ? this.radiusPc[2] : this.radiusSp[2],
+        x: this.config.isPc ? 110 : 150,
+        y: this.config.isPc ? 630 : 630,
+        r: this.config.isPc ? this.radiusPc[2] : this.radiusSp[2],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 280 : 200,
-        y: window.innerWidth > 767 ? 560 : 930,
-        r: window.innerWidth > 767 ? this.radiusPc[3] : this.radiusSp[3],
+        x: this.config.isPc ? 280 : 200,
+        y: this.config.isPc ? 560 : 930,
+        r: this.config.isPc ? this.radiusPc[3] : this.radiusSp[3],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 410 : 280,
-        y: window.innerWidth > 767 ? 500 : 780,
-        r: window.innerWidth > 767 ? this.radiusPc[4] : this.radiusSp[4],
+        x: this.config.isPc ? 410 : 280,
+        y: this.config.isPc ? 500 : 780,
+        r: this.config.isPc ? this.radiusPc[4] : this.radiusSp[4],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 910 : 630,
-        y: window.innerWidth > 767 ? 500 : 400,
-        r: window.innerWidth > 767 ? this.radiusPc[5] : this.radiusSp[5],
+        x: this.config.isPc ? 910 : 630,
+        y: this.config.isPc ? 500 : 400,
+        r: this.config.isPc ? this.radiusPc[5] : this.radiusSp[5],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 1080 : 680,
-        y: window.innerWidth > 767 ? 530 : 684,
-        r: window.innerWidth > 767 ? this.radiusPc[6] : this.radiusSp[6],
+        x: this.config.isPc ? 1080 : 680,
+        y: this.config.isPc ? 530 : 684,
+        r: this.config.isPc ? this.radiusPc[6] : this.radiusSp[6],
+        clipR: 0,
       },
       {
-        x: window.innerWidth > 767 ? 1076 : 320,
-        y: window.innerWidth > 767 ? 684 : 384,
-        r: window.innerWidth > 767 ? this.radiusPc[7] : this.radiusSp[7],
+        x: this.config.isPc ? 1076 : 320,
+        y: this.config.isPc ? 684 : 384,
+        r: this.config.isPc ? this.radiusPc[7] : this.radiusSp[7],
+        clipR: 0,
       },
     ]
   }
@@ -165,19 +176,24 @@ export default class Particle {
       particle.x = particle.nextx
       particle.y = particle.nexty
 
+      this.ctx.save();
       this.ctx.beginPath();
+      this.ctx.arc(particle.x, particle.y, particle.clipR, 0, 2 * Math.PI, false);
+      this.ctx.clip();
       this.ctx.arc(particle.x, particle.y, particle.r, 0, 2 * Math.PI, false);
       this.ctx.fillStyle = '#ffffff'
       this.ctx.fill();
+      this.ctx.restore();
     }
   }
 
   _initParticles() {
     for (let i = 0; i < this.num; i++) {
       let p = null;
+      const clipR = this.particlesInit[i].clipR;
       const r = this.particlesInit[i].r;
-      const x = window.innerWidth > 767 ? (this.particlesInit[i].x / 1280) * window.innerWidth : (this.particlesInit[i].x / 750) * window.innerWidth;
-      const y = window.innerWidth > 767 ? (this.particlesInit[i].y / 800) * window.innerHeight : (this.particlesInit[i].y / 1100) * window.innerHeight;
+      const x = this.config.isPc ? (this.particlesInit[i].x / 1280) * window.innerWidth : (this.particlesInit[i].x / 750) * window.innerWidth;
+      const y = this.config.isPc ? (this.particlesInit[i].y / 800) * window.innerHeight : (this.particlesInit[i].y / 1100) * window.innerHeight;
       const s = Math.random() * this.speed;
       const angle = Math.floor(Math.random() * 360)
       const radians = angle * Math.PI / 180;
@@ -187,6 +203,7 @@ export default class Particle {
         x: x,
         y: y,
         r: r,
+        clipR: clipR,
         s: s,
         angle: angle,
         radians: radians,
@@ -208,6 +225,17 @@ export default class Particle {
     this.ctx.restore()
     this.canvas.style.width = width + 'px'
     this.canvas.style.height = height + 'px'
+  }
+
+  _fadeIn(){
+    for (let i = 0; i < this.particles.length; i++) {
+      gsap.to(this.particles[i], {
+        duration: this.config.baseDuration,
+        delay: i * 0.08,
+        ease: this.config.transform,
+        clipR: this.config.isPc ? this.radiusPc[i] : this.radiusSp[i],
+      })
+    }
   }
 
   init() {

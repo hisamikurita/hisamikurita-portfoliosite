@@ -144,6 +144,7 @@ export default {
           3500
         )
 
+
         this.synchronousScroll = this.$gsap.fromTo(
           this.$refs.ProjectList,
           {
@@ -151,13 +152,7 @@ export default {
           },
           {
             x: () =>
-              -(
-                this.$refs.ProjectList.clientWidth -
-                this.$refs.ProjectWrapper.clientWidth +
-                80 +
-                120 +
-                80
-              ),
+              -(this.$refs.ProjectList.clientWidth - this.$refs.ProjectWrapper.clientWidth + this.deveiceOffsetWidth),
             ease: 'none',
             scrollTrigger: {
               start: 'center center',
@@ -182,7 +177,7 @@ export default {
                 trigger: this.$refs.ProjectWrapper,
                 onEnter: () => {
                   this.$gsap.to(this.wrapper, {
-                    duration: this.$SITECONFIG.baseDuration * 2.0,
+                    duration: this.$SITECONFIG.fullDuration,
                     ease: this.$EASING.transform,
                     rotate: 0,
                   })
@@ -207,6 +202,8 @@ export default {
   },
 
   mounted() {
+    // 初期化
+    this.deveiceOffsetWidth = this.$SITECONFIG.isPc ?  80 + 120 + 80 : 40;
     this.wrapper = this.$refs.ProjectItemWrapperRotate
     this.text = this.$refs.ProjectItemWrapperTranslate
     this.$gsap.set(this.wrapper, {
@@ -217,7 +214,8 @@ export default {
       yPercent: 103.8,
     })
 
-    const particle = new Particle(this.$refs.Canvas)
+    // パーティクル
+    const particle = new Particle(this.$SITECONFIG,this.$refs.Canvas)
     particle.init()
 
     const tweenPosition = {
@@ -232,7 +230,6 @@ export default {
       })
       particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
     }
-    this.$gsap.ticker.add(this.pRaf)
 
     this.observe = this.$refs.ProjectWrapper
     this.iObserver = new IntersectionObserver(
@@ -247,6 +244,17 @@ export default {
       },
       { rootMargin: '0%' }
     )
+    this.pObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            particle._fadeIn();
+          }
+        })
+      },
+      { rootMargin: '0%' }
+    )
+    this.pObserver.observe(this.observe)
     this.iObserver.observe(this.observe)
 
     this.pResize = () => {
@@ -259,6 +267,7 @@ export default {
   beforeDestroy() {
     this.fixSection.kill()
     this.synchronousScroll.kill()
+    this.pObserver.unobserve(this.observe)
     this.iObserver.unobserve(this.observe)
     this.$gsap.ticker.remove(this.pRaf)
     window.removeEventListener('resize', this.pResize)
@@ -397,7 +406,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  // height: 100vh;
   height: var(--viewportHeight, 100vh) !important;
   background-color: $darkBlack;
 }
