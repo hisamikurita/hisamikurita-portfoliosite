@@ -1,9 +1,9 @@
 <template>
   <div ref="Hero" class="hero">
-    <div ref="HeroCanvas" class="hero-canvas"></div>
     <div class="hero-inner">
       <div class="l-container">
-        <h1 class="hero-title">
+        <div ref="HeroCanvas" class="hero-canvas"></div>
+        <h1 ref="HeroTitle" class="hero-title">
           <span class="pc-only">
             <span class="hero-title-read-area">
               <AppSectionReadTitle
@@ -155,7 +155,7 @@
   </div>
 </template>
 <script>
-import Mesh from '../canvas/about/mainvisual/mv'
+import Mesh from '../canvas/about/mainvisual/metaball'
 import Stage from '../canvas/stage'
 
 export default {
@@ -167,30 +167,53 @@ export default {
     }
   },
   mounted() {
-    const stage = new Stage(this.$refs.HeroCanvas)
+    // console.log(this.$refs.HeroTitle.clientWidth)
+    const stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
     stage.init()
 
-    const mesh = new Mesh(stage)
+    const mesh = new Mesh(stage, this.$SITECONFIG)
     mesh.init()
 
-    window.addEventListener('resize', () => {
-      mesh.onResize()
+    this.mResize = () => {
       stage.onResize()
-    })
+      mesh.onResize()
+    }
 
-    this._raf = () => {
+    this.mRaf = () => {
       stage.onRaf()
       mesh.onRaf()
     }
 
-    this.$gsap.ticker.add(this._raf)
+    window.addEventListener('resize', this.mResize)
 
-    this.isTextSegmentState = 'center'
-    this.isTextUnderlineState = 'extend'
+    setTimeout(() => {
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
+      mesh.fadeIn()
+    }, 400)
+
+    this.observe = this.$refs.Hero;
+    this.iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$gsap.ticker.add(this.mRaf)
+          } else {
+            this.$gsap.ticker.remove(this.mRaf)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    )
+    this.iObserver.observe(this.observe)
   },
 
   beforeDestroy() {
-    this.$gsap.ticker.remove(this._raf)
+    window.removeEventListener('resize', this.mResize)
+    this.iObserver.unobserve(this.observe)
+    this.$gsap.ticker.remove(this.mRaf)
   },
 }
 </script>
@@ -201,6 +224,10 @@ export default {
   z-index: 1;
 }
 
+.hero .l-container {
+  position: relative;
+}
+
 .hero-canvas {
   position: absolute;
   top: 0;
@@ -209,6 +236,10 @@ export default {
   height: 100%;
   z-index: 100;
   pointer-events: none;
+
+  & canvas {
+    margin: 0 auto;
+  }
 }
 
 .hero-inner {
@@ -309,7 +340,7 @@ export default {
 
 .hero-card-item {
   position: absolute;
-  top: 82.8%;
+  top: 110.8%;
   left: 33%;
   transform: rotate(-10deg);
 }

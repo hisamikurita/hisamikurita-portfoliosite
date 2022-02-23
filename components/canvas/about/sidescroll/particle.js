@@ -12,7 +12,7 @@ export default class Particle {
 
     this.radiusPc = [
       140,
-      198,
+      168,
       100,
       40,
       60,
@@ -22,7 +22,7 @@ export default class Particle {
     ]
 
     this.radiusSp = [
-      65,
+      58,
       37,
       60,
       47,

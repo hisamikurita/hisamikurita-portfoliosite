@@ -1,12 +1,11 @@
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Stage {
-  constructor(canvas) {
+  constructor(canvas, wrapper = null) {
+    this.wrapper = wrapper;
     this.renderParam = {
-      // clearColor: 0x000000,
-      width: window.innerWidth,
-      height: window.innerHeight
+      width: !this.wrapper ? window.innerWidth : this.wrapper.clientWidth,
+      height: !this.wrapper ? window.innerHeight : this.wrapper.clientHeight,
     };
     this.cameraParam = {
       fov: 45,
@@ -37,16 +36,12 @@ export default class Stage {
 
   _setScene() {
     this.scene = new THREE.Scene();
-    // this.scene.add(new THREE.GridHelper(1000, 100));
-    // this.scene.add(new THREE.AxesHelper(100));
   }
 
   _setRender() {
     this.renderer = new THREE.WebGLRenderer({
       alpha: true
     });
-    // this.renderer.setPixelRatio(window.devicePixelRatio);
-    // this.renderer.setClearColor(new THREE.Color(this.renderParam.clearColor));
     this.renderer.setSize(this.renderParam.width, this.renderParam.height);
     this.canvas.appendChild(this.renderer.domElement);
   }
@@ -66,28 +61,18 @@ export default class Stage {
         this.cameraParam.z
       );
       this.camera.lookAt(this.cameraParam.lookAt);
-      // this.controls = new OrbitControls( this.camera, this.renderer.domElement );
     }
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    this.camera.aspect = windowWidth / windowHeight;
-
-    // ちょうどスクリーンいっぱいになる視野角を計算する
-    // this.camera.fov =
-    //   THREE.MathUtils.radToDeg(
-    //     Math.atan(
-    //       windowWidth / this.camera.aspect / (2 * this.camera.position.z)
-    //     )
-    //   ) * 2;
+    this.renderParam.width = !this.wrapper ? window.innerWidth : this.wrapper.clientWidth;
+    this.renderParam.height = !this.wrapper ? window.innerHeight : this.wrapper.clientHeight;
+    this.camera.aspect = this.renderParam.width / this.renderParam.height;
     this.camera.fov = this.cameraParam.fov;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(windowWidth, windowHeight);
+    this.renderer.setSize(this.renderParam.width, this.renderParam.height);
   }
 
   _render() {
     this.renderer.render(this.scene, this.camera);
-    // this.controls.update()
   }
 
   onResize() {
