@@ -501,7 +501,7 @@ export default {
   right: 158px;
   transform: translate3d(0, -50%, 0);
   color: $gold;
-  font-size: vw(80);
+  font-size: vmin(128);
   font-family: $sixcaps;
 
   @include sp() {
