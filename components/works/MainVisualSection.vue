@@ -175,11 +175,11 @@ export default {
 
 .hero-title {
   position: absolute;
-  top: calc(50.2% + 53px);
+  top: calc(50.2% + #{vmin(86)});
   left: 80px;
   transform: translate3d(0, -50%, 0);
-  width: vw(494);
-  font-size: vw(80);
+  width: vmin(792);
+  font-size: vmin(128);
   font-family: $sixcaps;
   line-height: 1.04;
 }
