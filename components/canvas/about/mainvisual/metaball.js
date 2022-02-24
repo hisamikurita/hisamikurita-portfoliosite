@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
@@ -22,7 +24,7 @@ export default class Particle {
     };
 
     this.video = document.createElement("video");
-    this.video.src ="https://videos.ctfassets.net/cj90nies7oz5/4vJihp1CBpwTSZtAWHgxmj/5094e6f42502313e1012d23addc8d352/ALL_15.07.20.mp4";
+    this.video.src = "https://videos.ctfassets.net/cj90nies7oz5/4vJihp1CBpwTSZtAWHgxmj/5094e6f42502313e1012d23addc8d352/ALL_15.07.20.mp4";
     this.video.crossOrigin = "anonymous";
     this.video.muted = true;
     this.video.setAttribute("playsinline", "playsinline");
@@ -41,40 +43,40 @@ export default class Particle {
 
     this.numMetaballs = 8;
     this.metaball = [{
-        x: -130,
-        y: 150,
+        x: this.config.isPc ? -130 : 30,
+        y: this.config.isPc ? 160 : 290,
       },
       {
         x: -200,
-        y: 90,
+        y: 100,
       },
       {
         x: 110,
-        y: 110,
+        y: 120,
       },
       {
         x: 0,
-        y: -50,
+        y: -40,
       },
       {
         x: 190,
-        y: -50,
+        y: -40,
       },
       {
-        x: -20,
-        y: -290,
+        x: this.config.isPc ? -20 : 10,
+        y: this.config.isPc ? -280 : -400,
       },
       {
         x: 200,
-        y: -140,
+        y: -130,
       },
       {
-        x: -300,
-        y: -140,
+        x: this.config.isPc ? -300 : -190,
+        y: this.config.isPc ? -130 : -150,
       },
     ]
     this.metaballRadius = [
-      90,
+      this.config.isPc ? 90 : 120,
       60,
       60,
       60,
@@ -84,14 +86,14 @@ export default class Particle {
       66,
     ]
     this.rands = [
-      0.84,
-      0.66,
+      this.config.isPc ? 0.84 : 0.74,
+      this.config.isPc ? 0.66 : 0.32,
       0.62,
       -0.43,
-      0.81,
+      this.config.isPc ? 0.81 : 0.52,
       -0.49,
       -0.67,
-      -0.57,
+      0.57,
     ]
 
     for (let i = 0; i < this.numMetaballs; i++) {
@@ -105,7 +107,7 @@ export default class Particle {
       );
     }
 
-    const geometry = new THREE.PlaneBufferGeometry(2, 2, 1,1);
+    const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
     const material = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
@@ -113,7 +115,7 @@ export default class Particle {
       uniforms: {
         u_texture: {
           type: "t",
-					value: new THREE.VideoTexture(this.video)
+          value: new THREE.VideoTexture(this.video)
         },
         u_metaballsPos: {
           type: "v2v",
@@ -149,6 +151,10 @@ export default class Particle {
           type: 'f',
           value: 1.0
         },
+        u_ratio: {
+          type: 'f',
+          value: this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 750,
+        },
         u_time: {
           type: 'f',
           value: 0.0
@@ -181,7 +187,9 @@ export default class Particle {
     this.width = this.stage.renderParam.width;
     this.height = this.stage.renderParam.height;
 
-    this.mesh.material.uniforms.u_resolution.value.x =this.width;
+    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 750;
+
+    this.mesh.material.uniforms.u_resolution.value.x = this.width;
     this.mesh.material.uniforms.u_resolution.value.y = this.height;
   }
 

@@ -110,7 +110,7 @@
 
 <script>
 import Particle from '../canvas/about/sidescroll/particle'
-import { vw } from '../../assets/js/vw'
+// import { vw } from '../../assets/js/vw'
 
 export default {
   props: {
@@ -186,7 +186,9 @@ export default {
                     ease: this.$EASING.transform,
                     yPercent: 0,
                     onComplete: () => {
+                      setTimeout(()=>{
                       this.isTextAnimationState = true
+                      },300)
                     },
                   })
                   this.isTextSegmentState = 'center'
@@ -275,74 +277,74 @@ export default {
 
   methods: {
     onMouseEnter(e) {
-      const nextTarget = this.NextAll(e.target)
-      const prevTarget = this.PrevAll(e.target)
-      const currentCircle = e.target.querySelector('.project-item-circle')
-      const currentImg01 = e.target.querySelector('.project-item-img-01')
-      const currentImg02 = e.target.querySelector('.project-item-img-02')
+      // const nextTarget = this.NextAll(e.target)
+      // const prevTarget = this.PrevAll(e.target)
+      // const currentCircle = e.target.querySelector('.project-item-circle')
+      // const currentImg01 = e.target.querySelector('.project-item-img-01')
+      // const currentImg02 = e.target.querySelector('.project-item-img-02')
 
-      this.$gsap.to(currentCircle, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: vw(360),
-      })
-      this.$gsap.to(currentImg01, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        scale: 1,
-        rotate: -8,
-      })
-      this.$gsap.to(currentImg02, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        scale: 1,
-        rotate: 8,
-      })
-      this.$gsap.to(nextTarget.text, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: vw(360),
-      })
-      this.$gsap.to(nextTarget.circle, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: vw(360),
-      })
+      // this.$gsap.to(currentCircle, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: vw(360),
+      // })
+      // this.$gsap.to(currentImg01, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   scale: 1,
+      //   rotate: -8,
+      // })
+      // this.$gsap.to(currentImg02, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   scale: 1,
+      //   rotate: 8,
+      // })
+      // this.$gsap.to(nextTarget.text, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: vw(360),
+      // })
+      // this.$gsap.to(nextTarget.circle, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: vw(360),
+      // })
 
-      this.$gsap.to(prevTarget.text, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: vw(-360),
-      })
-      this.$gsap.to(prevTarget.circle, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: vw(-360),
-      })
+      // this.$gsap.to(prevTarget.text, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: vw(-360),
+      // })
+      // this.$gsap.to(prevTarget.circle, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: vw(-360),
+      // })
     },
     onMouseLeave() {
-      this.$gsap.to(this.$refs.ProjectItemImg01, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        scale: 0,
-        rotate: 0,
-      })
-      this.$gsap.to(this.$refs.ProjectItemImg02, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        scale: 0,
-        rotate: 0,
-      })
-      this.$gsap.to(this.$refs.ProjectItemWrapper, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: 0,
-      })
-      this.$gsap.to(this.$refs.ProjectItemCircle, {
-        duration: this.$SITECONFIG.halfBaseDuration,
-        ease: this.$EASING.transform,
-        x: 0,
-      })
+      // this.$gsap.to(this.$refs.ProjectItemImg01, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   scale: 0,
+      //   rotate: 0,
+      // })
+      // this.$gsap.to(this.$refs.ProjectItemImg02, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   scale: 0,
+      //   rotate: 0,
+      // })
+      // this.$gsap.to(this.$refs.ProjectItemWrapper, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: 0,
+      // })
+      // this.$gsap.to(this.$refs.ProjectItemCircle, {
+      //   duration: this.$SITECONFIG.halfBaseDuration,
+      //   ease: this.$EASING.transform,
+      //   x: 0,
+      // })
     },
     NextAll(dom) {
       const textArray = []

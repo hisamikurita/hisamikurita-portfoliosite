@@ -4,6 +4,7 @@ uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
 uniform sampler2D u_texture;
 uniform float u_scale;
+uniform float u_ratio;
 uniform float u_alpha;
 uniform float u_time;
 uniform float u_rand[8];
@@ -30,7 +31,7 @@ void main() {
     float sum = 0.0;
     float l = 0.0;
     float dist = 0.0;
-    float vRatio = u_resolution.x / 1280.0;
+    float vRatio = u_ratio;
 
     for (int i = 0; i < 8; i++) {
         vec2 metaball = u_metaballsPos[i];
