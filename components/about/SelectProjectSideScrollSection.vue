@@ -144,7 +144,6 @@ export default {
           3500
         )
 
-
         this.synchronousScroll = this.$gsap.fromTo(
           this.$refs.ProjectList,
           {
@@ -152,7 +151,11 @@ export default {
           },
           {
             x: () =>
-              -(this.$refs.ProjectList.clientWidth - this.$refs.ProjectWrapper.clientWidth + this.deveiceOffsetWidth),
+              -(
+                this.$refs.ProjectList.clientWidth -
+                this.$refs.ProjectWrapper.clientWidth +
+                this.deveiceOffsetWidth
+              ),
             ease: 'none',
             scrollTrigger: {
               start: 'center center',
@@ -186,9 +189,9 @@ export default {
                     ease: this.$EASING.transform,
                     yPercent: 0,
                     onComplete: () => {
-                      setTimeout(()=>{
-                      this.isTextAnimationState = true
-                      },300)
+                      setTimeout(() => {
+                        this.isTextAnimationState = true
+                      }, 300)
                     },
                   })
                   this.isTextSegmentState = 'center'
@@ -205,7 +208,7 @@ export default {
 
   mounted() {
     // 初期化
-    this.deveiceOffsetWidth = this.$SITECONFIG.isPc ?  80 + 120 + 80 : 40;
+    this.deveiceOffsetWidth = this.$SITECONFIG.isPc ? 80 + 120 + 80 : 40
     this.wrapper = this.$refs.ProjectItemWrapperRotate
     this.text = this.$refs.ProjectItemWrapperTranslate
     this.$gsap.set(this.wrapper, {
@@ -217,7 +220,7 @@ export default {
     })
 
     // パーティクル
-    const particle = new Particle(this.$SITECONFIG,this.$refs.Canvas)
+    const particle = new Particle(this.$SITECONFIG, this.$refs.Canvas)
     particle.init()
 
     const tweenPosition = {
@@ -250,7 +253,7 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            particle._fadeIn();
+            particle._fadeIn()
           }
         })
       },
@@ -278,11 +281,16 @@ export default {
   methods: {
     onMouseEnter(e) {
       // const nextTarget = this.NextAll(e.target)
-      // const prevTarget = this.PrevAll(e.target)
-      // const currentCircle = e.target.querySelector('.project-item-circle')
-      // const currentImg01 = e.target.querySelector('.project-item-img-01')
-      // const currentImg02 = e.target.querySelector('.project-item-img-02')
-
+      this.prevTarget = this.PrevAll(e.target)
+      this.currentCircle = e.target.querySelector('.project-item-circle')
+      this.currentImg01 = e.target.querySelector('.project-item-img-01')
+      this.currentImg02 = e.target.querySelector('.project-item-img-02')
+      this.currentCircle.classList.add('is-hover')
+      this.currentImg01.classList.add('is-hover')
+      this.currentImg02.classList.add('is-hover')
+      for (let i = 0; i < this.prevTarget.length; i++) {
+        this.prevTarge[i].circle.classList.add('is-prev-hover')
+      }
       // this.$gsap.to(currentCircle, {
       //   duration: this.$SITECONFIG.halfBaseDuration,
       //   ease: this.$EASING.transform,
@@ -323,6 +331,12 @@ export default {
       // })
     },
     onMouseLeave() {
+      this.currentCircle.classList.remove('is-hover')
+      this.currentImg01.classList.remove('is-hover')
+      this.currentImg02.classList.remove('is-hover')
+       for (let i = 0; i < this.prevTarget; i++) {
+        this.prevTarget.circle[i].classList.add('is-prev-hover')
+      }
       // this.$gsap.to(this.$refs.ProjectItemImg01, {
       //   duration: this.$SITECONFIG.halfBaseDuration,
       //   ease: this.$EASING.transform,
@@ -493,6 +507,15 @@ export default {
   border-radius: 50%;
   background-color: $black;
   pointer-events: none;
+  transition: transform $half-base-duration $transform-easing;
+
+  &.is-hover {
+    transform: translate3d(vw(360), -50%, 0);
+  }
+
+  &.is-prev-hover{
+    transform: translate3d(vw(-360), -50%, 0);
+  }
 
   @include sp() {
     right: vw_sp(-72);
@@ -540,6 +563,13 @@ export default {
   width: vw(280);
   transform: scale(0);
   pointer-events: none;
+  transition: transform $half-base-duration $transform-easing;
+  will-change: transform;
+  backface-visibility: hidden;
+
+  &.is-hover {
+    transform: scale(1) rotate(-8deg);
+  }
 }
 
 .project-item-img-02 {
@@ -549,5 +579,12 @@ export default {
   width: vw(280);
   transform: scale(0);
   pointer-events: none;
+  transition: transform $half-base-duration $transform-easing;
+  will-change: transform;
+  backface-visibility: hidden;
+
+  &.is-hover {
+    transform: scale(1) rotate(8deg);
+  }
 }
 </style>

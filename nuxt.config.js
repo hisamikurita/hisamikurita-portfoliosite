@@ -25,7 +25,46 @@ export default {
       {
         name: 'format-detection',
         content: 'telephone=no'
-      }
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) creative developer at LIG inc',
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Hisami Kurita Portfolio',
+      },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://hisamikurita.com/',
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Hisami Kurita Portfolio',
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) creative developer at LIG inc',
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://hisamikurita.com/images/ogp.png',
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary'
+      },
     ],
     link: [{
       rel: 'icon',
