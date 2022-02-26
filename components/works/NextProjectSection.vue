@@ -15,18 +15,6 @@
               ref="ContentsLoopTitleWrapper"
               class="next-loop-title-wrapper"
             >
-              <span class="next-loop-card">
-                <AppCardBase
-                  :component-name="'WorksContents'"
-                  :name="nextProject.title.full"
-                  :title="nextProject.title.short"
-                  :text="nextProject.desc"
-                  :rotate="nextProject.projectNum.rotate"
-                  :xspeed="nextProject.projectNum.xspeed"
-                  :yspeed="nextProject.projectNum.yspeed"
-                  :drag-animation="false"
-                />
-              </span>
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :color="currentProject.siteColor.allTextColor"
@@ -51,6 +39,18 @@
               </span>
             </span>
           </NuxtLink>
+          <div class="next-loop-card">
+            <AppCardBase
+              :component-name="'ProjectContents'"
+              :name="nextProject.title.full"
+              :title="nextProject.title.short"
+              :link="nextProject.id"
+              :text="nextProject.desc"
+              :rotate="nextProject.projectNum.rotate"
+              :xspeed="nextProject.projectNum.xspeed"
+              :yspeed="nextProject.projectNum.yspeed - 0.1"
+            />
+          </div>
         </div>
         <p class="next-backbtn" :style="`color:${currentProject.siteColor.mvTextColor};`">
           <NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink>
@@ -80,6 +80,7 @@ export default {
     }
   },
   mounted() {
+    this.$nextTick(() => {
     /* loop-text-animation */
     this.observe = this.$refs.ContentsLoopTitleWrapper
     this.iObserverLoopText = new IntersectionObserver(
@@ -109,6 +110,7 @@ export default {
       { rootMargin: '0%' }
     )
     this.iObserver.observe(this.observe)
+    })
   },
 
   beforeDestroy() {
@@ -129,6 +131,7 @@ export default {
 }
 
 .next-contents {
+  position: relative;
   padding: 212px 0 290px;
 }
 
@@ -163,13 +166,11 @@ export default {
 
 .next-loop-card {
   position: absolute;
-  top: -160px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
   width: 0;
   height: 0;
-  margin: auto;
   z-index: 10;
 }
 

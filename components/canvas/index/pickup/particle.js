@@ -165,6 +165,7 @@ export default class Particle {
   _drawParticles() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
+    console.log('発火')
     this._update();
     this._rebound();
     this._particlesCollisionDetection();
@@ -259,6 +260,8 @@ export default class Particle {
   }
 
   setScene(sceneNumber) {
+    console.log('ページ遷移')
+
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: 0.60 + Math.random() * 0.75,

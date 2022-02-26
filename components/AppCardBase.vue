@@ -143,54 +143,66 @@ export default {
   mounted() {
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
-    /* drag-animation */
-    if (this.dragAnimation) {
-      this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
-        type: 'x,y',
-        bounds: this.$parent.$el,
-        edgeResistance: 0.9,
-        inertia: true,
-        allowEventDefault: true,
+    let rotate = 0
 
-        onThrowUpdate: () => {
-          this.$gsap.set(this.$refs.CardProjectObserver, {
-            x: this.drag[0].x,
-            y: this.drag[0].y,
+    this.$nextTick(() => {
+      setTimeout(() => {
+        /* drag-animation */
+        if (this.dragAnimation) {
+          this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
+            type: 'x,y',
+            bounds: this.$parent.$el,
+            edgeResistance: 0.60,
+            inertia: true,
+            allowEventDefault: true,
+
+            onThrowUpdate: () => {
+              rotate += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0;
+              this.$gsap.to(this.$refs.CardProjectArticle, {
+                duration: 0.01,
+                ease: 'none',
+                rotate: rotate,
+              })
+              this.$gsap.set(this.$refs.CardProjectObserver, {
+                x: this.drag[0].x,
+                y: this.drag[0].y,
+              })
+            },
           })
-        },
-      })
-    }
+        }
 
-    /* card-animation */
-    this.observe = this.$refs.CardProjectObserver
-    this.iObserverTextSegment = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.cardViewAnimation()
-            this.iObserverTextSegment.unobserve(this.observe)
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserverTextSegment.observe(this.observe)
+        /* card-animation */
+        this.observe = this.$refs.CardProjectObserver
+        this.iObserverTextSegment = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.cardViewAnimation()
+                this.iObserverTextSegment.unobserve(this.observe)
+              }
+            })
+          },
+          { rootMargin: '0%' }
+        )
+        this.iObserverTextSegment.observe(this.observe)
 
-    this.iObserverAnimation = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.cardPallax)
-          } else {
-            this.$gsap.ticker.remove(this.cardPallax)
+        this.iObserverAnimation = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.$gsap.ticker.add(this.cardPallax)
+              } else {
+                this.$gsap.ticker.remove(this.cardPallax)
+              }
+            })
+          },
+          {
+            rootMargin: '0%',
           }
-        })
-      },
-      {
-        rootMargin: '0%',
-      }
-    )
-    this.iObserverAnimation.observe(this.observe)
+        )
+        this.iObserverAnimation.observe(this.observe)
+      }, 100)
+    })
   },
 
   beforeDestroy() {
@@ -231,7 +243,7 @@ export default {
 
 .card-project-observer {
   position: absolute;
-  top: 0;
+  top: -14px;
   left: 0;
   width: 293px;
   height: 400px;

@@ -329,6 +329,7 @@ export default {
   position: relative;
   margin: 0 0 160px 0;
   transform: scale(0.7);
+  overflow: hidden;
 
   @include sp() {
     margin: 0 0 44px 0;
@@ -336,6 +337,9 @@ export default {
 
   & img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.5);
   }
 
   &.default {
