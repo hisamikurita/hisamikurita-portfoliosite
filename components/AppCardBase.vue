@@ -6,7 +6,7 @@
   >
     <article
       ref="CardProjectArticle"
-      :style="`transform: rotate(${rotate}deg); color:${color};`"
+      :style="`color:${color}; transform: rotate(${rotate}deg); color:${color};`"
       class="card-project-article"
     >
       <CardMainVisualContents

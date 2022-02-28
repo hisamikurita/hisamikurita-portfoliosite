@@ -48,7 +48,7 @@
               :text="nextProject.desc"
               :rotate="nextProject.projectNum.rotate"
               :xspeed="nextProject.projectNum.xspeed"
-              :yspeed="nextProject.projectNum.yspeed - 0.1"
+              :yspeed="nextProject.projectNum.yspeed - 0.10"
             />
           </div>
         </div>

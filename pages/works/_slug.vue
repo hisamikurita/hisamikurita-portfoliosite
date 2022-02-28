@@ -9,6 +9,7 @@
       `"
     >
       <WorksMainVisualSection :current-project="currentProject" />
+      <WorksProjectVideoSection :current-project="currentProject" />
       <WorksProjectContentsSection :current-project="currentProject" />
       <WorksNextProjectSection
         :current-project="currentProject"
@@ -47,13 +48,13 @@ export default {
   },
 
   mounted() {
-    // this.$asscroll.enable({ reset: true })
+    this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
       const images = document.querySelectorAll('.works img')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
-        // this.$asscroll.disable()
+        this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
       })
