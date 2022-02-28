@@ -172,6 +172,11 @@ export default {
   width: 0;
   height: 0;
   z-index: 10;
+
+  @include sp() {
+  top: 55%;
+  left: calc(50% - #{vw_sp(100)});
+  }
 }
 
 .next-backbtn {

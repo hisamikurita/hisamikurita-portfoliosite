@@ -180,5 +180,10 @@ export default {
   height: 200px;
   z-index: 10;
   transform: rotate(16deg);
+
+  @include sp() {
+  top: 400px;
+  right: 110px;
+  }
 }
 </style>
