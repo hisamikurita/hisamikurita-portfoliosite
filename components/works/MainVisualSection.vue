@@ -79,6 +79,15 @@
           </p>
         </div>
       </div>
+      <div class="sp-only">
+        <div
+          class="hero-index-sp"
+          :style="`color:${currentProject.siteColor.mvTextColor};`"
+        >
+          <span class="hero-index-sp-01">・</span>
+          <span>WORKS 0{{ currentProject.index }}</span>
+        </div>
+      </div>
     </div>
     <div class="sp-only">
       <div class="hero-inner">
@@ -239,5 +248,20 @@ export default {
   font-size: 10px;
   font-family: $helvetica;
   line-height: 1.21;
+}
+
+.hero-index-sp {
+  position: absolute;
+  bottom: 39px;
+  left: 21px;
+  font-size: 10px;
+  font-family: $helvetica;
+  line-height: 1.1;
+}
+
+.hero-index-sp-01 {
+  display: block;
+  margin: 0 0 0 -4.5px;
+  font-size: 26px;
 }
 </style>
