@@ -1,7 +1,7 @@
 <template>
   <div ref="ContentsLoopTitleWrapper" class="contents-loop-title-wrapper">
     <div ref="ContentsLoopTitle" class="contents-loop-title">
-      <span class="contents-loop-video">
+      <span ref="ContentsLoopVideo" class="contents-loop-video">
         <span
           class="contents-loop-video-shadow"
           :style="`box-shadow:0 20px 60px 10px ${currentProject.siteColor.shadowColor}`"
@@ -53,6 +53,28 @@ export default {
     }
   },
 
+  computed: {
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
+  },
+
+  watch: {
+    hambergerMenuState: function () {
+      /**
+       * ハンバガーメニューが開いた時
+       */
+      if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
+        if (this.hambergerMenuState) {
+      this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
+          window.removeEventListener('mousemove', this.onMoseMove)
+        } else if (!this.hambergerMenuState) {
+      this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
+          window.addEventListener('mousemove', this.onMoseMove)
+        }
+      }
+    },
+  },
   mounted() {
     this.observe = this.$refs.ContentsLoopTitle
     /* text-animation call */
@@ -85,11 +107,48 @@ export default {
       { rootMargin: '0%' }
     )
     this.iObserverLoopText.observe(this.observe)
+
+    /* video-mouse-animation */
+    if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
+      this.iObserverLoopVideo = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              window.addEventListener('mousemove', this.onMoseMove)
+            } else {
+              window.removeEventListener('mousemove', this.onMoseMove)
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
+    }
   },
 
   beforeDestroy() {
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverLoopText.unobserve(this.observe)
+    if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
+      this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
+      window.removeEventListener('mousemove', this.onMoseMove)
+    }
+  },
+
+  methods: {
+    onMoseMove(e) {
+          console.log('mouse')
+
+      const x = (e.clientX / window.innerWidth - 0.5) * 2.0 * 20
+      const y = (e.clientY / window.innerHeight - 0.5) * 2.0 * 20
+
+      this.$gsap.to(this.$refs.ContentsLoopVideo, {
+        duration: this.$SITECONFIG.fullDuration,
+        ease: 'power2.out',
+        rotateX: y,
+        rotateY: -x,
+      })
+    },
   },
 }
 </script>
@@ -108,6 +167,8 @@ export default {
   position: relative;
   font-size: vw(140);
   font-family: $sixcaps;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 
   @include sp() {
     font-size: vw_sp(160);
@@ -120,16 +181,18 @@ export default {
   right: 0;
   bottom: 0;
   left: -120px;
-  width: vw(480);
-  height: vw(353);
+  width: vw(386);
+  height: vw(283);
   margin: auto;
   z-index: 10;
+  transform: translateZ(200px);
 
   @include sp() {
     top: 0;
     left: 0;
     width: vw_sp(669);
     height: vw_sp(491);
+    transform: none;
   }
 }
 
@@ -139,13 +202,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  // box-shadow: 0 20px 60px 10px #101237;
-  border-radius: 12px;
+  border-radius: 8px;
   opacity: 0.6;
-
-  @include sp() {
-    border-radius: 8px;
-  }
 }
 
 .contents-loop-video-wrapper {
@@ -154,12 +212,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
-
-  @include sp() {
-    border-radius: 8px;
-  }
 
   & video {
     position: absolute;
@@ -168,6 +222,7 @@ export default {
     transform: translate3d(-50%, -50%, 0);
     width: 100%;
     height: 100%;
+    border-radius: 8px;
     object-fit: cover;
   }
 }
@@ -182,8 +237,8 @@ export default {
   transform: rotate(16deg);
 
   @include sp() {
-  top: 400px;
-  right: 110px;
+    top: 400px;
+    right: 110px;
   }
 }
 </style>
