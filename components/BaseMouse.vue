@@ -1,5 +1,6 @@
 <template>
   <div ref="MouseArea" class="mouse">
+    <span ref="MouseAction" class="mouse-action">ACTION</span>
     <nuxt-img
       ref="MouseImgClick"
       src="/images/mouse-click.png"
@@ -21,6 +22,41 @@
 
 <script>
 export default {
+  computed: {
+    mouseHover() {
+      return this.$store.getters['mouse/isHover']
+    },
+    mouseDown() {
+      return this.$store.getters['mouse/isDown']
+    },
+  },
+  watch: {
+    mouseHover: function () {
+      if (this.mouseHover) {
+        this.$gsap.to(this.$refs.MouseAction, {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
+          scale: 1,
+        })
+      } else {
+        this.$gsap.to(this.$refs.MouseAction, {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
+          scale: 0,
+        })
+      }
+    },
+    mouseDown: function () {
+      if (this.mouseDown) {
+        this.$gsap.to(this.$refs.MouseAction, {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
+          scale: 0,
+        })
+      }
+    },
+  },
+
   mounted() {
     const mouseHalfWidth = this.$refs.MouseArea.clientWidth / 2
     const mouseHalfHeight = this.$refs.MouseArea.clientHeight / 2
@@ -78,6 +114,23 @@ export default {
   width: 20px;
   z-index: 100;
   pointer-events: none;
+}
+
+.mouse-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -18px;
+  right: -38px;
+  width: 44px;
+  height: 14px;
+  padding: 1px 0 0 0;
+  background-color: $white;
+  color: $black;
+  font-size: 10px;
+  border-radius: 8px;
+  transform: scale(0);
 }
 
 .mouse-img-click {

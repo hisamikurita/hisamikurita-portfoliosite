@@ -8,6 +8,10 @@
       ref="CardProjectArticle"
       :style="`color:${color}; transform: rotate(${rotate}deg); color:${color};`"
       class="card-project-article"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
+      @mousedown="onMouseDown"
+      @mouseup="onMouseUp"
     >
       <CardMainVisualContents
         v-if="componentName === 'MainVisualContents'"
@@ -140,6 +144,13 @@ export default {
       state: '',
     }
   },
+
+  computed: {
+    mouseDown() {
+      return this.$store.getters['mouse/isDown']
+    },
+  },
+
   mounted() {
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
@@ -152,12 +163,12 @@ export default {
           this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
             type: 'x,y',
             bounds: this.$parent.$el,
-            edgeResistance: 0.60,
+            edgeResistance: 0.6,
             inertia: true,
             allowEventDefault: true,
 
             onThrowUpdate: () => {
-              rotate += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0;
+              rotate += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0
               this.$gsap.to(this.$refs.CardProjectArticle, {
                 duration: 0.01,
                 ease: 'none',
@@ -231,6 +242,24 @@ export default {
         x: this.$refs.CardProject.getBoundingClientRect().top * this.xspeed,
         y: this.$refs.CardProject.getBoundingClientRect().top * this.yspeed,
       })
+    },
+
+    onMouseEnter() {
+      if (this.mouseDown || this.$SITECONFIG.isTouch) return
+      this.$store.commit('mouse/mouseenter')
+    },
+
+    onMouseLeave() {
+      if (this.$SITECONFIG.isTouch) return;
+      this.$store.commit('mouse/mouseleave')
+    },
+    onMouseDown() {
+      if (this.$SITECONFIG.isTouch) return;
+      this.$store.commit('mouse/mousedown')
+    },
+    onMouseUp() {
+      if (this.$SITECONFIG.isTouch) return;
+      this.$store.commit('mouse/mouseup')
     },
   },
 }

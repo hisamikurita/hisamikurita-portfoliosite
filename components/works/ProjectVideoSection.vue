@@ -66,10 +66,10 @@ export default {
        */
       if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
         if (this.hambergerMenuState) {
-      this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
+          this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
           window.removeEventListener('mousemove', this.onMoseMove)
         } else if (!this.hambergerMenuState) {
-      this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
+          this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
           window.addEventListener('mousemove', this.onMoseMove)
         }
       }
@@ -137,7 +137,7 @@ export default {
 
   methods: {
     onMoseMove(e) {
-          console.log('mouse')
+      console.log('mouse')
 
       const x = (e.clientX / window.innerWidth - 0.5) * 2.0 * 20
       const y = (e.clientY / window.innerHeight - 0.5) * 2.0 * 20

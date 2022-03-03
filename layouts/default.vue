@@ -1,13 +1,15 @@
 <template>
   <div>
     <BaseMouse />
-    <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
-      <div class="asscroll" asscroll>
-        <nuxt />
+    <div class="layouts-scale">
+      <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
+        <div class="asscroll" asscroll>
+          <nuxt />
+        </div>
       </div>
+      <div ref="Webgl" class="webgl"></div>
+      <div class="particle"><canvas ref="Particle"></canvas></div>
     </div>
-    <div ref="Webgl" class="webgl"></div>
-    <div class="particle"><canvas ref="Particle"></canvas></div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <BaseHeader />
     <BaseHambergerMenu />
@@ -225,6 +227,19 @@ export default {
   @include sp() {
     display: none;
   }
+}
+
+.layouts-scale{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0.94, 0.9);
+}
+
+.asscroll-container{
+  background-color: $skinColor;
 }
 
 .webgl {
