@@ -190,7 +190,7 @@ export default {
       this.isTextSegmentState = 'center'
       this.isTextUnderlineState = 'extend'
       mesh.fadeIn()
-    }, 400)
+    }, 100)
 
     this.observe = this.$refs.Hero;
     this.iObserver = new IntersectionObserver(

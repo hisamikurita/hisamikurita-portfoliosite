@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="link" class="card-project-link" :class="`card-project-link-${modifier}`">
+  <AppDefaultTransition url="/about" class="card-project-link" :class="`card-project-link-${modifier}`">
     <span class="card-project-inner">
       <span class="card-project-title-wrapper-01">
         <span v-for="(char, index) of name" :key="index" class="card-project-title-wrapper-01-block" v-text="char"></span>
@@ -33,7 +33,7 @@
         </span>
       </span>
     </span>
-  </NuxtLink>
+  </AppDefaultTransition>
 </template>
 
 <script>

@@ -9,7 +9,10 @@ export const getters = {
 };
 
 export const mutations = {
-  transition(state) {
+  start(state) {
     state.isTransition = true;
+  },
+  end(state) {
+    state.isTransition = false;
   },
 };

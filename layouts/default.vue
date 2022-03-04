@@ -1,14 +1,23 @@
 <template>
   <div>
     <BaseMouse />
-    <div class="layouts-scale">
-      <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
+    <div ref="LayoutsScale" class="layouts-scale">
+      <div
+        ref="AsscrollContainer"
+        class="asscroll-container"
+        asscroll-container
+      >
         <div class="asscroll" asscroll>
           <nuxt />
         </div>
       </div>
       <div ref="Webgl" class="webgl"></div>
       <div class="particle"><canvas ref="Particle"></canvas></div>
+    </div>
+    <div class="layouts-normal-transition">
+      <span class="layouts-normal-transition-bg">
+        <span ref="LayoutsNormalTransitionBg" class="layouts-normal-transition-bg-block"></span>
+      </span>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <BaseHeader />
@@ -27,6 +36,9 @@ export default {
     pickupData() {
       return this.$store.getters.pickupData
     },
+    defaultTransitionState() {
+      return this.$store.getters['normal-transition/state']
+    },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
@@ -44,6 +56,36 @@ export default {
     },
   },
   watch: {
+    defaultTransitionState: function () {
+      if (this.defaultTransitionState) {
+        this.scaleAnimation01 =this.$gsap.to(this.$refs.LayoutsScale, {
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.transform,
+          scaleX: 0.97,
+        })
+        this.scaleAnimation02 = this.$gsap.to(this.$refs.LayoutsScale, {
+          duration: this.$SITECONFIG.baseDuration * 0.92,
+          ease: this.$EASING.transform,
+          scaleY: 0.94,
+        })
+        this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
+          duration: this.$SITECONFIG.baseDuration * 1.3,
+          ease: this.$EASING.transform,
+          yPercent: -75,
+        })
+      } else {
+        this.scaleAnimation01.kill();
+        this.scaleAnimation02.kill();
+        this.bgAnimation.kill();
+        this.$gsap.set(this.$refs.LayoutsScale, {
+          scale: 1.0,
+        })
+        this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
+          yPercent: 0,
+        })
+      }
+    },
+
     hambergerMenuState: function () {
       /**
        * ハンバガーメニューが開いた時
@@ -114,17 +156,17 @@ export default {
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
-          console.log('next1')
+          // console.log('next1')
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
         case 'next02':
-          console.log('next2')
+          // console.log('next2')
           this.particle.setScene(2)
           this.mesh.setScene(2)
           break
         case 'next03':
-          console.log('next3')
+          // console.log('next3')
           this.particle.setScene(3)
           this.mesh.setScene(3)
           break
@@ -229,17 +271,48 @@ export default {
   }
 }
 
-.layouts-scale{
+.asscroll-container {
+  background-color: $skinColor;
+  overflow: hidden;
+}
+
+.layouts-scale {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  transform: scale(0.94, 0.9);
+  // transform: scale(0.97, 0.94);
 }
 
-.asscroll-container{
+.layouts-normal-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.layouts-normal-transition-bg {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate3d(-50%, 0%, 0);
+  width: 160vmax;
+  height: 160vmax;
+}
+
+.layouts-normal-transition-bg-block {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: $skinColor;
+  border-radius: 50%;
 }
 
 .webgl {

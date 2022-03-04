@@ -44,6 +44,7 @@ export default {
       imagesLoaded.on('always', () => {
         this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })
+        this.$store.commit('normal-transition/end')
         this.$store.commit('imageLoaded/loaded')
       })
     })
