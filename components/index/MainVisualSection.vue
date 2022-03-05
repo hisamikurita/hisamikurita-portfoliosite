@@ -1,6 +1,6 @@
 <template>
   <div ref="Hero" class="hero">
-    <div class="hero-bg-circle-01"></div>
+    <div ref="HeroBgCircle01" class="hero-bg-circle-01"></div>
     <div ref="HeroBgCircle02" class="hero-bg-circle-02"></div>
     <div class="hero-inner">
       <div class="l-container">
@@ -168,10 +168,10 @@
             </span>
           </span>
         </h1>
-        <div class="hero-card-item">
+        <div ref="HeroCardItem" class="hero-card-item">
           <AppCardBase
             :component-name="'MainVisualContents'"
-            :name="['・','HISAMIKURITA']"
+            :name="['・', 'HISAMIKURITA']"
             :title="'HSMKRT'"
             :subtitle="'(ABOUT ME)'"
             :link="'about'"
@@ -206,31 +206,63 @@ export default {
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
+
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    imageLoaded: function () {
+      if (this.imageLoaded) {
+        this.isTextSegmentState = 'center'
+        this.isTextUnderlineState = 'extend'
+
+        this.$gsap.to(this.$refs.HeroBgCircle01, {
+          duration: this.$SITECONFIG.baseDuration,
+          delay: 0.2,
+          ease: this.$EASING.transform,
+          scale: 1,
+        })
+
+        this.$gsap.to(this.$refs.HeroBgCircle02, {
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.transform,
+          scale: 1,
+        })
+
+        this.$gsap.to(this.$refs.HeroCardItem, {
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.colorAndOpacity,
+          opacity: 1.0,
+        })
+
+        setTimeout(() => {
+          this.observe = this.$refs.Hero
+          // this.$nextTick(() => {
+          this.iObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
+                } else {
+                  this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
+                }
+              })
+            },
+            {
+              rootMargin: '0%',
+            }
+          )
+          this.iObserver.observe(this.observe)
+          // })
+        }, this.$SITECONFIG.baseDuration * 1000)
+      }
+    },
   },
 
   mounted() {
-    this.isTextSegmentState = 'center'
-    this.isTextUnderlineState = 'extend'
-
     /* scroll-animation */
-    this.observe = this.$refs.Hero
-    this.$nextTick(() => {
-      this.iObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
-            } else {
-              this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
-            }
-          })
-        },
-        {
-          rootMargin: '0%',
-        }
-      )
-      this.iObserver.observe(this.observe)
-    })
   },
 
   beforeDestroy() {
@@ -421,6 +453,7 @@ export default {
   background-color: $yellow;
   border-radius: 50%;
   pointer-events: none;
+  transform: scale(0);
 
   @include sp() {
     top: vw_sp(-184);
@@ -440,6 +473,7 @@ export default {
   background-color: $lightBlue;
   border-radius: 50%;
   pointer-events: none;
+  transform: scale(0);
 
   @include sp() {
     top: vw_sp(650);
@@ -454,6 +488,7 @@ export default {
   top: 27.8%;
   left: 9%;
   transform: rotate(10deg);
+  opacity: 0;
 
   @include sp() {
     top: 28%;

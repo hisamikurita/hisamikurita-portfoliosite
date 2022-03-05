@@ -42,9 +42,10 @@ export default {
       const images = document.querySelectorAll('.about img')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
+        this.$store.commit('normal-transition/end')
+
         this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })
-        this.$store.commit('normal-transition/end')
         this.$store.commit('imageLoaded/loaded')
       })
     })

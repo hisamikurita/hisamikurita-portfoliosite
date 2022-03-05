@@ -1,23 +1,28 @@
 <template>
   <div>
     <BaseMouse />
-    <div ref="LayoutsScale" class="layouts-scale">
-      <div
-        ref="AsscrollContainer"
-        class="asscroll-container"
-        asscroll-container
-      >
-        <div class="asscroll" asscroll>
-          <nuxt />
+    <div ref="LayoutsTranslate" class="layouts-translate">
+      <div ref="LayoutsScale" class="layouts-scale">
+        <div
+          ref="AsscrollContainer"
+          class="asscroll-container"
+          asscroll-container
+        >
+          <div class="asscroll" asscroll>
+            <nuxt />
+          </div>
         </div>
+        <div ref="Webgl" class="webgl"></div>
+        <div class="particle"><canvas ref="Particle"></canvas></div>
       </div>
-      <div ref="Webgl" class="webgl"></div>
-      <div class="particle"><canvas ref="Particle"></canvas></div>
-    </div>
-    <div class="layouts-normal-transition">
-      <span class="layouts-normal-transition-bg">
-        <span ref="LayoutsNormalTransitionBg" class="layouts-normal-transition-bg-block"></span>
-      </span>
+      <div class="layouts-normal-transition">
+        <span class="layouts-normal-transition-bg">
+          <span
+            ref="LayoutsNormalTransitionBg"
+            class="layouts-normal-transition-bg-block"
+          ></span>
+        </span>
+      </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
     <BaseHeader />
@@ -39,6 +44,9 @@ export default {
     defaultTransitionState() {
       return this.$store.getters['normal-transition/state']
     },
+    defaultTransitionColor() {
+      return this.$store.getters['normal-transition/color']
+    },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
@@ -58,10 +66,17 @@ export default {
   watch: {
     defaultTransitionState: function () {
       if (this.defaultTransitionState) {
-        this.scaleAnimation01 =this.$gsap.to(this.$refs.LayoutsScale, {
+        this.$gsap.set(this.$refs.LayoutsScale, {
+          overflow: 'hidden',
+        })
+        this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
+          backgroundColor: this.defaultTransitionColor,
+        })
+        this.scaleAnimation01 = this.$gsap.to(this.$refs.LayoutsScale, {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           scaleX: 0.97,
+          borderRadius: '14px',
         })
         this.scaleAnimation02 = this.$gsap.to(this.$refs.LayoutsScale, {
           duration: this.$SITECONFIG.baseDuration * 0.92,
@@ -74,11 +89,13 @@ export default {
           yPercent: -75,
         })
       } else {
-        this.scaleAnimation01.kill();
-        this.scaleAnimation02.kill();
-        this.bgAnimation.kill();
+        this.scaleAnimation01.kill()
+        this.scaleAnimation02.kill()
+        this.bgAnimation.kill()
         this.$gsap.set(this.$refs.LayoutsScale, {
           scale: 1.0,
+          borderRadius: '0px',
+          overflow: 'visible',
         })
         this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
           yPercent: 0,
@@ -94,7 +111,7 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.AsscrollContainer, {
+          this.$gsap.to(this.$refs.LayoutsTranslate, {
             delay: 0.2,
             duration: this.$SITECONFIG.baseDuration / 3.0,
             ease: this.$EASING.transform,
@@ -115,7 +132,7 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.AsscrollContainer, {
+          this.$gsap.to(this.$refs.LayoutsTranslate, {
             delay: 0.2,
             duration: this.$SITECONFIG.baseDuration / 3.0,
             ease: this.$EASING.transform,
@@ -276,6 +293,14 @@ export default {
   overflow: hidden;
 }
 
+.layouts-translate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .layouts-scale {
   position: fixed;
   top: 0;
@@ -283,6 +308,7 @@ export default {
   width: 100%;
   height: 100%;
   // transform: scale(0.97, 0.94);
+  overflow: hidden;
 }
 
 .layouts-normal-transition {

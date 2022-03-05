@@ -1,7 +1,7 @@
 <template>
   <div ref="Hero" class="hero">
     <div class="hero-bg">
-      <div class="hero-img">
+      <div ref="HeroImg" class="hero-img">
         <picture>
           <source
             :srcset="`${currentProject.heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
@@ -138,11 +138,30 @@ export default {
       isTextUnderlineState: 'default',
     }
   },
+
+  computed: {
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    imageLoaded: function () {
+      if (this.imageLoaded) {
+        this.isTextSegmentState = 'center'
+        this.isTextUnderlineState = 'extend'
+
+        this.$gsap.to(this.$refs.HeroImg, {
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.colorAndOpacity,
+          opacity: 1.0
+        })
+      }
+    },
+  },
+
   mounted() {
-    setTimeout(() => {
-      this.isTextSegmentState = 'center'
-      this.isTextUnderlineState = 'extend'
-    }, 400)
+    //
   },
 }
 </script>
@@ -170,6 +189,7 @@ export default {
   height: 100%;
   pointer-events: none;
   user-select: none;
+  opacity: 0;
 
   & img {
     position: absolute;

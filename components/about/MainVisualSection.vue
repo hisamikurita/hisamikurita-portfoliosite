@@ -166,33 +166,48 @@ export default {
       isTextUnderlineState: 'default',
     }
   },
+
+  computed: {
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    imageLoaded: function () {
+      if (this.imageLoaded) {
+        this.isTextSegmentState = 'center'
+        this.isTextUnderlineState = 'extend'
+        this.mesh.fadeIn()
+      }
+    },
+  },
+
   mounted() {
     // console.log(this.$refs.HeroTitle.clientWidth)
-    const stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
-    stage.init()
+    this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
+    this.stage.init()
 
-    const mesh = new Mesh(stage, this.$SITECONFIG)
-    mesh.init()
+    this.mesh = new Mesh(this.stage, this.$SITECONFIG)
+    this.mesh.init()
 
     this.mResize = () => {
-      stage.onResize()
-      mesh.onResize()
+      this.stage.onResize()
+      this.mesh.onResize()
     }
 
     this.mRaf = () => {
-      stage.onRaf()
-      mesh.onRaf()
+      this.stage.onRaf()
+      this.mesh.onRaf()
     }
 
     window.addEventListener('resize', this.mResize)
 
-    setTimeout(() => {
-      this.isTextSegmentState = 'center'
-      this.isTextUnderlineState = 'extend'
-      mesh.fadeIn()
-    }, 100)
+    // setTimeout(() => {
 
-    this.observe = this.$refs.Hero;
+    // }, 100)
+
+    this.observe = this.$refs.Hero
     this.iObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

@@ -89,14 +89,14 @@
                   :key="data.id"
                   class="contact-info-item"
                 >
-                  <NuxtLink :to="`works/${data.id}`">
+                  <AppDefaultTransition :url="`works/${data.id}`" :color="data.siteColor.bodyContentsColor">
                     <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
                       :rotate="$BASEROTATE.right"
                       :text="data.title.full"
                     />
-                  </NuxtLink>
+                  </AppDefaultTransition>
                 </span>
               </span>
             </div>
@@ -137,8 +137,8 @@
               ]"
               :title="{
                 text: contactData[1].mainTitle.title,
-                link: contactData[1].mainTitle.link,
-                subtext: contactData[1].mainTitle.subtitle,
+                link: '',
+                subtext: '',
               }"
               :rotate="-10"
               :xspeed="-0.08"

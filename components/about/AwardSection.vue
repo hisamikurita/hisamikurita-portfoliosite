@@ -94,8 +94,8 @@ export default {
     this.cardHalfHeight = 160
     this.animationFlags = []
     this.isAllResetAnimation = false
-    this.mouseX = 0
-    this.mouseY = 0
+    this.mouseX = window.innerWidth / 2;
+    this.mouseY =  0;
     for (let i = 0; i < this.items.length; i++) {
       this.animationFlags.push(false)
     }

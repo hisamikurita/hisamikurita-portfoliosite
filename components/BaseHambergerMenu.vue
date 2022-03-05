@@ -14,26 +14,26 @@
             class="hambergerMenu-title-wrapper-01"
             @click="onClickSameUrl('index')"
           >
-            <NuxtLink to="/">
+            <AppDefaultTransition url="/" color="#f0efeb">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="$BASEROTATE.right"
                 :text="'HISAMIKURITA'"
               />
-            </NuxtLink>
+            </AppDefaultTransition>
           </span>
           <span
             class="hambergerMenu-title-wrapper-02"
             @click="onClickSameUrl('about')"
           >
-            <NuxtLink to="/about">
+            <AppDefaultTransition url="/about" color="#f0efeb">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="$BASEROTATE.left"
                 :text="'ABOUT'"
               />
-            </NuxtLink>
+            </AppDefaultTransition>
           </span>
         </div>
         <div class="hambergerMenu-section-title">
@@ -56,8 +56,9 @@
                 class="hambergerMenu-item-wrapper"
                 @click="onClickSameUrl(data.id)"
               >
-                <NuxtLink
-                  :to="`/works/${data.id}`"
+                <AppDefaultTransition
+                  :url="`/works/${data.id}`"
+                  :color="data.siteColor.bodyContentsColor"
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">
@@ -81,7 +82,7 @@
                     </p>
                     <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
                   </div>
-                </NuxtLink>
+                </AppDefaultTransition>
               </div>
             </li>
           </ul>

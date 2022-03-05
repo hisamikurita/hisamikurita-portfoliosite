@@ -9,16 +9,20 @@ export default {
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      default: '#ffffff',
+    },
   },
 
   methods: {
     onClick(e) {
       e.preventDefault()
-      this.$store.commit('normal-transition/start')
+      this.$store.commit('normal-transition/start', this.color)
 
-      setTimeout(()=>{
+      setTimeout(() => {
         this.$router.push(`${this.url}`)
-      },this.$SITECONFIG.baseDuration * 0.80 * 1000);
+      }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
     },
   },
 }

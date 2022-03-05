@@ -10,7 +10,7 @@
     </span>
     <span class="card-project-title-wrapper-03">
       <span class="pc-only">
-        <a :href="title.link" target="_blank" rel="noopener" class="card-project-title-wrapper-03-link">
+        <a v-if="title.link" :href="title.link" target="_blank" rel="noopener" class="card-project-title-wrapper-03-link">
           <AppTextSegment
             :state="state"
             :rotate="$BASEROTATE.left"
@@ -27,6 +27,23 @@
             />
           </span>
         </a>
+        <span v-else :href="title.link" class="card-project-title-wrapper-03-link">
+          <AppTextSegment
+            :state="state"
+            :rotate="$BASEROTATE.left"
+            :text="title.text"
+            :sp-animation="false"
+          />
+          <span v-if="title.subtext" class="card-project-sub-title">
+            <AppTextSegment
+              :state="state"
+              :start="0.28"
+              :rotate="$BASEROTATE.left"
+              :text="title.subtext"
+              :sp-animation="false"
+            />
+          </span>
+        </span>
       </span>
       <span class="sp-only">
         <a :href="title.link" target="_blank" rel="noopener">

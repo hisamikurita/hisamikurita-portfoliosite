@@ -10,7 +10,7 @@
               :modifier="'works-section'"
             />
           </div>
-          <NuxtLink :to="`/works/${nextProject.id}`">
+          <AppDefaultTransition :url="`/works/${nextProject.id}`" :color="nextProject.siteColor.bodyContentsColor">
             <span
               ref="ContentsLoopTitleWrapper"
               class="next-loop-title-wrapper"
@@ -38,11 +38,12 @@
                 </AppTextLoop>
               </span>
             </span>
-          </NuxtLink>
+          </AppDefaultTransition>
           <div class="next-loop-card">
             <AppCardBase
               :component-name="'ProjectContents'"
               :name="nextProject.title.full"
+              :next-color="nextProject.siteColor.bodyContentsColor"
               :title="nextProject.title.short"
               :link="nextProject.id"
               :text="nextProject.desc"

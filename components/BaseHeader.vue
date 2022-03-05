@@ -1,11 +1,6 @@
-a<template>
+<template>
   <div ref="HeaderLogo" class="header-logo is-top">
-    <component
-      :is="setRootTagName"
-      class="heade-link"
-      to="/"
-      @click="onClickSameUrlReload"
-    >
+    <a class="heade-link" @click="onClickSameUrlReload">
       H<span class="header-logo-text header-logo-fade-text">I</span
       ><span
         class="header-logo-text header-logo-move-text header-logo-move-text-01"
@@ -27,7 +22,7 @@ a<template>
         class="header-logo-text header-logo-move-text header-logo-move-text-05"
         >T</span
       ><span class="header-logo-text header-logo-fade-text">A</span>
-    </component>
+    </a>
   </div>
 </template>
 
@@ -39,9 +34,6 @@ export default {
     },
     indexPickupState() {
       return this.$store.getters['indexPickup/state']
-    },
-    setRootTagName() {
-      return this.$route.name === 'index' ? 'span' : 'nuxt-link'
     },
   },
   mounted() {
@@ -57,9 +49,16 @@ export default {
   },
 
   methods: {
-    onClickSameUrlReload() {
+    onClickSameUrlReload(e) {
+      e.preventDefault()
+
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
+      } else {
+        this.$store.commit('normal-transition/start', '#f0efeb')
+        setTimeout(() => {
+          this.$router.push(`/`)
+        }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
       }
     },
   },

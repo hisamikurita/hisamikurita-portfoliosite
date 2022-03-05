@@ -101,6 +101,8 @@ export default {
     'nuxt-microcms-module',
   ],
 
+  loading: false,
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'nuxt-webfontloader',

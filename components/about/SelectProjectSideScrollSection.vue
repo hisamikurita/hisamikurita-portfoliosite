@@ -90,11 +90,12 @@
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
-                        <NuxtLink
-                          :to="`/works/${data.id}`"
+                        <AppDefaultTransition
+                          :url="`/works/${data.id}`"
+                          :color="data.siteColor.bodyContentsColor"
                           class="project-link"
-                          >{{ data.title.full }}</NuxtLink
-                        >
+                          >{{ data.title.full }}
+                        </AppDefaultTransition>
                       </span>
                     </div>
                   </div>
