@@ -18,6 +18,10 @@ export default {
   methods: {
     onClick(e) {
       e.preventDefault()
+
+      if (this.url === '/' && this.$route.name === 'index') return
+      if (this.url === '/about' && this.$route.name === 'about') return
+
       this.$store.commit('normal-transition/start', this.color)
 
       setTimeout(() => {

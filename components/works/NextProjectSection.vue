@@ -54,7 +54,7 @@
           </div>
         </div>
         <p class="next-backbtn" :style="`color:${currentProject.siteColor.mvTextColor};`">
-          <NuxtLink :to="'/'">(BACK TO HOME)</NuxtLink>
+          <AppDefaultTransition url="/" color="#f0efeb">(BACK TO HOME)</AppDefaultTransition>
         </p>
       </div>
     </div>

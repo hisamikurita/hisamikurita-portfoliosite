@@ -224,6 +224,8 @@ export default {
   beforeDestroy() {
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
+    if (this.dragAnimation) this.drag[0].kill()
+    this.$store.commit('mouse/mouseleave')
     this.$gsap.ticker.remove(this.cardPallax)
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverAnimation.unobserve(this.observe)

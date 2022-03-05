@@ -225,11 +225,11 @@ export default {
           scale: 1,
         })
 
-        this.$gsap.to(this.$refs.HeroBgCircle02, {
-          duration: this.$SITECONFIG.baseDuration,
-          ease: this.$EASING.transform,
-          scale: 1,
-        })
+        // this.$gsap.to(this.$refs.HeroBgCircle02, {
+        //   duration: this.$SITECONFIG.baseDuration,
+        //   ease: this.$EASING.transform,
+        //   scale: 1,
+        // })
 
         this.$gsap.to(this.$refs.HeroCardItem, {
           duration: this.$SITECONFIG.baseDuration,
@@ -237,7 +237,7 @@ export default {
           opacity: 1.0,
         })
 
-        setTimeout(() => {
+        // setTimeout(() => {
           this.observe = this.$refs.Hero
           // this.$nextTick(() => {
           this.iObserver = new IntersectionObserver(
@@ -256,7 +256,7 @@ export default {
           )
           this.iObserver.observe(this.observe)
           // })
-        }, this.$SITECONFIG.baseDuration * 1000)
+        // }, this.$SITECONFIG.baseDuration * 1000)
       }
     },
   },
