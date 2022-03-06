@@ -29,7 +29,6 @@ export default {
     const projectResponse = await $microcms.get({
       endpoint: `works`,
     })
-    console.log(projectResponse)
 
     const index = projectResponse.contents.findIndex(
       (content) => content.id === params.slug
@@ -49,6 +48,8 @@ export default {
   },
 
   mounted() {
+    console.log(this.currentProject)
+
     this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
