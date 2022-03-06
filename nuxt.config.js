@@ -98,7 +98,6 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
-    'nuxt-microcms-module',
   ],
 
   loading: false,
@@ -108,6 +107,7 @@ export default {
     'nuxt-webfontloader',
     '@nuxtjs/style-resources',
     '@nuxt/image',
+    'nuxt-microcms-module',
   ],
 
   styleResources: {
