@@ -25,13 +25,13 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'Works',
 
-  async asyncData({ $axios, params }) {
-    const projectResponse = await $axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/works?limit=200`, {
+  async asyncData({ app, params }) {
+    console.log(app.context)
+    const projectResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/works?limit=200`, {
           headers: {
             'X-MICROCMS-API-KEY': process.env.apiKey
           }
         })
-    console.log(projectResponse);
 
     const index = projectResponse.contents.findIndex(
       (content) => content.id === params.slug
