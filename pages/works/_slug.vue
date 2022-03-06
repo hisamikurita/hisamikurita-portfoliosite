@@ -31,6 +31,7 @@ export default {
             'X-MICROCMS-API-KEY': process.env.apiKey
           }
         })
+    console.log(projectResponse);
 
     const index = projectResponse.contents.findIndex(
       (content) => content.id === params.slug
