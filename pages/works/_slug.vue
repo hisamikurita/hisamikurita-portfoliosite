@@ -29,6 +29,7 @@ export default {
     const projectResponse = await $microcms.get({
       endpoint: `works`,
     })
+    console.log(projectResponse)
 
     const index = projectResponse.contents.findIndex(
       (content) => content.id === params.slug
