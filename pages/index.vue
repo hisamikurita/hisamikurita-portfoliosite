@@ -35,6 +35,8 @@ export default {
   },
 
   mounted() {
+    console.log(this.getProjectData);
+
     this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
