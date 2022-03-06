@@ -48,7 +48,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.currentProject)
+    console.log(this.currentProject);
 
     this.$asscroll.enable({ reset: true })
 
