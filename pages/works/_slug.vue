@@ -10,8 +10,8 @@
     >
       <WorksMainVisualSection :current-project="currentProject" />
       <WorksProjectVideoSection :current-project="currentProject" />
-      <WorksProjectContentsSection :current-project="currentProject" />
-      <WorksNextProjectSection
+    <WorksProjectContentsSection :current-project="currentProject" />
+    <WorksNextProjectSection
         :current-project="currentProject"
         :next-project="nextProject"
       />
@@ -25,28 +25,58 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'Works',
 
-  asyncData({ app, params }) {
-    const projectResponse = app.store.getters.projectData
+  // asyncData({ app, params }) {
+  //   const projectResponse = app.store.getters.projectData
 
-    const index = projectResponse.findIndex(
-      (content) => content.id === params.slug
-    )
-    const currentProject = projectResponse[index]
-    currentProject.index = index + 1
+  //   const index = projectResponse.findIndex(
+  //     (content) => content.id === params.slug
+  //   )
+  //   const currentProject = projectResponse[index]
+  //   currentProject.index = index + 1
 
-    let nextProject = null
+  //   let nextProject = null
 
-    if (index === projectResponse.length - 1) {
-      nextProject = projectResponse[0]
-    } else {
-      nextProject = projectResponse[index + 1]
-    }
+  //   if (index === projectResponse.length - 1) {
+  //     nextProject = projectResponse[0]
+  //   } else {
+  //     nextProject = projectResponse[index + 1]
+  //   }
 
-    return { currentProject, nextProject }
+  //   return { currentProject, nextProject }
+  // },
+
+  computed: {
+    currentProject() {
+      const projectResponse = this.$store.getters.projectData
+      const index = projectResponse.findIndex(
+        (content) => content.id === this.$router.history.current.params.slug
+      )
+      const currentProject = projectResponse[index]
+      currentProject.index = index + 1
+
+      return currentProject
+    },
+
+    nextProject() {
+      const projectResponse = this.$store.getters.projectData
+      const index = projectResponse.findIndex(
+        (content) => content.id === this.$router.history.current.params.slug
+      )
+      let nextProject = null
+
+      if (index === projectResponse.length - 1) {
+        nextProject = projectResponse[0]
+      } else {
+        nextProject = projectResponse[index + 1]
+      }
+
+      return nextProject
+    },
   },
 
   mounted() {
     // console.log(this.currentProject);
+    // console.log(this.$router.history.current.params.slug)
 
     this.$asscroll.enable({ reset: true })
 
@@ -64,7 +94,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$store.commit('indexPickup/setScene', 'init');
+    this.$store.commit('indexPickup/setScene', 'init')
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

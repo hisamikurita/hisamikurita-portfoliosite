@@ -58,7 +58,7 @@
               >
                 <AppDefaultTransition
                   :url="`/works/${data.id}`"
-                  :color="'#fff'"
+                  :color="data.siteColor.bodyContentsColor"
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">

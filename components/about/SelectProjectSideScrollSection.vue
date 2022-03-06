@@ -510,13 +510,13 @@ export default {
   pointer-events: none;
   transition: transform $half-base-duration $transform-easing;
 
-  &.is-hover {
-    transform: translate3d(vw(360), -50%, 0);
-  }
+  // &.is-hover {
+  //   transform: translate3d(vw(360), -50%, 0);
+  // }
 
-  &.is-prev-hover{
-    transform: translate3d(vw(-360), -50%, 0);
-  }
+  // &.is-prev-hover{
+  //   transform: translate3d(vw(-360), -50%, 0);
+  // }
 
   @include sp() {
     right: vw_sp(-72);
