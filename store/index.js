@@ -9,10 +9,22 @@ export const state = () => ({
 export const actions = {
   async nuxtServerInit({ commit }, { app }) {
 
-    const projectResponse = await app.$microcms.get({endpoint: `works`,})
-    const contactResponse = await app.$microcms.get({endpoint: `contact`,})
+    const projectResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/works?limit=200`, {
+      headers: {
+        'X-MICROCMS-API-KEY': process.env.apiKey
+      }
+    })
+    const contactResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/contact?limit=200`, {
+      headers: {
+        'X-MICROCMS-API-KEY': process.env.apiKey
+      }
+    })
     const pickupData = projectResponse.contents.filter((v) => v.pickup.pickupFlag)
-    const awardResponse = await app.$microcms.get({endpoint: `award`,queries: { limit: 30 }})
+    const awardResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/award?limit=200`, {
+      headers: {
+        'X-MICROCMS-API-KEY': process.env.apiKey
+      }
+    })
 
     let awwwwardsLength = 0
     let cssdesignawardsLength = 0

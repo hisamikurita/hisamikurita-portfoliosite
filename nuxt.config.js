@@ -107,7 +107,8 @@ export default {
     'nuxt-webfontloader',
     '@nuxtjs/style-resources',
     '@nuxt/image',
-    'nuxt-microcms-module',
+    // 'nuxt-microcms-module',
+    '@nuxtjs/axios',
   ],
 
   styleResources: {
@@ -127,13 +128,13 @@ export default {
     apiKey: process.env.API_KEY,
   },
 
-  microcms: {
-    options: {
-      serviceDomain: process.env.SERVICE_DOMAIN,
-      apiKey: process.env.API_KEY,
-    },
-    mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
-  },
+  // microcms: {
+  //   options: {
+  //     serviceDomain: process.env.SERVICE_DOMAIN,
+  //     apiKey: process.env.API_KEY,
+  //   },
+  //   mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -152,7 +153,7 @@ export default {
   generate: {
     async routes() {
       const pages = await axios
-        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=100`, {
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=200`, {
           headers: {
             'X-MICROCMS-API-KEY': process.env.API_KEY
           }
