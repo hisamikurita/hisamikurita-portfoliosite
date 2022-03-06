@@ -2,6 +2,11 @@
   <div class="works">
     <div
       class="works-bg"
+      :style="`
+      background-color:${currentProject.siteColor.bodyContentsColor};
+      color:${currentProject.siteColor.allTextColor};
+      border-color:${currentProject.siteColor.allTextColor};
+      `"
     >
       <WorksMainVisualSection :current-project="currentProject" />
       <WorksProjectVideoSection :current-project="currentProject" />
