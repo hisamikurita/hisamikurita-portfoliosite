@@ -1,6 +1,6 @@
 <template>
   <div ref="Next" class="next">
-    <div class="next-inner">
+    <!-- <div class="next-inner">
       <div class="l-container">
         <div class="next-contents">
           <div class="next-title-read-area" :style="`color:${currentProject.siteColor.mvTextColor};`">
@@ -57,7 +57,7 @@
           <AppDefaultTransition url="/" color="#f0efeb">(BACK TO HOME)</AppDefaultTransition>
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -81,42 +81,42 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-    /* loop-text-animation */
-    this.observe = this.$refs.ContentsLoopTitleWrapper
-    this.iObserverLoopText = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.isLoopTextState = 'isActive'
-          } else {
-            this.isLoopTextState = 'isNoActive'
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserverLoopText.observe(this.observe)
+    // this.$nextTick(() => {
+    // /* loop-text-animation */
+    // this.observe = this.$refs.ContentsLoopTitleWrapper
+    // this.iObserverLoopText = new IntersectionObserver(
+    //   (entries) => {
+    //     entries.forEach((entry) => {
+    //       if (entry.isIntersecting) {
+    //         this.isLoopTextState = 'isActive'
+    //       } else {
+    //         this.isLoopTextState = 'isNoActive'
+    //       }
+    //     })
+    //   },
+    //   { rootMargin: '0%' }
+    // )
+    // this.iObserverLoopText.observe(this.observe)
 
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.isTextSegmentState = 'center'
-            this.isTextUnderlineState = 'extend'
-            this.iObserver.unobserve(this.observe)
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserver.observe(this.observe)
-    })
+    // this.iObserver = new IntersectionObserver(
+    //   (entries) => {
+    //     entries.forEach((entry) => {
+    //       if (entry.isIntersecting) {
+    //         this.isTextSegmentState = 'center'
+    //         this.isTextUnderlineState = 'extend'
+    //         this.iObserver.unobserve(this.observe)
+    //       }
+    //     })
+    //   },
+    //   { rootMargin: '0%' }
+    // )
+    // this.iObserver.observe(this.observe)
+    // })
   },
 
   beforeDestroy() {
-    this.iObserverLoopText.unobserve(this.observe)
-    this.iObserver.unobserve(this.observe)
+    // this.iObserverLoopText.unobserve(this.observe)
+    // this.iObserver.unobserve(this.observe)
   },
 }
 </script>
