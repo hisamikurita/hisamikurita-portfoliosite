@@ -25,33 +25,28 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'Works',
 
-  async asyncData({ app, params }) {
-    console.log(app.context)
-    const projectResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/works?limit=200`, {
-          headers: {
-            'X-MICROCMS-API-KEY': process.env.apiKey
-          }
-        })
+  asyncData({ app, params }) {
+    const projectResponse = app.store.getters.projectData
 
-    const index = projectResponse.contents.findIndex(
+    const index = projectResponse.findIndex(
       (content) => content.id === params.slug
     )
-    const currentProject = projectResponse.contents[index]
+    const currentProject = projectResponse[index]
     currentProject.index = index + 1
 
     let nextProject = null
 
-    if (index === projectResponse.contents.length - 1) {
-      nextProject = projectResponse.contents[0]
+    if (index === projectResponse.length - 1) {
+      nextProject = projectResponse[0]
     } else {
-      nextProject = projectResponse.contents[index + 1]
+      nextProject = projectResponse[index + 1]
     }
 
     return { currentProject, nextProject }
   },
 
   mounted() {
-    console.log(this.currentProject);
+    // console.log(this.currentProject);
 
     this.$asscroll.enable({ reset: true })
 
