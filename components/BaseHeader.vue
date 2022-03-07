@@ -32,10 +32,22 @@ export default {
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
+    defaultTransitionState() {
+      return this.$store.getters['normal-transition/state']
+    },
     indexPickupState() {
       return this.$store.getters['indexPickup/state']
     },
   },
+
+  watch: {
+    defaultTransitionState: function () {
+      if (!this.defaultTransitionState) {
+        this.$refs.HeaderLogo.classList.add('is-top');
+      }
+    },
+  },
+
   mounted() {
     this.$asscroll.on('scroll', () => {
       if (this.hambergerMenuState || this.indexPickupState) return

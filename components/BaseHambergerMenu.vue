@@ -199,7 +199,7 @@ export default {
             scaleX: 5.1,
             scaleY: 1.1,
             x: 10,
-            boxShadow: '0 0 3px 0.6px rgb(255 255 255 / 80%)',
+            // boxShadow: '0 0 3px 0.6px rgb(255 255 255 / 80%)',
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
             delay: 0.3,
@@ -388,7 +388,7 @@ export default {
             scaleX: 1.0,
             scaleY: 1.0,
             x: 0,
-            boxShadow: 'none',
+            // boxShadow: 'none',
           })
           /**
            * init

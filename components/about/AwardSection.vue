@@ -144,6 +144,7 @@ export default {
       this.$gsap.ticker.remove(this.cardScrollPos)
       this.$gsap.ticker.remove(this.cardScrollAnimation)
       window.removeEventListener('mousemove', this.onMousemove)
+      window.removeEventListener('mousemove', this.saveMousemove)
       this.animationObserver.unobserve(this.observe)
     }
   },

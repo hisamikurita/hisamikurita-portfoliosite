@@ -49,43 +49,13 @@
                       :key="data.id"
                       ref="ProjectItem"
                       class="project-item"
-                      @mouseenter="onMouseEnter"
+                      @mousemove="onMouseEnter"
                       @mouseleave="onMouseLeave"
                     >
                       <span
                         ref="ProjectItemCircle"
                         class="project-item-circle"
                       ></span>
-                      <span ref="ProjectItemImg01" class="project-item-img-01">
-                        <picture>
-                          <source
-                            :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
-                            :width="`${data.aboutImages.img01.width}`"
-                            :height="`${data.aboutImages.img01.height}`"
-                            type="image/webp"
-                          />
-                          <img
-                            :src="`${data.aboutImages.img01.url}?w=2560&h=1600&q=50`"
-                            :width="`${data.aboutImages.img01.width}`"
-                            :height="`${data.aboutImages.img01.height}`"
-                          />
-                        </picture>
-                      </span>
-                      <span ref="ProjectItemImg02" class="project-item-img-02">
-                        <picture>
-                          <source
-                            :srcset="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
-                            :width="`${data.aboutImages.img02.width}`"
-                            :height="`${data.aboutImages.img02.height}`"
-                            type="image/webp"
-                          />
-                          <img
-                            :src="`${data.aboutImages.img02.url}?w=2560&h=1600&q=50`"
-                            :width="`${data.aboutImages.img02.width}`"
-                            :height="`${data.aboutImages.img02.height}`"
-                          />
-                        </picture>
-                      </span>
                       <span
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
@@ -96,6 +66,50 @@
                           class="project-link"
                           >{{ data.title.full }}
                         </AppDefaultTransition>
+                      </span>
+                      <span
+                        ref="ProjectItemImg01"
+                        class="
+                          project-item-img-wrapper project-item-img-wrapper-01
+                        "
+                      >
+                        <span class="project-item-img">
+                          <picture>
+                            <source
+                              :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
+                              :width="`${data.aboutImages.img01.width}`"
+                              :height="`${data.aboutImages.img01.height}`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`${data.aboutImages.img01.url}?w=2560&h=1600&q=50`"
+                              :width="`${data.aboutImages.img01.width}`"
+                              :height="`${data.aboutImages.img01.height}`"
+                            />
+                          </picture>
+                        </span>
+                      </span>
+                      <span
+                        ref="ProjectItemImg02"
+                        class="
+                          project-item-img-wrapper project-item-img-wrapper-02
+                        "
+                      >
+                        <span class="project-item-img">
+                          <picture>
+                            <source
+                              :srcset="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
+                              :width="`${data.aboutImages.img02.width}`"
+                              :height="`${data.aboutImages.img02.height}`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`${data.aboutImages.img02.url}?w=2560&h=1600&q=50`"
+                              :width="`${data.aboutImages.img02.width}`"
+                              :height="`${data.aboutImages.img02.height}`"
+                            />
+                          </picture>
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -111,7 +125,6 @@
 
 <script>
 import Particle from '../canvas/about/sidescroll/particle'
-// import { vw } from '../../assets/js/vw'
 
 export default {
   props: {
@@ -268,6 +281,12 @@ export default {
     }
 
     window.addEventListener('resize', this.pResize)
+
+    this.enterflag = false
+    this.leaveflag = false
+    // for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
+    //   this.flag.push(false)
+    // }
   },
 
   beforeDestroy() {
@@ -280,126 +299,23 @@ export default {
   },
 
   methods: {
-    onMouseEnter(e) {
-      // const nextTarget = this.NextAll(e.target)
-      this.prevTarget = this.PrevAll(e.target)
-      this.currentCircle = e.target.querySelector('.project-item-circle')
-      this.currentImg01 = e.target.querySelector('.project-item-img-01')
-      this.currentImg02 = e.target.querySelector('.project-item-img-02')
-      this.currentCircle.classList.add('is-hover')
-      this.currentImg01.classList.add('is-hover')
-      this.currentImg02.classList.add('is-hover')
-      for (let i = 0; i < this.prevTarget.length; i++) {
-        this.prevTarge[i].circle.classList.add('is-prev-hover')
-      }
-      // this.$gsap.to(currentCircle, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: vw(360),
-      // })
-      // this.$gsap.to(currentImg01, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   scale: 1,
-      //   rotate: -8,
-      // })
-      // this.$gsap.to(currentImg02, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   scale: 1,
-      //   rotate: 8,
-      // })
-      // this.$gsap.to(nextTarget.text, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: vw(360),
-      // })
-      // this.$gsap.to(nextTarget.circle, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: vw(360),
-      // })
-
-      // this.$gsap.to(prevTarget.text, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: vw(-360),
-      // })
-      // this.$gsap.to(prevTarget.circle, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: vw(-360),
-      // })
+    onMouseEnter(event) {
+      if (this.enterflag || this.$SITECONFIG.isTouch) return
+      this.enterflag = true
+      this.leaveflag = false
+      this.target = event.path[2]
+      this.target.classList.add('is-hover')
+      this.target.classList.add('is-overlay')
     },
     onMouseLeave() {
-      this.currentCircle.classList.remove('is-hover')
-      this.currentImg01.classList.remove('is-hover')
-      this.currentImg02.classList.remove('is-hover')
-       for (let i = 0; i < this.prevTarget; i++) {
-        this.prevTarget.circle[i].classList.add('is-prev-hover')
-      }
-      // this.$gsap.to(this.$refs.ProjectItemImg01, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   scale: 0,
-      //   rotate: 0,
-      // })
-      // this.$gsap.to(this.$refs.ProjectItemImg02, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   scale: 0,
-      //   rotate: 0,
-      // })
-      // this.$gsap.to(this.$refs.ProjectItemWrapper, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: 0,
-      // })
-      // this.$gsap.to(this.$refs.ProjectItemCircle, {
-      //   duration: this.$SITECONFIG.halfBaseDuration,
-      //   ease: this.$EASING.transform,
-      //   x: 0,
-      // })
-    },
-    NextAll(dom) {
-      const textArray = []
-      const circleArray = []
+      if (this.leaveflag || this.$SITECONFIG.isTouch) return
 
-      let next = dom.nextElementSibling
-
-      while (next && next.nodeType === 1) {
-        const text = next.querySelector('.project-item-wraper')
-        const circle = next.querySelector('.project-item-circle')
-
-        textArray.push(text)
-        circleArray.push(circle)
-        next = next.nextElementSibling
-      }
-
-      return {
-        text: textArray,
-        circle: circleArray,
-      }
-    },
-    PrevAll(dom) {
-      const textArray = []
-      const circleArray = []
-
-      let prev = dom.previousElementSibling
-
-      while (prev && prev.nodeType === 1) {
-        const text = prev.querySelector('.project-item-wraper')
-        const circle = prev.querySelector('.project-item-circle')
-
-        textArray.push(text)
-        circleArray.push(circle)
-        prev = prev.previousElementSibling
-      }
-
-      return {
-        text: textArray,
-        circle: circleArray,
-      }
+      this.leaveflag = true
+      this.target.classList.remove('is-hover')
+      setTimeout(() => {
+        this.enterflag = false
+        this.target.classList.remove('is-overlay')
+      }, 100)
     },
   },
 }
@@ -510,14 +426,6 @@ export default {
   pointer-events: none;
   transition: transform $half-base-duration $transform-easing;
 
-  // &.is-hover {
-  //   transform: translate3d(vw(360), -50%, 0);
-  // }
-
-  // &.is-prev-hover{
-  //   transform: translate3d(vw(-360), -50%, 0);
-  // }
-
   @include sp() {
     right: vw_sp(-72);
     width: vw_sp(20);
@@ -532,6 +440,11 @@ export default {
   font-size: vw(140);
   font-family: $sixcaps;
   white-space: nowrap;
+  perspective: 1000px;
+
+  &.is-overlay {
+    z-index: 10;
+  }
 
   @include sp() {
     font-size: vw_sp(160);
@@ -557,35 +470,41 @@ export default {
   position: relative;
 }
 
-.project-item-img-01 {
+.project-item-img-wrapper {
   position: absolute;
   top: vw(-40);
-  left: vw(-340);
   width: vw(280);
   transform: scale(0);
   pointer-events: none;
   transition: transform $half-base-duration $transform-easing;
-  will-change: transform;
   backface-visibility: hidden;
-
-  &.is-hover {
-    transform: scale(1) rotate(-8deg);
-  }
+  transform-style: preserve-3d;
 }
 
-.project-item-img-02 {
-  position: absolute;
-  top: vw(-40);
-  right: vw(-340);
-  width: vw(280);
-  transform: scale(0);
-  pointer-events: none;
+.project-item-img {
+  display: block;
+  transform: rotateX(180deg);
   transition: transform $half-base-duration $transform-easing;
-  will-change: transform;
-  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
 
-  &.is-hover {
-    transform: scale(1) rotate(8deg);
-  }
+.project-item-img-wrapper-01 {
+  left: vw(-340);
+}
+
+.is-hover .project-item-img-wrapper-01 {
+  transform: scale(1) rotate(-8deg);
+}
+
+.project-item-img-wrapper-02 {
+  right: vw(-340);
+}
+
+.is-hover .project-item-img-wrapper-02 {
+  transform: scale(1) rotate(8deg);
+}
+
+.is-hover .project-item-img {
+  transform: rotateX(0deg);
 }
 </style>

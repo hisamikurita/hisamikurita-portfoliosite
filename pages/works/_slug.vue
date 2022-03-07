@@ -25,26 +25,6 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'Works',
 
-  // asyncData({ app, params }) {
-  //   const projectResponse = app.store.getters.projectData
-
-  //   const index = projectResponse.findIndex(
-  //     (content) => content.id === params.slug
-  //   )
-  //   const currentProject = projectResponse[index]
-  //   currentProject.index = index + 1
-
-  //   let nextProject = null
-
-  //   if (index === projectResponse.length - 1) {
-  //     nextProject = projectResponse[0]
-  //   } else {
-  //     nextProject = projectResponse[index + 1]
-  //   }
-
-  //   return { currentProject, nextProject }
-  // },
-
   computed: {
     currentProject() {
       const projectResponse = this.$store.getters.projectData
@@ -75,9 +55,6 @@ export default {
   },
 
   mounted() {
-    // console.log(this.currentProject);
-    // console.log(this.$router.history.current.params.slug)
-
     this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {

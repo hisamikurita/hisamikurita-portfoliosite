@@ -80,8 +80,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.currentProject)
-
     /* img-animation call */
     this.imgTriggerArray = []
     this.imgWrapper = this.$refs.ContentsImgWrapper
