@@ -150,12 +150,6 @@ export default {
       if (this.imageLoaded) {
         this.isTextSegmentState = 'center'
         this.isTextUnderlineState = 'extend'
-
-        this.$gsap.to(this.$refs.HeroImg, {
-          duration: this.$SITECONFIG.baseDuration,
-          ease: this.$EASING.colorAndOpacity,
-          opacity: 1.0
-        })
       }
     },
   },
@@ -188,8 +182,6 @@ export default {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  user-select: none;
-  opacity: 0;
 
   & img {
     position: absolute;

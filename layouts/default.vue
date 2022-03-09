@@ -1,27 +1,16 @@
 <template>
   <div>
     <BaseMouse />
-    <div ref="LayoutsTranslate" class="layouts-translate">
-      <div ref="LayoutsScale" class="layouts-scale">
-        <div
-          ref="AsscrollContainer"
-          class="asscroll-container"
-          asscroll-container
-        >
-          <div class="asscroll" asscroll>
-            <nuxt />
-          </div>
-        </div>
-        <div ref="Webgl" class="webgl"></div>
-        <div class="particle"><canvas ref="Particle"></canvas></div>
+    <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
+      <div class="asscroll" asscroll>
+        <nuxt />
       </div>
-      <div class="layouts-normal-transition">
-        <span class="layouts-normal-transition-bg">
-          <span
-            ref="LayoutsNormalTransitionBg"
-            class="layouts-normal-transition-bg-block"
-          ></span>
-        </span>
+    </div>
+    <div ref="LayoutsFix" class="layouts-fix">
+      <div ref="Webgl" class="webgl"></div>
+      <div class="particle"><canvas ref="Particle"></canvas></div>
+      <div ref="LayoutsNormalTransitionBg" class="layouts-normal-transition-img">
+        <img src="https://images.microcms-assets.io/assets/6db5ea9829bb4093869fe6ebf7fb29b3/35c9f878844a4e17949c5ab29704a446/mv_mtrust.jpg?fm=webp&w=2560&h=1600&q=50" />
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
@@ -66,39 +55,39 @@ export default {
   watch: {
     defaultTransitionState: function () {
       if (this.defaultTransitionState) {
-        this.$gsap.set(this.$refs.LayoutsScale, {
+        this.$gsap.set(this.$refs.AsscrollContainer, {
           overflow: 'hidden',
         })
-        this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-          backgroundColor: this.defaultTransitionColor,
-        })
-        this.scaleAnimation01 = this.$gsap.to(this.$refs.LayoutsScale, {
+        // this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
+        //   backgroundColor: this.defaultTransitionColor,
+        // })
+        this.scaleAnimation01 = this.$gsap.to(this.$refs.AsscrollContainer, {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           scaleX: 0.97,
           borderRadius: '14px',
         })
-        this.scaleAnimation02 = this.$gsap.to(this.$refs.LayoutsScale, {
+        this.scaleAnimation02 = this.$gsap.to(this.$refs.AsscrollContainer, {
           duration: this.$SITECONFIG.baseDuration * 0.92,
           ease: this.$EASING.transform,
           scaleY: 0.94,
         })
         this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
-          duration: this.$SITECONFIG.baseDuration * 1.3,
+          duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
-          yPercent: -75,
+          clipPath : 'ellipse(80% 130% at 50% 100%)',
         })
       } else {
         this.scaleAnimation01.kill()
         this.scaleAnimation02.kill()
         this.bgAnimation.kill()
-        this.$gsap.set(this.$refs.LayoutsScale, {
+        this.$gsap.set(this.$refs.AsscrollContainer, {
           scale: 1.0,
           borderRadius: '0px',
           overflow: 'visible',
         })
         this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-          yPercent: 0,
+          clipPath : 'ellipse(80% 0% at 50% 100%)',
         })
       }
     },
@@ -111,7 +100,13 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.LayoutsTranslate, {
+          this.$gsap.to(this.$refs.AsscrollContainer, {
+            delay: 0.2,
+            duration: this.$SITECONFIG.baseDuration / 3.0,
+            ease: this.$EASING.transform,
+            x: -560,
+          })
+          this.$gsap.to(this.$refs.LayoutsFix, {
             delay: 0.2,
             duration: this.$SITECONFIG.baseDuration / 3.0,
             ease: this.$EASING.transform,
@@ -132,7 +127,13 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.LayoutsTranslate, {
+          this.$gsap.to(this.$refs.AsscrollContainer, {
+            delay: 0.2,
+            duration: this.$SITECONFIG.baseDuration / 3.0,
+            ease: this.$EASING.transform,
+            x: 0,
+          })
+          this.$gsap.to(this.$refs.LayoutsFix, {
             delay: 0.2,
             duration: this.$SITECONFIG.baseDuration / 3.0,
             ease: this.$EASING.transform,
@@ -274,6 +275,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+:root {
+  --viewportWidth: 0;
+  --viewportHeight: 0;
+}
+
 .asscroll-container-cover {
   position: fixed;
   top: 0;
@@ -301,17 +307,7 @@ export default {
   height: 100%;
 }
 
-.layouts-scale {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  // transform: scale(0.97, 0.94);
-  overflow: hidden;
-}
-
-.layouts-normal-transition {
+.layouts-fix {
   position: fixed;
   top: 0;
   left: 0;
@@ -320,25 +316,36 @@ export default {
   pointer-events: none;
 }
 
-.layouts-normal-transition-bg {
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate3d(-50%, 0%, 0);
-  width: 160vmax;
-  height: 160vmax;
-}
+// .layouts-normal-transition-bg {
+//   display: block;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate3d(-50%, -50%, 0);
+//   width: 100%;
+//   height: 100%;
+//   clip-path: ellipse(80% 0% at 50% 100%);
+// }
 
-.layouts-normal-transition-bg-block {
+.layouts-normal-transition-img{
   display: block;
   position: absolute;
   top: 0;
   left: 0;
+  // transform: translate3d(-50%, -50%, 0);
   width: 100%;
   height: 100%;
-  background-color: $skinColor;
-  border-radius: 50%;
+clip-path: ellipse(80% 0% at 50% 100%);
+
+  & img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .webgl {
@@ -348,7 +355,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 1;
-  pointer-events: none;
 
   & canvas {
     display: block;
@@ -364,7 +370,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 2;
-  pointer-events: none;
 
   & canvas {
     display: block;
