@@ -304,14 +304,24 @@ export default {
       this.enterflag = true
       this.leaveflag = false
       this.target = event.path[2]
-      this.target.classList.add('is-hover')
+      this.target.classList.add('is-current-hover')
       this.target.classList.add('is-overlay')
+      for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
+        if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
+          this.$refs.ProjectItem[i].classList.add('is-hover')
+        }
+      }
     },
     onMouseLeave() {
       if (this.leaveflag || this.$SITECONFIG.isTouch) return
 
       this.leaveflag = true
-      this.target.classList.remove('is-hover')
+      this.target.classList.remove('is-current-hover')
+      for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
+        if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
+          this.$refs.ProjectItem[i].classList.remove('is-hover')
+        }
+      }
       setTimeout(() => {
         this.enterflag = false
         this.target.classList.remove('is-overlay')
@@ -441,6 +451,11 @@ export default {
   font-family: $sixcaps;
   white-space: nowrap;
   perspective: 1000px;
+  transition: opacity $half-base-duration $colorAndOpacity-easing;
+
+  &.is-hover{
+    opacity: 0.5;
+  }
 
   &.is-overlay {
     z-index: 10;
@@ -472,8 +487,8 @@ export default {
 
 .project-item-img-wrapper {
   position: absolute;
-  top: vw(-40);
-  width: vw(280);
+  top: vw(-30);
+  width: vw(336);
   transform: scale(0);
   pointer-events: none;
   transition: transform $half-base-duration $transform-easing;
@@ -489,22 +504,22 @@ export default {
 }
 
 .project-item-img-wrapper-01 {
-  left: vw(-340);
+  left: vw(-320);
 }
 
-.is-hover .project-item-img-wrapper-01 {
+.is-current-hover .project-item-img-wrapper-01 {
   transform: scale(1) rotate(-8deg);
 }
 
 .project-item-img-wrapper-02 {
-  right: vw(-340);
+  right: vw(-370);
 }
 
-.is-hover .project-item-img-wrapper-02 {
+.is-current-hover .project-item-img-wrapper-02 {
   transform: scale(1) rotate(8deg);
 }
 
-.is-hover .project-item-img {
+.is-current-hover .project-item-img {
   transform: rotateX(0deg);
 }
 </style>

@@ -9,8 +9,30 @@
     <div ref="LayoutsFix" class="layouts-fix">
       <div ref="Webgl" class="webgl"></div>
       <div class="particle"><canvas ref="Particle"></canvas></div>
-      <div ref="LayoutsNormalTransitionBg" class="layouts-normal-transition-img">
-        <img src="https://images.microcms-assets.io/assets/6db5ea9829bb4093869fe6ebf7fb29b3/35c9f878844a4e17949c5ab29704a446/mv_mtrust.jpg?fm=webp&w=2560&h=1600&q=50" />
+      <div
+        ref="LayoutsNormalTransitionBg"
+        class="layouts-normal-transition-img-wrapper"
+      >
+        <span
+          v-for="data in getProjectData"
+          :key="data.id"
+          ref="LayoutsNormalTransitionImg"
+          class="layouts-normal-transition-img"
+        >
+          <picture>
+            <source
+              :srcset="`${data.heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
+              :width="`${data.heroImg.width}`"
+              :height="`${data.heroImg.height}`"
+              type="image/webp"
+            />
+            <img
+              :src="`${data.heroImg.url}?w=2560&h=1600&q=50`"
+              :width="`${data.heroImg.width}`"
+              :height="`${data.heroImg.height}`"
+            />
+          </picture>
+        </span>
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
@@ -30,11 +52,20 @@ export default {
     pickupData() {
       return this.$store.getters.pickupData
     },
+    getProjectData() {
+      return this.$store.getters.projectData
+    },
     defaultTransitionState() {
       return this.$store.getters['normal-transition/state']
     },
     defaultTransitionColor() {
       return this.$store.getters['normal-transition/color']
+    },
+    imageTransitionState() {
+      return this.$store.getters['image-transition/state']
+    },
+    imageTransitionIndex() {
+      return this.$store.getters['image-transition/index']
     },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
@@ -75,7 +106,7 @@ export default {
         this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
-          clipPath : 'ellipse(80% 130% at 50% 100%)',
+          clipPath: 'ellipse(80% 130% at 50% 100%)',
         })
       } else {
         this.scaleAnimation01.kill()
@@ -87,8 +118,21 @@ export default {
           overflow: 'visible',
         })
         this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-          clipPath : 'ellipse(80% 0% at 50% 100%)',
+          clipPath: 'ellipse(80% 0% at 50% 100%)',
         })
+      }
+    },
+
+    imageTransitionState: function () {
+      if (this.imageTransitionState) {
+        const index = this.imageTransitionIndex
+        console.log(index)
+        // this.$gsap.set(this.LayoutsNormalTransitionImg, {
+        //   clipPath: 'ellipse(80% 0% at 50% 100%)',
+        // })
+        this.onTransitionStart()
+      } else {
+        this.onTransitionEnd()
       }
     },
 
@@ -216,6 +260,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.getProjectData)
     // particle
     const color = [
       {
@@ -270,6 +315,42 @@ export default {
       stage.onRaf()
       this.mesh.onRaf()
     }
+  },
+  methods: {
+    onTransitionStart() {
+      this.$gsap.set(this.$refs.AsscrollContainer, {
+        overflow: 'hidden',
+      })
+      this.scaleAnimation01 = this.$gsap.to(this.$refs.AsscrollContainer, {
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
+        scaleX: 0.97,
+        borderRadius: '14px',
+      })
+      this.scaleAnimation02 = this.$gsap.to(this.$refs.AsscrollContainer, {
+        duration: this.$SITECONFIG.baseDuration * 0.92,
+        ease: this.$EASING.transform,
+        scaleY: 0.94,
+      })
+      this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
+        clipPath: 'ellipse(80% 130% at 50% 100%)',
+      })
+    },
+    onTransitionEnd() {
+      this.scaleAnimation01.kill()
+      this.scaleAnimation02.kill()
+      this.bgAnimation.kill()
+      this.$gsap.set(this.$refs.AsscrollContainer, {
+        scale: 1.0,
+        borderRadius: '0px',
+        overflow: 'visible',
+      })
+      this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
+        clipPath: 'ellipse(80% 0% at 50% 100%)',
+      })
+    },
   },
 }
 </script>
@@ -327,17 +408,26 @@ export default {
 //   clip-path: ellipse(80% 0% at 50% 100%);
 // }
 
-.layouts-normal-transition-img{
+.layouts-normal-transition-img-wrapper {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
-  // transform: translate3d(-50%, -50%, 0);
   width: 100%;
   height: 100%;
-clip-path: ellipse(80% 0% at 50% 100%);
+  clip-path: ellipse(80% 0% at 50% 100%);
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
 
-  & img{
+.layouts-normal-transition-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  & img {
     position: absolute;
     top: 50%;
     left: 50%;

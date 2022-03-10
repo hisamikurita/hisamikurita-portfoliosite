@@ -26,6 +26,12 @@ export default {
     getAwardDataLength() {
       return this.$store.getters.awardDataLength
     },
+    defaultTransitionState() {
+      return this.$store.getters['normal-transition/state']
+    },
+    imageTransitionState() {
+      return this.$store.getters['image-transition/state']
+    },
   },
 
   mounted() {
@@ -42,7 +48,10 @@ export default {
       const images = document.querySelectorAll('.about img')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
-        this.$store.commit('normal-transition/end')
+        if (this.defaultTransitionState)
+          this.$store.commit('normal-transition/end')
+        if (this.imageTransitionState)
+          this.$store.commit('image-transition/end')
 
         this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })

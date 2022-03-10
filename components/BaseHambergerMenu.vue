@@ -47,7 +47,7 @@
         <div>
           <ul class="hambergerMenu-list">
             <li
-              v-for="data in getProjectData"
+              v-for="(data, index) in getProjectData"
               :key="data.id"
               class="hambergerMenu-item"
             >
@@ -56,9 +56,9 @@
                 class="hambergerMenu-item-wrapper"
                 @click="onClickSameUrl(data.id)"
               >
-                <AppDefaultTransition
+                <AppImageTransition
                   :url="`/works/${data.id}`"
-                  :color="data.siteColor.bodyContentsColor"
+                  :index="index"
                   class="hambergerMenu-item-link"
                 >
                   <div class="hambergerMenu-item-img">
@@ -82,7 +82,7 @@
                     </p>
                     <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
                   </div>
-                </AppDefaultTransition>
+                </AppImageTransition>
               </div>
             </li>
           </ul>
