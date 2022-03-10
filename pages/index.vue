@@ -51,7 +51,7 @@ export default {
         if (this.defaultTransitionState)
           this.$store.commit('normal-transition/end')
         if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+          this.$store.commit('image-transition/end');
 
         this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })
