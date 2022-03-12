@@ -19,8 +19,7 @@ export default {
     onClick(e) {
       e.preventDefault()
 
-      if (this.url === '/' && this.$route.name === 'index') return
-      if (this.url === '/about' && this.$route.name === 'about') return
+      if (this.url === this.$route.path) return
 
       this.$store.commit('image-transition/start', this.index)
 

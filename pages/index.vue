@@ -33,7 +33,7 @@ export default {
       return this.$store.getters.pickupData
     },
     defaultTransitionState() {
-      return this.$store.getters['normal-transition/state']
+      return this.$store.getters['bg-transition/state']
     },
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
@@ -49,7 +49,7 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState)
-          this.$store.commit('normal-transition/end')
+          this.$store.commit('bg-transition/end')
         if (this.imageTransitionState)
           this.$store.commit('image-transition/end');
 

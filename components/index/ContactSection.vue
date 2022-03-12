@@ -89,14 +89,14 @@
                   :key="data.id"
                   class="contact-info-item"
                 >
-                  <AppDefaultTransition :url="`works/${data.id}`" :color="data.siteColor.bodyContentsColor">
+                  <AppImageTransition :url="`works/${data.id}`" :index="index">
                     <AppTextSegment
                       :state="isTextSegmentState"
                       :start="0.48 + index * 0.12"
                       :rotate="$BASEROTATE.right"
                       :text="data.title.full"
                     />
-                  </AppDefaultTransition>
+                  </AppImageTransition>
                 </span>
               </span>
             </div>

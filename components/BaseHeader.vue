@@ -33,7 +33,10 @@ export default {
       return this.$store.getters['hambergerMenu/state']
     },
     defaultTransitionState() {
-      return this.$store.getters['normal-transition/state']
+      return this.$store.getters['bg-transition/state']
+    },
+    imageTransitionState() {
+      return this.$store.getters['image-transition/state']
     },
     indexPickupState() {
       return this.$store.getters['indexPickup/state']
@@ -42,9 +45,16 @@ export default {
 
   watch: {
     defaultTransitionState: function () {
-      if (!this.defaultTransitionState) {
-        this.$refs.HeaderLogo.classList.add('is-top');
-      }
+      console.log('発火')
+      // if (!this.defaultTransitionState) {
+        this.$refs.HeaderLogo.classList.add('is-top')
+      // }
+    },
+    imageTransitionState: function () {
+      console.log('発火')
+      // if (!this.imageTransitionState) {
+        this.$refs.HeaderLogo.classList.add('is-top')
+      // }
     },
   },
 
@@ -67,7 +77,7 @@ export default {
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
       } else {
-        this.$store.commit('normal-transition/start', '#f0efeb')
+        this.$store.commit('bg-transition/start', '#f0efeb')
         setTimeout(() => {
           this.$router.push(`/`)
         }, this.$SITECONFIG.baseDuration * 0.8 * 1000)

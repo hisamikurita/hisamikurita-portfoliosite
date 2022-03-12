@@ -26,7 +26,7 @@
       <CardProjectContents
         v-if="componentName === 'ProjectContents'"
         :name="name"
-        :next-color="nextColor"
+        :index="index"
         :title="title"
         :link="link"
         :text="text"
@@ -79,9 +79,9 @@ export default {
       type: String,
       required: true,
     },
-    nextColor: {
-      type: String,
-      default: '#ffffff',
+    index: {
+      type: Number,
+      default: 0,
     },
     color: {
       type: String,

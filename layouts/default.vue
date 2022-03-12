@@ -33,6 +33,7 @@
             />
           </picture>
         </span>
+        <span ref="LayoutsNormalTransitionColorBg" class="layouts-normal-transition-color-bg"></span>
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
@@ -56,10 +57,10 @@ export default {
       return this.$store.getters.projectData
     },
     defaultTransitionState() {
-      return this.$store.getters['normal-transition/state']
+      return this.$store.getters['bg-transition/state']
     },
     defaultTransitionColor() {
-      return this.$store.getters['normal-transition/color']
+      return this.$store.getters['bg-transition/color']
     },
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
@@ -86,53 +87,42 @@ export default {
   watch: {
     defaultTransitionState: function () {
       if (this.defaultTransitionState) {
-        this.$gsap.set(this.$refs.AsscrollContainer, {
-          overflow: 'hidden',
-        })
-        // this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-        //   backgroundColor: this.defaultTransitionColor,
-        // })
-        this.scaleAnimation01 = this.$gsap.to(this.$refs.AsscrollContainer, {
-          duration: this.$SITECONFIG.baseDuration,
-          ease: this.$EASING.transform,
-          scaleX: 0.97,
-          borderRadius: '14px',
-        })
-        this.scaleAnimation02 = this.$gsap.to(this.$refs.AsscrollContainer, {
-          duration: this.$SITECONFIG.baseDuration * 0.92,
-          ease: this.$EASING.transform,
-          scaleY: 0.94,
-        })
-        this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
-          duration: this.$SITECONFIG.baseDuration,
-          ease: this.$EASING.transform,
-          clipPath: 'ellipse(80% 130% at 50% 100%)',
-        })
+          this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
+            backgroundColor: this.defaultTransitionColor,
+            opacity: 1,
+          })
+        this.onTransitionStart()
       } else {
-        this.scaleAnimation01.kill()
-        this.scaleAnimation02.kill()
-        this.bgAnimation.kill()
-        this.$gsap.set(this.$refs.AsscrollContainer, {
-          scale: 1.0,
-          borderRadius: '0px',
-          overflow: 'visible',
-        })
-        this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-          clipPath: 'ellipse(80% 0% at 50% 100%)',
-        })
+        this.onTransitionEnd()
+        this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
+            opacity: 0,
+          })
       }
     },
 
     imageTransitionState: function () {
       if (this.imageTransitionState) {
-        const index = this.imageTransitionIndex
+        const index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex;
         console.log(index)
-        // this.$gsap.set(this.LayoutsNormalTransitionImg, {
-        //   clipPath: 'ellipse(80% 0% at 50% 100%)',
-        // })
+
+        for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
+          this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
+            opacity: 0,
+          })
+        }
+
+        this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[index], {
+          opacity: 1.0,
+        })
+
         this.onTransitionStart()
       } else {
         this.onTransitionEnd()
+           for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
+          this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
+            opacity: 0,
+          })
+        }
       }
     },
 
@@ -260,7 +250,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.getProjectData)
     // particle
     const color = [
       {
@@ -335,7 +324,7 @@ export default {
       this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
-        clipPath: 'ellipse(80% 130% at 50% 100%)',
+        clipPath: 'ellipse(70% 100% at 50% 50%)',
       })
     },
     onTransitionEnd() {
@@ -348,8 +337,8 @@ export default {
         overflow: 'visible',
       })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-        clipPath: 'ellipse(80% 0% at 50% 100%)',
-      })
+          clipPath: 'ellipse(70% 100% at 50% 200%)',
+        })
     },
   },
 }
@@ -415,7 +404,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  clip-path: ellipse(80% 0% at 50% 100%);
+  clip-path: ellipse(70% 100% at 50% 200%);
   backface-visibility: hidden;
   transform: translateZ(0);
 }
@@ -426,6 +415,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
 
   & img {
     position: absolute;
@@ -436,6 +426,15 @@ export default {
     height: 100%;
     object-fit: cover;
   }
+}
+
+.layouts-normal-transition-color-bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 .webgl {

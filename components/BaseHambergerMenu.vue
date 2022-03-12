@@ -14,26 +14,26 @@
             class="hambergerMenu-title-wrapper-01"
             @click="onClickSameUrl('index')"
           >
-            <AppDefaultTransition url="/" color="#f0efeb">
+            <AppBgTransition url="/" color="#f0efeb">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="$BASEROTATE.right"
                 :text="'HISAMIKURITA'"
               />
-            </AppDefaultTransition>
+            </AppBgTransition>
           </span>
           <span
             class="hambergerMenu-title-wrapper-02"
             @click="onClickSameUrl('about')"
           >
-            <AppDefaultTransition url="/about" color="#f0efeb">
+            <AppBgTransition url="/about" color="#f0efeb">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.12"
                 :rotate="$BASEROTATE.left"
                 :text="'ABOUT'"
               />
-            </AppDefaultTransition>
+            </AppBgTransition>
           </span>
         </div>
         <div class="hambergerMenu-section-title">

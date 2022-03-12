@@ -10,7 +10,7 @@
               :modifier="'works-section'"
             />
           </div>
-          <AppDefaultTransition :url="`/works/${nextProject.id}`" :color="nextProject.siteColor.bodyContentsColor">
+          <AppImageTransition :url="`/works/${nextProject.id}`" :index="currentProject.index">
             <span
               ref="ContentsLoopTitleWrapper"
               class="next-loop-title-wrapper"
@@ -38,12 +38,12 @@
                 </AppTextLoop>
               </span>
             </span>
-          </AppDefaultTransition>
+          </AppImageTransition>
           <div class="next-loop-card">
             <AppCardBase
               :component-name="'ProjectContents'"
               :name="nextProject.title.full"
-              :next-color="nextProject.siteColor.bodyContentsColor"
+              :index="currentProject.index"
               :title="nextProject.title.short"
               :link="nextProject.id"
               :text="nextProject.desc"
@@ -54,7 +54,7 @@
           </div>
         </div>
         <p class="next-backbtn" :style="`color:${currentProject.siteColor.mvTextColor};`">
-          <AppDefaultTransition url="/" color="#f0efeb">(BACK TO HOME)</AppDefaultTransition>
+          <AppBgTransition url="/" color="#f0efeb">(BACK TO HOME)</AppBgTransition>
         </p>
       </div>
     </div>

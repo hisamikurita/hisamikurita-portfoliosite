@@ -45,7 +45,7 @@
                     class="project-item-wrapper-translate"
                   >
                     <div
-                      v-for="data in projectData"
+                      v-for="(data,index) in projectData"
                       :key="data.id"
                       ref="ProjectItem"
                       class="project-item"
@@ -60,12 +60,12 @@
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
-                        <AppDefaultTransition
+                        <AppImageTransition
                           :url="`/works/${data.id}`"
-                          :color="data.siteColor.bodyContentsColor"
+                          :index="index"
                           class="project-link"
                           >{{ data.title.full }}
-                        </AppDefaultTransition>
+                        </AppImageTransition>
                       </span>
                       <span
                         ref="ProjectItemImg01"
