@@ -45,7 +45,7 @@
                     class="project-item-wrapper-translate"
                   >
                     <div
-                      v-for="(data,index) in projectData"
+                      v-for="(data, index) in projectData"
                       :key="data.id"
                       ref="ProjectItem"
                       class="project-item"
@@ -300,7 +300,7 @@ export default {
 
   methods: {
     onMouseEnter(event) {
-      if (this.enterflag || this.$SITECONFIG.isTouch) return
+      if (this.enterflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
       this.enterflag = true
       this.leaveflag = false
       this.target = event.path[2]
@@ -313,7 +313,7 @@ export default {
       }
     },
     onMouseLeave() {
-      if (this.leaveflag || this.$SITECONFIG.isTouch) return
+      if (this.leaveflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
 
       this.leaveflag = true
       this.target.classList.remove('is-current-hover')
@@ -443,6 +443,56 @@ export default {
   }
 }
 
+
+
+.project-item-wraper {
+  display: block;
+  position: relative;
+}
+
+.project-item-img-wrapper {
+  position: absolute;
+  top: vw(-30);
+  width: vw(300);
+  transform: scale(0);
+  pointer-events: none;
+  transition: transform $half-base-duration $transform-easing;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.project-item-img {
+  display: block;
+  transform: rotateX(180deg);
+  transition: transform $half-base-duration $transform-easing;
+  transform-style: preserve-3d;
+
+  & img{
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.project-item-img-wrapper-01 {
+  left: vw(-320);
+}
+
+.is-current-hover .project-item-img-wrapper-01 {
+  transform: scale(1) rotate(-8deg);
+}
+
+.project-item-img-wrapper-02 {
+  right: vw(-320);
+}
+
+.is-current-hover .project-item-img-wrapper-02 {
+  transform: scale(1) rotate(8deg);
+}
+
+.is-current-hover .project-item-img {
+  transform: rotateX(0deg);
+}
+
 .project-item {
   position: relative;
   flex-shrink: 0;
@@ -453,7 +503,7 @@ export default {
   perspective: 1000px;
   transition: opacity $half-base-duration $colorAndOpacity-easing;
 
-  &.is-hover{
+  &.is-hover {
     opacity: 0.5;
   }
 
@@ -478,48 +528,5 @@ export default {
       display: none;
     }
   }
-}
-
-.project-item-wraper {
-  display: block;
-  position: relative;
-}
-
-.project-item-img-wrapper {
-  position: absolute;
-  top: vw(-30);
-  width: vw(336);
-  transform: scale(0);
-  pointer-events: none;
-  transition: transform $half-base-duration $transform-easing;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-}
-
-.project-item-img {
-  display: block;
-  transform: rotateX(180deg);
-  transition: transform $half-base-duration $transform-easing;
-  transform-style: preserve-3d;
-}
-
-.project-item-img-wrapper-01 {
-  left: vw(-320);
-}
-
-.is-current-hover .project-item-img-wrapper-01 {
-  transform: scale(1) rotate(-8deg);
-}
-
-.project-item-img-wrapper-02 {
-  right: vw(-370);
-}
-
-.is-current-hover .project-item-img-wrapper-02 {
-  transform: scale(1) rotate(8deg);
-}
-
-.is-current-hover .project-item-img {
-  transform: rotateX(0deg);
 }
 </style>

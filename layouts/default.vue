@@ -103,7 +103,6 @@ export default {
     imageTransitionState: function () {
       if (this.imageTransitionState) {
         const index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex;
-        console.log(index)
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
@@ -199,10 +198,11 @@ export default {
       }
       // no current
       else {
-        // setTimeout(()=>{
+        setTimeout(()=>{
+        console.log('remove')
         this.$gsap.ticker.remove(this.pRaf)
         this.$gsap.ticker.remove(this.mRaf)
-        // },100)
+        },1000)
       }
     },
     indexPickupScene: function () {

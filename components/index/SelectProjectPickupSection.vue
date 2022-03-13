@@ -200,6 +200,7 @@ export default {
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
+      this.$store.commit('indexPickup/sceneAnimationState', false)
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
     // this.$gsap.ticker.remove(this.pRaf)
