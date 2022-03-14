@@ -59,7 +59,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://hisamikurita.com/images/ogp.png',
+        content: 'https://hsmkrt1996.com/images/ogp.png',
       },
       {
         name: 'twitter:card',
