@@ -44,7 +44,7 @@ export default {
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://hisamikurita.com/',
+        content: 'https://hsmkrt1996.com/',
       },
       {
         hid: 'og:title',
