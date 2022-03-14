@@ -45,21 +45,29 @@ export default {
 
   watch: {
     defaultTransitionState: function () {
-      console.log('発火')
-      // if (!this.defaultTransitionState) {
+      if (this.defaultTransitionState) {
+        this.$asscroll.off('scroll', this.onScroll)
         this.$refs.HeaderLogo.classList.add('is-top')
-      // }
+      } else {
+        this.$asscroll.on('scroll', this.onScroll)
+      }
     },
     imageTransitionState: function () {
-      console.log('発火')
-      // if (!this.imageTransitionState) {
+      if (this.imageTransitionState) {
+        this.$asscroll.off('scroll', this.onScroll)
         this.$refs.HeaderLogo.classList.add('is-top')
-      // }
+      } else {
+        this.$asscroll.on('scroll', this.onScroll)
+      }
     },
   },
 
   mounted() {
-    this.$asscroll.on('scroll', () => {
+    this.$asscroll.on('scroll', this.onScroll)
+  },
+
+  methods: {
+    onScroll() {
       if (this.hambergerMenuState || this.indexPickupState) return
 
       if (this.$asscroll.targetPos < 1.0) {
@@ -67,10 +75,8 @@ export default {
       } else {
         this.$refs.HeaderLogo.classList.remove('is-top')
       }
-    })
-  },
+    },
 
-  methods: {
     onClickSameUrlReload(e) {
       e.preventDefault()
 
