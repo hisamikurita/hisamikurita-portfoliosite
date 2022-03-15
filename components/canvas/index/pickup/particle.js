@@ -12,8 +12,8 @@ export default class Particle {
     this.color = color;
 
     this.radiusPc = [
-      140,
-      198,
+      130,
+      158,
       100,
       74,
       60,

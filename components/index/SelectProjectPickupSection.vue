@@ -200,7 +200,7 @@ export default {
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
-      this.$store.commit('indexPickup/sceneAnimationState', false)
+      // this.$store.commit('indexPickup/sceneAnimationState', false)
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
     // this.$gsap.ticker.remove(this.pRaf)
@@ -623,9 +623,9 @@ export default {
         this.$router.push(`/works/${data.id}`)
       }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08) / 4.0) * 1000)
 
-      setTimeout(() => {
-        this.$store.commit('indexPickup/sceneAnimationState', false)
-      }, ((this.$SITECONFIG.halfBaseDuration + (7 * 0.08)) * 1000) + 100)
+      // setTimeout(() => {
+      //   this.$store.commit('indexPickup/sceneAnimationState', false)
+      // }, ((this.$SITECONFIG.halfBaseDuration + (7 * 0.08)) * 1000) + 100)
 
     },
   },

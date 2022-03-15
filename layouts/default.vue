@@ -198,11 +198,11 @@ export default {
       }
       // no current
       else {
-        setTimeout(()=>{
+        // setTimeout(()=>{
         console.log('remove')
         this.$gsap.ticker.remove(this.pRaf)
         this.$gsap.ticker.remove(this.mRaf)
-        },1000)
+        // },1000)
       }
     },
     indexPickupScene: function () {
