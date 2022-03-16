@@ -617,7 +617,8 @@ export default {
     nextPage(data) {
       this.removeAllPreEvent();
       this.removeAllEvent();
-      this.$store.commit('indexPickup/setScene', 'nextpage')
+      this.$store.commit('indexPickup/transition', true);
+      // this.$store.commit('indexPickup/setScene', 'nextpage')
 
       setTimeout(() => {
         this.$router.push(`/works/${data.id}`)

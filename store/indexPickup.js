@@ -10,6 +10,7 @@ export const state = () => ({
   projectAnimation: '',
   sceneAnimation: '',
   scene: '',
+  isTransition: false,
 });
 
 export const getters = {
@@ -27,6 +28,9 @@ export const getters = {
   },
   scene(state) {
     return state.scene;
+  },
+  transition(state) {
+    return state.isTransition;
   }
 };
 
@@ -48,5 +52,8 @@ export const mutations = {
   },
   setScene(state, scene) {
     state.scene = scene;
+  },
+  transition(state, transition) {
+    state.isTransition = transition;
   }
 };

@@ -59,6 +59,9 @@ export default {
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
     },
+    pickupTransitionState() {
+      return this.$store.getters['indexPickup/transition']
+    },
   },
 
   mounted() {
@@ -69,8 +72,8 @@ export default {
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false);
 
         this.$asscroll.disable()
         this.$asscroll.enable({ reset: true })

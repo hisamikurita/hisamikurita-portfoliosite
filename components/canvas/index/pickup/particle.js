@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -287,7 +289,7 @@ export default class Particle {
     }
   }
 
-  setNextPage() {
+  setNextPageStart() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.halfBaseDuration,
@@ -298,13 +300,23 @@ export default class Particle {
     }
 
     setTimeout(() => {
-      for (let i = 0; i < this.particles.length; i++) {
-        if (i < 4) {
-          this.particles[i].color = this.color[0].dark;
-        } else {
-          this.particles[i].color = this.color[0].light;
-        }
-      }
+      // for (let i = 0; i < this.particles.length; i++) {
+      //   if (i < 4) {
+      //     this.particles[i].color = this.color[0].dark;
+      //   } else {
+      //     this.particles[i].color = this.color[0].light;
+      //   }
+      // }
     }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
+  }
+
+  setNextPageEnd() {
+    for (let i = 0; i < this.particles.length; i++) {
+      if (i < 4) {
+        this.particles[i].color = this.color[0].dark;
+      } else {
+        this.particles[i].color = this.color[0].light;
+      }
+    }
   }
 }

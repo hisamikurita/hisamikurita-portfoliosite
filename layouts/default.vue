@@ -33,7 +33,10 @@
             />
           </picture>
         </span>
-        <span ref="LayoutsNormalTransitionColorBg" class="layouts-normal-transition-color-bg"></span>
+        <span
+          ref="LayoutsNormalTransitionColorBg"
+          class="layouts-normal-transition-color-bg"
+        ></span>
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
@@ -77,6 +80,9 @@ export default {
     indexPickupIsAnimation() {
       return this.$store.getters['indexPickup/sceneAnimationState']
     },
+    pickupTransitionState() {
+      return this.$store.getters['indexPickup/transition']
+    },
     indexPickupScene() {
       return this.$store.getters['indexPickup/scene']
     },
@@ -87,22 +93,25 @@ export default {
   watch: {
     defaultTransitionState: function () {
       if (this.defaultTransitionState) {
-          this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
-            backgroundColor: this.defaultTransitionColor,
-            opacity: 1,
-          })
+        this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
+          backgroundColor: this.defaultTransitionColor,
+          opacity: 1,
+        })
         this.onTransitionStart()
       } else {
         this.onTransitionEnd()
         this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
-            opacity: 0,
-          })
+          opacity: 0,
+        })
       }
     },
 
     imageTransitionState: function () {
       if (this.imageTransitionState) {
-        const index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex;
+        const index =
+          this.imageTransitionIndex > this.getProjectData.length - 1
+            ? 0
+            : this.imageTransitionIndex
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
@@ -117,7 +126,7 @@ export default {
         this.onTransitionStart()
       } else {
         this.onTransitionEnd()
-           for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
+        for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
             opacity: 0,
           })
@@ -190,6 +199,20 @@ export default {
         }
       }
     },
+    pickupTransitionState: function () {
+      if (this.pickupTransitionState) {
+        this.particle.setNextPageStart()
+        this.mesh.setNextPageStart()
+      } else {
+        console.log('発火')
+        // setTimeout(()=>{
+        this.particle.setNextPageEnd()
+        this.mesh.setNextPageEnd()
+        // },300)
+        //     this.$gsap.ticker.remove(this.pRaf)
+        // this.$gsap.ticker.remove(this.mRaf)
+      }
+    },
     indexPickupIsAnimation: function () {
       // current
       if (this.indexPickupIsAnimation) {
@@ -242,14 +265,21 @@ export default {
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
-        case 'nextpage':
-          this.particle.setNextPage()
-          this.mesh.setNextPage()
-          break
+        // case 'nextpage':
+
+        //   break
       }
     },
   },
   mounted() {
+    // checkdevice
+    if (this.$checkDevice.isAndroid) {
+      this.isAndroid = 'is-android'
+    }
+    if (this.$checkDevice.isWindows) {
+      this.isAndroid = 'is-windows'
+    }
+
     // particle
     const color = [
       {
@@ -337,8 +367,8 @@ export default {
         overflow: 'visible',
       })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-          clipPath: 'ellipse(70% 100% at 50% 200%)',
-        })
+        clipPath: 'ellipse(70% 100% at 50% 200%)',
+      })
     },
   },
 }
@@ -428,7 +458,7 @@ export default {
   }
 }
 
-.layouts-normal-transition-color-bg{
+.layouts-normal-transition-color-bg {
   position: absolute;
   top: 0;
   left: 0;

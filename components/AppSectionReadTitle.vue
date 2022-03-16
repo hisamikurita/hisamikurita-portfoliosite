@@ -209,4 +209,13 @@ export default {
     }
   }
 }
+
+.is-windows {
+  & .cmn-title-read-text-wrapper--section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: -8px;
+    }
+  }
+}
 </style>

@@ -86,6 +86,7 @@ export default {
     '~/plugins/config.client.js',
     '~/plugins/asscroll-and-gsap.client.js',
     '~/plugins/constants.js',
+    '~/plugins/check-device.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -107,7 +108,6 @@ export default {
     'nuxt-webfontloader',
     '@nuxtjs/style-resources',
     '@nuxt/image',
-    // 'nuxt-microcms-module',
     '@nuxtjs/axios',
   ],
 
@@ -127,14 +127,6 @@ export default {
     serviceDomain: process.env.SERVICE_DOMAIN,
     apiKey: process.env.API_KEY,
   },
-
-  // microcms: {
-  //   options: {
-  //     serviceDomain: process.env.SERVICE_DOMAIN,
-  //     apiKey: process.env.API_KEY,
-  //   },
-  //   mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
-  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

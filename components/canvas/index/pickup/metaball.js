@@ -25,6 +25,8 @@ export default class Particle {
       x: 1280,
       y: 800
     };
+    this.speed = 0.036;
+    this.nextPageStartAnimationArray = [];
   }
 
   init() {
@@ -156,6 +158,8 @@ export default class Particle {
   }
 
   setSceneFirst() {
+    // this.speed = 0.036;
+
     for (let i = 0; i < this.numMetaballs; i++) {
       const r = {
         value: 0
@@ -219,12 +223,12 @@ export default class Particle {
     }
   }
 
-  setNextPage() {
+  setNextPageStart() {
     for (let i = 0; i < this.numMetaballs; i++) {
       const r = {
         value: this.metaballRadius[i]
       }
-      gsap.to(r, {
+      this.nextPageStartAnimation = gsap.to(r, {
         duration: this.config.halfBaseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
@@ -233,18 +237,34 @@ export default class Particle {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         },
       })
-
-      setTimeout(() => {
-        this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
-        for (let i = 0; i < this.numMetaballs; i++) {
-          this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
-        }
-      }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
+      this.nextPageStartAnimationArray.push(this.nextPageStartAnimation);
+      // setTimeout(() => {
+      //   this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
+      //   for (let i = 0; i < this.numMetaballs; i++) {
+      //     this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
+      //   }
+      // }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
     }
   }
 
+  setNextPageEnd(){
+    console.log('metaball:END発火')
+    // this.speed = 0;
+    for (let i = 0; i < this.numMetaballs; i++) {
+      this.nextPageStartAnimationArray[i].kill();
+    }
+    this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
+    for (let i = 0; i < this.numMetaballs; i++) {
+      this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
+    }
+    // console.log(this.mesh)
+    // setTimeout(()=>{
+    // console.log(this.mesh)
+    // },100)
+  }
+
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0.036;
+    this.mesh.material.uniforms.u_time.value += this.speed;
   }
 
   onRaf() {
