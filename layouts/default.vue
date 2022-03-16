@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="[isAndroid, isWindows]">
     <BaseMouse />
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
@@ -52,6 +52,13 @@ import Stage from '../components/canvas/stage'
 import { preEvent } from '../assets/js/preEvent'
 
 export default {
+   data: () => {
+    return {
+      isAndroid: '',
+      isWindows: '',
+    }
+  },
+
   computed: {
     pickupData() {
       return this.$store.getters.pickupData
@@ -277,7 +284,7 @@ export default {
       this.isAndroid = 'is-android'
     }
     if (this.$checkDevice.isWindows) {
-      this.isAndroid = 'is-windows'
+      this.isWindows = 'is-windows'
     }
 
     // particle
