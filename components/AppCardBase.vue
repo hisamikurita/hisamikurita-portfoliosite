@@ -453,4 +453,13 @@ export default {
   border-radius: 12px;
   opacity: 0.6;
 }
+
+/* stylelint-disable */
+.is-windows .card-project-title-wrapper-01-block{
+  &:first-of-type {
+    position: relative;
+    left: -8px;
+  }
+}
+/* stylelint-enable */
 </style>

@@ -210,6 +210,7 @@ export default {
   }
 }
 
+/* stylelint-disable */
 .is-windows {
   & .cmn-title-read-text-wrapper--section {
     & .cmn-title-read-text-00 {
@@ -217,5 +218,27 @@ export default {
       left: -8px;
     }
   }
+
+  & .cmn-title-read-text-wrapper--pickup-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: 14px;
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--project-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      right: -14px;
+    }
+  }
+
+  .cmn-title-read-text-wrapper--contact-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: -8px;
+    }
+  }
 }
+/* stylelint-enable */
 </style>
