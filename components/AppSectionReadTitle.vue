@@ -233,7 +233,28 @@ export default {
     }
   }
 
-  .cmn-title-read-text-wrapper--contact-section {
+  & .cmn-title-read-text-wrapper--contact-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: -8px;
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--award-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: -8px;
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--about-project-section {
+    & .cmn-title-read-text-00 {
+      position: relative;
+      left: -8px;
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--works-section {
     & .cmn-title-read-text-00 {
       position: relative;
       left: -8px;
