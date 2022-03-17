@@ -276,7 +276,7 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        left: 10px;
+        left: 12px;
       }
     }
   }
@@ -285,7 +285,7 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        right: -12px;
+        right: -11px;
       }
     }
   }
@@ -321,7 +321,7 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        left: -8px;
+        left: -4px;
       }
     }
   }
