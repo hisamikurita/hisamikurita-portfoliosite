@@ -276,4 +276,9 @@ export default {
   margin: 0 0 0 -4.5px;
   font-size: 26px;
 }
+
+.is-android .hero-index-sp-01{
+  position: relative;
+  left: -4px;
+}
 </style>
