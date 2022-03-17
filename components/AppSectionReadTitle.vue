@@ -267,7 +267,7 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        left: -8px;
+        left: -6px;
       }
     }
   }
@@ -285,7 +285,7 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        right: -12px;
+        right: -14px;
       }
     }
   }
@@ -294,8 +294,35 @@ export default {
     & .cmn-title-read-text-00 {
       @include sp() {
         position: relative;
-        left: -8px;
+        left: -4px;
       }
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--award-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        left: -4px;
+      }
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--about-project-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        left: -4px;
+      }
+    }
+  }
+
+    & .cmn-title-read-text-wrapper--works-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+      position: relative;
+      left: -4px;
+    }
     }
   }
 }
