@@ -1,6 +1,6 @@
 <template>
   <div ref="MouseArea" class="mouse">
-    <span ref="MouseAction" class="mouse-action">ACTION</span>
+    <span ref="MouseAction" class="mouse-action"><span ref="MouseActionWrapper" class="mouse-action-wrapper"><span ref="MouseActionBlock" class="mouse-action-block">ACTION</span></span></span>
     <nuxt-img
       ref="MouseImgClick"
       src="/images/mouse-click.png"
@@ -37,6 +37,26 @@ export default {
           duration: this.$SITECONFIG.halfBaseDuration,
           ease: this.$EASING.transform,
           scale: 1,
+        })
+        this.$gsap.fromTo(this.$refs.MouseActionWrapper,
+        {
+          rotate: 8,
+        },
+        {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          delay: 0.2,
+          ease: this.$EASING.transform,
+          rotate: 0,
+        })
+        this.$gsap.fromTo(this.$refs.MouseActionBlock,
+        {
+          y: 10,
+        },
+        {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          delay: 0.2,
+          ease: this.$EASING.transform,
+          y: 0,
         })
       } else {
         this.$gsap.to(this.$refs.MouseAction, {
@@ -131,6 +151,17 @@ export default {
   font-size: 10px;
   border-radius: 8px;
   transform: scale(0);
+}
+
+.mouse-action-wrapper{
+  position: relative;
+  overflow: hidden;
+  transform: rotate(8deg);
+}
+
+.mouse-action-block{
+  display: inline-block;
+  transform: translateY(10px);
 }
 
 .mouse-img-click {
