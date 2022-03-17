@@ -261,5 +261,43 @@ export default {
     }
   }
 }
+
+.is-android {
+  & .cmn-title-read-text-wrapper--section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        left: -8px;
+      }
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--pickup-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        left: 8px;
+      }
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--project-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        right: -12px;
+      }
+    }
+  }
+
+  & .cmn-title-read-text-wrapper--contact-section {
+    & .cmn-title-read-text-00 {
+      @include sp() {
+        position: relative;
+        left: -8px;
+      }
+    }
+  }
+}
 /* stylelint-enable */
 </style>
