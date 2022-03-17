@@ -328,6 +328,13 @@ export default {
   }
 }
 
+.is-android .hero-title-read-block-sp{
+  &:nth-of-type(1) {
+    position: relative;
+    left: -8px;
+  }
+}
+
 .hero-title-wrapper {
   display: block;
   position: relative;
