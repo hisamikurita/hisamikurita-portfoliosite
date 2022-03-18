@@ -65,6 +65,7 @@ export default {
   },
 
   mounted() {
+    console.log('ci/cdテスト')
     this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
