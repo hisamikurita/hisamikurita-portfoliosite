@@ -52,7 +52,7 @@ import Stage from '../components/canvas/stage'
 import { preEvent } from '../assets/js/preEvent'
 
 export default {
-   data: () => {
+  data: () => {
     return {
       isAndroid: '',
       isWindows: '',
@@ -279,6 +279,9 @@ export default {
     },
   },
   mounted() {
+    console.log(`///////////////////////////////////////////////
+///// Don't look at the source code (ﾟｰﾟ) /////
+//////////////////////////////////////////////`)
     // checkdevice
     if (this.$checkDevice.isAndroid) {
       this.isAndroid = 'is-android'

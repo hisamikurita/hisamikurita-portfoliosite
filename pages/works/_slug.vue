@@ -68,7 +68,7 @@ export default {
     this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
-      const images = document.querySelectorAll('.works img')
+      const images = document.querySelectorAll('.works source')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')

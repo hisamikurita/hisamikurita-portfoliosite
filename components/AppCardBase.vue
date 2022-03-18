@@ -257,15 +257,15 @@ export default {
     },
 
     onMouseLeave() {
-      if (this.$SITECONFIG.isTouch) return;
+      if (this.$SITECONFIG.isTouch) return
       this.$store.commit('mouse/mouseleave')
     },
     onMouseDown() {
-      if (this.$SITECONFIG.isTouch) return;
+      if (this.$SITECONFIG.isTouch) return
       this.$store.commit('mouse/mousedown')
     },
     onMouseUp() {
-      if (this.$SITECONFIG.isTouch) return;
+      if (this.$SITECONFIG.isTouch) return
       this.$store.commit('mouse/mouseup')
     },
   },
@@ -455,18 +455,18 @@ export default {
 }
 
 /* stylelint-disable */
-.is-windows .card-project-title-wrapper-01-block{
+.is-windows .card-project-title-wrapper-01-block {
   &:first-of-type {
     position: relative;
     left: -8px;
   }
 }
 
-.is-android .card-project-title-wrapper-01-block{
+.is-android .card-project-title-wrapper-01-block {
   &:first-of-type {
     @include sp() {
-          position: relative;
-    left: -8px;
+      position: relative;
+      left: -8px;
     }
   }
 }
