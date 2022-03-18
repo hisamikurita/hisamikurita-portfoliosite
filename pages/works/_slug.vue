@@ -69,7 +69,7 @@ export default {
 
     this.$nextTick(() => {
       const images = document.querySelectorAll('.works source')
-      const imagesLoaded = ImagesLoaded(images) 
+      const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
         if (this.imageTransitionState) this.$store.commit('image-transition/end')
