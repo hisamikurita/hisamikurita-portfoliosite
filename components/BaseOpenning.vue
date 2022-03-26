@@ -38,7 +38,7 @@ export default {
   mounted() {
     this.$gsap.set(this.$refs.OpenningNum, {
       opacity: 1.0,
-    })
+    });
     this.$gsap.to(this.$refs.OpenningNumFirst, {
       duration: 0.6,
       delay: 2.5,
