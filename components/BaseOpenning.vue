@@ -1,18 +1,29 @@
 <template>
   <div ref="Openning" class="openning">
-    <div ref="OpenningBgCircle" class="openning-bg-circle"><span class="openning-bg-circle-element"></span></div>
-    <div class="openning-num">
+    <div ref="OpenningBgCircleContainer" class="openning-bg-circle-container">
+      <div ref="OpenningBgCircle" class="openning-bg-circle"><span class="openning-bg-circle-element"></span></div>
+      <div class="openning-bg-circle-color-01"></div>
+      <div class="openning-bg-circle-color-02"></div>
+      <div class="openning-bg-circle-color-03"></div>
+      <div class="openning-bg-circle-color-04"></div>
+      <div class="openning-bg-circle-color-05"></div>
+      <div class="openning-bg-circle-color-06"></div>
+      <div class="openning-bg-circle-color-07"></div>
+      <div class="openning-bg-circle-color-08"></div>
+      <div class="openning-bg-circle-color-09"></div>
+    </div>
+    <div ref="OpenningNum" class="openning-num">
       <span ref="OpenningNumFirst" class="openning-num-first">01</span>
-      <span ref="OpenningNumSecond" class="openning-num-second">01234567890</span>
-      <span ref="OpenningNumThird" class="openning-num-third">012345678901234567890</span>
+      <span ref="OpenningNumSecond" class="openning-num-second">0123456789</span>
+      <span ref="OpenningNumThird" class="openning-num-third">01234567890123456789</span>
       <span ref="OpenningNumPercent" class="openning-percent">%</span>
     </div>
     <div ref="OpenningName" class="openning-name">
       <span v-for="(char, index) of name" :key="index" ref="OpenningNameBlock" class="openning-name-block">{{ char }}</span>
     </div>
     <div ref="OpenningPortfolio" class="openning-portfolio">PORTFORIO 2022</div>
-    <div ref="OpenningCircleLine01" class="openning-circle-line-01"></div>
-    <div ref="OpenningCircleLine02" class="openning-circle-line-02"></div>
+    <div ref="OpenningCircleLine01" class="openning-circle-line-01"><span ref="OpenningCircleLine01Block"  class="openning-circle-line-01-block">0</span></div>
+    <div ref="OpenningCircleLine02" class="openning-circle-line-02"><span ref="OpenningCircleLine02Block" class="openning-circle-line-02-block">0</span></div>
     <div ref="OpenningCircle" class="openning-circle"></div>
   </div>
 </template>
@@ -25,9 +36,12 @@ export default {
     }
   },
   mounted() {
+    this.$gsap.set(this.$refs.OpenningNum, {
+      opacity: 1.0,
+    })
     this.$gsap.to(this.$refs.OpenningNumFirst, {
-      duration: 1.8,
-      delay: 1.6,
+      duration: 0.6,
+      delay: 2.5,
       ease: this.$EASING.transform,
       y: -72,
     })
@@ -50,17 +64,17 @@ export default {
       ease: this.$EASING.transform,
       y: -144,
     })
-    this.$gsap.to(this.$refs.OpenningNumSecond, {
+    this.$gsap.to(this.$refs.OpenningCircleLine01Block, {
       duration: 1.8,
       delay: 3.3,
       ease: this.$EASING.transform,
-      y: -792,
+      y: -72,
     })
-    this.$gsap.to(this.$refs.OpenningNumThird, {
+    this.$gsap.to(this.$refs.OpenningCircleLine02Block, {
       duration: 1.8,
       delay: 3.4,
       ease: this.$EASING.transform,
-      y: -1512,
+      y: -72,
     })
     this.$gsap.to(this.$refs.OpenningNumPercent, {
       duration: 1.8,
@@ -82,13 +96,18 @@ export default {
       duration: 0.8,
       delay: 5.2,
       ease: this.$EASING.transform,
-      letterSpacing: '-0.2em',
+      // letterSpacing: '-10px',
+      scaleX: 0.2,
 
       onComplete:()=>{
-        this.$gsap.set(this.$refs.OpenningName,{
+        this.$gsap.to(this.$refs.OpenningName,{
+          duration: 0.3,
+          ease: this.$EASING.colorAndOpacity,
           opacity: 0,
         });
-        this.$gsap.set(this.$refs.OpenningPortfolio,{
+        this.$gsap.to(this.$refs.OpenningPortfolio,{
+          duration: 0.3,
+          ease: this.$EASING.colorAndOpacity,
           opacity: 1,
         });
       }
@@ -98,46 +117,57 @@ export default {
       duration: 0.8,
       delay: 6.0,
       ease: this.$EASING.transform,
-      letterSpacing: '0'
+      // letterSpacing: '0',
+      // z:0,
+      scaleX: 1.0,
     });
 
     this.$gsap.to(this.$refs.OpenningCircleLine01, {
       duration: 0.2,
-      delay: 2.7,
+      delay: 2.8,
       ease: this.$EASING.transform,
-      y: window.innerHeight / 2,
+      y: (window.innerHeight / 2) + 33,
       onComplete: () => {
         this.$gsap.to(this.$refs.OpenningCircleLine01, {
           duration: 0.1,
           delay: -0.1,
           ease: 'power1.in',
-          scaleY: 0,
+          backgroundColor: 'transparent',
         })
       },
     });
     this.$gsap.to(this.$refs.OpenningCircleLine02, {
       duration: 0.2,
-      delay: 2.7,
+      delay: 2.8,
       ease: this.$EASING.transform,
-      y: -window.innerHeight / 2,
+      y: (-window.innerHeight / 2) - 30,
       onComplete: () => {
         this.$gsap.to(this.$refs.OpenningCircleLine02, {
           duration: 0.1,
           delay: -0.1,
           ease: 'power1.in',
-          scaleY: 0,
+          backgroundColor: 'transparent',
         })
       },
     });
     this.$gsap.to(this.$refs.OpenningCircle, {
-      duration: 0.8,
+      duration: 3.0,
       delay: 2.8,
       ease: 'expo.out',
-      scale: 1
+      opacity: 0,
+      scale: 1,
+    })
+
+    this.$gsap.to(this.$refs.OpenningBgCircleContainer, {
+      duration: 2.8,
+      delay: 3.8,
+      ease: this.$EASING.transform,
+      scale: 0,
+      rotate: 240,
     })
     this.$gsap.to(this.$refs.OpenningBgCircle, {
-      duration: 4.0,
-      delay: 3.0,
+      duration: 2.6,
+      delay: 3.4,
       ease: this.$EASING.transform,
       scale: 0
     })
@@ -177,9 +207,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  width: 61px;
+  width: 63px;
   height: 72px;
   text-align: right;
+  opacity: 0;
   overflow: hidden;
 }
 
@@ -232,11 +263,10 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0) scaleX(0.1);
   color: $black;
   font-size: 60px;
   font-family: $sixcaps;
-  letter-spacing: -0.2em;
   backface-visibility: hidden;
   opacity: 0;
 }
@@ -244,27 +274,35 @@ export default {
 .openning-circle-line-01 {
   position: absolute;
   top: -63px;
-  right: 0;
+  right: 20px;
   left: 0;
-  width: 12px;
+  width: 14px;
   height: 63px;
   margin: 0 auto;
   background-color: $black;
   border-radius: 8px;
   transform-origin: bottom;
+  line-height: 0.84;
+  overflow: hidden;
 }
 
 .openning-circle-line-02 {
   position: absolute;
   bottom: -63px;
-  right: 0;
+  right: -12px;
   left: 0;
-  width: 12px;
+  width: 14px;
   height: 63px;
   margin: 0 auto;
   background-color: $black;
   border-radius: 8px;
   transform-origin: top;
+  line-height: 0.84;
+  overflow: hidden;
+}
+
+.openning-circle-line-01-block,.openning-circle-line-02-block{
+  display: inline-block;
 }
 
 .openning-circle{
@@ -277,6 +315,105 @@ export default {
   border-radius: 50%;
   border: solid 1px $black;
 }
+
+.openning-bg-circle-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.openning-bg-circle-color-01{
+  position: absolute;
+  top: -447px;
+  left: 146px;
+  width: 447px;
+  height: 447px;
+  background-color: $lightBlue;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-02{
+  position: absolute;
+  top: -246px;
+  left: 86px;
+  width: 146px;
+  height: 146px;
+  background-color: $thinPink;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-03{
+  position: absolute;
+  top: -81px;
+  left: 106px;
+  width: 81px;
+  height: 81px;
+  background-color: $yellow;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-04{
+  position: absolute;
+  bottom: -252px;
+  left: 276px;
+  width: 252px;
+  height: 252px;
+  background-color: $thinPink;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-05{
+  position: absolute;
+  bottom: -200px;
+  left: 122px;
+  width: 146px;
+  height: 146px;
+  background-color: $lightBlue;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-06{
+  position: absolute;
+  bottom: -260px;
+  left: 240px;
+  width: 81px;
+  height: 81px;
+  background-color: $yellow;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-07{
+  position: absolute;
+  bottom: -447px;
+  right: 186px;
+  width: 447px;
+  height: 447px;
+  background-color: $yellow;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-08{
+  position: absolute;
+  bottom: -447px;
+  right: 210px;
+  width: 146px;
+  height: 146px;
+  background-color: $blue;
+  border-radius: 50%;
+}
+
+.openning-bg-circle-color-09{
+  position: absolute;
+  bottom: -340px;
+  right: 86px;
+  width: 81px;
+  height: 81px;
+  background-color: $thinPink;
+  border-radius: 50%;
+}
+
 
 .openning-bg-circle {
   display: block;
