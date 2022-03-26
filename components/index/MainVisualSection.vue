@@ -203,60 +203,27 @@ export default {
   },
 
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
-
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
   },
 
   watch: {
+    openningEnd: function () {
+      setTimeout(()=>{
+        this.mvItemViewIn();
+      },1000)
+    },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.isTextSegmentState = 'center'
-        this.isTextUnderlineState = 'extend'
-
-        this.$gsap.to(this.$refs.HeroBgCircle01, {
-          duration: this.$SITECONFIG.baseDuration,
-          delay: 0.2,
-          ease: this.$EASING.transform,
-          scale: 1,
-        })
-
-        // this.$gsap.to(this.$refs.HeroBgCircle02, {
-        //   duration: this.$SITECONFIG.baseDuration,
-        //   ease: this.$EASING.transform,
-        //   scale: 1,
-        // })
-
-        this.$gsap.to(this.$refs.HeroCardItem, {
-          duration: this.$SITECONFIG.baseDuration,
-          ease: this.$EASING.colorAndOpacity,
-          opacity: 1.0,
-        })
-
-        // setTimeout(() => {
-          this.observe = this.$refs.Hero
-          // this.$nextTick(() => {
-          this.iObserver = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
-                } else {
-                  this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
-                }
-              })
-            },
-            {
-              rootMargin: '0%',
-            }
-          )
-          this.iObserver.observe(this.observe)
-          // })
-        // }, this.$SITECONFIG.baseDuration * 1000)
+        if (!this.openningEnd) return;
+        this.mvItemViewIn();
       }
     },
   },
@@ -271,6 +238,41 @@ export default {
   },
 
   methods: {
+    mvItemViewIn() {
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
+
+      this.$gsap.to(this.$refs.HeroBgCircle01, {
+        duration: this.$SITECONFIG.baseDuration,
+        delay: 0.2,
+        ease: this.$EASING.transform,
+        scale: 1,
+      })
+
+      this.$gsap.to(this.$refs.HeroCardItem, {
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.colorAndOpacity,
+        opacity: 1.0,
+      })
+
+      this.observe = this.$refs.Hero
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
+            } else {
+              this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      )
+      this.iObserver.observe(this.observe)
+    },
+
     bgCircleScaleChangeScroll() {
       if (this.hambergerMenuState) return
 
@@ -328,7 +330,7 @@ export default {
   }
 }
 
-.is-android .hero-title-read-block-sp{
+.is-android .hero-title-read-block-sp {
   &:nth-of-type(1) {
     position: relative;
     left: -8px;

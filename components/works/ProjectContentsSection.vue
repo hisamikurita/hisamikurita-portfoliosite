@@ -20,47 +20,29 @@
         >
           <span v-if="image.fieldId === 'default' || image.fieldId === 'full'">
             <picture>
-              <source
+              <img
                 :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.object.width}`"
                 :height="`${image.object.height}`"
                 type="image/webp"
               />
-              <img
-                ref="ContentsImg"
-                :src="`${image.object.url}?w=2000&h=1248&q=50`"
-                :width="`${image.object.width}`"
-                :height="`${image.object.height}`"
-              />
             </picture>
           </span>
           <span v-else class="contents-img-split">
             <picture>
-              <source
+              <img
                 :srcset="`${image.split1.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split1.width}`"
                 :height="`${image.split1.height}`"
                 type="image/webp"
               />
-              <img
-                ref="ContentsImg"
-                :src="`${image.split1.url}?w=2000&h=1248&q=50`"
-                :width="`${image.split1.width}`"
-                :height="`${image.split1.height}`"
-              />
             </picture>
             <picture>
-              <source
+              <img
                 :srcset="`${image.split2.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split2.width}`"
                 :height="`${image.split2.height}`"
                 type="image/webp"
-              />
-              <img
-                ref="ContentsImg"
-                :src="`${image.split2.url}?w=2000&h=1248&q=50`"
-                :width="`${image.split2.width}`"
-                :height="`${image.split2.height}`"
               />
             </picture>
           </span>

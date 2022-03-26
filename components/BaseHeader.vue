@@ -1,34 +1,32 @@
 <template>
-  <div ref="HeaderLogo" class="header-logo is-top">
+  <div ref="HeaderLogo" class="header-logo is-top is-op">
     <a class="heade-link" @click="onClickSameUrlReload">
-      H<span class="header-logo-text header-logo-fade-text">I</span
-      ><span
-        class="header-logo-text header-logo-move-text header-logo-move-text-01"
-        >S</span
-      ><span class="header-logo-text header-logo-fade-text">A</span
-      ><span
-        class="header-logo-text header-logo-move-text header-logo-move-text-02"
-        >M</span
-      ><span class="header-logo-text header-logo-fade-text">I</span
-      ><span
-        class="header-logo-text header-logo-move-text header-logo-move-text-03"
-        >K</span
-      ><span class="header-logo-text header-logo-fade-text">U</span
-      ><span
-        class="header-logo-text header-logo-move-text header-logo-move-text-04"
-        >R</span
-      ><span class="header-logo-text header-logo-fade-text">I</span
-      ><span
-        class="header-logo-text header-logo-move-text header-logo-move-text-05"
-        >T</span
-      ><span class="header-logo-text header-logo-fade-text">A</span>
+      <span
+        v-for="(char, index) of name"
+        :key="index"
+        ref="HeaderLogoText"
+        class="header-logo-text"
+        style="transform: translateY(50px)"
+        :class="{
+          'header-logo-fade-text': index % 2 === 1,
+          'header-logo-move-text': index % 2 === 0,
+        }"
+        >{{ char }}</span
+      >
     </a>
   </div>
 </template>
-
 <script>
 export default {
+  data: () => {
+    return {
+      name: ['H', 'I', 'S', 'A', 'M', 'I', 'K', 'U', 'R', 'I', 'T', 'A'],
+    }
+  },
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
@@ -59,6 +57,17 @@ export default {
       } else {
         this.$asscroll.on('scroll', this.onScroll)
       }
+    },
+    openningEnd: function () {
+      this.$gsap.to(this.$refs.HeaderLogoText, {
+        duration: 1.2,
+        delay: -0.8,
+        ease: this.$EASING.transform,
+        stagger: {
+          each: 0.04,
+        },
+        y: 0,
+      })
     },
   },
 
@@ -99,27 +108,51 @@ export default {
   transition: transform $base-duration $transform-easing;
 }
 
-@for $i from 1 through 5 {
-  .header-logo-move-text-0#{$i} {
-    $ratio: 0;
-    @if ($i == 1) {
-      $ratio: -10px;
-    } @else if ($i == 2) {
-      $ratio: -12px;
-    } @else if ($i == 3) {
-      $ratio: -11.5px;
-    } @else if ($i == 4) {
-      $ratio: -12.4px;
-    } @else if ($i == 5) {
-      $ratio: -12px;
-    }
+// @for $i from 1 through 12 {
+//   .header-logo-move-text:nth-of-type(#{$i}) {
+//     $ratio: 0;
+//     @if ($i == 2) {
+//       $ratio: -10px;
+//     } @else if ($i == 4) {
+//       $ratio: -12px;
+//     } @else if ($i == 6) {
+//       $ratio: -11.5px;
+//     } @else if ($i == 8) {
+//       $ratio: -12.4px;
+//     } @else if ($i == 10) {
+//       $ratio: -12px;
+//     }
 
-    transform: translateX($ratio * $i);
-  }
+//     transform: translateX($ratio * $i);
+//   }
+// }
+
+.is-op .header-logo-text {
+  transition-delay: 0s !important;
 }
 
 .header-logo-move-text {
   transition-delay: $base-duration * 0.25;
+}
+
+.header-logo-move-text:nth-of-type(3) {
+  transform: translateX(-10px);
+}
+
+.header-logo-move-text:nth-of-type(5) {
+  transform: translateX(-24px);
+}
+
+.header-logo-move-text:nth-of-type(7) {
+  transform: translateX(-34.5px);
+}
+
+.header-logo-move-text:nth-of-type(9) {
+  transform: translateX(-49.6px);
+}
+
+.header-logo-move-text:nth-of-type(11) {
+  transform: translateX(-60px);
 }
 
 .is-top .header-logo-move-text {

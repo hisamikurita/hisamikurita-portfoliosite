@@ -1,5 +1,6 @@
 <template>
   <div :class="[isAndroid, isWindows]">
+    <BaseOpenning />
     <BaseMouse />
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
@@ -424,6 +425,7 @@ export default {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 2;
 }
 
 // .layouts-normal-transition-bg {

@@ -3,16 +3,11 @@
     <div class="hero-bg">
       <div ref="HeroImg" class="hero-img">
         <picture>
-          <source
+          <img
             :srcset="`${currentProject.heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
             :width="`${currentProject.heroImg.width}`"
             :height="`${currentProject.heroImg.height}`"
             type="image/webp"
-          />
-          <img
-            :src="`${currentProject.heroImg.url}?w=2560&h=1600&q=50`"
-            :width="`${currentProject.heroImg.width}`"
-            :height="`${currentProject.heroImg.height}`"
           />
         </picture>
       </div>

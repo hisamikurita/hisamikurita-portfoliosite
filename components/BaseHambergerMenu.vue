@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="HambergerMenu"
     class="hambergerMenu"
     :class="{
       'is-disable': hambergerMenuDisable,
@@ -119,6 +120,9 @@ export default {
     }
   },
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     hambergerMenuState() {
       return this.$store.getters['hambergerMenu/state']
     },
@@ -130,6 +134,13 @@ export default {
     },
   },
   watch: {
+    openningEnd: function () {
+      this.$gsap.to(this.$refs.HambergerMenu, {
+        duration: 1.2,
+        ease: this.$EASING.transform,
+        x: 0,
+      })
+    },
     hambergerMenuState: function () {
       /**
        * ハンバガーメニューが開いた時
@@ -531,6 +542,7 @@ export default {
   width: 110px;
   height: calc(100% - 20px);
   margin: auto 0;
+  transform: translateX(120px);
   z-index: 11;
 
   @include sp() {
