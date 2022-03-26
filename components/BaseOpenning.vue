@@ -2,15 +2,9 @@
   <div ref="Openning" class="openning">
     <div ref="OpenningBgCircleContainer" class="openning-bg-circle-container">
       <div ref="OpenningBgCircle" class="openning-bg-circle"><span class="openning-bg-circle-element"></span></div>
-      <div class="openning-bg-circle-color-01"></div>
-      <div class="openning-bg-circle-color-02"></div>
-      <div class="openning-bg-circle-color-03"></div>
-      <div class="openning-bg-circle-color-04"></div>
-      <div class="openning-bg-circle-color-05"></div>
-      <div class="openning-bg-circle-color-06"></div>
-      <div class="openning-bg-circle-color-07"></div>
-      <div class="openning-bg-circle-color-08"></div>
-      <div class="openning-bg-circle-color-09"></div>
+    </div>
+    <div v-for="i of 9" :key="i" ref="OpenningBgColorCircleContainer" class="openning-bg-circle-color-container">
+      <div :class="`openning-bg-circle-color-0${i}`" ></div>
     </div>
     <div ref="OpenningNum" class="openning-num">
       <span ref="OpenningNumFirst" class="openning-num-first">01</span>
@@ -40,8 +34,8 @@ export default {
       opacity: 1.0,
     });
     this.$gsap.to(this.$refs.OpenningNumFirst, {
-      duration: 0.6,
-      delay: 2.5,
+      duration: 0.3,
+      delay: 3.26,
       ease: this.$EASING.transform,
       y: -72,
     })
@@ -49,43 +43,43 @@ export default {
       duration: 3.0,
       delay: 0.4,
       ease: this.$EASING.transform,
-      y: -720,
+      y: -648,
     })
     this.$gsap.to(this.$refs.OpenningNumThird, {
       duration: 3.0,
       delay: 0.4,
       ease: this.$EASING.transform,
-      y: -1440,
+      y: -1368,
     })
 
     this.$gsap.to(this.$refs.OpenningNumFirst, {
-      duration: 1.8,
-      delay: 3.2,
+      duration: 1.2,
+      delay: 3.8,
       ease: this.$EASING.transform,
       y: -144,
     })
     this.$gsap.to(this.$refs.OpenningCircleLine01Block, {
-      duration: 1.8,
-      delay: 3.3,
+      duration: 1.2,
+      delay: 3.9,
       ease: this.$EASING.transform,
       y: -72,
     })
     this.$gsap.to(this.$refs.OpenningCircleLine02Block, {
-      duration: 1.8,
-      delay: 3.4,
+      duration: 1.2,
+      delay: 4.0,
       ease: this.$EASING.transform,
       y: -72,
     })
     this.$gsap.to(this.$refs.OpenningNumPercent, {
-      duration: 1.8,
-      delay: 3.5,
+      duration: 1.2,
+      delay: 4.1,
       ease: this.$EASING.transform,
       y: -72,
     })
 
     this.$gsap.to(this.$refs.OpenningNameBlock,{
-      duration: 1.2,
-      delay: 3.6,
+      duration: 0.8,
+      delay: 3.9,
       ease: this.$EASING.transform,
       stagger: {
           each: 0.04,
@@ -93,7 +87,7 @@ export default {
       y:0,
     });
     this.$gsap.to(this.$refs.OpenningName,{
-      duration: 0.8,
+      duration: 0.6,
       delay: 5.2,
       ease: this.$EASING.transform,
       // letterSpacing: '-10px',
@@ -115,7 +109,7 @@ export default {
 
     this.$gsap.to(this.$refs.OpenningPortfolio,{
       duration: 0.8,
-      delay: 6.0,
+      delay: 5.8,
       ease: this.$EASING.transform,
       // letterSpacing: '0',
       // z:0,
@@ -124,10 +118,22 @@ export default {
 
     this.$gsap.to(this.$refs.OpenningCircleLine01, {
       duration: 0.2,
-      delay: 2.8,
+      delay: 3.3,
       ease: this.$EASING.transform,
       y: (window.innerHeight / 2) + 33,
       onComplete: () => {
+        this.$gsap.to(this.$refs.OpenningNumSecond, {
+          duration: 0.1,
+          delay: -0.1,
+          ease: 'power1.in',
+          opacity: 0,
+        })
+        this.$gsap.to(this.$refs.OpenningNumThird, {
+          duration: 0.1,
+          delay: -0.1,
+          ease: 'power1.in',
+          opacity: 0,
+        })
         this.$gsap.to(this.$refs.OpenningCircleLine01, {
           duration: 0.1,
           delay: -0.1,
@@ -138,7 +144,7 @@ export default {
     });
     this.$gsap.to(this.$refs.OpenningCircleLine02, {
       duration: 0.2,
-      delay: 2.8,
+      delay: 3.3,
       ease: this.$EASING.transform,
       y: (-window.innerHeight / 2) - 30,
       onComplete: () => {
@@ -151,23 +157,26 @@ export default {
       },
     });
     this.$gsap.to(this.$refs.OpenningCircle, {
-      duration: 3.0,
-      delay: 2.8,
+      duration: 0.8,
+      delay: 3.4,
       ease: 'expo.out',
       opacity: 0,
       scale: 1,
     })
 
-    this.$gsap.to(this.$refs.OpenningBgCircleContainer, {
-      duration: 2.8,
+    this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
+      duration: 2.0,
       delay: 3.8,
       ease: this.$EASING.transform,
       scale: 0,
       rotate: 240,
+      stagger: {
+        each: 0.08,
+      },
     })
     this.$gsap.to(this.$refs.OpenningBgCircle, {
-      duration: 2.6,
-      delay: 3.4,
+      duration: 2.0,
+      delay: 3.6,
       ease: this.$EASING.transform,
       scale: 0
     })
@@ -175,12 +184,12 @@ export default {
     setTimeout(()=>{
       this.$store.commit('openning/end');
       this.$store.commit('bg-transition/start', '#f0efeb');
-    },7200)
+    },6700)
 
     setTimeout(()=>{
       this.$store.commit('bg-transition/end');
       this.$refs.Openning.remove();
-    },8000)
+    },7500)
   },
 }
 </script>
@@ -317,6 +326,14 @@ export default {
 }
 
 .openning-bg-circle-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.openning-bg-circle-color-container{
   position: absolute;
   top: 0;
   left: 0;
