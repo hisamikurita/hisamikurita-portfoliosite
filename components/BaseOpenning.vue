@@ -166,17 +166,17 @@ export default {
 
     this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
       duration: 2.0,
-      delay: 3.8,
+      delay: 3.2,
       ease: this.$EASING.transform,
       scale: 0,
       rotate: 240,
       stagger: {
-        each: 0.08,
+        each: 0.09,
       },
     })
     this.$gsap.to(this.$refs.OpenningBgCircle, {
       duration: 2.0,
-      delay: 3.6,
+      delay: 3.0,
       ease: this.$EASING.transform,
       scale: 0
     })
@@ -343,90 +343,90 @@ export default {
 
 .openning-bg-circle-color-01{
   position: absolute;
-  top: -447px;
+  top: -607px;
   left: 146px;
-  width: 447px;
-  height: 447px;
+  width: 597px;
+  height: 597px;
   background-color: $lightBlue;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-02{
   position: absolute;
-  top: -246px;
+  top: -346px;
   left: 86px;
-  width: 146px;
-  height: 146px;
+  width: 296px;
+  height: 296px;
   background-color: $thinPink;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-03{
   position: absolute;
-  top: -81px;
-  left: 106px;
-  width: 81px;
-  height: 81px;
+  bottom: -381px;
+  left: 406px;
+  width: 311px;
+  height: 311px;
   background-color: $yellow;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-04{
   position: absolute;
-  bottom: -252px;
+  bottom: -452px;
   left: 276px;
-  width: 252px;
-  height: 252px;
+  width: 402px;
+  height: 402px;
   background-color: $thinPink;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-05{
   position: absolute;
-  bottom: -200px;
+  bottom: -300px;
   left: 122px;
-  width: 146px;
-  height: 146px;
+  width: 296px;
+  height: 296px;
   background-color: $lightBlue;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-06{
   position: absolute;
-  bottom: -260px;
-  left: 240px;
-  width: 81px;
-  height: 81px;
-  background-color: $yellow;
+  bottom: -660px;
+  right: 440px;
+  width: 331px;
+  height: 331px;
+  background-color: $thinPink;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-07{
   position: absolute;
-  bottom: -447px;
+  bottom: -647px;
   right: 186px;
-  width: 447px;
-  height: 447px;
+  width: 597px;
+  height: 597px;
   background-color: $yellow;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-08{
   position: absolute;
-  bottom: -447px;
+  bottom: -547px;
   right: 210px;
-  width: 146px;
-  height: 146px;
+  width: 296px;
+  height: 296px;
   background-color: $blue;
   border-radius: 50%;
 }
 
 .openning-bg-circle-color-09{
   position: absolute;
-  bottom: -340px;
+  bottom: -440px;
   right: 86px;
-  width: 81px;
-  height: 81px;
+  width: 241px;
+  height: 241px;
   background-color: $thinPink;
   border-radius: 50%;
 }
