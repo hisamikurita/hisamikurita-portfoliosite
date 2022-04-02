@@ -13,7 +13,7 @@
         <div class="hambergerMenu-title">
           <span
             class="hambergerMenu-title-wrapper-01"
-            @click="onClickSameUrl('index')"
+            @click="hambergerMenuOnClose"
           >
             <AppBgTransition url="/" color="#f0efeb">
               <AppTextSegment
@@ -25,7 +25,7 @@
           </span>
           <span
             class="hambergerMenu-title-wrapper-02"
-            @click="onClickSameUrl('about')"
+            @click="hambergerMenuOnClose"
           >
             <AppBgTransition url="/about" color="#f0efeb">
               <AppTextSegment
@@ -55,7 +55,7 @@
               <div
                 ref="HambergerMenuItemWrapper"
                 class="hambergerMenu-item-wrapper"
-                @click="onClickSameUrl(data.id)"
+                @click="hambergerMenuOnClose"
               >
                 <AppImageTransition
                   :url="`/works/${data.id}`"
@@ -514,16 +514,19 @@ export default {
         this.$store.commit('hambergerMenu/open')
       }
     },
+    hambergerMenuOnClose() {
+      this.$store.commit('hambergerMenu/close')
+    },
     hambergerMenuBtnOnResize() {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
         x: -window.innerWidth / 2.0 + 30 + 20,
       })
     },
-    onClickSameUrl(root) {
-      if (this.$route.name === root || this.$route.params.slug) {
-        this.$store.commit('hambergerMenu/close')
-      }
-    },
+    // (root) {
+    //   if (this.$route.name === root || this.$route.params.slug) {
+    //     this.$store.commit('hambergerMenu/close')
+    //   }
+    // },
   },
 }
 </script>

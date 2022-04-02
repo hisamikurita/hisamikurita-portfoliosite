@@ -21,7 +21,7 @@ export default {
 
       if (this.url === '/' && this.$route.name === 'index') return
       if (this.url === '/about' && this.$route.name === 'about') return
-
+      this.$asscroll.disable()
       this.$store.commit('bg-transition/start', this.color)
 
       setTimeout(() => {

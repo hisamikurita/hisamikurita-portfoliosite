@@ -55,7 +55,12 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         if (!this.openningEnd) return
-        this.$asscroll.enable({ reset: true })
+          this.$asscroll.enable({ reset: true })
+        // this.$asscroll.disable()
+
+        // setTimeout(() => {
+        //   this.$asscroll.enable({ reset: true })
+        // }, 600)
       }
     },
   },
@@ -67,7 +72,8 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.imageTransitionState)
+          this.$store.commit('image-transition/end')
 
         this.$store.commit('imageLoaded/loaded')
       })

@@ -82,7 +82,6 @@ export default {
   plugins: [
     '~/plugins/viewport.client.js',
     '~/plugins/backface-fixed.client.js',
-    '~/plugins/hamberger-menu.client.js',
     '~/plugins/config.client.js',
     '~/plugins/asscroll-and-gsap.client.js',
     '~/plugins/constants.js',

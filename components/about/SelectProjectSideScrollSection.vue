@@ -166,7 +166,7 @@ export default {
           {
             x: () =>
               -(
-                this.$refs.ProjectList.clientWidth -
+                this.$refs.ProjectList.clientWidth * 1.12 -
                 this.$refs.ProjectWrapper.clientWidth +
                 this.deveiceOffsetWidth
               ),

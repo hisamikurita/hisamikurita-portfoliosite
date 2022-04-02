@@ -68,10 +68,28 @@ export default {
         },
         y: 0,
         clearProps: 'all',
-        onComplete:()=>{
+        onComplete: () => {
           this.$refs.HeaderLogo.classList.remove('is-op')
         },
       })
+    },
+    hambergerMenuState: function () {
+      if (this.hambergerMenuState) {
+        this.$gsap.to(this.$refs.HeaderLogo, {
+          delay: 0.2,
+          duration: this.$SITECONFIG.baseDuration / 3.0,
+          ease: this.$EASING.transform,
+          x: -560,
+        })
+      }
+      else{
+         this.$gsap.to(this.$refs.HeaderLogo, {
+          delay: 0.2,
+          duration: this.$SITECONFIG.baseDuration / 3.0,
+          ease: this.$EASING.transform,
+          x: 0,
+        })
+      }
     },
   },
 
@@ -112,7 +130,7 @@ export default {
   transition: transform $base-duration $transform-easing;
 }
 
-.header-logo.is-op{
+.header-logo.is-op {
   user-select: none;
   pointer-events: none;
 }

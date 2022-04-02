@@ -66,7 +66,7 @@ export default {
       (content) => content.id === this.$router.history.current.params.slug
     )
 
-    this.$nextTick(() => {
+    window.addEventListener('load',() => {
       // 初回読み込み
       if (this.$SITECONFIG.firstAccess) {
         setTimeout(() => {

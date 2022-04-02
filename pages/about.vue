@@ -32,6 +32,32 @@ export default {
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
     },
+
+     openningEnd() {
+      return this.$store.getters['openning/state']
+    },
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+   watch: {
+    openningEnd: function () {
+      setTimeout(() => {
+        this.$asscroll.enable({ reset: true })
+      }, 1200)
+    },
+    imageLoaded: function () {
+      if (this.imageLoaded) {
+        if (!this.openningEnd) return
+            this.$asscroll.enable({ reset: true })
+        // this.$asscroll.disable()
+
+        // setTimeout(() => {
+        //   this.$asscroll.enable({ reset: true })
+        // }, 600)
+      }
+    },
   },
 
   mounted() {

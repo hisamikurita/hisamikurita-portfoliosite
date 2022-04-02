@@ -62,10 +62,35 @@ export default {
     pickupTransitionState() {
       return this.$store.getters['indexPickup/transition']
     },
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
+    },
+  },
+
+  watch: {
+    openningEnd: function () {
+      setTimeout(() => {
+        this.$asscroll.enable({ reset: true })
+      }, 1200)
+    },
+    imageLoaded: function () {
+      if (this.imageLoaded) {
+        if (!this.openningEnd) return
+        this.$asscroll.enable({ reset: true })
+        // this.$asscroll.disable()
+
+        // setTimeout(() => {
+        //   this.$asscroll.enable({ reset: true })
+        // }, 600)
+      }
+    },
   },
 
   mounted() {
-    console.log('ci/cdテスト')
+    // console.log('ci/cdテスト')
     // this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
@@ -74,8 +99,10 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState) this.$store.commit('image-transition/end')
-        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false);
+        if (this.imageTransitionState)
+          this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState)
+          this.$store.commit('indexPickup/transition', false)
 
         // this.$asscroll.disable()
         // this.$asscroll.enable({ reset: true })

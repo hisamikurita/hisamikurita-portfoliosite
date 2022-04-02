@@ -20,7 +20,7 @@ export default {
       e.preventDefault()
 
       if (this.url === this.$route.path) return
-
+      this.$asscroll.disable()
       this.$store.commit('image-transition/start', this.index)
 
       setTimeout(() => {
