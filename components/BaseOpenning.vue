@@ -55,174 +55,212 @@
 export default {
   data: () => {
     return {
+      index: 0,
       name: ['H', 'I', 'S', 'A', 'M', 'I', 'K', 'U', 'R', 'I', 'T', 'A'],
     }
   },
+
   mounted() {
+    const projectResponse = this.$store.getters.projectData
+    const index = projectResponse.findIndex(
+      (content) => content.id === this.$router.history.current.params.slug
+    )
+
     this.$nextTick(() => {
-      setTimeout(() => {
-        this.$gsap.set(this.$refs.OpenningNum, {
-          opacity: 1.0,
+      // 初回読み込み
+      if (this.$SITECONFIG.firstAccess) {
+        setTimeout(() => {
+          this.$gsap.set(this.$refs.OpenningNum, {
+            opacity: 1.0,
+          })
+        }, 300)
+
+        this.$gsap.to(this.$refs.OpenningNumFirst, {
+          duration: 0.3,
+          delay: 3.46,
+          ease: this.$EASING.transform,
+          y: -72,
         })
-      }, 300);
+        this.$gsap.to(this.$refs.OpenningNumSecond, {
+          duration: 3.0,
+          delay: 0.6,
+          ease: this.$EASING.transform,
+          y: -648,
+        })
+        this.$gsap.to(this.$refs.OpenningNumThird, {
+          duration: 3.0,
+          delay: 0.6,
+          ease: this.$EASING.transform,
+          y: -1368,
+        })
 
-      this.$gsap.to(this.$refs.OpenningNumFirst, {
-        duration: 0.3,
-        delay: 3.46,
-        ease: this.$EASING.transform,
-        y: -72,
-      })
-      this.$gsap.to(this.$refs.OpenningNumSecond, {
-        duration: 3.0,
-        delay: 0.6,
-        ease: this.$EASING.transform,
-        y: -648,
-      })
-      this.$gsap.to(this.$refs.OpenningNumThird, {
-        duration: 3.0,
-        delay: 0.6,
-        ease: this.$EASING.transform,
-        y: -1368,
-      })
+        this.$gsap.to(this.$refs.OpenningNumFirst, {
+          duration: 1.2,
+          delay: 4.0,
+          ease: this.$EASING.transform,
+          y: -144,
+        })
+        this.$gsap.to(this.$refs.OpenningCircleLine01Block, {
+          duration: 1.2,
+          delay: 4.1,
+          ease: this.$EASING.transform,
+          y: -72,
+        })
+        this.$gsap.to(this.$refs.OpenningCircleLine02Block, {
+          duration: 1.2,
+          delay: 4.2,
+          ease: this.$EASING.transform,
+          y: -72,
+        })
+        this.$gsap.to(this.$refs.OpenningNumPercent, {
+          duration: 1.2,
+          delay: 4.3,
+          ease: this.$EASING.transform,
+          y: -72,
+        })
 
-      this.$gsap.to(this.$refs.OpenningNumFirst, {
-        duration: 1.2,
-        delay: 4.0,
-        ease: this.$EASING.transform,
-        y: -144,
-      })
-      this.$gsap.to(this.$refs.OpenningCircleLine01Block, {
-        duration: 1.2,
-        delay: 4.1,
-        ease: this.$EASING.transform,
-        y: -72,
-      })
-      this.$gsap.to(this.$refs.OpenningCircleLine02Block, {
-        duration: 1.2,
-        delay: 4.2,
-        ease: this.$EASING.transform,
-        y: -72,
-      })
-      this.$gsap.to(this.$refs.OpenningNumPercent, {
-        duration: 1.2,
-        delay: 4.3,
-        ease: this.$EASING.transform,
-        y: -72,
-      })
+        this.$gsap.to(this.$refs.OpenningNameBlock, {
+          duration: 0.8,
+          delay: 4.1,
+          ease: this.$EASING.transform,
+          stagger: {
+            each: 0.04,
+          },
+          y: 0,
+        })
+        this.$gsap.to(this.$refs.OpenningName, {
+          duration: 0.6,
+          delay: 5.4,
+          ease: this.$EASING.transform,
+          // letterSpacing: '-10px',
+          scaleX: 0.2,
 
-      this.$gsap.to(this.$refs.OpenningNameBlock, {
-        duration: 0.8,
-        delay: 4.1,
-        ease: this.$EASING.transform,
-        stagger: {
-          each: 0.04,
-        },
-        y: 0,
-      })
-      this.$gsap.to(this.$refs.OpenningName, {
-        duration: 0.6,
-        delay: 5.4,
-        ease: this.$EASING.transform,
-        // letterSpacing: '-10px',
-        scaleX: 0.2,
+          onComplete: () => {
+            this.$gsap.to(this.$refs.OpenningName, {
+              duration: 0.3,
+              ease: this.$EASING.colorAndOpacity,
+              opacity: 0,
+            })
+            this.$gsap.to(this.$refs.OpenningPortfolio, {
+              duration: 0.3,
+              ease: this.$EASING.colorAndOpacity,
+              opacity: 1,
+            })
+          },
+        })
 
-        onComplete: () => {
-          this.$gsap.to(this.$refs.OpenningName, {
-            duration: 0.3,
-            ease: this.$EASING.colorAndOpacity,
-            opacity: 0,
-          })
-          this.$gsap.to(this.$refs.OpenningPortfolio, {
-            duration: 0.3,
-            ease: this.$EASING.colorAndOpacity,
-            opacity: 1,
-          })
-        },
-      })
+        this.$gsap.to(this.$refs.OpenningPortfolio, {
+          duration: 0.8,
+          delay: 6.0,
+          ease: this.$EASING.transform,
+          // letterSpacing: '0',
+          // z:0,
+          scaleX: 1.0,
+        })
 
-      this.$gsap.to(this.$refs.OpenningPortfolio, {
-        duration: 0.8,
-        delay: 6.0,
-        ease: this.$EASING.transform,
-        // letterSpacing: '0',
-        // z:0,
-        scaleX: 1.0,
-      })
+        this.$gsap.to(this.$refs.OpenningCircleLine01, {
+          duration: 0.2,
+          delay: 3.5,
+          ease: this.$EASING.transform,
+          y: window.innerHeight / 2 + 33,
+          onComplete: () => {
+            this.$gsap.to(this.$refs.OpenningNumSecond, {
+              duration: 0.1,
+              delay: -0.1,
+              ease: 'power1.in',
+              opacity: 0,
+            })
+            this.$gsap.to(this.$refs.OpenningNumThird, {
+              duration: 0.1,
+              delay: -0.1,
+              ease: 'power1.in',
+              opacity: 0,
+            })
+            this.$gsap.to(this.$refs.OpenningCircleLine01, {
+              duration: 0.1,
+              delay: -0.1,
+              ease: 'power1.in',
+              backgroundColor: 'transparent',
+            })
+          },
+        })
+        this.$gsap.to(this.$refs.OpenningCircleLine02, {
+          duration: 0.2,
+          delay: 3.5,
+          ease: this.$EASING.transform,
+          y: -window.innerHeight / 2 - 30,
+          onComplete: () => {
+            this.$gsap.to(this.$refs.OpenningCircleLine02, {
+              duration: 0.1,
+              delay: -0.1,
+              ease: 'power1.in',
+              backgroundColor: 'transparent',
+            })
+          },
+        })
+        this.$gsap.to(this.$refs.OpenningCircle, {
+          duration: 0.8,
+          delay: 3.6,
+          ease: 'expo.out',
+          opacity: 0,
+          scale: 1,
+        })
 
-      this.$gsap.to(this.$refs.OpenningCircleLine01, {
-        duration: 0.2,
-        delay: 3.5,
-        ease: this.$EASING.transform,
-        y: window.innerHeight / 2 + 33,
-        onComplete: () => {
-          this.$gsap.to(this.$refs.OpenningNumSecond, {
-            duration: 0.1,
-            delay: -0.1,
-            ease: 'power1.in',
-            opacity: 0,
-          })
-          this.$gsap.to(this.$refs.OpenningNumThird, {
-            duration: 0.1,
-            delay: -0.1,
-            ease: 'power1.in',
-            opacity: 0,
-          })
-          this.$gsap.to(this.$refs.OpenningCircleLine01, {
-            duration: 0.1,
-            delay: -0.1,
-            ease: 'power1.in',
-            backgroundColor: 'transparent',
-          })
-        },
-      })
-      this.$gsap.to(this.$refs.OpenningCircleLine02, {
-        duration: 0.2,
-        delay: 3.5,
-        ease: this.$EASING.transform,
-        y: -window.innerHeight / 2 - 30,
-        onComplete: () => {
-          this.$gsap.to(this.$refs.OpenningCircleLine02, {
-            duration: 0.1,
-            delay: -0.1,
-            ease: 'power1.in',
-            backgroundColor: 'transparent',
-          })
-        },
-      })
-      this.$gsap.to(this.$refs.OpenningCircle, {
-        duration: 0.8,
-        delay: 3.6,
-        ease: 'expo.out',
-        opacity: 0,
-        scale: 1,
-      })
+        this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
+          duration: 2.0,
+          delay: 3.4,
+          ease: this.$EASING.transform,
+          scale: 0,
+          rotate: 240,
+          stagger: {
+            each: 0.09,
+          },
+        })
+        this.$gsap.to(this.$refs.OpenningBgCircle, {
+          duration: 2.0,
+          delay: 3.2,
+          ease: this.$EASING.transform,
+          scale: 0,
+        })
 
-      this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
-        duration: 2.0,
-        delay: 3.4,
-        ease: this.$EASING.transform,
-        scale: 0,
-        rotate: 240,
-        stagger: {
-          each: 0.09,
-        },
-      })
-      this.$gsap.to(this.$refs.OpenningBgCircle, {
-        duration: 2.0,
-        delay: 3.2,
-        ease: this.$EASING.transform,
-        scale: 0,
-      })
+        setTimeout(() => {
+          this.$store.commit('openning/end')
+          if (this.$route.name === 'works-slug') {
+            this.$store.commit('image-transition/start', index)
+          } else {
+            this.$store.commit('bg-transition/start', '#f0efeb')
+          }
+        }, 6900)
 
-      setTimeout(() => {
-        this.$store.commit('openning/end')
-        this.$store.commit('bg-transition/start', '#f0efeb')
-      }, 6900)
+        setTimeout(() => {
+          if (this.$route.name === 'works-slug') {
+            this.$store.commit('image-transition/end')
+          } else {
+            this.$store.commit('bg-transition/end')
+          }
+          this.$refs.Openning.remove()
+        }, 7700)
+      }
+      // 2回目以降
+      else {
+        setTimeout(() => {
+          this.$store.commit('openning/end')
+          if (this.$route.name === 'works-slug') {
+            this.$store.commit('image-transition/start', index)
+          }else{
+          this.$store.commit('bg-transition/start', '#f0efeb')
+          }
+        }, 100)
 
-      setTimeout(() => {
-        this.$store.commit('bg-transition/end')
-        this.$refs.Openning.remove()
-      }, 7700)
+        setTimeout(() => {
+           if (this.$route.name === 'works-slug') {
+            this.$store.commit('image-transition/end')
+          } else {
+            this.$store.commit('bg-transition/end')
+          }
+          this.$refs.Openning.remove()
+        }, 900)
+      }
     })
   },
 }

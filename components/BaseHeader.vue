@@ -67,6 +67,10 @@ export default {
           each: 0.04,
         },
         y: 0,
+        clearProps: 'all',
+        onComplete:()=>{
+          this.$refs.HeaderLogo.classList.remove('is-op')
+        },
       })
     },
   },
@@ -108,24 +112,10 @@ export default {
   transition: transform $base-duration $transform-easing;
 }
 
-// @for $i from 1 through 12 {
-//   .header-logo-move-text:nth-of-type(#{$i}) {
-//     $ratio: 0;
-//     @if ($i == 2) {
-//       $ratio: -10px;
-//     } @else if ($i == 4) {
-//       $ratio: -12px;
-//     } @else if ($i == 6) {
-//       $ratio: -11.5px;
-//     } @else if ($i == 8) {
-//       $ratio: -12.4px;
-//     } @else if ($i == 10) {
-//       $ratio: -12px;
-//     }
-
-//     transform: translateX($ratio * $i);
-//   }
-// }
+.header-logo.is-op{
+  user-select: none;
+  pointer-events: none;
+}
 
 .is-op .header-logo-text {
   transition-delay: 0s !important;

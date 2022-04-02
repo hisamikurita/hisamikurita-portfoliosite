@@ -66,7 +66,7 @@ export default {
 
   mounted() {
     console.log('ci/cdテスト')
-    this.$asscroll.enable({ reset: true })
+    // this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
       const images = document.querySelectorAll('.works img')
@@ -77,8 +77,8 @@ export default {
         if (this.imageTransitionState) this.$store.commit('image-transition/end')
         if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false);
 
-        this.$asscroll.disable()
-        this.$asscroll.enable({ reset: true })
+        // this.$asscroll.disable()
+        // this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
       })
     })

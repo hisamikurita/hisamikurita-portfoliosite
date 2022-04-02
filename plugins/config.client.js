@@ -10,6 +10,7 @@ const SITECONFIG = {
   fullDuration: 2.0,
   baseDuration: 1.0,
   halfBaseDuration: 0.5,
+  firstAccess: false,
 }
 
 if (window.innerWidth > SITECONFIG.breakPoint) {
@@ -57,3 +58,11 @@ if (SITECONFIG.isNoTouch) {
  */
 const mediaQuery = window.matchMedia('(max-width: 768px)')
 mediaQuery.addEventListener('change', reload)
+
+if(sessionStorage.getItem('visited')){
+  SITECONFIG.firstAccess = false;
+}
+else{
+  SITECONFIG.firstAccess = true;
+  sessionStorage.setItem('visited', 0);
+}

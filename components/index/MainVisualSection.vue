@@ -229,7 +229,6 @@ export default {
   },
 
   mounted() {
-    /* scroll-animation */
   },
 
   beforeDestroy() {

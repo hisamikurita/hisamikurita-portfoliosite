@@ -168,67 +168,77 @@ export default {
   },
 
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
   },
 
   watch: {
+    openningEnd: function () {
+      setTimeout(() => {
+        this.mvItemViewIn()
+      }, 1000)
+    },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.isTextSegmentState = 'center'
-        this.isTextUnderlineState = 'extend'
-        this.mesh.fadeIn()
+        if (!this.openningEnd) return
+        this.mvItemViewIn()
       }
     },
   },
 
-  mounted() {
-    // console.log(this.$refs.HeroTitle.clientWidth)
-    this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
-    this.stage.init()
-
-    this.mesh = new Mesh(this.stage, this.$SITECONFIG)
-    this.mesh.init()
-
-    this.mResize = () => {
-      this.stage.onResize()
-      this.mesh.onResize()
-    }
-
-    this.mRaf = () => {
-      this.stage.onRaf()
-      this.mesh.onRaf()
-    }
-
-    window.addEventListener('resize', this.mResize)
-
-    // setTimeout(() => {
-
-    // }, 100)
-
-    this.observe = this.$refs.Hero
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.mRaf)
-          } else {
-            this.$gsap.ticker.remove(this.mRaf)
-          }
-        })
-      },
-      {
-        rootMargin: '0%',
-      }
-    )
-    this.iObserver.observe(this.observe)
-  },
+  mounted() {},
 
   beforeDestroy() {
     window.removeEventListener('resize', this.mResize)
     this.iObserver.unobserve(this.observe)
     this.$gsap.ticker.remove(this.mRaf)
+  },
+
+  methods: {
+    mvItemViewIn() {
+      this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
+      this.stage.init()
+
+      this.mesh = new Mesh(this.stage, this.$SITECONFIG)
+      this.mesh.init()
+
+      this.mResize = () => {
+        this.stage.onResize()
+        this.mesh.onResize()
+      }
+
+      this.mRaf = () => {
+        this.stage.onRaf()
+        this.mesh.onRaf()
+      }
+
+      window.addEventListener('resize', this.mResize)
+
+      this.observe = this.$refs.Hero
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.mRaf)
+            } else {
+              this.$gsap.ticker.remove(this.mRaf)
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      )
+      this.iObserver.observe(this.observe)
+
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
+      this.mesh.fadeIn()
+    },
   },
 }
 </script>

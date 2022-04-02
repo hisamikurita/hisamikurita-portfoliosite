@@ -135,22 +135,37 @@ export default {
   },
 
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
   },
 
   watch: {
+    openningEnd: function () {
+      setTimeout(() => {
+        this.mvItemViewIn()
+      }, 1000)
+    },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.isTextSegmentState = 'center'
-        this.isTextUnderlineState = 'extend'
+        if (!this.openningEnd) return
+        this.mvItemViewIn();
       }
     },
   },
 
   mounted() {
     //
+  },
+
+  methods: {
+    mvItemViewIn() {
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
+    },
   },
 }
 </script>
@@ -272,7 +287,7 @@ export default {
   font-size: 26px;
 }
 
-.is-android .hero-index-sp-01{
+.is-android .hero-index-sp-01 {
   position: relative;
   left: -4px;
 }

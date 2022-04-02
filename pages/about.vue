@@ -35,7 +35,7 @@ export default {
   },
 
   mounted() {
-    this.$asscroll.enable({ reset: true })
+    // this.$asscroll.enable({ reset: true })
 
     this.$nextTick(() => {
       // aboutページのみカクツキ防止のためscrolltriggerのフレームレートを上げる
@@ -53,8 +53,8 @@ export default {
         if (this.imageTransitionState)
           this.$store.commit('image-transition/end')
 
-        this.$asscroll.disable()
-        this.$asscroll.enable({ reset: true })
+        // this.$asscroll.disable()
+        // this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
       })
     })
