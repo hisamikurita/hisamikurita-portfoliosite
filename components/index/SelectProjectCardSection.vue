@@ -22,6 +22,7 @@
           >
             <AppTextUnderline
               :state="isTextUnderlineState"
+              :width="1080"
               :origin="'right'"
               :modifier="'index-project-01'"
             />

@@ -66,7 +66,10 @@ export default {
       (content) => content.id === this.$router.history.current.params.slug
     )
 
-    window.addEventListener('load',() => {
+    window.addEventListener('load', () => {
+      this.$gsap.set(this.$refs.OpenningName, {
+        opacity: 1,
+      })
       // 初回読み込み
       if (this.$SITECONFIG.firstAccess) {
         setTimeout(() => {
@@ -221,25 +224,27 @@ export default {
           delay: 3.2,
           ease: this.$EASING.transform,
           scale: 0,
+
+          onComplete: () => {
+            setTimeout(() => {
+              this.$store.commit('openning/end')
+              if (this.$route.name === 'works-slug') {
+                this.$store.commit('image-transition/start', index)
+              } else {
+                this.$store.commit('bg-transition/start', '#f0efeb')
+              }
+            }, 1700)
+
+            setTimeout(() => {
+              if (this.$route.name === 'works-slug') {
+                this.$store.commit('image-transition/end')
+              } else {
+                this.$store.commit('bg-transition/end')
+              }
+              this.$refs.Openning.remove()
+            }, 2500)
+          },
         })
-
-        setTimeout(() => {
-          this.$store.commit('openning/end')
-          if (this.$route.name === 'works-slug') {
-            this.$store.commit('image-transition/start', index)
-          } else {
-            this.$store.commit('bg-transition/start', '#f0efeb')
-          }
-        }, 6900)
-
-        setTimeout(() => {
-          if (this.$route.name === 'works-slug') {
-            this.$store.commit('image-transition/end')
-          } else {
-            this.$store.commit('bg-transition/end')
-          }
-          this.$refs.Openning.remove()
-        }, 7700)
       }
       // 2回目以降
       else {
@@ -247,13 +252,13 @@ export default {
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/start', index)
-          }else{
-          this.$store.commit('bg-transition/start', '#f0efeb')
+          } else {
+            this.$store.commit('bg-transition/start', '#f0efeb')
           }
         }, 100)
 
         setTimeout(() => {
-           if (this.$route.name === 'works-slug') {
+          if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/end')
           } else {
             this.$store.commit('bg-transition/end')
@@ -333,6 +338,7 @@ export default {
   font-family: $sixcaps;
   backface-visibility: hidden;
   overflow: hidden;
+  opacity: 0;
 }
 
 .openning-name-block {

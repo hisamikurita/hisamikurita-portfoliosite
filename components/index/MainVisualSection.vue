@@ -37,12 +37,12 @@
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
-              <AppTextUnderline
+              <!-- <AppTextUnderline
                 :state="isTextUnderlineState"
                 :origin="'left'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
-              />
+              /> -->
               <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="$BASEROTATE.right"
@@ -51,13 +51,14 @@
               />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02">
-              <AppTextUnderline
+              <!-- <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.176"
+                :ratio="1.62"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
-              />
+              /> -->
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.176"
@@ -104,13 +105,13 @@
               </span>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03">
-              <AppTextUnderline
+              <!-- <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.4"
                 :origin="'left'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
-              />
+              /> -->
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.4"
@@ -123,6 +124,8 @@
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.42"
+                :ratio="1.5"
+                :width="330"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
@@ -497,6 +500,7 @@ export default {
   left: 9%;
   transform: rotate(10deg);
   opacity: 0;
+  z-index: 2;
 
   @include sp() {
     top: 28%;

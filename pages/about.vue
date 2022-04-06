@@ -50,12 +50,8 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         if (!this.openningEnd) return
-            this.$asscroll.enable({ reset: true })
-        // this.$asscroll.disable()
 
-        // setTimeout(() => {
-        //   this.$asscroll.enable({ reset: true })
-        // }, 600)
+          this.$asscroll.enable({ reset: true })
       }
     },
   },

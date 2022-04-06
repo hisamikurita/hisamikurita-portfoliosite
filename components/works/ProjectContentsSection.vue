@@ -21,6 +21,7 @@
           <span v-if="image.fieldId === 'default' || image.fieldId === 'full'">
             <picture>
               <img
+                ref="ContentsImg"
                 :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.object.width}`"
                 :height="`${image.object.height}`"
@@ -31,6 +32,7 @@
           <span v-else class="contents-img-split">
             <picture>
               <img
+                ref="ContentsImg"
                 :srcset="`${image.split1.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split1.width}`"
                 :height="`${image.split1.height}`"
@@ -39,6 +41,7 @@
             </picture>
             <picture>
               <img
+                ref="ContentsImg"
                 :srcset="`${image.split2.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split2.width}`"
                 :height="`${image.split2.height}`"

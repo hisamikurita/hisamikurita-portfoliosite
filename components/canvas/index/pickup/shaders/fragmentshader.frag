@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 
 uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
