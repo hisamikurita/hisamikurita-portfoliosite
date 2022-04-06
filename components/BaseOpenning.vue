@@ -285,7 +285,7 @@ export default {
   color: $black;
   font-size: 72px;
   font-family: $sixcaps;
-  z-index: 1;
+  z-index: 2;
 }
 
 .openning-num {
