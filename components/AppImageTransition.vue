@@ -20,12 +20,19 @@ export default {
       e.preventDefault()
 
       if (this.url === this.$route.path) return
-      this.$asscroll.disable()
-      this.$store.commit('image-transition/start', this.index)
 
-      setTimeout(() => {
+      if (this.$SITECONFIG.isTouch) {
         this.$router.push(`${this.url}`)
-      }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+      }
+
+      if (this.$SITECONFIG.isNoTouch) {
+        // this.$asscroll.disable()
+        // this.$store.commit('image-transition/start', this.index)
+
+        // setTimeout(() => {
+          this.$router.push(`${this.url}`)
+        // }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+      }
     },
   },
 }

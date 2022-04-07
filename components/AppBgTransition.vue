@@ -21,12 +21,19 @@ export default {
 
       if (this.url === '/' && this.$route.name === 'index') return
       if (this.url === '/about' && this.$route.name === 'about') return
-      this.$asscroll.disable()
-      this.$store.commit('bg-transition/start', this.color)
 
-      setTimeout(() => {
+      if (this.$SITECONFIG.isTouch) {
         this.$router.push(`${this.url}`)
-      }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+      }
+
+      if (this.$SITECONFIG.isNoTouch) {
+        // this.$asscroll.disable()
+        // this.$store.commit('bg-transition/start', this.color)
+
+        // setTimeout(() => {
+          this.$router.push(`${this.url}`)
+        // }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+      }
     },
   },
 }

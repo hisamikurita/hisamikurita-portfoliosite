@@ -236,6 +236,7 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
+        setTimeout(()=>{
         this.fixSection = this.$fixSection(
           this.$refs.IntroWrapper,
           this.$SITECONFIG.isTouch,
@@ -277,8 +278,8 @@ export default {
                 this.isTextSegmentState = 'center'
               },
             },
-          }
-        )
+          })
+        },500)
       }
     },
   },
