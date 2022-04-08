@@ -27,12 +27,12 @@ export default {
       }
 
       if (this.$SITECONFIG.isNoTouch) {
-        // this.$asscroll.disable()
-        // this.$store.commit('bg-transition/start', this.color)
+        this.$asscroll.disable()
+        this.$store.commit('bg-transition/start', this.color)
 
-        // setTimeout(() => {
+        setTimeout(() => {
           this.$router.push(`${this.url}`)
-        // }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+        }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
       }
     },
   },

@@ -61,6 +61,7 @@ export default {
   },
 
   mounted() {
+    
     const projectResponse = this.$store.getters.projectData
     const index = projectResponse.findIndex(
       (content) => content.id === this.$router.history.current.params.slug
@@ -251,17 +252,17 @@ export default {
         setTimeout(() => {
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
-            this.$store.commit('image-transition/start', index)
+            // this.$store.commit('image-transition/start', index)
           } else {
-            this.$store.commit('bg-transition/start', '#f0efeb')
+            // this.$store.commit('bg-transition/start', '#f0efeb')
           }
         }, 100)
 
         setTimeout(() => {
           if (this.$route.name === 'works-slug') {
-            this.$store.commit('image-transition/end')
+            // this.$store.commit('image-transition/end')
           } else {
-            this.$store.commit('bg-transition/end')
+            // this.$store.commit('bg-transition/end')
           }
           this.$refs.Openning.remove()
         }, 900)
@@ -286,6 +287,7 @@ export default {
   font-size: 72px;
   font-family: $sixcaps;
   z-index: 2;
+  overflow: hidden;
 }
 
 .openning-num {

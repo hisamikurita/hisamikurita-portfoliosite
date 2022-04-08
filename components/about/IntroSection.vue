@@ -152,7 +152,12 @@
                 :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
                 :sp-animation="false"
               /> -->
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
+              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
+              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
+              CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M
+              STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE
+              DAY!
             </span>
             <span class="sp-only">
               <span class="intro-note-wrapper intro-note-wrapper-sp-01">
@@ -228,6 +233,9 @@ export default {
   },
 
   computed: {
+    openningEnd() {
+      return this.$store.getters['openning/state']
+    },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
@@ -237,49 +245,8 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         setTimeout(()=>{
-        this.fixSection = this.$fixSection(
-          this.$refs.IntroWrapper,
-          this.$SITECONFIG.isTouch,
-          5500
-        )
-
-        /**
-         * タイムライン
-         */
-        this.scrollTl()
-
-        /**
-         * サークルアニメーション
-         */
-        this.$gsap.to(
-          {},
-          {
-            scrollTrigger: {
-              once: true,
-              // start: 'center center',
-              trigger: this.$refs.IntroWrapper,
-              onEnter: () => {
-                this.isCircleBgState = 'extend'
-              },
-            },
-          }
-        )
-
-        /**
-         * テキストアニメーション
-         */
-        this.$gsap.to(
-          {},
-          {
-            scrollTrigger: {
-              trigger: this.$refs.IntroSpacer01,
-              once: true,
-              onEnter: () => {
-                this.isTextSegmentState = 'center'
-              },
-            },
-          })
-        },500)
+        this.introItemSetup();
+        },1000)
       }
     },
   },
@@ -291,6 +258,51 @@ export default {
   },
 
   methods: {
+    introItemSetup() {
+      this.fixSection = this.$fixSection(
+        this.$refs.IntroWrapper,
+        this.$SITECONFIG.isTouch,
+        5500
+      )
+
+      /**
+       * タイムライン
+       */
+      this.scrollTl()
+
+      /**
+       * サークルアニメーション
+       */
+      this.$gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            once: true,
+            // start: 'center center',
+            trigger: this.$refs.IntroWrapper,
+            onEnter: () => {
+              this.isCircleBgState = 'extend'
+            },
+          },
+        }
+      )
+
+      /**
+       * テキストアニメーション
+       */
+      this.$gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            trigger: this.$refs.IntroSpacer01,
+            once: true,
+            onEnter: () => {
+              this.isTextSegmentState = 'center'
+            },
+          },
+        }
+      )
+    },
     scrollTl() {
       const textInit = this.$SITECONFIG.isPc ? vw(1280) : vwSp(750)
       const textMove = this.$SITECONFIG.isPc

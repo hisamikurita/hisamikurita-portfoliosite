@@ -26,12 +26,12 @@ export default {
       }
 
       if (this.$SITECONFIG.isNoTouch) {
-        // this.$asscroll.disable()
-        // this.$store.commit('image-transition/start', this.index)
+        this.$asscroll.disable()
+        this.$store.commit('image-transition/start', this.index)
 
-        // setTimeout(() => {
+        setTimeout(() => {
           this.$router.push(`${this.url}`)
-        // }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
+        }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
       }
     },
   },

@@ -1,12 +1,6 @@
 <template>
   <div :class="[isAndroid, isWindows]">
     <BaseOpenning />
-    <BaseMouse />
-    <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
-      <div class="asscroll" asscroll>
-        <nuxt />
-      </div>
-    </div>
     <div ref="LayoutsFix" class="layouts-fix">
       <div ref="Webgl" class="webgl"></div>
       <div class="particle"><canvas ref="Particle"></canvas></div>
@@ -38,6 +32,12 @@
           ref="LayoutsNormalTransitionColorBg"
           class="layouts-normal-transition-color-bg"
         ></span>
+      </div>
+    </div>
+    <BaseMouse />
+    <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
+      <div class="asscroll" asscroll>
+        <nuxt />
       </div>
     </div>
     <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
@@ -419,6 +419,7 @@ export default {
 }
 
 .layouts-fix {
+  // display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -426,6 +427,7 @@ export default {
   height: 100%;
   pointer-events: none;
   z-index: 2;
+  overflow: hidden;
 }
 
 // .layouts-normal-transition-bg {

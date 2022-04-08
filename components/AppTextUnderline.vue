@@ -224,7 +224,7 @@ path {
   position: absolute;
   top: -12px;
   left: 0;
-  background-color: $black;
+  // background-color: $black;
 }
 
 .text-under-line--about-project-01 {
@@ -232,7 +232,7 @@ path {
   top: 0;
   left: 4px;
   width: calc(100% + 4px);
-  background-color: $black;
+  // background-color: $black;
 
   @include sp() {
     left: 0;
@@ -245,7 +245,7 @@ path {
   bottom: 0;
   left: 4px;
   width: calc(100% + 4px);
-  background-color: $black;
+  // background-color: $black;
 
   @include sp() {
     left: 0;
