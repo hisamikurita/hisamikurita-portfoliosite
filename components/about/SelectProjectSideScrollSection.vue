@@ -112,6 +112,67 @@
                         </span>
                       </span>
                     </div>
+                    <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
+                      <span
+                        ref="ProjectItemCircle"
+                        class="project-item-circle"
+                      ></span>
+                      <span
+                        ref="ProjectItemWrapper"
+                        class="project-item-wraper"
+                      >
+                        <AppBgTransition
+                          :url="`archive`"
+                          :color="'#000000'"
+                          class="project-link"
+                          >ARCHIVE
+                        </AppBgTransition>
+                      </span>
+                      <span
+                        ref="ProjectItemImg01"
+                        class="
+                          project-item-img-wrapper project-item-img-wrapper-01
+                        "
+                      >
+                        <span class="project-item-img">
+                          <picture>
+                            <source
+                              :srcset="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                            />
+                          </picture>
+                        </span>
+                      </span>
+                      <span
+                        ref="ProjectItemImg02"
+                        class="
+                          project-item-img-wrapper project-item-img-wrapper-02
+                        "
+                      >
+                        <span class="project-item-img">
+                          <picture>
+                            <source
+                              :srcset="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                            />
+                          </picture>
+                        </span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

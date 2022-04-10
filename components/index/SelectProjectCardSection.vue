@@ -71,10 +71,25 @@
                     :name="data.title.full"
                     :title="data.title.short"
                     :link="data.id"
+                    :index="index"
                     :text="data.desc"
                     :rotate="data.projectNum.rotate"
                     :xspeed="data.projectNum.xspeed"
                     :yspeed="data.projectNum.yspeed"
+                    :modifier="'index-project'"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="project-card-item" :class="`project-card-item-0${projectData.length}`">
+                  <AppCardBase
+                    :component-name="'ArchiveContents'"
+                    :name="'ARCHIVE'"
+                    :title="'ARCVE'"
+                    :text="`I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN.`"
+                    :rotate="8"
+                    :xspeed="0.18"
+                    :yspeed="0.17"
                     :modifier="'index-project'"
                   />
                 </div>

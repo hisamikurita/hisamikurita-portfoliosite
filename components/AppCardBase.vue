@@ -67,6 +67,15 @@
         :modifier="modifier"
         :state="state"
       />
+      <CardArchiveContents
+        v-if="componentName === 'ArchiveContents'"
+        :name="name"
+        :title="title"
+        :subtitle="subtitle"
+        :text="text"
+        :modifier="modifier"
+        :state="state"
+      />
     </article>
     <div ref="CardProjectObserver" class="card-project-observer"></div>
   </div>

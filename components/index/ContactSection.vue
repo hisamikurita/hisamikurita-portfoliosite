@@ -98,6 +98,16 @@
                     />
                   </AppImageTransition>
                 </span>
+                <span class="contact-info-item">
+                  <AppBgTransition :url="`archive`" color="#000000">
+                    <AppTextSegment
+                      :state="isTextSegmentState"
+                      :start="0.48 + projectData.length * 0.12"
+                      :rotate="$BASEROTATE.right"
+                      :text="'ARCHIVE'"
+                    />
+                  </AppBgTransition>
+                </span>
               </span>
             </div>
             <div class="contact-info-name-area">

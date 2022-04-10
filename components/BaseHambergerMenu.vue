@@ -86,6 +86,42 @@
                 </AppImageTransition>
               </div>
             </li>
+            <li class="hambergerMenu-item">
+              <div
+                ref="HambergerMenuItemWrapperArchive"
+                class="hambergerMenu-item-wrapper"
+                @click="hambergerMenuOnClose"
+              >
+                <AppBgTransition
+                  :url="`archive`"
+                  :color="'#000000'"
+                  class="hambergerMenu-item-link"
+                >
+                  <div class="hambergerMenu-item-img">
+                    <picture>
+                      <source
+                        :srcset="`/images/archive.png`"
+                        :width="`180`"
+                        :height="`180`"
+                        type="image/webp"
+                      />
+                      <img
+                        :src="`/images/archive.png`"
+                        :width="`180`"
+                        :height="`180`"
+                      />
+                    </picture>
+                  </div>
+                  <div>
+                    <p class="hambergerMenu-item-title">ARCHIVE</p>
+                    <p class="hambergerMenu-item-desc">
+                      I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK
+                      I'M SUBMITTING TO CODEPEN.
+                    </p>
+                  </div>
+                </AppBgTransition>
+              </div>
+            </li>
           </ul>
         </div>
       </span>
@@ -234,7 +270,13 @@ export default {
                 },
                 y: 0,
               }
-            )
+            );
+            this.itemLinkCenterArchive =  this.$gsap.to(this.$refs.HambergerMenuItemWrapperArchive, {
+                duration: this.$SITECONFIG.baseDuration,
+                delay: 1.08,
+                ease: this.$EASING.transform,
+                y: 0,
+              })
           }, 300)
         } else if (this.$SITECONFIG.isMobile) {
           /**
@@ -412,7 +454,11 @@ export default {
             })
             if (this.itemLinkCenter) this.itemLinkCenter.kill()
             if (this.itemLinkBottom) this.itemLinkBottom.kill()
+            if(this.itemLinkCenterArchive) this.itemLinkCenterArchive.kill()
             this.$gsap.set(this.$refs.HambergerMenuItemWrapper, {
+              y: 180,
+            })
+             this.$gsap.set(this.$refs.HambergerMenuItemWrapperArchive, {
               y: 180,
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
