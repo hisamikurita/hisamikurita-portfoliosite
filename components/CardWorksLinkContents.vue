@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span class="card-project-shadow" :style="`box-shadow: 0 20px 60px 10px ${shadowColor};`"></span>
+    <span class="card-project-shadow" :style="`box-shadow: 0 30px 60px 0 ${shadowColor};`"></span>
     <a
       :href="externalLink"
       target="_blank"
