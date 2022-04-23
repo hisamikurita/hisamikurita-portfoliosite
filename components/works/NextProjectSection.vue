@@ -133,7 +133,12 @@ export default {
 
 .next-contents {
   position: relative;
-  padding: 372px 0 290px;
+  margin: 160px 0 0 0;
+  padding: 212px 0 290px;
+
+  @include sp() {
+    margin: 0;
+  }
 }
 
 .next-title-read-area {
