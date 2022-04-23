@@ -15,13 +15,18 @@
           v-for="(image, index) in currentProject.contentsImg"
           :key="index"
           ref="ContentsImgWrapper"
-          class="contents-img"
-          :class="`contents-img-0${index + 1} ${image.fieldId}`"
+          class="contents-img-wrapper"
+          :class="`contents-img-wrapper-${image.fieldId}`"
         >
+          <!--
+            画像タイプ defalt, full, split が入ってくるので出力するdomの条件分岐
+            画像タイプが defalt, full の場合
+          -->
           <span v-if="image.fieldId === 'default' || image.fieldId === 'full'">
             <picture>
               <img
                 ref="ContentsImg"
+                class="contents-img"
                 :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.object.width}`"
                 :height="`${image.object.height}`"
@@ -29,10 +34,15 @@
               />
             </picture>
           </span>
+
+          <!--
+            画像タイプが split の場合
+          -->
           <span v-else class="contents-img-split">
             <picture>
               <img
                 ref="ContentsImg"
+                class="contents-img"
                 :srcset="`${image.split1.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split1.width}`"
                 :height="`${image.split1.height}`"
@@ -42,6 +52,7 @@
             <picture>
               <img
                 ref="ContentsImg"
+                class="contents-img"
                 :srcset="`${image.split2.url}?fm=webp&w=2000&h=1248&q=50`"
                 :width="`${image.split2.width}`"
                 :height="`${image.split2.height}`"
@@ -65,41 +76,45 @@ export default {
   },
 
   mounted() {
-    /* img-animation call */
-    this.imgTriggerArray = []
-    this.imgWrapper = this.$refs.ContentsImgWrapper
-    this.img = this.$refs.ContentsImg
-
+    // 画像アニメーション
     this.$nextTick(() => {
       setTimeout(() => {
-        this.imgWrapper.forEach((item, index) => {
-          this.imgTriggerArray.push(
-            this.$ScrollTrigger.create({
-              trigger: item,
-              start: 'top bottom',
-              once: true,
-              onEnter: () => {
-                this.$gsap.to(this.imgWrapper[index], {
+        this.observer = this.$refs.ContentsImgWrapper
+        this.iObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const imgWrapper = entry.target
+                const img = imgWrapper.querySelector('.contents-img')
+
+                this.$gsap.to(imgWrapper, {
                   duration: this.$SITECONFIG.baseDuration,
                   ease: this.$EASING.transform,
                   scale: 1.0,
                 })
-                this.$gsap.to(this.img[index], {
+                this.$gsap.to(img, {
                   duration: this.$SITECONFIG.baseDuration,
                   ease: this.$EASING.transform,
                   scale: 1.0,
                 })
-              },
+                this.iObserver.unobserve(imgWrapper)
+              }
             })
-          )
-        })
-      }, 100)
+          },
+          {
+            rootMargin: '0%',
+          }
+        )
+        for (let i = 0; i < this.observer.length; i++) {
+          this.iObserver.observe(this.observer[i])
+        }
+      }, 200) // アニメーションが発火しないことがあるので処理0.2秒遅らせる
     })
   },
   beforeDestroy() {
-    this.imgTriggerArray.forEach((item) => {
-      item.kill()
-    })
+    for (let i = 0; i < this.observer.length; i++) {
+      this.iObserver.unobserve(this.observer[i]) // リセット
+    }
   },
 }
 </script>
@@ -146,7 +161,7 @@ export default {
   line-height: 1.36;
 }
 
-.contents-img {
+.contents-img-wrapper {
   position: relative;
   margin: 0 0 160px 0;
   transform: scale(0.7);
@@ -155,36 +170,38 @@ export default {
   @include sp() {
     margin: 0 0 44px 0;
   }
+}
 
-  & img {
+// 画像タイプ defalt, full, split が入ってくるのでスタイルの条件分岐
+.contents-img-wrapper-default {
+  width: vw(1000);
+
+  @include sp() {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.5);
   }
+}
 
-  &.default {
-    width: vw(1000);
+.contents-img-wrapper-full {
+  width: calc(100% + 160px);
+  margin: 0 0 160px -80px;
 
-    @include sp() {
-      width: 100%;
-    }
+  @include sp() {
+    width: calc(100% + #{vw_sp(80)});
+    margin: 0 0 44px vw_sp(-40);
   }
+}
 
-  &.full {
-    width: calc(100% + 160px);
-    margin: 0 0 160px -80px;
+.contents-img-wrapper-split {
+  width: calc(100% + 160px);
+  margin: 0 0 160px -80px;
+}
 
-    @include sp() {
-      width: calc(100% + #{vw_sp(80)});
-      margin: 0 0 44px vw_sp(-40);
-    }
-  }
-
-  &.split {
-    width: calc(100% + 160px);
-    margin: 0 0 160px -80px;
-  }
+.contents-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.5);
 }
 
 .contents-img-split {
