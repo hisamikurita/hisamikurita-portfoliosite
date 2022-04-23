@@ -21,6 +21,8 @@
       <span ref="OpenningNumThird" class="openning-num-third"
         >01234567890123456789</span
       >
+      <span ref="OpenningNumForth" class="openning-num-forth">0</span>
+      <span ref="OpenningNumFive" class="openning-num-five">0</span>
       <span ref="OpenningNumPercent" class="openning-percent">%</span>
     </div>
     <div ref="OpenningName" class="openning-name">
@@ -34,18 +36,18 @@
     </div>
     <div ref="OpenningPortfolio" class="openning-portfolio">PORTFORIO 2022</div>
     <div ref="OpenningCircleLine01" class="openning-circle-line-01">
-      <span
+      <!-- <span
         ref="OpenningCircleLine01Block"
         class="openning-circle-line-01-block"
         >0</span
-      >
+      > -->
     </div>
     <div ref="OpenningCircleLine02" class="openning-circle-line-02">
-      <span
+      <!-- <span
         ref="OpenningCircleLine02Block"
         class="openning-circle-line-02-block"
         >0</span
-      >
+      > -->
     </div>
     <div ref="OpenningCircle" class="openning-circle"></div>
   </div>
@@ -61,7 +63,6 @@ export default {
   },
 
   mounted() {
-    
     const projectResponse = this.$store.getters.projectData
     const index = projectResponse.findIndex(
       (content) => content.id === this.$router.history.current.params.slug
@@ -73,158 +74,170 @@ export default {
       })
       // 初回読み込み
       if (this.$SITECONFIG.firstAccess) {
-        setTimeout(() => {
-          this.$gsap.set(this.$refs.OpenningNum, {
-            opacity: 1.0,
+      setTimeout(() => {
+        this.$gsap.set(this.$refs.OpenningNum, {
+          opacity: 1.0,
+        })
+      }, 300)
+
+      this.$gsap.to(this.$refs.OpenningNumFirst, {
+        duration: 0.3,
+        delay: 3.46,
+        ease: this.$EASING.transform,
+        y: -72,
+      })
+      this.$gsap.to(this.$refs.OpenningNumSecond, {
+        duration: 3.0,
+        delay: 0.6,
+        ease: this.$EASING.transform,
+        y: -648,
+      })
+      this.$gsap.to(this.$refs.OpenningNumThird, {
+        duration: 3.0,
+        delay: 0.6,
+        ease: this.$EASING.transform,
+        y: -1368,
+      })
+
+      this.$gsap.to(this.$refs.OpenningNumFirst, {
+        duration: 1.2,
+        delay: 4.0,
+        ease: this.$EASING.transform,
+        y: -144,
+      })
+      this.$gsap.to(this.$refs.OpenningNumForth, {
+        duration: 1.2,
+        delay: 4.1,
+        ease: this.$EASING.transform,
+        y: -72,
+      })
+      this.$gsap.to(this.$refs.OpenningNumFive, {
+        duration: 1.2,
+        delay: 4.2,
+        ease: this.$EASING.transform,
+        y: -72,
+      })
+      this.$gsap.to(this.$refs.OpenningNumPercent, {
+        duration: 1.2,
+        delay: 4.3,
+        ease: this.$EASING.transform,
+        y: -72,
+      })
+
+      this.$gsap.to(this.$refs.OpenningNameBlock, {
+        duration: 0.8,
+        delay: 4.1,
+        ease: this.$EASING.transform,
+        stagger: {
+          each: 0.04,
+        },
+        y: 0,
+      })
+      this.$gsap.to(this.$refs.OpenningName, {
+        duration: 0.6,
+        delay: 5.4,
+        ease: this.$EASING.transform,
+        // letterSpacing: '-10px',
+        scaleX: 0.2,
+
+        onComplete: () => {
+          this.$gsap.to(this.$refs.OpenningName, {
+            duration: 0.3,
+            ease: this.$EASING.colorAndOpacity,
+            opacity: 0,
           })
-        }, 300)
+          this.$gsap.to(this.$refs.OpenningPortfolio, {
+            duration: 0.3,
+            ease: this.$EASING.colorAndOpacity,
+            opacity: 1,
+          })
+        },
+      })
 
-        this.$gsap.to(this.$refs.OpenningNumFirst, {
-          duration: 0.3,
-          delay: 3.46,
-          ease: this.$EASING.transform,
-          y: -72,
-        })
-        this.$gsap.to(this.$refs.OpenningNumSecond, {
-          duration: 3.0,
-          delay: 0.6,
-          ease: this.$EASING.transform,
-          y: -648,
-        })
-        this.$gsap.to(this.$refs.OpenningNumThird, {
-          duration: 3.0,
-          delay: 0.6,
-          ease: this.$EASING.transform,
-          y: -1368,
-        })
+      this.$gsap.to(this.$refs.OpenningPortfolio, {
+        duration: 0.8,
+        delay: 6.0,
+        ease: this.$EASING.transform,
+        // letterSpacing: '0',
+        // z:0,
+        scaleX: 1.0,
+      })
 
-        this.$gsap.to(this.$refs.OpenningNumFirst, {
-          duration: 1.2,
-          delay: 4.0,
-          ease: this.$EASING.transform,
-          y: -144,
-        })
-        this.$gsap.to(this.$refs.OpenningCircleLine01Block, {
-          duration: 1.2,
-          delay: 4.1,
-          ease: this.$EASING.transform,
-          y: -72,
-        })
-        this.$gsap.to(this.$refs.OpenningCircleLine02Block, {
-          duration: 1.2,
-          delay: 4.2,
-          ease: this.$EASING.transform,
-          y: -72,
-        })
-        this.$gsap.to(this.$refs.OpenningNumPercent, {
-          duration: 1.2,
-          delay: 4.3,
-          ease: this.$EASING.transform,
-          y: -72,
-        })
+      this.$gsap.to(this.$refs.OpenningCircleLine01, {
+        duration: 0.2,
+        delay: 3.5,
+        ease: this.$EASING.transform,
+        y: window.innerHeight / 2 + 43,
+        onComplete: () => {
+          this.$gsap.to(this.$refs.OpenningNumSecond, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 0,
+          })
+          this.$gsap.to(this.$refs.OpenningNumThird, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 0,
+          })
+          this.$gsap.to(this.$refs.OpenningCircleLine01, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 0,
+          })
+          this.$gsap.to(this.$refs.OpenningNumForth, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 1,
+          })
+          this.$gsap.to(this.$refs.OpenningNumFive, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 1,
+          })
+        },
+      })
+      this.$gsap.to(this.$refs.OpenningCircleLine02, {
+        duration: 0.2,
+        delay: 3.5,
+        ease: this.$EASING.transform,
+        y: -window.innerHeight / 2 - 43,
+        onComplete: () => {
+          this.$gsap.to(this.$refs.OpenningCircleLine02, {
+            duration: 0.1,
+            delay: -0.1,
+            ease: 'power1.in',
+            opacity: 0,
+          })
+        },
+      })
+      this.$gsap.to(this.$refs.OpenningCircle, {
+        duration: 0.8,
+        delay: 3.64,
+        ease: 'expo.out',
+        opacity: 0,
+        scale: 1,
+      })
 
-        this.$gsap.to(this.$refs.OpenningNameBlock, {
-          duration: 0.8,
-          delay: 4.1,
-          ease: this.$EASING.transform,
-          stagger: {
-            each: 0.04,
-          },
-          y: 0,
-        })
-        this.$gsap.to(this.$refs.OpenningName, {
-          duration: 0.6,
-          delay: 5.4,
-          ease: this.$EASING.transform,
-          // letterSpacing: '-10px',
-          scaleX: 0.2,
-
-          onComplete: () => {
-            this.$gsap.to(this.$refs.OpenningName, {
-              duration: 0.3,
-              ease: this.$EASING.colorAndOpacity,
-              opacity: 0,
-            })
-            this.$gsap.to(this.$refs.OpenningPortfolio, {
-              duration: 0.3,
-              ease: this.$EASING.colorAndOpacity,
-              opacity: 1,
-            })
-          },
-        })
-
-        this.$gsap.to(this.$refs.OpenningPortfolio, {
-          duration: 0.8,
-          delay: 6.0,
-          ease: this.$EASING.transform,
-          // letterSpacing: '0',
-          // z:0,
-          scaleX: 1.0,
-        })
-
-        this.$gsap.to(this.$refs.OpenningCircleLine01, {
-          duration: 0.2,
-          delay: 3.5,
-          ease: this.$EASING.transform,
-          y: window.innerHeight / 2 + 33,
-          onComplete: () => {
-            this.$gsap.to(this.$refs.OpenningNumSecond, {
-              duration: 0.1,
-              delay: -0.1,
-              ease: 'power1.in',
-              opacity: 0,
-            })
-            this.$gsap.to(this.$refs.OpenningNumThird, {
-              duration: 0.1,
-              delay: -0.1,
-              ease: 'power1.in',
-              opacity: 0,
-            })
-            this.$gsap.to(this.$refs.OpenningCircleLine01, {
-              duration: 0.1,
-              delay: -0.1,
-              ease: 'power1.in',
-              backgroundColor: 'transparent',
-            })
-          },
-        })
-        this.$gsap.to(this.$refs.OpenningCircleLine02, {
-          duration: 0.2,
-          delay: 3.5,
-          ease: this.$EASING.transform,
-          y: -window.innerHeight / 2 - 30,
-          onComplete: () => {
-            this.$gsap.to(this.$refs.OpenningCircleLine02, {
-              duration: 0.1,
-              delay: -0.1,
-              ease: 'power1.in',
-              backgroundColor: 'transparent',
-            })
-          },
-        })
-        this.$gsap.to(this.$refs.OpenningCircle, {
-          duration: 0.8,
-          delay: 3.6,
-          ease: 'expo.out',
-          opacity: 0,
-          scale: 1,
-        })
-
-        this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
-          duration: 2.0,
-          delay: 3.4,
-          ease: this.$EASING.transform,
-          scale: 0,
-          rotate: 240,
-          stagger: {
-            each: 0.09,
-          },
-        })
-        this.$gsap.to(this.$refs.OpenningBgCircle, {
-          duration: 2.0,
-          delay: 3.2,
-          ease: this.$EASING.transform,
-          scale: 0,
+      this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
+        duration: 2.0,
+        delay: 3.4,
+        ease: this.$EASING.transform,
+        scale: 0,
+        rotate: 240,
+        stagger: {
+          each: 0.09,
+        },
+      })
+      this.$gsap.to(this.$refs.OpenningBgCircle, {
+        duration: 2.0,
+        delay: 3.6,
+        ease: this.$EASING.transform,
+        scale: 0,
 
           onComplete: () => {
             setTimeout(() => {
@@ -245,7 +258,7 @@ export default {
               this.$refs.Openning.remove()
             }, 2500)
           },
-        })
+      })
       }
       // 2回目以降
       else {
@@ -323,6 +336,22 @@ export default {
   width: 14px;
 }
 
+.openning-num-forth {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 14px;
+  opacity: 0;
+}
+
+.openning-num-five {
+  position: absolute;
+  top: 0;
+  left: 29px;
+  width: 14px;
+  opacity: 0;
+}
+
 .openning-percent {
   position: absolute;
   bottom: 0;
@@ -362,32 +391,47 @@ export default {
 
 .openning-circle-line-01 {
   position: absolute;
-  top: -63px;
+  top: -86px;
   right: 20px;
   left: 0;
   width: 14px;
-  height: 63px;
+  height: 86px;
   margin: 0 auto;
-  background-color: $black;
+  // background-color: $black;
   border-radius: 8px;
   transform-origin: bottom;
   line-height: 0.84;
-  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    $black 25%,
+    $black 75%,
+    transparent
+  );
+  // overflow: hidden;
+  // box-shadow: 57px 3px 48px -30px $black;
 }
 
 .openning-circle-line-02 {
   position: absolute;
-  bottom: -63px;
+  bottom: -86px;
   right: -12px;
   left: 0;
   width: 14px;
-  height: 63px;
+  height: 86px;
   margin: 0 auto;
-  background-color: $black;
+  // background-color: $black;
   border-radius: 8px;
   transform-origin: top;
   line-height: 0.84;
-  overflow: hidden;
+  // overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    $black 25%,
+    $black 75%,
+    transparent
+  );
 }
 
 .openning-circle-line-01-block,
@@ -504,8 +548,8 @@ export default {
 
 .openning-bg-circle-color-09 {
   position: absolute;
-  bottom: -440px;
-  right: 86px;
+  bottom: -270px;
+  right: 6px;
   width: 241px;
   height: 241px;
   background-color: $thinPink;
