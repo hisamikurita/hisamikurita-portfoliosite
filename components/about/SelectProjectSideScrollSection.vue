@@ -20,7 +20,7 @@
               />
             </div>
             <div ref="ProjectTitleWrapper" class="project-title-wrapper">
-              <AppTextUnderline
+              <!-- <AppTextUnderline
                 :state="isTextUnderlineState"
                 :origin="'right'"
                 :modifier="'about-project-01'"
@@ -30,7 +30,7 @@
                 :start="0.12"
                 :origin="'left'"
                 :modifier="'about-project-02'"
-              />
+              /> -->
               <div
                 ref="ProjectList"
                 class="project-list"
@@ -520,6 +520,8 @@ export default {
   transition: transform $half-base-duration $transform-easing;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .project-item-img {

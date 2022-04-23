@@ -224,6 +224,7 @@ path {
   position: absolute;
   top: -12px;
   left: 0;
+  pointer-events: none; // 一時的にクリックイベントが拾えるようにしておく
   // background-color: $black;
 }
 
