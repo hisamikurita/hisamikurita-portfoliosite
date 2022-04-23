@@ -466,9 +466,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0 20px 60px 10px #101237;
+  box-shadow: 0 30px 60px 0 #101237;
   border-radius: 12px;
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 /* stylelint-disable */

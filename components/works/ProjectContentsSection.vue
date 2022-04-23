@@ -167,9 +167,10 @@ export default {
 
 .contents-img-wrapper {
   position: relative;
-  margin: 0 0 160px 0;
+  margin: 0 0 20px 0;
   transform: scale(0.7);
   overflow: hidden;
+  border-radius: 10px;
 
   @include sp() {
     margin: 0 0 44px 0;
@@ -188,7 +189,7 @@ export default {
 
 .contents-img-wrapper-full {
   width: calc(100% + 160px);
-  margin: 0 0 160px -80px;
+  margin: 0 0 20px -80px;
 
   @include sp() {
     width: calc(100% + #{vw_sp(80)});

@@ -4,7 +4,7 @@
       <span ref="ContentsLoopVideo" class="contents-loop-video">
         <span
           class="contents-loop-video-shadow"
-          :style="`box-shadow:0 20px 60px 10px ${currentProject.siteColor.shadowColor}`"
+          :style="`box-shadow:0 22px 60px 0px ${currentProject.siteColor.shadowColor}`"
         ></span>
         <span class="contents-loop-video-wrapper"
           ><video
@@ -137,10 +137,8 @@ export default {
 
   methods: {
     onMoseMove(e) {
-      console.log('mouse')
-
-      const x = (e.clientX / window.innerWidth - 0.5) * 2.0 * 20
-      const y = (e.clientY / window.innerHeight - 0.5) * 2.0 * 20
+      const x = (e.clientX / window.innerWidth - 0.5) * 2.0 * 5
+      const y = (e.clientY / window.innerHeight - 0.5) * 2.0 * 5
 
       this.$gsap.to(this.$refs.ContentsLoopVideo, {
         duration: this.$SITECONFIG.fullDuration,
@@ -203,7 +201,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 .contents-loop-video-wrapper {
