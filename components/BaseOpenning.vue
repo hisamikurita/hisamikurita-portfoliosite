@@ -224,7 +224,7 @@ export default {
       })
 
       this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
-        duration: 2.0,
+        duration: 1.9,
         delay: 3.4,
         ease: this.$EASING.transform,
         scale: 0,
