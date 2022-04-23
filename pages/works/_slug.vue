@@ -1,5 +1,8 @@
 <template>
   <div class="works">
+    <!--
+      ページによって色を変更する
+    -->
     <div
       class="works-bg"
       :style="`
@@ -85,22 +88,17 @@ export default {
   },
 
   mounted() {
-    // console.log('ci/cdテスト')
-    // this.$asscroll.enable({ reset: true })
-
     this.$nextTick(() => {
       const images = document.querySelectorAll('.works img')
       const imagesLoaded = ImagesLoaded(images)
 
       imagesLoaded.on('always', () => {
         setTimeout(()=>{
-        if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
-        if (this.pickupTransitionState)
-          this.$store.commit('indexPickup/transition', false)
+          if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
+          if (this.imageTransitionState) this.$store.commit('image-transition/end')
+          if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
 
-        this.$store.commit('imageLoaded/loaded')
+          this.$store.commit('imageLoaded/loaded')
         },100)
       })
     })

@@ -13,6 +13,9 @@
       @mousedown="onMouseDown"
       @mouseup="onMouseUp"
     >
+      <!--
+        任意の名前から出力するコンポーネントを出し分ける
+      -->
       <CardMainVisualContents
         v-if="componentName === 'MainVisualContents'"
         :name="name"
@@ -77,6 +80,10 @@
         :state="state"
       />
     </article>
+
+    <!--
+      intersection-obsereverで監視する用の空dom
+    -->
     <div ref="CardProjectObserver" class="card-project-observer"></div>
   </div>
 </template>
@@ -166,14 +173,15 @@ export default {
   },
 
   mounted() {
+    // SPの時は任意(spAnimation = false)で,処理を返す
+    // デフォルトではSPもアニメーションする
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
-
-    let rotate = 0
 
     this.$nextTick(() => {
       setTimeout(() => {
-        /* drag-animation */
+        // ドラッグアニメーション
         if (this.dragAnimation) {
+          this.cardAngle = 0
           this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
             type: 'x,y',
             bounds: this.$parent.$el,
@@ -182,11 +190,11 @@ export default {
             allowEventDefault: true,
 
             onThrowUpdate: () => {
-              rotate += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0
+              this.cardAngle += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0
               this.$gsap.to(this.$refs.CardProjectArticle, {
                 duration: 0.01,
                 ease: 'none',
-                rotate: rotate,
+                rotate: this.cardAngle,
               })
               this.$gsap.set(this.$refs.CardProjectObserver, {
                 x: this.drag[0].x,
@@ -196,7 +204,7 @@ export default {
           })
         }
 
-        /* card-animation */
+        // 出現アニメーション 監視
         this.observe = this.$refs.CardProjectObserver
         this.iObserverTextSegment = new IntersectionObserver(
           (entries) => {
@@ -211,6 +219,7 @@ export default {
         )
         this.iObserverTextSegment.observe(this.observe)
 
+        // パララックス 監視
         this.iObserverAnimation = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -226,13 +235,16 @@ export default {
           }
         )
         this.iObserverAnimation.observe(this.observe)
-      }, 100)
+      }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
     })
   },
 
   beforeDestroy() {
+    // SPの時は任意(spAnimation = false)で,処理を返す
+    // デフォルトではSPもアニメーションする
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
+    // リセット
     if (this.dragAnimation) this.drag[0].kill()
     this.$store.commit('mouse/mouseleave')
     this.$gsap.ticker.remove(this.cardPallax)
@@ -399,7 +411,7 @@ export default {
   display: block;
 }
 
-//modifier
+////////////// モディファイアー //////////////////////////////
 .card-project-index-hero .card-project-article {
   background-color: $thinPink;
 }
@@ -414,11 +426,6 @@ export default {
     height: 220px;
     padding: 12px 8px;
     border-radius: 7px;
-
-    // &::before {
-    //   content: '';
-
-    // }
   }
 
   & .card-project-title-wrapper-01 {
@@ -451,6 +458,7 @@ export default {
     font-size: 50px;
   }
 }
+///////////////////////////////////////////////////////////
 
 .card-project-shadow {
   position: absolute;
