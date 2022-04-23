@@ -141,7 +141,7 @@ export default {
 }
 
 .about-inner {
-  padding: 333px 0 258px 0;
+  padding: 333px 0 568px 0;
 
   @include sp() {
     padding: 118px 0;
