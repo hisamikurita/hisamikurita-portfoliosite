@@ -76,44 +76,48 @@ export default {
   },
 
   mounted() {
-    // 画像アニメーション
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.observer = this.$refs.ContentsImgWrapper
-        this.iObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const imgWrapper = entry.target
-                const img = imgWrapper.querySelector('.contents-img')
+    // 画像アニメーション PCの場合有効
+    if (this.$SITECONFIG.isPc) {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.observer = this.$refs.ContentsImgWrapper
+          this.iObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const imgWrapper = entry.target
+                  const img = imgWrapper.querySelector('.contents-img')
 
-                this.$gsap.to(imgWrapper, {
-                  duration: this.$SITECONFIG.baseDuration,
-                  ease: this.$EASING.transform,
-                  scale: 1.0,
-                })
-                this.$gsap.to(img, {
-                  duration: this.$SITECONFIG.baseDuration,
-                  ease: this.$EASING.transform,
-                  scale: 1.0,
-                })
-                this.iObserver.unobserve(imgWrapper)
-              }
-            })
-          },
-          {
-            rootMargin: '0%',
+                  this.$gsap.to(imgWrapper, {
+                    duration: this.$SITECONFIG.baseDuration,
+                    ease: this.$EASING.transform,
+                    scale: 1.0,
+                  })
+                  this.$gsap.to(img, {
+                    duration: this.$SITECONFIG.baseDuration,
+                    ease: this.$EASING.transform,
+                    scale: 1.0,
+                  })
+                  this.iObserver.unobserve(imgWrapper)
+                }
+              })
+            },
+            {
+              rootMargin: '0%',
+            }
+          )
+          for (let i = 0; i < this.observer.length; i++) {
+            this.iObserver.observe(this.observer[i])
           }
-        )
-        for (let i = 0; i < this.observer.length; i++) {
-          this.iObserver.observe(this.observer[i])
-        }
-      }, 200) // アニメーションが発火しないことがあるので処理0.2秒遅らせる
-    })
+        }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+      })
+    }
   },
   beforeDestroy() {
-    for (let i = 0; i < this.observer.length; i++) {
-      this.iObserver.unobserve(this.observer[i]) // リセット
+    if (this.$SITECONFIG.isPc) {
+      for (let i = 0; i < this.observer.length; i++) {
+        this.iObserver.unobserve(this.observer[i]) // リセット
+      }
     }
   },
 }
@@ -169,6 +173,7 @@ export default {
 
   @include sp() {
     margin: 0 0 44px 0;
+    transform: scale(1);
   }
 }
 
@@ -195,6 +200,7 @@ export default {
   width: calc(100% + 160px);
   margin: 0 0 160px -80px;
 }
+/////////////////////////////////////////////////////////
 
 .contents-img {
   width: 100%;
@@ -202,6 +208,10 @@ export default {
   object-fit: cover;
   object-position: center;
   transform: scale(1.5);
+
+  @include sp() {
+    transform: scale(1);
+  }
 }
 
 .contents-img-split {
