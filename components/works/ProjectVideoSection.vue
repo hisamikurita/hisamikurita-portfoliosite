@@ -14,6 +14,8 @@
             autoplay
             loop
             muted
+            disablePictureInPicture
+            disableRemotePlayback
           ></video
         ></span>
       </span>
@@ -159,7 +161,7 @@ export default {
   padding: vw(286) 0 vw(242);
 
   @include sp() {
-    padding: 64px 0 190px;
+    padding: 194px 0 190px;
   }
 }
 
@@ -191,7 +193,7 @@ export default {
     top: 0;
     left: 0;
     width: vw_sp(669);
-    height: vw_sp(491);
+    height: vw_sp(418);
     transform: none;
   }
 }

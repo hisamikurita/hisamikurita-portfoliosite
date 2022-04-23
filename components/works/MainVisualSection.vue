@@ -182,7 +182,7 @@ export default {
 }
 
 .hero-inner {
-  padding: 93px vw_sp(20) 163px;
+  padding: 93px vw_sp(20) 0;
 }
 
 .hero-img {
