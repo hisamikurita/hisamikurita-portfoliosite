@@ -10,6 +10,7 @@
           ><video
             :poster="`/images/${currentProject.id}-poster.jpg`"
             :src="`/movie/${currentProject.id}.mp4`"
+            playsinline
             autoplay
             loop
             muted
