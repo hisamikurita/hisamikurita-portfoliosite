@@ -301,6 +301,7 @@ export default {
   font-family: $sixcaps;
   z-index: 2;
   overflow: hidden;
+  
 }
 
 .openning-num {
