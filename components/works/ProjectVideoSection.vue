@@ -8,6 +8,7 @@
         ></span>
         <span class="contents-loop-video-wrapper"
           ><video
+            :poster="`/images/${currentProject.id}-poster.jpg`"
             :src="`/movie/${currentProject.id}.mp4`"
             autoplay
             loop
@@ -154,7 +155,7 @@ export default {
 <style lang="scss" scoped>
 .contents-loop-title-wrapper {
   position: relative;
-  padding: vw(216) 0 vw(242);
+  padding: vw(286) 0 vw(242);
 
   @include sp() {
     padding: 64px 0 190px;
@@ -179,8 +180,8 @@ export default {
   right: 0;
   bottom: 0;
   left: -120px;
-  width: vw(386);
-  height: vw(283);
+  width: vw(386 * 1.1);
+  height: vw(241 * 1.1);
   margin: auto;
   z-index: 10;
   transform: translateZ(200px);
@@ -214,14 +215,15 @@ export default {
   overflow: hidden;
 
   & video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate3d(-50%, -50%, 0);
     width: 100%;
     height: 100%;
     border-radius: 8px;
     object-fit: cover;
+    object-position: center;
   }
 }
 
