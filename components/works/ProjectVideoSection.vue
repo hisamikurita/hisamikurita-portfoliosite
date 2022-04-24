@@ -8,7 +8,7 @@
         ></span>
         <span class="contents-loop-video-wrapper"
           ><video
-            :poster="`/images/${currentProject.id}-poster.jpg`"
+            :poster="`/images/poster-${currentProject.id}.jpg`"
             :src="`/movie/${currentProject.id}.mp4`"
             playsinline
             autoplay
