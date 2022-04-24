@@ -232,7 +232,7 @@ export default {
 
 .contents-loop-card {
   position: absolute;
-  top: vw(500);
+  top: vw(580);
   right: vw(420);
   width: 147px;
   height: 200px;
