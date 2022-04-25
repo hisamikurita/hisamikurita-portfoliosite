@@ -59,7 +59,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://hsmkrt1996.com/images/ogp.png',
+        content: 'https://hsmkrt1996.com/images/ogp.jpg',
       },
       {
         name: 'twitter:card',
@@ -67,10 +67,17 @@ export default {
       },
     ],
     link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }]
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      },
+      {
+        hid: 'apple-touch-icon',
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png'
+      },
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

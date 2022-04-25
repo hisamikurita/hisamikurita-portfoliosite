@@ -18,48 +18,16 @@
           class="contents-img-wrapper"
           :class="`contents-img-wrapper-${image.fieldId}`"
         >
-          <!--
-            画像タイプ defalt, full, split が入ってくるので出力するdomの条件分岐
-            画像タイプが defalt, full の場合
-          -->
-          <span v-if="image.fieldId === 'default' || image.fieldId === 'full'">
-            <picture>
-              <img
-                ref="ContentsImg"
-                class="contents-img"
-                :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
-                :width="`${image.object.width}`"
-                :height="`${image.object.height}`"
-                type="image/webp"
-              />
-            </picture>
-          </span>
-
-          <!--
-            画像タイプが split の場合
-          -->
-          <span v-else class="contents-img-split">
-            <picture>
-              <img
-                ref="ContentsImg"
-                class="contents-img"
-                :srcset="`${image.split1.url}?fm=webp&w=2000&h=1248&q=50`"
-                :width="`${image.split1.width}`"
-                :height="`${image.split1.height}`"
-                type="image/webp"
-              />
-            </picture>
-            <picture>
-              <img
-                ref="ContentsImg"
-                class="contents-img"
-                :srcset="`${image.split2.url}?fm=webp&w=2000&h=1248&q=50`"
-                :width="`${image.split2.width}`"
-                :height="`${image.split2.height}`"
-                type="image/webp"
-              />
-            </picture>
-          </span>
+          <picture>
+            <img
+              ref="ContentsImg"
+              class="contents-img"
+              :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
+              :width="`${image.object.width}`"
+              :height="`${image.object.height}`"
+              type="image/webp"
+            />
+          </picture>
         </div>
       </div>
     </div>
@@ -178,7 +146,7 @@ export default {
   }
 }
 
-// 画像タイプ defalt, full, split が入ってくるのでスタイルの条件分岐
+// 画像タイプ defalt, full, split が入ってくるのでスタイルの条件分岐 //
 .contents-img-wrapper-default {
   width: vw(1000);
 

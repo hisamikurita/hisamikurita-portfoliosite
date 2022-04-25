@@ -66,13 +66,20 @@ export default {
   watch: {
     hambergerMenuState: function () {
       /**
-       * ハンバガーメニューが開いた時
+       * PCかつタッチデバイスではない時
        */
       if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
+        /**
+         * ハンバガーメニューが開いた時
+         */
         if (this.hambergerMenuState) {
           this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
           window.removeEventListener('mousemove', this.onMoseMove)
-        } else if (!this.hambergerMenuState) {
+        }
+        /**
+         * ハンバガーメニューが閉じた時
+         */
+        else if (!this.hambergerMenuState) {
           this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
           window.addEventListener('mousemove', this.onMoseMove)
         }
@@ -80,8 +87,8 @@ export default {
     },
   },
   mounted() {
+    // 一回発火のテキストアニメーション
     this.observe = this.$refs.ContentsLoopTitle
-    /* text-animation call */
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -97,7 +104,7 @@ export default {
     )
     this.iObserverTextSegment.observe(this.observe)
 
-    /* loop-text-animation call */
+    // ループのテキストアニメーション、画面内に侵入してきた時のみ発火させる
     this.iObserverLoopText = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -112,7 +119,7 @@ export default {
     )
     this.iObserverLoopText.observe(this.observe)
 
-    /* video-mouse-animation */
+    // ビデオのマウスアニメーション、画面内に侵入してきた時のみ発火させる
     if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
       this.iObserverLoopVideo = new IntersectionObserver(
         (entries) => {
@@ -131,6 +138,7 @@ export default {
   },
 
   beforeDestroy() {
+    // リセット
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverLoopText.unobserve(this.observe)
     if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
@@ -218,10 +226,6 @@ export default {
   overflow: hidden;
 
   & video {
-    // position: absolute;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate3d(-50%, -50%, 0);
     width: 100%;
     height: 100%;
     border-radius: 8px;
@@ -240,7 +244,7 @@ export default {
   transform: rotate(16deg);
 
   @include sp() {
-    top: 400px;
+    top: 520px;
     right: 110px;
   }
 }

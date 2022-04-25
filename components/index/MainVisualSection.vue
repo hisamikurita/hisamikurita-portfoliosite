@@ -14,7 +14,7 @@
                   'AUTHOR : HISAMI KURITA',
                   'FRAMEWORK : VUE/NUXT',
                   'LIBRARY : GSAP/THREE.JS',
-                  'SERVER : NETLIFY',
+                  'HOSTING : AWS AMPLIFY',
                   'CMS : MICROCMS',
                 ]"
                 :sp-animation="false"
