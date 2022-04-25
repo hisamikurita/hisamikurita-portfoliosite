@@ -75,12 +75,12 @@
         </div>
       </div>
       <div class="sp-only">
-        <div
-          class="hero-index-sp"
-          :style="`color:${currentProject.siteColor.mvTextColor};`"
-        >
-          <span class="hero-index-sp-01">・</span>
-          <span>WORKS 0{{ currentProject.index }}</span>
+        <div class="hero-textarea-sp">
+          <div class="hero-index-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
+            <span class="hero-index-sp-01">・</span>
+            <span>WORKS 0{{ currentProject.index }}</span>
+          </div>
+          <div class="hero-full-title-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">{{ currentProject.title.full }}</div>
         </div>
       </div>
     </div>
@@ -172,6 +172,7 @@ export default {
   --viewportHeight: 0;
 }
 
+/////////////////////// PC STYLE //////////////////////////
 .hero-bg {
   position: relative;
   height: var(--viewportHeight, 100vh);
@@ -234,7 +235,9 @@ export default {
   font-size: 12px;
   font-family: $helvetica;
 }
+///////////////////////////////////////////////////////////
 
+/////////////////////// SP STYLE //////////////////////////
 .hero-title-sp {
   margin: 0 0 23px 0;
   font-size: vw_sp(120);
@@ -267,10 +270,14 @@ export default {
   line-height: 1.21;
 }
 
-.hero-index-sp {
+.hero-textarea-sp{
   position: absolute;
   bottom: 39px;
   left: 21px;
+}
+
+.hero-index-sp {
+  margin: 0 0 32px 1px;
   font-size: 10px;
   font-family: $helvetica;
   line-height: 1.1;
@@ -278,7 +285,6 @@ export default {
 
 .hero-index-sp-01 {
   display: block;
-  margin: 0 0 0 -4.5px;
   font-size: 26px;
 }
 
@@ -286,4 +292,10 @@ export default {
   position: relative;
   left: -4px;
 }
+
+.hero-full-title-sp{
+  font-size: 60px;
+  font-family: $sixcaps;
+}
+///////////////////////////////////////////////////////////
 </style>
