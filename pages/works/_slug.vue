@@ -88,6 +88,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.currentProject)
     this.$nextTick(() => {
       const images = document.querySelectorAll('.works img')
       const imagesLoaded = ImagesLoaded(images)

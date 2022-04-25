@@ -56,7 +56,7 @@ if (SITECONFIG.isNoTouch) {
 /**
  * ブレイクポイントを跨いだ時に強制的にロードさせる
  */
-const mediaQuery = window.matchMedia('(max-width: 768px)')
+const mediaQuery = window.matchMedia('(max-width: 767px)')
 mediaQuery.addEventListener('change', reload)
 
 if(sessionStorage.getItem('visited')){

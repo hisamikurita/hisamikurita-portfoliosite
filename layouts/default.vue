@@ -15,16 +15,12 @@
           class="layouts-normal-transition-img"
         >
           <picture>
-            <source
-              :srcset="`${data.heroImg.url}?fm=webp&w=2560&h=1600&q=50`"
-              :width="`${data.heroImg.width}`"
-              :height="`${data.heroImg.height}`"
-              type="image/webp"
-            />
+            <source :srcset="`${data.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`" media="(min-width: 767px)"/>
             <img
-              :src="`${data.heroImg.url}?w=2560&h=1600&q=50`"
-              :width="`${data.heroImg.width}`"
-              :height="`${data.heroImg.height}`"
+              :src="`${data.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+              :width="`${data.heroImg.pc.width}`"
+              :height="`${data.heroImg.pc.height}`"
+              type="image/webp"
             />
           </picture>
         </span>
