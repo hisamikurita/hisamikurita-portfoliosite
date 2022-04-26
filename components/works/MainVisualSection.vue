@@ -177,6 +177,10 @@ export default {
 .hero-bg {
   position: relative;
   height: var(--viewportHeight, 100vh);
+
+  @include sp() {
+    height: var(--viewportSpHeight, 100vh);
+  }
 }
 
 .hero-inner {
@@ -295,7 +299,7 @@ export default {
 }
 
 .hero-full-title-sp{
-  font-size: 60px;
+  font-size: 108px;
   font-family: $sixcaps;
 }
 ///////////////////////////////////////////////////////////

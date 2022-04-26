@@ -19,10 +19,11 @@
           :class="`contents-img-wrapper-${image.fieldId}`"
         >
           <picture>
+            <source :srcset="`${image.object.url}?fm=webp&w=2560&h=1600&q=50`" media="(min-width: 767px)"/>
             <img
               ref="ContentsImg"
               class="contents-img"
-              :srcset="`${image.object.url}?fm=webp&w=2000&h=1248&q=50`"
+              :srcset="`${image.object.url}?fm=webp&w=670&h=418&q=50`"
               :width="`${image.object.width}`"
               :height="`${image.object.height}`"
               type="image/webp"
