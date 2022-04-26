@@ -42,8 +42,6 @@
     "fibers": "^5.0.0",
     "glslify-loader": "^2.0.0",
     "husky": "^6.0.0",
-    "imagemin-mozjpeg": "^10.0.0",
-    "imagemin-pngquant": "^9.0.2",
     "imagesloaded": "^4.1.4",
     "lint-staged": "^10.5.4",
     "prettier": "^2.3.2",
