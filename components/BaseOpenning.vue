@@ -27,28 +27,16 @@
     </div>
     <div ref="OpenningName" class="openning-name">
       <span
-        v-for="(char, index) of name"
-        :key="index"
+        v-for="char of name"
+        :key="char"
         ref="OpenningNameBlock"
         class="openning-name-block"
         >{{ char }}</span
       >
     </div>
     <div ref="OpenningPortfolio" class="openning-portfolio">PORTFORIO 2022</div>
-    <div ref="OpenningCircleLine01" class="openning-circle-line-01">
-      <!-- <span
-        ref="OpenningCircleLine01Block"
-        class="openning-circle-line-01-block"
-        >0</span
-      > -->
-    </div>
-    <div ref="OpenningCircleLine02" class="openning-circle-line-02">
-      <!-- <span
-        ref="OpenningCircleLine02Block"
-        class="openning-circle-line-02-block"
-        >0</span
-      > -->
-    </div>
+    <div ref="OpenningCircleLine01" class="openning-circle-line-01"></div>
+    <div ref="OpenningCircleLine02" class="openning-circle-line-02"></div>
     <div ref="OpenningCircle" class="openning-circle"></div>
   </div>
 </template>
@@ -265,17 +253,17 @@ export default {
         setTimeout(() => {
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
-            // this.$store.commit('image-transition/start', index)
+            this.$store.commit('image-transition/start', index)
           } else {
-            // this.$store.commit('bg-transition/start', '#f0efeb')
+            this.$store.commit('bg-transition/start', '#f0efeb')
           }
         }, 100)
 
         setTimeout(() => {
           if (this.$route.name === 'works-slug') {
-            // this.$store.commit('image-transition/end')
+            this.$store.commit('image-transition/end')
           } else {
-            // this.$store.commit('bg-transition/end')
+            this.$store.commit('bg-transition/end')
           }
           this.$refs.Openning.remove()
         }, 900)

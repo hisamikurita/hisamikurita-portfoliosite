@@ -424,7 +424,7 @@ export default {
   & .card-project-article {
     width: 147px;
     height: 220px;
-    padding: 12px 8px;
+    padding: 12px 13px;
     border-radius: 7px;
   }
 
