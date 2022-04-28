@@ -10,6 +10,14 @@
       class="mouse-img-click"
     />
     <nuxt-img
+      ref="MouseImgHold"
+      src="/images/mouse-hold.png"
+      width="200"
+      height="170"
+      quality="80"
+      class="mouse-img-hold"
+    />
+    <nuxt-img
       ref="MouseImg"
       src="/images/mouse.png"
       width="191"
@@ -28,6 +36,9 @@ export default {
     },
     mouseDown() {
       return this.$store.getters['mouse/isDown']
+    },
+    imageLoaded() {
+      return this.$store.getters['imageLoaded/isLoad']
     },
   },
   watch: {
@@ -75,13 +86,88 @@ export default {
         })
       }
     },
+    imageLoaded: function () {
+      // タッチイベントではない時
+      if (this.$SITECONFIG.isNoTouch) {
+        // クリックできる要素を全てのコンポーネントから取得
+        this.mouseClickTarget = document.querySelectorAll('.hambergerMenu-btn, .hambergerMenu-item-wrapper, .header-link,.hambergerMenu-title-wrapper-01, .hambergerMenu-title-wrapper-02, .pickup-link, .contact-info-item, .next-loop-title-wrapper, .next-backbtn, .project-item');
+        // ホールドできる要素を全てのコンポーネントから取得
+        this.mouseHoldTarget = document.querySelectorAll('.card-project-article');
+
+        // イベント付与
+        setTimeout(()=>{
+          this.$gsap.set(this.$refs.MouseArea, {
+            opacity: 1,
+          })
+          this.$gsap.to(this.$refs.MouseArea, {
+            duration: this.$SITECONFIG.baseDuration,
+            ease: this.$EASING.transform,
+            scale: 1,
+          })
+        },200);
+
+        for (let i = 0; i < this.mouseClickTarget.length; i++) {
+          this.mouseClickTarget[i].addEventListener('mousedown', () => {
+            this.$gsap.to(this.$refs.MouseImgClick.$el, {
+              duration: 0.2,
+              ease: this.$EASING.transform,
+              scale: 1,
+            })
+            this.$gsap.to(this.$refs.MouseImg.$el, {
+              duration: 0.2,
+              ease: this.$EASING.transform,
+              rotate: 15,
+            })
+          })
+        }
+
+        for (let i = 0; i < this.mouseClickTarget.length; i++) {
+          this.mouseClickTarget[i].addEventListener('mouseup', () => {
+            this.$gsap.to(this.$refs.MouseImgClick.$el, {
+              duration: 0.2,
+              ease: this.$EASING.transform,
+              scale: 0,
+            })
+            this.$gsap.to(this.$refs.MouseImg.$el, {
+              duration: 0.2,
+              ease: this.$EASING.transform,
+              rotate: 0,
+            })
+          })
+        }
+
+        for (let i = 0; i < this.mouseHoldTarget.length; i++) {
+          this.mouseHoldTarget[i].addEventListener('mousedown', () => {
+            this.$gsap.set(this.$refs.MouseImg.$el, {
+              opacity: 0,
+            })
+            this.$gsap.set(this.$refs.MouseImgHold.$el, {
+              opacity: 1,
+            })
+          })
+        }
+
+        for (let i = 0; i < this.mouseHoldTarget.length; i++) {
+          this.mouseHoldTarget[i].addEventListener('mouseup', () => {
+            this.$gsap.set(this.$refs.MouseImg.$el, {
+              opacity: 1,
+            })
+            this.$gsap.set(this.$refs.MouseImgHold.$el, {
+              opacity: 0,
+            })
+          })
+        }
+      }
+    },
   },
 
   mounted() {
     const mouseHalfWidth = this.$refs.MouseArea.clientWidth / 2
     const mouseHalfHeight = this.$refs.MouseArea.clientHeight / 2
 
+    // タッチイベントではない時
     if (this.$SITECONFIG.isNoTouch) {
+      // マウス追従
       window.addEventListener('mousemove', (e) => {
         const posX = e.clientX - mouseHalfWidth
         const posY = e.clientY - mouseHalfHeight
@@ -91,49 +177,25 @@ export default {
           y: posY,
         })
       })
-
-      document.addEventListener('mousedown', () => {
-        this.$gsap.to(this.$refs.MouseImgClick.$el, {
-          duration: 0.2,
-          ease: this.$EASING.transform,
-          scale: 1,
-        })
-        this.$gsap.to(this.$refs.MouseImg.$el, {
-          duration: 0.2,
-          ease: this.$EASING.transform,
-          rotate: 15,
-        })
-      })
-
-      document.addEventListener('mouseup', () => {
-        this.$gsap.to(this.$refs.MouseImgClick.$el, {
-          duration: 0.2,
-          ease: this.$EASING.transform,
-          scale: 0,
-        })
-        this.$gsap.to(this.$refs.MouseImg.$el, {
-          duration: 0.2,
-          ease: this.$EASING.transform,
-          rotate: 0,
-        })
-      })
-    }
-
-    if (this.$SITECONFIG.isTouch) {
-      this.$refs.MouseArea.style.display = 'none'
     }
   },
 }
 </script>
 
 <style scoped lang="scss">
+:root {
+  --viewportHeight: 0;
+}
+
 .mouse {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 9px;
+  left: 6px;
   width: 20px;
   z-index: 100;
   pointer-events: none;
+  opacity: 0;
+  transform: translate(40px, calc(var(--viewportHeight) - 80px)) scale(0);
 }
 
 .mouse-action {
@@ -170,5 +232,13 @@ export default {
   left: -14px;
   width: 44px;
   transform: scale(0);
+}
+
+.mouse-img-hold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(1.3);
+  opacity: 0;
 }
 </style>

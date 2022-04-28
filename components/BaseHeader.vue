@@ -1,6 +1,6 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top is-op">
-    <a class="heade-link" @click="onClickSameUrlReload">
+    <a class="header-link" @click="onClickSameUrlReload">
       <span
         v-for="(char, index) of name"
         :key="index"
@@ -202,7 +202,7 @@ export default {
     left: 20px;
   }
 
-  & .heade-link {
+  & .header-link {
     display: block;
 
     @include hover() {

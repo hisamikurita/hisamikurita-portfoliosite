@@ -245,8 +245,8 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         setTimeout(()=>{
-        this.introItemSetup();
-        },1000)
+          this.introItemSetup();
+        },200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
       }
     },
   },

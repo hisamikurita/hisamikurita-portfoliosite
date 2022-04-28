@@ -377,7 +377,7 @@ export default {
       if (this.leaveflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
 
       this.leaveflag = true
-      this.target.classList.remove('is-current-hover')
+      if(this.target) this.target.classList.remove('is-current-hover')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
           this.$refs.ProjectItem[i].classList.remove('is-hover')
