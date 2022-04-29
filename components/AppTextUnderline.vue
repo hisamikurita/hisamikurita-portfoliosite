@@ -242,6 +242,16 @@ path {
   transform: scaleX(1);
 }
 
+.text-under-line--about-award-last {
+  position: absolute;
+  top: vw(-34);
+  left: 0;
+  width: 100%;
+  height: vw(200);
+  stroke: $gray;
+  transform: scaleX(1);
+}
+
 .text-under-line--about-project-01 {
   position: absolute;
   top: vw(-98);

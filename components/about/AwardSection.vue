@@ -45,6 +45,14 @@
                 <p class="award-group">{{ award.group }}</p>
                 <p class="award-title">{{ award.title }}</p>
                 <p class="award-rank">{{ award.rank }}</p>
+                <AppTextUnderline
+                  v-if="index === awardData.length - 1"
+                  :state="'expand'"
+                  :origin="'left'"
+                  :sp-animation="false"
+                  :width="1000"
+                  :modifier="'about-award-last'"
+                />
               </div>
             </div>
           </div>

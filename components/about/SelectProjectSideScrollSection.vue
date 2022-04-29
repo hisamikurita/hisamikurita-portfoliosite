@@ -365,11 +365,11 @@ export default {
       this.enterflag = true
       this.leaveflag = false
       this.target = event.path[2]
-      this.target.classList.add('is-current-hover')
-      this.target.classList.add('is-overlay')
+      if(this.target)this.target.classList.add('is-current-hover')
+      if(this.target)this.target.classList.add('is-overlay')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          this.$refs.ProjectItem[i].classList.add('is-hover')
+          if(this.$refs.ProjectItem[i])this.$refs.ProjectItem[i].classList.add('is-hover')
         }
       }
     },
@@ -380,12 +380,12 @@ export default {
       if(this.target) this.target.classList.remove('is-current-hover')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          this.$refs.ProjectItem[i].classList.remove('is-hover')
+          if(this.$refs.ProjectItem[i])this.$refs.ProjectItem[i].classList.remove('is-hover')
         }
       }
       setTimeout(() => {
         this.enterflag = false
-        this.target.classList.remove('is-overlay')
+        if(this.target) this.target.classList.remove('is-overlay')
       }, 100)
     },
   },
