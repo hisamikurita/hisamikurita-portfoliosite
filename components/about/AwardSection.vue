@@ -35,6 +35,13 @@
                 class="award-item"
                 :data-id="index"
               >
+                <AppTextUnderline
+                  :state="'expand'"
+                  :origin="'left'"
+                  :sp-animation="false"
+                  :width="1000"
+                  :modifier="'about-award'"
+                />
                 <p class="award-group">{{ award.group }}</p>
                 <p class="award-title">{{ award.title }}</p>
                 <p class="award-rank">{{ award.rank }}</p>
@@ -274,6 +281,9 @@ export default {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.colorAndOpacity,
         color: '#ffffff',
+      });
+      this.$gsap.set(target,{
+        zIndex: 2,
       })
     },
     colorFadeOut(target) {
@@ -281,6 +291,9 @@ export default {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.colorAndOpacity,
         color: '#828282',
+      })
+      this.$gsap.set(target,{
+        zIndex: 1,
       })
     },
   },
@@ -314,7 +327,7 @@ export default {
   width: 293px;
   height: 400px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
 .award-card-item {
@@ -324,6 +337,7 @@ export default {
   width: 100%;
   height: 100%;
   clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
+  z-index: 10;
 }
 
 .award-title-read-area {
@@ -349,13 +363,14 @@ export default {
 
 .award-item {
   display: flex;
+  position: relative;
   padding: 15px 0;
-  border-top: solid 1px $gray;
+  // border-top: solid 1px $gray;
   color: $gray;
 
-  &:last-of-type {
-    border-bottom: solid 1px $gray;
-  }
+  // &:last-of-type {
+  //   border-bottom: solid 1px $gray;
+  // }
 
   @include sp() {
     display: block;

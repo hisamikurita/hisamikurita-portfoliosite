@@ -125,8 +125,10 @@ export default {
       }
 
       if (this.connected && this.$refs.TextUnderlineSvg) {
-
-        this.path.y = (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
+        this.path.y =
+          (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
+            (this.$refs.TextUnderlineSvg.clientHeight +
+              this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
           100
       }
     },
@@ -228,6 +230,16 @@ path {
   left: 0;
   stroke: $black;
   // background-color: $black;
+}
+
+.text-under-line--about-award {
+  position: absolute;
+  top: vw(-100);
+  left: 0;
+  width: 100%;
+  height: vw(200);
+  stroke: $gray;
+  transform: scaleX(1);
 }
 
 .text-under-line--about-project-01 {
