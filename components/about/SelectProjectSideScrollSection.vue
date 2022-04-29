@@ -91,9 +91,7 @@
                       </span>
                       <span
                         ref="ProjectItemImg02"
-                        class="
-                          project-item-img-wrapper project-item-img-wrapper-02
-                        "
+                        class="project-item-img-wrapper project-item-img-wrapper-02"
                       >
                         <span class="project-item-img">
                           <picture>
@@ -112,7 +110,7 @@
                         </span>
                       </span>
                     </div>
-                    <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
+                    <!-- <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
                       <span
                         ref="ProjectItemCircle"
                         class="project-item-circle"
@@ -172,7 +170,7 @@
                           </picture>
                         </span>
                       </span>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -517,7 +515,7 @@ export default {
   width: vw(300);
   transform: scale(0);
   pointer-events: none;
-  transition: transform $half-base-duration $transform-easing;
+  transition: transform $half-base-duration * 2 $transform-easing;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   border-radius: 10px;
@@ -527,7 +525,7 @@ export default {
 .project-item-img {
   display: block;
   transform: rotateX(180deg);
-  transition: transform $half-base-duration $transform-easing;
+  transition: transform $half-base-duration * 2 $transform-easing;
   transform-style: preserve-3d;
 
   & img{
