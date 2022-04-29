@@ -36,7 +36,7 @@
         <nuxt />
       </div>
     </div>
-    <div ref="AsscrollContainerCover" class="asscroll-container-cover"></div>
+    <div ref="AsscrollContainerCover" class="asscroll-container-cover" @click="hambergerMenuOnClose"></div>
     <BaseHeader />
     <BaseHambergerMenu />
   </div>
@@ -147,14 +147,14 @@ export default {
 
         if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
-            delay: 0.2,
-            duration: this.$SITECONFIG.baseDuration / 3.0,
+          delay: 0.16,
+            duration: 0.3,
             ease: this.$EASING.transform,
             x: -560,
           })
           this.$gsap.to(this.$refs.LayoutsFix, {
-            delay: 0.2,
-            duration: this.$SITECONFIG.baseDuration / 3.0,
+          delay: 0.16,
+            duration: 0.3,
             ease: this.$EASING.transform,
             x: -560,
           })
@@ -174,14 +174,14 @@ export default {
 
         if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
-            delay: 0.2,
-            duration: this.$SITECONFIG.baseDuration / 3.0,
+            delay: 0,
+            duration: 0.3,
             ease: this.$EASING.transform,
             x: 0,
           })
           this.$gsap.to(this.$refs.LayoutsFix, {
-            delay: 0.2,
-            duration: this.$SITECONFIG.baseDuration / 3.0,
+            delay: 0,
+            duration: 0.3,
             ease: this.$EASING.transform,
             x: 0,
           })
@@ -343,6 +343,9 @@ export default {
     }
   },
   methods: {
+    hambergerMenuOnClose() {
+      this.$store.commit('hambergerMenu/close')
+    },
     onTransitionStart() {
       this.$gsap.set(this.$refs.AsscrollContainer, {
         overflow: 'hidden',

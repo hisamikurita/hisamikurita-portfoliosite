@@ -124,11 +124,9 @@ export default {
         this.connected = true
       }
 
-      if (this.connected) {
-        this.path.y =
-          (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
-            (this.$refs.TextUnderlineSvg.clientHeight +
-              this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
+      if (this.connected && this.$refs.TextUnderlineSvg) {
+
+        this.path.y = (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
           100
       }
     },

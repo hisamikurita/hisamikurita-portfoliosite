@@ -207,9 +207,7 @@ export default {
             borderRadius: 100,
             scale: 0.9,
           })
-          this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
-            duration: 0.2,
-            ease: this.$EASING.colorAndOpacity,
+          this.$gsap.set(this.$refs.HambergerMenuBtnHover, {
             boxShadow: '0px 10px 20px 5px rgb(193 193 192 / 50%)',
           })
           /**
@@ -240,17 +238,16 @@ export default {
            * bg
            */
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
-            delay: 0.2,
-            duration: 0.2,
+          delay: 0.16,
+            duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 5.1,
             scaleY: 1.1,
             x: 10,
-            // boxShadow: '0 0 3px 0.6px rgb(255 255 255 / 80%)',
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
-            delay: 0.3,
-            duration: 0.2,
+          delay: 0.16,
+            duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 1.0,
           })
@@ -376,10 +373,7 @@ export default {
             borderRadius: 10,
             scale: 1.0,
           })
-          this.$gsap.to(this.$refs.HambergerMenuBtnHover, {
-            delay: 0.2,
-            duration: 0.2,
-            ease: this.$EASING.colorAndOpacity,
+          this.$gsap.set(this.$refs.HambergerMenuBtnHover, {
             boxShadow: 'none',
           })
           /**
@@ -412,36 +406,35 @@ export default {
           /**
            * text
            */
-          this.isTextSegmentState = 'top'
-          this.itemLinkBottom = this.$gsap.to(
-            this.$refs.HambergerMenuItemWrapper,
-            {
-              duration: this.$SITECONFIG.baseDuration,
-              delay: 0.36,
-              ease: this.$EASING.transform,
-              stagger: {
-                each: 0.12,
-              },
-              y: -180,
-            }
-          )
+          // this.isTextSegmentState = 'top'
+          // this.itemLinkBottom = this.$gsap.to(
+          //   this.$refs.HambergerMenuItemWrapper,
+          //   {
+          //     duration: this.$SITECONFIG.baseDuration,
+          //     delay: 0.36,
+          //     ease: this.$EASING.transform,
+          //     stagger: {
+          //       each: 0.12,
+          //     },
+          //     y: -180,
+          //   }
+          // )
           /**
            * bg
            */
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
-            delay: 0.2,
-            duration: 0.2,
+            delay: 0,
+            duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
-            delay: 0.3,
-            duration: 0.2,
+            delay: 0,
+            duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 1.0,
             scaleY: 1.0,
             x: 0,
-            // boxShadow: 'none',
           })
           /**
            * init
