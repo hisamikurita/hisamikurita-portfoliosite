@@ -77,26 +77,28 @@ export default {
   mounted() {
     // https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
 
-    this.connected = false
+    this.$nextTick(() => {
+      this.connected = false
 
-    this.raf = () => {
-      this.update()
-    }
+      this.raf = () => {
+        this.update()
+      }
 
-    this.observe = this.$refs.TextUnderlineSvg
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.raf)
-          } else {
-            this.$gsap.ticker.remove(this.raf)
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserver.observe(this.observe)
+      this.observe = this.$refs.TextUnderlineSvg
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.raf)
+            } else {
+              this.$gsap.ticker.remove(this.raf)
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.iObserver.observe(this.observe)
+    })
   },
 
   beforeDestroy() {
@@ -106,10 +108,7 @@ export default {
 
   methods: {
     update() {
-      if (
-        Math.abs(this.path.y - 100) >
-        200 / 1.6
-      ) {
+      if (Math.abs(this.path.y - 100) > 200 / 1.6) {
         this.connected = false
         this.pathAnimation = this.$gsap.to(this.path, {
           duration: 1.0,
@@ -119,7 +118,6 @@ export default {
       }
     },
     onMousemove(e) {
-      console.log(this.path.y)
       if (!this.connected && e.target === this.$refs.TextUnderlinePathDammy) {
         if (this.pathAnimation) this.pathAnimation.kill()
 
@@ -127,7 +125,11 @@ export default {
       }
 
       if (this.connected) {
-        this.path.y = ((e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + (this.$refs.TextUnderlineSvg.clientWidth * 0.1))) + 100
+        this.path.y =
+          (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
+            (this.$refs.TextUnderlineSvg.clientHeight +
+              this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
+          100
       }
     },
     onMouseLeave() {
