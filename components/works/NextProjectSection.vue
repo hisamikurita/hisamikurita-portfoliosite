@@ -14,11 +14,13 @@
             <span
               ref="ContentsLoopTitleWrapper"
               class="next-loop-title-wrapper"
+              :style="`stroke:${currentProject.siteColor.allTextColor};`"
             >
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :color="currentProject.siteColor.allTextColor"
                 :origin="'right'"
+                :width="1280"
                 :modifier="'works-next-01'"
               />
               <AppTextUnderline
@@ -26,6 +28,7 @@
                 :start="0.12"
                 :color="currentProject.siteColor.allTextColor"
                 :origin="'left'"
+                :width="1280"
                 :modifier="'works-next-02'"
               />
               <span class="next-loop-title">

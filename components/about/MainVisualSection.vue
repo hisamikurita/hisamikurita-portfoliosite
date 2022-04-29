@@ -25,6 +25,7 @@
                 :state="isTextUnderlineState"
                 :origin="'left'"
                 :sp-animation="false"
+                :width="470"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
@@ -40,6 +41,7 @@
                 :start="0.176"
                 :origin="'right'"
                 :sp-animation="false"
+                :width="1007"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
@@ -63,6 +65,7 @@
                 :start="0.42"
                 :origin="'left'"
                 :sp-animation="false"
+                :width="900"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
@@ -86,6 +89,7 @@
                 :start="0.7"
                 :origin="'right'"
                 :sp-animation="false"
+                :width="1200"
                 :modifier="'about-hero'"
               />
               <AppTextSegment
@@ -368,5 +372,6 @@ export default {
   top: 110.8%;
   left: 33%;
   transform: rotate(-10deg);
+      z-index: 1;
 }
 </style>

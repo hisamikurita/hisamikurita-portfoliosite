@@ -9,20 +9,9 @@
       </span>
       <span class="card-project-title-wrapper-03">
         <span class="pc-only">
-          <AppTextSegment
-            :state="state"
-            :rotate="$BASEROTATE.right"
-            :text="title"
-            :sp-animation="false"
-          />
+          <span>{{ title }}</span>
           <span class="card-project-sub-title">
-            <AppTextSegment
-              :state="state"
-              :start="0.28"
-              :rotate="$BASEROTATE.left"
-              :text="subtitle"
-              :sp-animation="false"
-            />
+          <span>{{ subtitle }}</span>
           </span>
         </span>
         <span class="sp-only">

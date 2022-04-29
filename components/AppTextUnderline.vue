@@ -167,6 +167,7 @@ path {
   width: 100%;
   transform: scaleX(0);
   z-index: 1;
+  // pointer-events: none; // 一時的にクリックイベントが拾えるようにしておく
 }
 
 //modifier
@@ -195,10 +196,10 @@ path {
 
 .text-under-line--index-project-01 {
   position: absolute;
-  top: -120px;
+  top: auto;
+  bottom: vw(90);
   left: 40px;
-  width: vw(1080);
-  height: vw(200);
+  width: calc(100% - 200px);
   stroke: $black;
 
   @include sp() {
@@ -209,7 +210,8 @@ path {
 
 .text-under-line--index-project-02 {
   position: absolute;
-  bottom: 0;
+  top: auto;
+  bottom: vw(-90);
   left: 40px;
   width: calc(100% - 200px);
   stroke: $black;
@@ -222,17 +224,18 @@ path {
 
 .text-under-line--about-hero {
   position: absolute;
-  top: -12px;
+  top: vw(-106);
   left: 0;
-  pointer-events: none; // 一時的にクリックイベントが拾えるようにしておく
+  stroke: $black;
   // background-color: $black;
 }
 
 .text-under-line--about-project-01 {
   position: absolute;
-  top: 0;
-  left: 4px;
+  top: vw(-98);
+  left: 0;
   width: calc(100% + 4px);
+  stroke: $black;
   // background-color: $black;
 
   @include sp() {
@@ -243,9 +246,11 @@ path {
 
 .text-under-line--about-project-02 {
   position: absolute;
-  bottom: 0;
-  left: 4px;
+  top: auto;
+  bottom: vw(-98);
+  left: 0;
   width: calc(100% + 4px);
+  stroke: $black;
   // background-color: $black;
 
   @include sp() {
@@ -255,13 +260,15 @@ path {
 }
 
 .text-under-line--works {
-  display: block;
+  position: absolute;
+  top: auto;
+  bottom: vmin(148);
   background-color: inherit;
 }
 
 .text-under-line--works-next-01 {
   position: absolute;
-  top: 0;
+  top: vw(-96);
   left: 0;
   width: calc(100%);
 
@@ -273,9 +280,24 @@ path {
 
 .text-under-line--works-next-02 {
   position: absolute;
-  bottom: 0;
+  top: auto;
+  bottom: vw(-96);
   left: 0;
   width: calc(100%);
+
+  @include sp() {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.text-under-line--works-info {
+  position: absolute;
+  top: vw(-110);
+  left: 0;
+  width: calc(100%);
+  height: vw(200);
+  transform: scaleX(1);
 
   @include sp() {
     left: 0;

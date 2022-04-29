@@ -17,7 +17,7 @@
           class="hero-title"
           :style="`color:${currentProject.siteColor.mvTextColor};`"
         >
-          <h1>
+          <h1 class="hero-title-read">
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
@@ -52,6 +52,7 @@
                 :color="currentProject.siteColor.mvTextColor"
                 :origin="'left'"
                 :sp-animation="false"
+                :width="700"
                 :modifier="'works'"
               />
             </span>
@@ -216,6 +217,10 @@ export default {
   line-height: 1.04;
 }
 
+.hero-title-read{
+  position: relative;
+}
+
 .hero-title-wrapper-block {
   display: block;
   margin: 0 0 37px 0;
@@ -233,6 +238,9 @@ export default {
 
 .hero-title-line {
   display: block;
+  position: absolute;
+  width: 100%;
+  height: vmin(230);
   margin: 0 0 36px 0;
 }
 

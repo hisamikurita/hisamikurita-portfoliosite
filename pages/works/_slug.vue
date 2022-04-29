@@ -8,7 +8,7 @@
       :style="`
       background-color:${currentProject.siteColor.bodyContentsColor};
       color:${currentProject.siteColor.allTextColor};
-      border-color:${currentProject.siteColor.allTextColor};
+      stroke:${currentProject.siteColor.mvTextColor};
       `"
     >
       <WorksMainVisualSection :current-project="currentProject" />

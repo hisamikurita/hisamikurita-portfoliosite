@@ -155,6 +155,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    viewAnimation: {
+      type: Boolean,
+      default: true,
+    },
     modifier: {
       type: String,
       default: '',
@@ -172,6 +176,14 @@ export default {
     },
   },
 
+  watch: {
+    dragAnimation: function () {
+      if (this.dragAnimation) {
+        this.createDragAnimation()
+      }
+    },
+  },
+
   mounted() {
     // SPの時は任意(spAnimation = false)で,処理を返す
     // デフォルトではSPもアニメーションする
@@ -181,43 +193,26 @@ export default {
       setTimeout(() => {
         // ドラッグアニメーション
         if (this.dragAnimation) {
-          this.cardAngle = 0
-          this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
-            type: 'x,y',
-            bounds: this.$parent.$el,
-            edgeResistance: 0.6,
-            inertia: true,
-            allowEventDefault: true,
-
-            onThrowUpdate: () => {
-              this.cardAngle += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0
-              this.$gsap.to(this.$refs.CardProjectArticle, {
-                duration: 0.01,
-                ease: 'none',
-                rotate: this.cardAngle,
-              })
-              this.$gsap.set(this.$refs.CardProjectObserver, {
-                x: this.drag[0].x,
-                y: this.drag[0].y,
-              })
-            },
-          })
+          this.createDragAnimation()
         }
 
         // 出現アニメーション 監視
         this.observe = this.$refs.CardProjectObserver
-        this.iObserverTextSegment = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                this.cardViewAnimation()
-                this.iObserverTextSegment.unobserve(this.observe)
-              }
-            })
-          },
-          { rootMargin: '0%' }
-        )
-        this.iObserverTextSegment.observe(this.observe)
+
+        if (this.viewAnimation) {
+          this.iObserverTextSegment = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  this.cardViewAnimation()
+                  this.iObserverTextSegment.unobserve(this.observe)
+                }
+              })
+            },
+            { rootMargin: '0%' }
+          )
+          this.iObserverTextSegment.observe(this.observe)
+        }
 
         // パララックス 監視
         this.iObserverAnimation = new IntersectionObserver(
@@ -248,11 +243,35 @@ export default {
     if (this.dragAnimation) this.drag[0].kill()
     this.$store.commit('mouse/mouseleave')
     this.$gsap.ticker.remove(this.cardPallax)
-    this.iObserverTextSegment.unobserve(this.observe)
+    if (this.viewAnimation) this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverAnimation.unobserve(this.observe)
   },
 
   methods: {
+    createDragAnimation() {
+      this.cardAngle = 0
+      this.drag = this.$Draggable.create(this.$refs.CardProjectArticle, {
+        type: 'x,y',
+        bounds: this.$parent.$el,
+        edgeResistance: 0.6,
+        inertia: true,
+        allowEventDefault: true,
+
+        onThrowUpdate: () => {
+          this.cardAngle += (this.drag[0].deltaX + this.drag[0].deltaY) / 3.0
+          this.$gsap.to(this.$refs.CardProjectArticle, {
+            duration: 0.01,
+            ease: 'none',
+            rotate: this.cardAngle,
+          })
+          this.$gsap.set(this.$refs.CardProjectObserver, {
+            x: this.drag[0].x,
+            y: this.drag[0].y,
+          })
+        },
+      })
+    },
+
     cardViewAnimation() {
       this.state = 'center'
       this.$gsap.to(this.$refs.CardProjectArticle, {

@@ -22,13 +22,14 @@
           >
             <AppTextUnderline
               :state="isTextUnderlineState"
-              :width="1080"
+              :width="1280"
               :origin="'right'"
               :modifier="'index-project-01'"
             />
             <AppTextUnderline
               :state="isTextUnderlineState"
               :start="0.12"
+              :width="1280"
               :origin="'left'"
               :modifier="'index-project-02'"
             />
@@ -46,6 +47,7 @@
             <AppTextUnderline
               :state="isTextUnderlineState"
               :start="0.24"
+              :width="1280"
               :origin="'right'"
               :modifier="'index-project-02'"
             />
@@ -320,6 +322,7 @@ export default {
 .project-card-area {
   position: relative;
   height: 2000px;
+  z-index: 1;
 
   @include sp() {
     height: 3000px;

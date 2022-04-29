@@ -37,12 +37,13 @@
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
-              <!-- <AppTextUnderline
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :origin="'left'"
                 :sp-animation="false"
+                :width="840"
                 :modifier="'index-hero'"
-              /> -->
+              />
               <AppTextSegment
                 :state="isTextSegmentState"
                 :rotate="$BASEROTATE.right"
@@ -51,14 +52,15 @@
               />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02">
-              <!-- <AppTextUnderline
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.176"
                 :ratio="1.62"
                 :origin="'right'"
+                :width="1080"
                 :sp-animation="false"
                 :modifier="'index-hero'"
-              /> -->
+              />
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.176"
@@ -105,13 +107,14 @@
               </span>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03">
-              <!-- <AppTextUnderline
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.4"
                 :origin="'left'"
+                :width="700"
                 :sp-animation="false"
                 :modifier="'index-hero'"
-              /> -->
+              />
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.4"
@@ -125,7 +128,7 @@
                 :state="isTextUnderlineState"
                 :start="0.42"
                 :ratio="1.5"
-                :width="330"
+                :width="350"
                 :origin="'right'"
                 :sp-animation="false"
                 :modifier="'index-hero'"
@@ -188,7 +191,9 @@
             :rotate="8"
             :xspeed="0.01"
             :yspeed="0.14"
+            :drag-animation="isMvCardDrag"
             :modifier="'index-hero'"
+            :view-animation="false"
           />
         </div>
       </div>
@@ -202,6 +207,7 @@ export default {
     return {
       isTextSegmentState: 'default',
       isTextUnderlineState: 'default',
+      isMvCardDrag: false,
     }
   },
 
@@ -219,20 +225,19 @@ export default {
 
   watch: {
     openningEnd: function () {
-      setTimeout(()=>{
-        this.mvItemViewIn();
-      },1000)
+      setTimeout(() => {
+        this.mvItemViewIn()
+      }, 1000)
     },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        if (!this.openningEnd) return;
-        this.mvItemViewIn();
+        if (!this.openningEnd) return
+        this.mvItemViewIn()
       }
     },
   },
 
-  mounted() {
-  },
+  mounted() {},
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
@@ -252,9 +257,13 @@ export default {
       })
 
       this.$gsap.to(this.$refs.HeroCardItem, {
-        duration: this.$SITECONFIG.baseDuration,
-        ease: this.$EASING.colorAndOpacity,
-        opacity: 1.0,
+        duration: this.$SITECONFIG.fullDuration,
+        ease: this.$EASING.transform,
+        x: 0,
+        rotate: 0,
+        onComplete: () => {
+          this.isMvCardDrag = true
+        },
       })
 
       this.observe = this.$refs.Hero
@@ -496,10 +505,9 @@ export default {
 
 .hero-card-item {
   position: absolute;
-  top: 27.8%;
+  top: 18%;
   left: 9%;
-  transform: rotate(10deg);
-  opacity: 0;
+  transform: translateX(-600px) rotate(240deg);
   z-index: 2;
 
   @include sp() {

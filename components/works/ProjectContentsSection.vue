@@ -2,7 +2,12 @@
   <div ref="Contents" class="contents">
     <div class="l-container">
       <div class="contents-inner">
-        <div class="contents-info">
+        <div class="contents-info" :style="`stroke:${currentProject.siteColor.allTextColor};`">
+          <AppTextUnderline
+            :state="'extend'"
+            :width="1420"
+            :modifier="'works-info'"
+          />
           <dl class="contents-info-client">
             <dt>CLIENT</dt>
             <dd>{{ currentProject.client }}</dd>
@@ -103,11 +108,12 @@ export default {
 
 .contents-info {
   display: flex;
+  position: relative;
   width: vw(1000);
   margin: 0 0 160px 0;
   padding: 38px 0 0 0;
   font-size: 12px;
-  border-top: solid 1px;
+  // border-top: solid 1px;
 
   @include sp() {
     display: block;

@@ -20,17 +20,19 @@
               />
             </div>
             <div ref="ProjectTitleWrapper" class="project-title-wrapper">
-              <!-- <AppTextUnderline
+              <AppTextUnderline
                 :state="isTextUnderlineState"
                 :origin="'right'"
+                :width="1280"
                 :modifier="'about-project-01'"
               />
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.12"
                 :origin="'left'"
+                :width="1280"
                 :modifier="'about-project-02'"
-              /> -->
+              />
               <div
                 ref="ProjectList"
                 class="project-list"
@@ -110,7 +112,7 @@
                         </span>
                       </span>
                     </div>
-                    <!-- <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
+                    <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
                       <span
                         ref="ProjectItemCircle"
                         class="project-item-circle"
@@ -170,7 +172,7 @@
                           </picture>
                         </span>
                       </span>
-                    </div> -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -473,6 +475,7 @@ export default {
   top: auto;
   left: auto;
   overflow: hidden;
+  z-index: 1;
 
   &.is-text-animation-end {
     overflow: visible;
@@ -513,24 +516,28 @@ export default {
   position: absolute;
   top: vw(-30);
   width: vw(300);
+  height: vw(220);
   transform: scale(0);
   pointer-events: none;
-  transition: transform $half-base-duration * 2 $transform-easing;
+  transition: transform $half-base-duration $transform-easing;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  border-radius: 10px;
-  overflow: hidden;
 }
 
 .project-item-img {
   display: block;
   transform: rotateX(180deg);
-  transition: transform $half-base-duration * 2 $transform-easing;
+  transition: transform $half-base-duration $transform-easing;
   transform-style: preserve-3d;
 
   & img{
+    position: relative;
     width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    overflow: hidden;
   }
 }
 
