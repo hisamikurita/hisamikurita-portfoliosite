@@ -52,8 +52,8 @@ export default {
       isScrollDirection: { value: -1 },
       scrollDirectionFlag: false,
       startPos: 0,
-      scrollSpeed: 2.0,
-      tweenScrollSpeed: 0.04,
+      scrollSpeed: 0,
+      tweenScrollSpeed: 0,
       direction: 0,
     }
   },
@@ -83,6 +83,16 @@ export default {
   },
 
   mounted() {
+    // PCとSPで速度を調整する
+    if(this.$SITECONFIG.isPc){
+      this.scrollSpeed = 2.0;
+      this.tweenScrollSpeed = 0.04;
+    }
+    else{
+      this.scrollSpeed = 1.0;
+      this.tweenScrollSpeed = 0.02;
+    }
+
     if (this.loopdirection === 'right') {
       this.direction = -1.0
     } else if (this.loopdirection === 'left') {
