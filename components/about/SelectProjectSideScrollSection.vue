@@ -47,11 +47,11 @@
                     class="project-item-wrapper-translate"
                   >
                     <div
-                      v-for="(data, index) in projectData"
-                      :key="data.id"
+                      v-for="(data, index) in projectAndArchiveDatas"
+                      :key="index"
                       ref="ProjectItem"
                       class="project-item"
-                      @mousemove="onMouseEnter"
+                      @mousemove="onMouseEnter(index)"
                       @mouseleave="onMouseLeave"
                     >
                       <span
@@ -62,7 +62,15 @@
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
+                        <AppBgTransition
+                          v-if="index === projectAndArchiveData.length - 1.0"
+                          :url="`archive`"
+                          :color="'#000000'"
+                          class="project-link"
+                          >ARCHIVE
+                        </AppBgTransition>
                         <AppImageTransition
+                          v-else
                           :url="`/works/${data.id}`"
                           :index="index"
                           class="project-link"
@@ -76,7 +84,20 @@
                         "
                       >
                         <span class="project-item-img">
-                          <picture>
+                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                            <source
+                              :srcset="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                            />
+                          </picture>
+                          <picture v-else>
                             <source
                               :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
                               :width="`${data.aboutImages.img01.width}`"
@@ -96,7 +117,20 @@
                         class="project-item-img-wrapper project-item-img-wrapper-02"
                       >
                         <span class="project-item-img">
-                          <picture>
+                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                            <source
+                              :srcset="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                              type="image/webp"
+                            />
+                            <img
+                              :src="`/images/archive.png`"
+                              :width="`280`"
+                              :height="`206`"
+                            />
+                          </picture>
+                          <picture v-else>
                             <source
                               :srcset="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
                               :width="`${data.aboutImages.img02.width}`"
@@ -107,67 +141,6 @@
                               :src="`${data.aboutImages.img02.url}?w=2560&h=1600&q=50`"
                               :width="`${data.aboutImages.img02.width}`"
                               :height="`${data.aboutImages.img02.height}`"
-                            />
-                          </picture>
-                        </span>
-                      </span>
-                    </div>
-                    <div class="project-item" @mousemove="onMouseEnter" @mouseleave="onMouseLeave">
-                      <span
-                        ref="ProjectItemCircle"
-                        class="project-item-circle"
-                      ></span>
-                      <span
-                        ref="ProjectItemWrapper"
-                        class="project-item-wraper"
-                      >
-                        <AppBgTransition
-                          :url="`archive`"
-                          :color="'#000000'"
-                          class="project-link"
-                          >ARCHIVE
-                        </AppBgTransition>
-                      </span>
-                      <span
-                        ref="ProjectItemImg01"
-                        class="
-                          project-item-img-wrapper project-item-img-wrapper-01
-                        "
-                      >
-                        <span class="project-item-img">
-                          <picture>
-                            <source
-                              :srcset="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
-                              type="image/webp"
-                            />
-                            <img
-                              :src="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
-                            />
-                          </picture>
-                        </span>
-                      </span>
-                      <span
-                        ref="ProjectItemImg02"
-                        class="
-                          project-item-img-wrapper project-item-img-wrapper-02
-                        "
-                      >
-                        <span class="project-item-img">
-                          <picture>
-                            <source
-                              :srcset="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
-                              type="image/webp"
-                            />
-                            <img
-                              :src="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
                             />
                           </picture>
                         </span>
@@ -197,6 +170,7 @@ export default {
 
   data: () => {
     return {
+      projectAndArchiveData: [],
       isTextSegmentState: '',
       isCircleBgState: '',
       isTextUnderlineState: '',
@@ -205,6 +179,10 @@ export default {
   },
 
   computed: {
+    projectAndArchiveDatas(){
+      this.directSubstitution()
+      return this.projectAndArchiveData;
+    },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
@@ -360,13 +338,18 @@ export default {
   },
 
   methods: {
-    onMouseEnter(event) {
+    directSubstitution(){
+      this.projectAndArchiveData = Array.from(this.projectData)
+      this.projectAndArchiveData.push({url: 'archive'})
+    },
+    onMouseEnter: function(index) {
       if (this.enterflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
       this.enterflag = true
       this.leaveflag = false
-      this.target = event.path[2]
-      if(this.target)this.target.classList.add('is-current-hover')
-      if(this.target)this.target.classList.add('is-overlay')
+      this.target = this.$refs.ProjectItem[index];
+
+      if(this.target) this.target.classList.add('is-current-hover')
+      if(this.target) this.target.classList.add('is-overlay')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
           if(this.$refs.ProjectItem[i])this.$refs.ProjectItem[i].classList.add('is-hover')
