@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 
 export default class Particle {
   constructor(config, canvas) {
@@ -227,7 +229,7 @@ export default class Particle {
     this.canvas.style.height = height + 'px'
   }
 
-  _fadeIn(){
+  _fadeIn() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
         duration: this.config.baseDuration,
@@ -236,6 +238,11 @@ export default class Particle {
         clipR: this.config.isPc ? this.radiusPc[i] : this.radiusSp[i],
       })
     }
+  }
+
+  destroy() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.canvas = null;
   }
 
   init() {

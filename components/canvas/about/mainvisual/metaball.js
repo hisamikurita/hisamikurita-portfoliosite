@@ -1,6 +1,4 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
@@ -31,6 +29,7 @@ export default class Particle {
     this.video.loop = true;
     this.video.play();
 
+    this.texture = new THREE.VideoTexture(this.video);
   }
 
   init() {
@@ -107,15 +106,15 @@ export default class Particle {
       );
     }
 
-    const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
+    this.geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
-    const material = new THREE.RawShaderMaterial({
+    this.material = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       uniforms: {
         u_texture: {
           type: "t",
-          value: new THREE.VideoTexture(this.video)
+          value: this.texture
         },
         u_metaballsPos: {
           type: "v2v",
@@ -162,7 +161,7 @@ export default class Particle {
       },
       transparent: true
     });
-    this.mesh = new THREE.Mesh(geometry, material);
+    this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.stage.scene.add(this.mesh);
   }
 
@@ -181,6 +180,13 @@ export default class Particle {
         },
       })
     }
+  }
+
+  _destroy(){
+    this.stage.scene.remove(this.mesh);
+    this.texture.dispose();
+    this.geometry.dispose();
+    this.material.dispose();
   }
 
   onResize() {

@@ -232,6 +232,10 @@ path {
   // background-color: $black;
 }
 
+.is-safari .text-under-line--about-hero {
+  top: vw(-94);
+}
+
 .text-under-line--about-award {
   position: absolute;
   top: vw(-100);

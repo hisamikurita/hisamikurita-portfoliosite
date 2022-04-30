@@ -197,9 +197,16 @@ export default {
   mounted() {},
 
   beforeDestroy() {
-    window.removeEventListener('resize', this.mResize)
+    // リセット
     this.iObserver.unobserve(this.observe)
+
+    // メタボールリセット
+    window.removeEventListener('resize', this.mResize)
     this.$gsap.ticker.remove(this.mRaf)
+    this.stage._destroy();
+    this.stage = null;
+    this.mesh._destroy();
+    this.mesh = null;
   },
 
   methods: {

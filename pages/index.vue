@@ -68,8 +68,7 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -77,6 +76,7 @@ export default {
   },
 
   beforeDestroy() {
+      // this.$store.commit('indexPickup/transition', true);
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

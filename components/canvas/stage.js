@@ -71,6 +71,12 @@ export default class Stage {
     this.renderer.setSize(this.renderParam.width, this.renderParam.height);
   }
 
+  _destroy(){
+    this.renderer.dispose();
+    this.renderer.forceContextLoss();
+    this.renderer.domElement = null;
+  }
+
   _render() {
     this.renderer.render(this.scene, this.camera);
   }

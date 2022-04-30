@@ -1,3 +1,7 @@
+/*
+Reference: http://jamie-wong.com/2016/07/06/metaballs-and-webgl/
+*/
+
 precision highp float;
 
 uniform vec2 u_texturesize;

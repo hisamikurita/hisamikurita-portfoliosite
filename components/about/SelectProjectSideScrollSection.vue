@@ -273,8 +273,8 @@ export default {
     })
 
     // パーティクル
-    const particle = new Particle(this.$SITECONFIG, this.$refs.Canvas)
-    particle.init()
+    this.particle = new Particle(this.$SITECONFIG, this.$refs.Canvas)
+    this.particle.init()
 
     const tweenPosition = {
       value: 0,
@@ -286,7 +286,7 @@ export default {
         ease: 'none',
         value: this.$asscroll.currentPos,
       })
-      particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
+      this.particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
     }
 
     this.observe = this.$refs.ProjectWrapper
@@ -306,7 +306,7 @@ export default {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            particle._fadeIn()
+            this.particle._fadeIn()
           }
         })
       },
@@ -316,31 +316,32 @@ export default {
     this.iObserver.observe(this.observe)
 
     this.pResize = () => {
-      particle.onResize()
+      this.particle.onResize()
     }
 
     window.addEventListener('resize', this.pResize)
 
     this.enterflag = false
     this.leaveflag = false
-    // for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
-    //   this.flag.push(false)
-    // }
   },
 
   beforeDestroy() {
     this.fixSection.kill()
     this.synchronousScroll.kill()
-    this.pObserver.unobserve(this.observe)
     this.iObserver.unobserve(this.observe)
-    this.$gsap.ticker.remove(this.pRaf)
+
+    // パーティクル削除
     window.removeEventListener('resize', this.pResize)
+    this.pObserver.unobserve(this.observe)
+    this.$gsap.ticker.remove(this.pRaf)
+    this.particle.destroy();
+    this.particle = null;
   },
 
   methods: {
     directSubstitution(){
       this.projectAndArchiveData = Array.from(this.projectData)
-      this.projectAndArchiveData.push({url: 'archive'})
+      this.projectAndArchiveData.push({})
     },
     onMouseEnter: function(index) {
       if (this.enterflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
@@ -480,6 +481,7 @@ export default {
   background-color: $black;
   pointer-events: none;
   transition: transform $half-base-duration $transform-easing;
+  z-index: 1;
 
   @include sp() {
     right: vw_sp(-72);
@@ -505,6 +507,7 @@ export default {
   transition: transform $half-base-duration $transform-easing;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+  z-index: 10;
 }
 
 .project-item-img {

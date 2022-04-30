@@ -1,5 +1,5 @@
 <template>
-  <div :class="[isAndroid, isWindows]">
+  <div :class="[isAndroid, isWindows, isSafari]">
     <BaseOpenning />
     <div ref="LayoutsFix" class="layouts-fix">
       <div ref="Webgl" class="webgl"></div>
@@ -15,7 +15,10 @@
           class="layouts-normal-transition-img"
         >
           <picture>
-            <source :srcset="`${data.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`" media="(min-width: 767px)"/>
+            <source
+              :srcset="`${data.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
+              media="(min-width: 767px)"
+            />
             <img
               :src="`${data.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
               :width="`${data.heroImg.pc.width}`"
@@ -36,7 +39,11 @@
         <nuxt />
       </div>
     </div>
-    <div ref="AsscrollContainerCover" class="asscroll-container-cover" @click="hambergerMenuOnClose"></div>
+    <div
+      ref="AsscrollContainerCover"
+      class="asscroll-container-cover"
+      @click="hambergerMenuOnClose"
+    ></div>
     <BaseHeader />
     <BaseHambergerMenu />
   </div>
@@ -53,6 +60,7 @@ export default {
     return {
       isAndroid: '',
       isWindows: '',
+      isSafari: '',
     }
   },
 
@@ -147,13 +155,13 @@ export default {
 
         if (this.$SITECONFIG.isPc) {
           this.$gsap.to(this.$refs.AsscrollContainer, {
-          delay: 0.16,
+            delay: 0.16,
             duration: 0.3,
             ease: this.$EASING.transform,
             x: -560,
           })
           this.$gsap.to(this.$refs.LayoutsFix, {
-          delay: 0.16,
+            delay: 0.16,
             duration: 0.3,
             ease: this.$EASING.transform,
             x: -560,
@@ -235,17 +243,14 @@ export default {
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
-          // console.log('next1')
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
         case 'next02':
-          // console.log('next2')
           this.particle.setScene(2)
           this.mesh.setScene(2)
           break
         case 'next03':
-          // console.log('next3')
           this.particle.setScene(3)
           this.mesh.setScene(3)
           break
@@ -269,9 +274,6 @@ export default {
           this.particle.setSceneFirst()
           this.mesh.setSceneFirst()
           break
-        // case 'nextpage':
-
-        //   break
       }
     },
   },
@@ -285,6 +287,9 @@ export default {
     }
     if (this.$checkDevice.isWindows) {
       this.isWindows = 'is-windows'
+    }
+    if (this.$checkDevice.isSafari) {
+      this.isSafari = 'is-safari'
     }
 
     // particle
@@ -316,11 +321,12 @@ export default {
     }
 
     // metaball
-    const imgPath = [
-      `${this.pickupData[0].heroImg.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[1].heroImg.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[2].heroImg.url}?fm=webp&w=2560&h=1600&q=50`,
-    ]
+    const imgPath = [];
+    imgPath.push(
+      `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+      `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+      `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+    )
 
     const stage = new Stage(this.$refs.Webgl)
     stage.init()
