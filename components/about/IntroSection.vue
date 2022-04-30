@@ -139,19 +139,6 @@
           </span>
           <span class="intro-note">
             <span class="pc-only">
-              <!-- <AppTextSegment
-                :state="isTextSegmentState"
-                :rotate="$BASEROTATE.right"
-                :text="'LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DOEIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
-                :sp-animation="false"
-              />
-              <AppTextSegment
-                :state="isTextSegmentState"
-                :start="0.12"
-                :rotate="$BASEROTATE.left"
-                :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISIUT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTE IR'"
-                :sp-animation="false"
-              /> -->
               THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
               WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
               GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
@@ -229,6 +216,7 @@ export default {
     return {
       isTextSegmentState: 'default',
       isCircleBgState: 'default',
+      buffer: { value: 0 },
     }
   },
 
@@ -239,71 +227,62 @@ export default {
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
   },
 
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        setTimeout(()=>{
-          this.introItemSetup();
-        },200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+        setTimeout(() => {
+          this.setupScrollAnimation()
+        }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+      }
+    },
+    hambergerMenuState: function () {
+      /**
+       * ハンバガーメニューが開いた時
+       */
+      if (this.hambergerMenuState) {
+        this.$gsap.to(this.buffer, {
+          delay: 0.16,
+          duration: 0.3,
+          ease: this.$EASING.transform,
+          value: -560,
+        })
+      } else if (!this.hambergerMenuState) {
+        /**
+         * ハンバガーメニューが閉じた時
+         */
+        this.$gsap.to(this.buffer, {
+          delay: 0,
+          duration: 0.3,
+          ease: this.$EASING.transform,
+          value: 0,
+        })
       }
     },
   },
 
   beforeDestroy() {
+    // リセット
     this.fixSection.kill()
-    this.tl.kill()
-    this.IntroImgAnimation.kill()
+    this.scrollTl.kill()
+    this.IntroImgParallaxAnimation.kill()
+    this.iObserver.unobserve(this.observe)
+    this.$gsap.ticker.remove(this.introTextFixed)
   },
 
   methods: {
-    introItemSetup() {
+    setupScrollAnimation() {
+      // セクション固定
       this.fixSection = this.$fixSection(
         this.$refs.IntroWrapper,
         this.$SITECONFIG.isTouch,
         5500
       )
 
-      /**
-       * タイムライン
-       */
-      this.scrollTl()
-
-      /**
-       * サークルアニメーション
-       */
-      this.$gsap.to(
-        {},
-        {
-          scrollTrigger: {
-            once: true,
-            // start: 'center center',
-            trigger: this.$refs.IntroWrapper,
-            onEnter: () => {
-              this.isCircleBgState = 'extend'
-            },
-          },
-        }
-      )
-
-      /**
-       * テキストアニメーション
-       */
-      this.$gsap.to(
-        {},
-        {
-          scrollTrigger: {
-            trigger: this.$refs.IntroSpacer01,
-            once: true,
-            onEnter: () => {
-              this.isTextSegmentState = 'center'
-            },
-          },
-        }
-      )
-    },
-    scrollTl() {
       const textInit = this.$SITECONFIG.isPc ? vw(1280) : vwSp(750)
       const textMove = this.$SITECONFIG.isPc
         ? vw(-1758 + 1280)
@@ -314,7 +293,8 @@ export default {
       const bgX = this.$SITECONFIG.isPc ? vw(-49) : vwSp(121)
       const bgY = this.$SITECONFIG.isPc ? vw(7.8) : vwSp(39)
 
-      this.tl = this.$gsap.timeline({
+      // タイムライン
+      this.scrollTl = this.$gsap.timeline({
         scrollTrigger: {
           trigger: this.$refs.IntroReadText,
           start: 'center center',
@@ -323,7 +303,7 @@ export default {
           invalidateOnRefresh: true,
         },
       })
-      this.tl
+      this.scrollTl
         .fromTo(
           this.$refs.IntroReadText,
           {
@@ -361,12 +341,6 @@ export default {
             height: () => window.innerHeight,
             borderRadius: 0,
 
-            onUpdate: () => {
-              this.$gsap.set(this.$refs.IntroBgClip, {
-                x: -this.$refs.IntroBg.getBoundingClientRect().left,
-                y: Math.min(-this.$refs.IntroBg.getBoundingClientRect().top, 0),
-              })
-            },
             onComlete: () => {
               this.$gsap.set(this.$refs.IntroBgClip, {
                 x: 0,
@@ -376,7 +350,62 @@ export default {
           }
         )
 
-      this.IntroImgAnimation = this.$gsap.fromTo(
+      // サークルアニメーション
+      this.$gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            once: true,
+            trigger: this.$refs.IntroWrapper,
+            onEnter: () => {
+              this.isCircleBgState = 'extend'
+            },
+          },
+        }
+      )
+
+      // テキストアニメーション
+      this.$gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            trigger: this.$refs.IntroSpacer01,
+            once: true,
+            onEnter: () => {
+              this.isTextSegmentState = 'center'
+            },
+          },
+        }
+      )
+
+      // テキスト固定
+      this.introTextFixed = () => {
+        this.$gsap.set(this.$refs.IntroBgClip, {
+          x:
+            -this.$refs.IntroBg.getBoundingClientRect().left +
+            this.buffer.value,
+          y: Math.min(-this.$refs.IntroBg.getBoundingClientRect().top, 0),
+        })
+      }
+      this.observe = this.$refs.IntroBgClip
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.introTextFixed)
+            } else {
+              this.$gsap.ticker.remove(this.introTextFixed)
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      )
+      this.iObserver.observe(this.observe)
+
+      // 画像パララックスアニメーション
+      this.IntroImgParallaxAnimation = this.$gsap.fromTo(
         this.$refs.IntroImg.$el,
         {
           y: 350,
@@ -501,7 +530,7 @@ export default {
 }
 
 .intro-bg-clip {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: var(--viewportWidth, 100vw);
