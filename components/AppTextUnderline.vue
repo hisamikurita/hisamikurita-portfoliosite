@@ -39,10 +39,6 @@ export default {
       type: Number,
       default: 0,
     },
-    ratio: {
-      type: Number,
-      default: 2.0,
-    },
     state: {
       type: String,
       default: '',
@@ -50,6 +46,10 @@ export default {
     modifier: {
       type: String,
       default: '',
+    },
+    pcAnimation: {
+      type: Boolean,
+      default: true,
     },
     spAnimation: {
       type: Boolean,
@@ -75,80 +75,44 @@ export default {
   },
 
   mounted() {
-    // https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
+    // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
 
-    this.$nextTick(() => {
-      this.connected = false
-
-      this.raf = () => {
-        this.update()
-      }
-
-      this.observe = this.$refs.TextUnderlineSvg
-      this.iObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              this.$gsap.ticker.add(this.raf)
-            } else {
-              this.$gsap.ticker.remove(this.raf)
-            }
-          })
-        },
-        { rootMargin: '0%' }
-      )
-      this.iObserver.observe(this.observe)
-    })
-  },
-
-  beforeDestroy() {
-    this.$gsap.ticker.remove(this.raf)
-    this.iObserver.unobserve(this.observe)
+    // アニメーションがない時は伸縮させない
+    if (!this.pcAnimation) {
+      this.path.y = 80
+    }
+    this.connected = false
   },
 
   methods: {
     onMousemove(e) {
       if (e.target === this.$refs.TextUnderlineSvg) {
-      //   this.connected = true
-      // }
-
-      if(this.connected) return
-      // console.log('発火')
-      // if (this.connected && this.$refs.TextUnderlineSvg) {
+        if (this.connected) return
         if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
-        // if (this.pathLeaveAnimation02) this.pathLeaveAnimation02.kill()
 
         this.pathFixAnimation = this.$gsap.to(this.path, {
-          duration: 0.30,
+          duration: 0.3,
           ease: 'power1.out',
-          y: ((e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth) * 0.07) + 80,
+          y:
+            (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
+              (this.$refs.TextUnderlineSvg.clientHeight +
+                this.$refs.TextUnderlineSvg.clientWidth) *
+              0.07 +
+            80,
         })
-        // this.path.y = (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth * 0.1) + 100
       }
     },
     onMouseLeave() {
       if (this.pathFixAnimation) this.pathFixAnimation.kill()
-      this.connected = true;
+      this.connected = true
       this.pathLeaveAnimation01 = this.$gsap.to(this.path, {
         duration: 1.0,
         ease: 'elastic.out(1, 0.3)',
         y: 80,
-      });
-      setTimeout(()=>{
-      this.connected = false;
-      },100)
-    },
-    update() {
-      // console.log(this.path.y)
-      // if (Math.abs(this.path.y - 100) > 50) {
-      //   if (this.pathFixAnimation) this.pathFixAnimation.kill()
-      //   // this.connected = true;
-      //   this.pathLeaveAnimation02 = this.$gsap.to(this.path, {
-      //     duration: 10.0,
-      //     ease: 'elastic.out(1, 0.3)',
-      //     y: 100,
-      //   })
-      // }
+      })
+      setTimeout(() => {
+        this.connected = false
+      }, 100)
     },
     toExtend() {
       this.$gsap.to(this.path, {
@@ -187,7 +151,7 @@ path {
   z-index: 1;
   // pointer-events: none; // 一時的にクリックイベントが拾えるようにしておく
 
-  & path{
+  & path {
     pointer-events: none;
   }
 }

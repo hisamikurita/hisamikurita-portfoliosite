@@ -37,7 +37,7 @@
               >
                 <AppTextUnderline
                   :state="'expand'"
-                  :origin="'left'"
+                  :pc-animation="false"
                   :sp-animation="false"
                   :width="1000"
                   :modifier="'about-award'"
@@ -48,7 +48,7 @@
                 <AppTextUnderline
                   v-if="index === awardData.length - 1"
                   :state="'expand'"
-                  :origin="'left'"
+                  :pc-animation="false"
                   :sp-animation="false"
                   :width="1000"
                   :modifier="'about-award-last'"

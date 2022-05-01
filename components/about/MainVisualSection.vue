@@ -41,7 +41,7 @@
                 :start="0.176"
                 :origin="'right'"
                 :sp-animation="false"
-                :width="1007"
+                :width="820"
                 :modifier="'about-hero'"
               />
               <AppTextSegment

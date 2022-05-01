@@ -5,6 +5,7 @@
         <div class="contents-info" :style="`stroke:${currentProject.siteColor.allTextColor};`">
           <AppTextUnderline
             :state="'extend'"
+            :pc-animation="false"
             :width="1420"
             :modifier="'works-info'"
           />
