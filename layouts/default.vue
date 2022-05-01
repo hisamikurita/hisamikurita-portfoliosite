@@ -36,7 +36,9 @@
     <BaseMouse />
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
-        <nuxt />
+        <div ref="PageContents" class="page-contents">
+          <nuxt />
+        </div>
       </div>
     </div>
     <div
@@ -367,6 +369,11 @@ export default {
         ease: this.$EASING.transform,
         scaleY: 0.94,
       })
+      this.pageTranslateAnimation = this.$gsap.to(this.$refs.PageContents, {
+        duration: this.$SITECONFIG.baseDuration * 0.92,
+        ease: this.$EASING.transform,
+        y: -500,
+      })
       this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
@@ -376,11 +383,15 @@ export default {
     onTransitionEnd() {
       this.scaleAnimation01.kill()
       this.scaleAnimation02.kill()
+      this.pageTranslateAnimation.kill()
       this.bgAnimation.kill()
       this.$gsap.set(this.$refs.AsscrollContainer, {
         scale: 1.0,
         borderRadius: '0px',
         overflow: 'visible',
+      })
+      this.$gsap.set(this.$refs.PageContents, {
+        y: 0,
       })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
         clipPath: 'ellipse(70% 100% at 50% 200%)',
