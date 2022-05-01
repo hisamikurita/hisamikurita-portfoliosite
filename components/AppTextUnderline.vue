@@ -4,7 +4,7 @@
     :style="`transform-origin:${origin};`"
     class="text-under-line"
     :class="`text-under-line--${modifier}`"
-    :viewBox="`0 0 ${width} 200`"
+    :viewBox="`0 0 ${width} 160`"
     @mousemove="onMousemove"
     @mouseleave="onMouseLeave"
   >
@@ -12,15 +12,15 @@
       ref="TextUnderlinePath"
       fill="none"
       stroke-width="1"
-      :d="`M000,100 Q ${width / 2} ${path.y}, ${width},100`"
+      :d="`M000,80 Q ${width / 2} ${path.y}, ${width},80`"
     />
-    <path
+    <!-- <path
       ref="TextUnderlinePathDammy"
       fill="none"
       stroke="transparent"
       stroke-width="10"
       :d="`M000,100 Q ${width / 2} ${path.y}, ${width},100`"
-    />
+    /> -->
   </svg>
 </template>
 
@@ -59,7 +59,7 @@ export default {
 
   data: () => {
     return {
-      path: { y: 100 },
+      path: { y: 200 },
     }
   },
 
@@ -107,40 +107,56 @@ export default {
   },
 
   methods: {
-    update() {
-      if (Math.abs(this.path.y - 100) > 200 / 1.6) {
-        this.connected = false
-        this.pathAnimation = this.$gsap.to(this.path, {
-          duration: 1.0,
-          ease: 'elastic.out(1, 0.3)',
-          y: 100,
-        })
-      }
-    },
     onMousemove(e) {
-      if (!this.connected && e.target === this.$refs.TextUnderlinePathDammy) {
-        if (this.pathAnimation) this.pathAnimation.kill()
+      if (e.target === this.$refs.TextUnderlineSvg) {
+      //   this.connected = true
+      // }
 
-        this.connected = true
-      }
+      if(this.connected) return
+      // console.log('発火')
+      // if (this.connected && this.$refs.TextUnderlineSvg) {
+        if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
+        // if (this.pathLeaveAnimation02) this.pathLeaveAnimation02.kill()
 
-      if (this.connected && this.$refs.TextUnderlineSvg) {
-        this.path.y =
-          (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
-            (this.$refs.TextUnderlineSvg.clientHeight +
-              this.$refs.TextUnderlineSvg.clientWidth * 0.1) +
-          100
+        this.pathFixAnimation = this.$gsap.to(this.path, {
+          duration: 0.30,
+          ease: 'power1.out',
+          y: ((e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth) * 0.07) + 80,
+        })
+        // this.path.y = (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) * (this.$refs.TextUnderlineSvg.clientHeight + this.$refs.TextUnderlineSvg.clientWidth * 0.1) + 100
       }
     },
     onMouseLeave() {
-      this.connected = false
-      this.pathAnimation = this.$gsap.to(this.path, {
+      if (this.pathFixAnimation) this.pathFixAnimation.kill()
+      this.connected = true;
+      this.pathLeaveAnimation01 = this.$gsap.to(this.path, {
         duration: 1.0,
         ease: 'elastic.out(1, 0.3)',
-        y: 100,
-      })
+        y: 80,
+      });
+      setTimeout(()=>{
+      this.connected = false;
+      },100)
+    },
+    update() {
+      // console.log(this.path.y)
+      // if (Math.abs(this.path.y - 100) > 50) {
+      //   if (this.pathFixAnimation) this.pathFixAnimation.kill()
+      //   // this.connected = true;
+      //   this.pathLeaveAnimation02 = this.$gsap.to(this.path, {
+      //     duration: 10.0,
+      //     ease: 'elastic.out(1, 0.3)',
+      //     y: 100,
+      //   })
+      // }
     },
     toExtend() {
+      this.$gsap.to(this.path, {
+        duration: this.$SITECONFIG.baseDuration,
+        ease: this.$EASING.transform,
+        delay: Number(this.start),
+        y: 80,
+      })
       this.$gsap.to(this.$refs.TextUnderlineSvg, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
@@ -170,6 +186,10 @@ path {
   transform: scaleX(0);
   z-index: 1;
   // pointer-events: none; // 一時的にクリックイベントが拾えるようにしておく
+
+  & path{
+    pointer-events: none;
+  }
 }
 
 //modifier

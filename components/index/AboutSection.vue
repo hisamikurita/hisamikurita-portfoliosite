@@ -61,7 +61,6 @@
               <AppTextUnderline
                 :state="isTextUnderlineState"
                 :start="0.6"
-                :ratio="1.4"
                 :width="1000"
                 :origin="'left'"
                 :sp-animation="false"
