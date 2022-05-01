@@ -1,6 +1,5 @@
-import {
-  gsap
-} from 'gsap';
+import { setTimeout } from 'core-js';
+import { gsap } from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -9,10 +8,15 @@ export default class Particle {
     this.ctx = this.canvas.getContext('2d');
     this.dpr = window.devicePixelRatio;
     this.particles = [];
+    // パーティクルの数
     this.num = 7;
+    // パーティクルのスピード
     this.speed = window.innerWidth > 767 ? 2.4 : 1.2;
+    // パーティクルの色
     this.color = color;
+    this.clear = false;
 
+    // 半径初期値
     this.radiusPc = [
       130,
       158,
@@ -22,7 +26,6 @@ export default class Particle {
       60,
       46
     ]
-
     this.radiusSp = [
       65,
       37,
@@ -33,12 +36,14 @@ export default class Particle {
       20
     ]
 
+    // 初期値
     this.particlesInit = [{
         x: window.innerWidth > 767 ? 160 : 500,
         y: window.innerWidth > 767 ? 160 : 150,
         r: window.innerWidth > 767 ? this.radiusPc[0] : this.radiusSp[0],
         clipR: 0,
         color: this.color[0].dark,
+        rand: 0.5,
       },
       {
         x: window.innerWidth > 767 ? 1060 : 560,
@@ -46,6 +51,7 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[1] : this.radiusSp[1],
         clipR: 0,
         color: this.color[0].dark,
+        rand: 0.8,
       },
       {
         x: window.innerWidth > 767 ? 110 : 150,
@@ -53,6 +59,7 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[2] : this.radiusSp[2],
         clipR: 0,
         color: this.color[0].dark,
+        rand: 0.9,
       },
       {
         x: window.innerWidth > 767 ? 1080 : 200,
@@ -60,6 +67,7 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[3] : this.radiusSp[3],
         clipR: 0,
         color: this.color[0].dark,
+        rand: 0.7,
       },
       {
         x: window.innerWidth > 767 ? 410 : 280,
@@ -67,6 +75,7 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[4] : this.radiusSp[4],
         clipR: 0,
         color: this.color[0].light,
+        rand: 0.8,
       },
       {
         x: window.innerWidth > 767 ? 910 : 630,
@@ -74,6 +83,7 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[5] : this.radiusSp[5],
         clipR: 0,
         color: this.color[0].light,
+        rand: 0.6,
       },
       {
         x: window.innerWidth > 767 ? 1076 : 680,
@@ -81,8 +91,11 @@ export default class Particle {
         r: window.innerWidth > 767 ? this.radiusPc[6] : this.radiusSp[6],
         clipR: 0,
         color: this.color[0].light,
+        rand: 0.92,
       },
     ]
+
+    this.setSceneAnimations = [];
   }
 
   _update() {
@@ -167,7 +180,6 @@ export default class Particle {
   _drawParticles() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-    console.log('発火')
     this._update();
     this._rebound();
     this._particlesCollisionDetection();
@@ -186,6 +198,8 @@ export default class Particle {
       this.ctx.fill();
       this.ctx.restore();
     }
+
+    // if(this.clear) this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   _initParticles() {
@@ -201,6 +215,7 @@ export default class Particle {
       const radians = angle * Math.PI / 180;
       const vx = Math.cos(radians) * this.speed;
       const vy = Math.sin(radians) * this.speed;
+      const rand = this.particlesInit[i].rand;
       p = {
         x: x,
         y: y,
@@ -213,6 +228,7 @@ export default class Particle {
         vx: vx,
         vy: vy,
         mass: r,
+        rand: rand,
       }
       this.particles.push(p);
     }
@@ -242,7 +258,7 @@ export default class Particle {
   setSceneFirst() {
     for (let i = 0; i < this.particles.length; i++) {
       gsap.to(this.particles[i], {
-        duration: 0.60 + Math.random() * 0.75,
+        duration: 0.60 + this.particles[i].rand * 0.75,
         delay: i * 0.08,
         ease: this.config.transform,
         clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
@@ -252,20 +268,30 @@ export default class Particle {
 
   setSceneEnd() {
     for (let i = 0; i < this.particles.length; i++) {
+      if(this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+
       gsap.to(this.particles[i], {
-        duration: 0.60 + Math.random() * 0.75,
+        duration: 0.60 + this.particles[i].rand * 0.75,
         delay: i * 0.08,
         ease: this.config.transform,
         clipR: 0,
-      })
+      });
     }
+    // this.clear = true;
+    // console.log('ページ終わり')
+    // setTimeout(()=>{
+    //   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    // },100)
   }
 
   setScene(sceneNumber) {
-    console.log('ページ遷移')
+    for (let i = 0; i < this.particles.length; i++) {
+      if(this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+    }
+    this.setSceneAnimations = [];
 
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
+      const setSceneAnimation = gsap.to(this.particles[i], {
         duration: 0.60 + Math.random() * 0.75,
         delay: i * 0.08,
         ease: this.config.transform,
@@ -285,7 +311,9 @@ export default class Particle {
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
         }
-      })
+      });
+
+      this.setSceneAnimations.push(setSceneAnimation);
     }
   }
 
@@ -300,13 +328,6 @@ export default class Particle {
     }
 
     setTimeout(() => {
-      // for (let i = 0; i < this.particles.length; i++) {
-      //   if (i < 4) {
-      //     this.particles[i].color = this.color[0].dark;
-      //   } else {
-      //     this.particles[i].color = this.color[0].light;
-      //   }
-      // }
     }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
   }
 
@@ -318,5 +339,9 @@ export default class Particle {
         this.particles[i].color = this.color[0].light;
       }
     }
+  }
+
+  delete(){
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
 }

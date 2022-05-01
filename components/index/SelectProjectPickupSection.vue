@@ -164,7 +164,7 @@ export default {
       pickupSectionOldCurrentNum: 0,
       pickupSectionCurrentNum: 0,
       isScrollAnimation: false,
-      wheelInterval: 1.0,
+      wheelInterval: 0.75,
       wheelRatio: 5,
       touchRatio: 50,
       prevTouchY: 0,
@@ -220,7 +220,7 @@ export default {
 
       if (this.$asscroll.targetPos > pickupTopPos) {
         this.addAllPreEvent()
-        this.disable(2000)
+        this.disable()
         this.$store.commit('hambergerMenu/disable')
         // this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
@@ -327,12 +327,11 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        // this.$gsap.ticker.add(this.pRaf)
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         this.$asscroll.disable({ inputOnly: true })
         this.$store.commit('hambergerMenu/disable')
         this.addAllPreEvent()
-        this.disable(2000)
+        this.disable()
         this.$store.commit('indexPickup/enter')
         this.$store.commit('indexPickup/sceneAnimationState', true)
         this.$store.commit('indexPickup/setPickupPos', pickupPos)
@@ -405,38 +404,34 @@ export default {
           this.$store.commit('indexPickup/setScene', 'next01')
 
           this.isTextSegmentState[1] = 'center'
-          // this.particle.setNextScene01()
           break
         case 2.0:
           this.$store.commit('indexPickup/setScene', 'next02')
-
           this.isTextSegmentState[1] = 'top'
-          // this.particle.setNextScene02()
+
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
-          }, this.wheelInterval * 1000)
+          }, this.wheelInterval * 800)
           break
         case 3.0:
           this.$store.commit('indexPickup/setScene', 'next03')
 
           this.isTextSegmentState[2] = 'top'
-          // this.particle.setNextScene03()
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
-          }, this.wheelInterval * 1000)
+          }, this.wheelInterval * 800)
           break
         case 4.0:
           this.$store.commit('indexPickup/setScene', 'next04')
 
           this.isTextSegmentState[3] = 'top'
-          // this.particle.setNextScene04()
           this.$store.commit('hambergerMenu/disable')
           setTimeout(() => {
             this.$store.commit('indexPickup/setProjectAnimationState', 'start')
             this.pickupToBottomLeaveScroll()
-          }, this.wheelInterval * 1000)
+          }, this.wheelInterval * 800)
           break
       }
 
@@ -456,33 +451,29 @@ export default {
 
           this.pickupToTopLeaveScroll()
           this.isTextSegmentState[1] = 'bottom'
-          // this.particle.setPrevScene00()
           break
         case 1.0:
           this.$store.commit('indexPickup/setScene', 'prev01')
 
           this.isTextSegmentState[2] = 'bottom'
-          // this.particle.setPrevScene01()
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
-          }, this.wheelInterval * 1000)
+          }, this.wheelInterval * 800)
           break
         case 2.0:
           this.$store.commit('indexPickup/setScene', 'prev02')
 
           this.isTextSegmentState[3] = 'bottom'
-          // this.particle.setPrevScene02()
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
-          }, this.wheelInterval * 1000)
+          }, this.wheelInterval * 800)
           break
         case 3.0:
           this.$store.commit('indexPickup/setScene', 'prev03')
 
           this.isTextSegmentState[3] = 'center'
-          // this.particle.setPrevScene03()
           break
       }
 
@@ -559,7 +550,7 @@ export default {
     /**
      * 進む戻るの操作不能
      */
-    disable(interval = 2000) {
+    disable(interval = 1500) {
       this.isScrollAnimation = true
       if (this.clear) clearTimeout(this.clear)
 
@@ -608,9 +599,7 @@ export default {
     removeAllEvent() {
       window.removeEventListener('touchstart', this.setTouchY)
       window.removeEventListener('touchmove', this.pickupSceneTouchManager)
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, {
-        passive: false,
-      })
+      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false})
       window.removeEventListener('resize', this.pickupResize)
     },
 
@@ -618,16 +607,10 @@ export default {
       this.removeAllPreEvent();
       this.removeAllEvent();
       this.$store.commit('indexPickup/transition', true);
-      // this.$store.commit('indexPickup/setScene', 'nextpage')
 
       setTimeout(() => {
         this.$router.push(`/works/${data.id}`)
       }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08) / 4.0) * 1000)
-
-      // setTimeout(() => {
-      //   this.$store.commit('indexPickup/sceneAnimationState', false)
-      // }, ((this.$SITECONFIG.halfBaseDuration + (7 * 0.08)) * 1000) + 100)
-
     },
   },
 }

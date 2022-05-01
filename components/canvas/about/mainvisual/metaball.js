@@ -1,4 +1,6 @@
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
@@ -21,15 +23,20 @@ export default class Particle {
       y: 800
     };
 
-    this.video = document.createElement("video");
-    this.video.src = "https://videos.ctfassets.net/cj90nies7oz5/4vJihp1CBpwTSZtAWHgxmj/5094e6f42502313e1012d23addc8d352/ALL_15.07.20.mp4";
-    this.video.crossOrigin = "anonymous";
-    this.video.muted = true;
-    this.video.setAttribute("playsinline", "playsinline");
-    this.video.loop = true;
-    this.video.play();
+    // this.video = document.createElement("video");
+    // this.video.src = "https://videos.ctfassets.net/cj90nies7oz5/4vJihp1CBpwTSZtAWHgxmj/5094e6f42502313e1012d23addc8d352/ALL_15.07.20.mp4";
+    // this.video.crossOrigin = "anonymous";
+    // this.video.muted = true;
+    // this.video.setAttribute("playsinline", "playsinline");
+    // this.video.loop = true;
+    // this.video.play();
 
-    this.texture = new THREE.VideoTexture(this.video);
+    // this.texture = new THREE.VideoTexture(this.video);
+    this.texture = new THREE.TextureLoader().load('https://hisamikurita.github.io/sample-images/dist/assets/images/noise.jpg')
+    this.mouse = {
+      x: 0,
+      y: 0
+    };
   }
 
   init() {
@@ -158,6 +165,13 @@ export default class Particle {
           type: 'f',
           value: 0.0
         },
+        u_mouse: {
+          type: "v2",
+          value: {
+            x: 0,
+            y: 0
+          }
+        }
       },
       transparent: true
     });
@@ -182,7 +196,7 @@ export default class Particle {
     }
   }
 
-  _destroy(){
+  _destroy() {
     this.stage.scene.remove(this.mesh);
     this.texture.dispose();
     this.geometry.dispose();
@@ -199,8 +213,20 @@ export default class Particle {
     this.mesh.material.uniforms.u_resolution.value.y = this.height;
   }
 
+  onMouseMove(e) {
+    gsap.to(this.mouse, {
+      duration: 1.0,
+      ease: "power2.out",
+      x: ((e.clientX / window.innerWidth) * 2.0 - 1.0) * 200,
+      y: -((e.clientY / window.innerHeight) * 2.0 - 1.0) * 200,
+    });
+
+    this.mesh.material.uniforms.u_mouse.value.x = this.mouse.x;
+    this.mesh.material.uniforms.u_mouse.value.y = this.mouse.y;
+  }
+
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0.036;
+    this.mesh.material.uniforms.u_time.value += 0;
   }
 
   onRaf() {

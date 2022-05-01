@@ -66,55 +66,55 @@ export default {
         this.$gsap.set(this.$refs.OpenningNum, {
           opacity: 1.0,
         })
-      }, 300)
+      }, 280)
 
       this.$gsap.to(this.$refs.OpenningNumFirst, {
-        duration: 0.3,
-        delay: 3.46,
+        duration: 0.28,
+        delay: 3.44,
         ease: this.$EASING.transform,
         y: -72,
       })
       this.$gsap.to(this.$refs.OpenningNumSecond, {
-        duration: 3.0,
-        delay: 0.6,
+        duration: 2.98,
+        delay: 0.58,
         ease: this.$EASING.transform,
         y: -648,
       })
       this.$gsap.to(this.$refs.OpenningNumThird, {
-        duration: 3.0,
-        delay: 0.6,
+        duration: 2.98,
+        delay: 0.58,
         ease: this.$EASING.transform,
         y: -1368,
       })
 
       this.$gsap.to(this.$refs.OpenningNumFirst, {
-        duration: 1.2,
-        delay: 4.0,
+        duration: 1.18,
+        delay: 3.98,
         ease: this.$EASING.transform,
         y: -144,
       })
       this.$gsap.to(this.$refs.OpenningNumForth, {
-        duration: 1.2,
-        delay: 4.1,
+        duration: 1.18,
+        delay: 4.08,
         ease: this.$EASING.transform,
         y: -72,
       })
       this.$gsap.to(this.$refs.OpenningNumFive, {
-        duration: 1.2,
-        delay: 4.2,
+        duration: 1.18,
+        delay: 4.18,
         ease: this.$EASING.transform,
         y: -72,
       })
       this.$gsap.to(this.$refs.OpenningNumPercent, {
-        duration: 1.2,
-        delay: 4.3,
+        duration: 1.18,
+        delay: 4.28,
         ease: this.$EASING.transform,
         y: -72,
       })
 
       this.$gsap.to(this.$refs.OpenningNameBlock, {
-        duration: 0.8,
-        delay: 4.1,
+        duration: 0.78,
+        delay: 4.08,
         ease: this.$EASING.transform,
         stagger: {
           each: 0.04,
@@ -122,20 +122,20 @@ export default {
         y: 0,
       })
       this.$gsap.to(this.$refs.OpenningName, {
-        duration: 0.6,
-        delay: 5.4,
+        duration: 0.58,
+        delay: 5.38,
         ease: this.$EASING.transform,
         // letterSpacing: '-10px',
         scaleX: 0.2,
 
         onComplete: () => {
           this.$gsap.to(this.$refs.OpenningName, {
-            duration: 0.3,
+            duration: 0.28,
             ease: this.$EASING.colorAndOpacity,
             opacity: 0,
           })
           this.$gsap.to(this.$refs.OpenningPortfolio, {
-            duration: 0.3,
+            duration: 0.28,
             ease: this.$EASING.colorAndOpacity,
             opacity: 1,
           })
@@ -143,8 +143,8 @@ export default {
       })
 
       this.$gsap.to(this.$refs.OpenningPortfolio, {
-        duration: 0.8,
-        delay: 6.0,
+        duration: 0.78,
+        delay: 5.98,
         ease: this.$EASING.transform,
         // letterSpacing: '0',
         // z:0,
@@ -152,68 +152,68 @@ export default {
       })
 
       this.$gsap.to(this.$refs.OpenningCircleLine01, {
-        duration: 0.2,
-        delay: 3.5,
+        duration: 0.18,
+        delay: 3.48,
         ease: this.$EASING.transform,
         y: window.innerHeight / 2 + 43,
         onComplete: () => {
           this.$gsap.to(this.$refs.OpenningNumSecond, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 0,
           })
           this.$gsap.to(this.$refs.OpenningNumThird, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 0,
           })
           this.$gsap.to(this.$refs.OpenningCircleLine01, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 0,
           })
           this.$gsap.to(this.$refs.OpenningNumForth, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 1,
           })
           this.$gsap.to(this.$refs.OpenningNumFive, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 1,
           })
         },
       })
       this.$gsap.to(this.$refs.OpenningCircleLine02, {
-        duration: 0.2,
-        delay: 3.5,
+        duration: 0.18,
+        delay: 3.48,
         ease: this.$EASING.transform,
         y: -window.innerHeight / 2 - 43,
         onComplete: () => {
           this.$gsap.to(this.$refs.OpenningCircleLine02, {
-            duration: 0.1,
-            delay: -0.1,
+            duration: 0.08,
+            delay: -0.12,
             ease: 'power1.in',
             opacity: 0,
           })
         },
       })
       this.$gsap.to(this.$refs.OpenningCircle, {
-        duration: 0.8,
-        delay: 3.64,
+        duration: 0.78,
+        delay: 3.62,
         ease: 'expo.out',
         opacity: 0,
         scale: 1,
       })
 
       this.$gsap.to(this.$refs.OpenningBgColorCircleContainer, {
-        duration: 1.9,
-        delay: 3.4,
+        duration: 1.88,
+        delay: 3.38,
         ease: this.$EASING.transform,
         scale: 0,
         rotate: 240,
@@ -222,8 +222,8 @@ export default {
         },
       })
       this.$gsap.to(this.$refs.OpenningBgCircle, {
-        duration: 2.0,
-        delay: 3.6,
+        duration: 1.98,
+        delay: 3.58,
         ease: this.$EASING.transform,
         scale: 0,
 
@@ -235,7 +235,7 @@ export default {
               } else {
                 this.$store.commit('bg-transition/start', '#f0efeb')
               }
-            }, 1700)
+            }, 1680)
 
             setTimeout(() => {
               if (this.$route.name === 'works-slug') {
@@ -244,7 +244,7 @@ export default {
                 this.$store.commit('bg-transition/end')
               }
               this.$refs.Openning.remove()
-            }, 2500)
+            }, 2480)
           },
       })
       }

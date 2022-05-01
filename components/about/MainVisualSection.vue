@@ -201,6 +201,7 @@ export default {
     this.iObserver.unobserve(this.observe)
 
     // メタボールリセット
+    window.removeEventListener('mousemove', this.mMouse)
     window.removeEventListener('resize', this.mResize)
     this.$gsap.ticker.remove(this.mRaf)
     this.stage._destroy();
@@ -227,6 +228,11 @@ export default {
         this.mesh.onRaf()
       }
 
+      this.mMouse = (e) =>{
+        this.mesh.onMouseMove(e)
+      }
+
+      window.addEventListener('mousemove', this.mMouse)
       window.addEventListener('resize', this.mResize)
 
       this.observe = this.$refs.Hero

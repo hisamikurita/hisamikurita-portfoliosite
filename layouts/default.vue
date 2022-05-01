@@ -53,8 +53,8 @@
 
 <script>
 import Particle from '../components/canvas/index/pickup/particle'
-import Mesh from '../components/canvas/index/pickup/metaball'
-import Stage from '../components/canvas/stage'
+// import Mesh from '../components/canvas/index/pickup/metaball'
+// import Stage from '../components/canvas/stage'
 import { preEvent } from '../assets/js/preEvent'
 
 export default {
@@ -216,12 +216,12 @@ export default {
     pickupTransitionState: function () {
       if (this.pickupTransitionState) {
         this.particle.setNextPageStart()
-        this.mesh.setNextPageStart()
+        // this.mesh.setNextPageStart()
       } else {
         console.log('発火')
         // setTimeout(()=>{
         this.particle.setNextPageEnd()
-        this.mesh.setNextPageEnd()
+        // this.mesh.setNextPageEnd()
         // },300)
         //     this.$gsap.ticker.remove(this.pRaf)
         // this.$gsap.ticker.remove(this.mRaf)
@@ -236,45 +236,46 @@ export default {
       // no current
       else {
         // setTimeout(()=>{
-        console.log('remove')
-        this.$gsap.ticker.remove(this.pRaf)
-        this.$gsap.ticker.remove(this.mRaf)
-        // },1000)
+          console.log('remove')
+          this.$gsap.ticker.remove(this.pRaf)
+          this.$gsap.ticker.remove(this.mRaf)
+          this.particle.delete();
+        // },10)
       }
     },
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
           this.particle.setSceneFirst()
-          this.mesh.setSceneFirst()
+          // this.mesh.setSceneFirst()
           break
         case 'next02':
           this.particle.setScene(2)
-          this.mesh.setScene(2)
+          // this.mesh.setScene(2)
           break
         case 'next03':
           this.particle.setScene(3)
-          this.mesh.setScene(3)
+          // this.mesh.setScene(3)
           break
         case 'next04':
           this.particle.setSceneEnd()
-          this.mesh.setSceneEnd()
+          // this.mesh.setSceneEnd()
           break
         case 'prev00':
           this.particle.setSceneEnd()
-          this.mesh.setSceneEnd()
+          // this.mesh.setSceneEnd()
           break
         case 'prev01':
           this.particle.setScene(1)
-          this.mesh.setScene(1)
+          // this.mesh.setScene(1)
           break
         case 'prev02':
           this.particle.setScene(2)
-          this.mesh.setScene(2)
+          // this.mesh.setScene(2)
           break
         case 'prev03':
           this.particle.setSceneFirst()
-          this.mesh.setSceneFirst()
+          // this.mesh.setSceneFirst()
           break
       }
     },
@@ -323,32 +324,32 @@ export default {
     }
 
     // metaball
-    const imgPath = [];
-    imgPath.push(
-      `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-    )
+    // const imgPath = [];
+    // imgPath.push(
+    //   `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+    //   `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+    //   `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+    // )
 
-    const stage = new Stage(this.$refs.Webgl)
-    stage.init()
+    // const stage = new Stage(this.$refs.Webgl)
+    // stage.init()
 
-    this.mesh = new Mesh(this.$SITECONFIG, stage, imgPath)
-    this.mesh.init()
+    // this.mesh = new Mesh(this.$SITECONFIG, stage, imgPath)
+    // this.mesh.init()
 
-    window.addEventListener('resize', () => {
-      this.mesh.onResize()
-      stage.onResize()
-    })
+    // window.addEventListener('resize', () => {
+    //   this.mesh.onResize()
+    //   stage.onResize()
+    // })
 
     // setTimeout(()=>{
     //   this.mesh.setNextPage();
     // },3000);
 
-    this.mRaf = () => {
-      stage.onRaf()
-      this.mesh.onRaf()
-    }
+    // this.mRaf = () => {
+    //   stage.onRaf()
+    //   this.mesh.onRaf()
+    // }
   },
   methods: {
     hambergerMenuOnClose() {

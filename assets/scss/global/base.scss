@@ -6,6 +6,7 @@ body {
   font-feature-settings: "palt";
   -ms-overflow-style: none;
   scrollbar-width: none;
+  // pointer-events: none;
 
   &::-webkit-scrollbar {
     display: none;

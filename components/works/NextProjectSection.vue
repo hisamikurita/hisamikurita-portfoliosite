@@ -3,7 +3,7 @@
     <div class="next-inner">
       <div class="l-container">
         <div class="next-contents">
-          <div class="next-title-read-area" :style="`color:${currentProject.siteColor.mvTextColor};`">
+          <div class="next-title-read-area" :style="`color:${currentProject.siteColor.allTextColor};`">
             <AppSectionReadTitle
               :state="isTextSegmentState"
               :text="['・', 'NEXT', 'PROJECT']"
@@ -56,7 +56,7 @@
             />
           </div>
         </div>
-        <p class="next-backbtn" :style="`color:${currentProject.siteColor.mvTextColor};`">
+        <p class="next-backbtn" :style="`color:${currentProject.siteColor.allTextColor};`">
           <AppBgTransition url="/" color="#f0efeb">(BACK TO HOME)</AppBgTransition>
         </p>
       </div>
