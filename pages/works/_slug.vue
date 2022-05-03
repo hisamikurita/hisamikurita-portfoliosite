@@ -56,6 +56,9 @@ export default {
       return nextProject
     },
 
+    indexPickupIsAnimation() {
+      return this.$store.getters['indexPickup/sceneAnimationState']
+    },
     defaultTransitionState() {
       return this.$store.getters['bg-transition/state']
     },
@@ -100,6 +103,10 @@ export default {
 
           this.$store.commit('imageLoaded/loaded')
         },100)
+
+        setTimeout(()=>{
+          if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
+        },1000)
       })
     })
   },

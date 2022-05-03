@@ -1,5 +1,6 @@
-import { setTimeout } from 'core-js';
-import { gsap } from 'gsap';
+import {
+  gsap
+} from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
@@ -96,13 +97,18 @@ export default class Particle {
     ]
 
     this.setSceneAnimations = [];
+    this.setSceneReverseAnimations = [];
+    this.collision = true;
+    this.pageTransitionSpeed = {
+      value: 1.0
+    };
   }
 
   _update() {
     for (let i = 0; i < this.particles.length; i++) {
       const particle = this.particles[i];
-      particle.nextx = (particle.x + particle.vx)
-      particle.nexty = (particle.y + particle.vy)
+      particle.nextx = (particle.x + (particle.vx * particle.pageTransitionSpeed))
+      particle.nexty = (particle.y + (particle.vy * particle.pageTransitionSpeed))
     }
   }
 
@@ -181,8 +187,8 @@ export default class Particle {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     this._update();
-    this._rebound();
-    this._particlesCollisionDetection();
+    if (this.collision) this._rebound();
+    if (this.collision) this._particlesCollisionDetection();
 
     for (let i = 0; i < this.particles.length; i++) {
       const particle = this.particles[i];
@@ -193,13 +199,11 @@ export default class Particle {
       this.ctx.beginPath();
       this.ctx.arc(particle.x, particle.y, particle.clipR, 0, 2 * Math.PI, false);
       this.ctx.clip();
-      this.ctx.arc(particle.x, particle.y, particle.r, 0, 2 * Math.PI, false);
+      this.ctx.arc(particle.x, particle.y, particle.clipR, 0, 2 * Math.PI, false);
       this.ctx.fillStyle = particle.color;
       this.ctx.fill();
       this.ctx.restore();
     }
-
-    // if(this.clear) this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   _initParticles() {
@@ -216,6 +220,8 @@ export default class Particle {
       const vx = Math.cos(radians) * this.speed;
       const vy = Math.sin(radians) * this.speed;
       const rand = this.particlesInit[i].rand;
+      const pageTransitionSpeed = 1.0;
+
       p = {
         x: x,
         y: y,
@@ -229,6 +235,7 @@ export default class Particle {
         vy: vy,
         mass: r,
         rand: rand,
+        pageTransitionSpeed: pageTransitionSpeed,
       }
       this.particles.push(p);
     }
@@ -255,61 +262,104 @@ export default class Particle {
     this._setCanvasSize();
   }
 
-  setSceneFirst() {
+  /**
+   * pickup初めのシーンのメソッド
+   */
+  setSceneFirst(sceneNumber) {
+    // 衝突再度有効
+    this.collision = true;
+
     for (let i = 0; i < this.particles.length; i++) {
-      gsap.to(this.particles[i], {
-        duration: 0.60 + this.particles[i].rand * 0.75,
-        delay: i * 0.08,
+      // 他のアニメーションを消しておく
+      if (this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      if (this.setSceneReverseAnimations[i]) this.setSceneReverseAnimations[i].kill();
+
+      // パーティクルの位置をリセット
+      this.setParticleResetPosition(i);
+
+      // パーティクルの色を定義
+      this.setParticleColor(i, sceneNumber);
+
+      gsap.fromTo(this.particles[i],
+        {
+          clipR: 0,
+        },
+        {
+        duration: this.setParticleDuration(i),
+        delay: this.setParticleDelay(i),
         ease: this.config.transform,
         clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
       })
     }
+    for (let i = 0; i < this.particles.length; i++) {
+      console.log(this.particles[i])
+    }
   }
 
-  setSceneEnd() {
+  /**
+   * pickup終わりのシーンのメソッド
+   */
+  setSceneEnd(sceneNumber) {
+    // 衝突再度有効
+    this.collision = true;
+
     for (let i = 0; i < this.particles.length; i++) {
-      if(this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      // 他のアニメーションを消しておく
+      if (this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      if (this.setSceneReverseAnimations[i]) this.setSceneReverseAnimations[i].kill();
+
+      // パーティクルの色を定義
+      this.setParticleColor(i, sceneNumber);
 
       gsap.to(this.particles[i], {
-        duration: 0.60 + this.particles[i].rand * 0.75,
-        delay: i * 0.08,
+        duration: this.setParticleDuration(i),
+        delay: this.setParticleDelay(i),
         ease: this.config.transform,
         clipR: 0,
       });
     }
-    // this.clear = true;
-    // console.log('ページ終わり')
-    // setTimeout(()=>{
-    //   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    // },100)
   }
 
+  /**
+   * pickup中間シーンのメソッド
+   */
   setScene(sceneNumber) {
+    // 衝突無効
+    this.collision = false;
+
     for (let i = 0; i < this.particles.length; i++) {
-      if(this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      // 他のアニメーションを消しておく
+      if (this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      if (this.setSceneReverseAnimations[i]) this.setSceneReverseAnimations[i].kill();
     }
+    // アニメーションを入れておく配列を再度定義
     this.setSceneAnimations = [];
+    this.setSceneReverseAnimations = [];
 
     for (let i = 0; i < this.particles.length; i++) {
       const setSceneAnimation = gsap.to(this.particles[i], {
-        duration: 0.60 + Math.random() * 0.75,
-        delay: i * 0.08,
-        ease: this.config.transform,
+        duration: this.setParticleDuration(i),
+        delay: this.setParticleDelay(i),
+        ease: this.config.transformReverse,
         clipR: 0,
 
         onComplete: () => {
-          if (i < 4) {
-            this.particles[i].color = this.color[sceneNumber - 1].dark;
-          } else {
-            this.particles[i].color = this.color[sceneNumber - 1].light;
-          }
+          // 衝突再度有効
+          this.collision = true;
 
-          gsap.to(this.particles[i], {
-            duration: 0.60 + Math.random() * 0.75,
-            delay: i * 0.08,
+          // パーティクルの位置をリセット
+          this.setParticleResetPosition(i);
+
+          // パーティクルの色を定義
+          this.setParticleColor(i, sceneNumber);
+
+          const setSceneReverseAnimation = gsap.to(this.particles[i], {
+            duration: this.setParticleDuration(i),
+            delay: this.setParticleDelay(i),
             ease: this.config.transform,
             clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
           });
+          this.setSceneReverseAnimations.push(setSceneReverseAnimation);
         }
       });
 
@@ -318,30 +368,80 @@ export default class Particle {
   }
 
   setNextPageStart() {
+    // 衝突無効
+    this.collision = false;
+
     for (let i = 0; i < this.particles.length; i++) {
+      // 他のアニメーションを消しておく
+      if (this.setSceneAnimations[i]) this.setSceneAnimations[i].kill();
+      if (this.setSceneReverseAnimations[i]) this.setSceneReverseAnimations[i].kill();
+
       gsap.to(this.particles[i], {
-        duration: this.config.halfBaseDuration,
-        delay: i * 0.04,
-        ease: this.config.transform,
+        duration: this.setParticleDuration(i, 1.8),
+        delay: this.setParticleDelay(i, 1.4),
+        ease: this.config.transformReverse,
         clipR: 0,
+        pageTransitionSpeed: 3.8,
+
+        onComplete: () => {
+          this.particles[i].pageTransitionSpeed = 1.0;
+        }
       })
     }
-
-    setTimeout(() => {
-    }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
   }
 
   setNextPageEnd() {
-    for (let i = 0; i < this.particles.length; i++) {
-      if (i < 4) {
-        this.particles[i].color = this.color[0].dark;
-      } else {
-        this.particles[i].color = this.color[0].light;
-      }
+    //
+  }
+
+  /**
+   * particle共通のduration
+   */
+  setParticleDuration(index, ratio = 1.0) {
+    return (0.50 * ratio) + this.particles[index].rand * (0.40 * ratio)
+  }
+
+  /**
+   * particle共通のdelay
+   */
+  setParticleDelay(index, ratio = 1.0) {
+    return index * (0.06 * ratio)
+  }
+
+  /**
+   * particleの位置をリセット
+   */
+  setParticleResetPosition(index) {
+    const x = window.innerWidth > 767 ? (this.particlesInit[index].x / 1280) * window.innerWidth : (this.particlesInit[index].x / 750) * window.innerWidth;
+    const y = window.innerWidth > 767 ? (this.particlesInit[index].y / 800) * window.innerHeight : (this.particlesInit[index].y / 1100) * window.innerHeight;
+    const angle = Math.floor(Math.random() * 360)
+    const radians = angle * Math.PI / 180;
+    const vx = Math.cos(radians) * this.speed;
+    const vy = Math.sin(radians) * this.speed;
+    this.particles[index].x = x;
+    this.particles[index].y = y;
+    this.particles[index].vx = vx;
+    this.particles[index].vy = vy;
+  }
+
+  /**
+   * particleの色を変える
+   */
+  setParticleColor(index, sceneNumber) {
+    if (index < 4) {
+      this.particles[index].color = this.color[sceneNumber - 1].dark;
+    } else {
+      this.particles[index].color = this.color[sceneNumber - 1].light;
     }
   }
 
-  delete(){
+  /**
+   * delete Canvasをクリアする
+   */
+  delete() {
+    for (let i = 0; i < this.particles.length; i++) {
+      this.particles[i].clipR = 0;
+    }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
   }
 }

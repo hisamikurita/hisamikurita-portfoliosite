@@ -157,8 +157,10 @@ export default {
           }, this.$SITECONFIG.baseDuration * 1000)
           break
         case 'end':
-          this.$refs.ProjectBg.style.backgroundColor =
-            this.pickupEndData.siteColor.bodyContentsColor
+          setTimeout(() => {
+            this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor;
+          }, 240)
+
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
@@ -167,6 +169,7 @@ export default {
             },
             {
               duration: this.$SITECONFIG.baseDuration * 1.2,
+              // delay: 1.0,
               ease: this.$EASING.transform,
               y: -(
                 window.innerHeight / 2 +

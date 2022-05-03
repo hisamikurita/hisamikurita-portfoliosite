@@ -216,7 +216,7 @@ export default class Particle {
   onMouseMove(e) {
     gsap.to(this.mouse, {
       duration: 1.0,
-      ease: "power2.out",
+      ease: 'none',
       x: ((e.clientX / window.innerWidth) * 2.0 - 1.0) * 200,
       y: -((e.clientY / window.innerHeight) * 2.0 - 1.0) * 200,
     });

@@ -218,9 +218,10 @@ export default {
         this.particle.setNextPageStart()
         // this.mesh.setNextPageStart()
       } else {
-        console.log('発火')
+        // console.log('remove')
         // setTimeout(()=>{
-        this.particle.setNextPageEnd()
+        // this.$gsap.ticker.remove(this.pRaf)
+        // this.particle.delete();
         // this.mesh.setNextPageEnd()
         // },300)
         //     this.$gsap.ticker.remove(this.pRaf)
@@ -230,23 +231,24 @@ export default {
     indexPickupIsAnimation: function () {
       // current
       if (this.indexPickupIsAnimation) {
+        console.log('add')
         this.$gsap.ticker.add(this.pRaf)
-        this.$gsap.ticker.add(this.mRaf)
+        // this.$gsap.ticker.add(this.mRaf)
       }
       // no current
       else {
         // setTimeout(()=>{
           console.log('remove')
-          this.$gsap.ticker.remove(this.pRaf)
-          this.$gsap.ticker.remove(this.mRaf)
           this.particle.delete();
+          this.$gsap.ticker.remove(this.pRaf)
+          // this.$gsap.ticker.remove(this.mRaf)
         // },10)
       }
     },
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
-          this.particle.setSceneFirst()
+          this.particle.setSceneFirst(1)
           // this.mesh.setSceneFirst()
           break
         case 'next02':
@@ -258,11 +260,11 @@ export default {
           // this.mesh.setScene(3)
           break
         case 'next04':
-          this.particle.setSceneEnd()
+          this.particle.setSceneEnd(3)
           // this.mesh.setSceneEnd()
           break
         case 'prev00':
-          this.particle.setSceneEnd()
+          this.particle.setSceneEnd(1)
           // this.mesh.setSceneEnd()
           break
         case 'prev01':
@@ -274,7 +276,7 @@ export default {
           // this.mesh.setScene(2)
           break
         case 'prev03':
-          this.particle.setSceneFirst()
+          this.particle.setSceneFirst(3)
           // this.mesh.setSceneFirst()
           break
       }
@@ -382,6 +384,8 @@ export default {
       })
     },
     onTransitionEnd() {
+          console.log(this.indexPickupIsAnimation)
+          if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
       this.scaleAnimation01.kill()
       this.scaleAnimation02.kill()
       this.pageTranslateAnimation.kill()
@@ -468,6 +472,7 @@ export default {
   clip-path: ellipse(70% 100% at 50% 200%);
   backface-visibility: hidden;
   transform: translateZ(0);
+  z-index: 10;
 }
 
 .layouts-normal-transition-img {

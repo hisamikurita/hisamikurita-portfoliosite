@@ -78,6 +78,10 @@ export default {
         // this.$asscroll.disable()
         // this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
+
+        setTimeout(()=>{
+          if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
+        },1000)
       })
     })
   },
