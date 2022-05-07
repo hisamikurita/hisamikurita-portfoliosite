@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 40.0;
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 60.0;
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -189,8 +189,8 @@ export default {
         if(this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill();
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
-        // タッチデバイスではない時、慣性スクロールを無効にする
-        if (this.$SITECONFIG.isNoTouch) this.$asscroll.disable({ inputOnly: true })
+        // 慣性スクロールを無効にする
+        this.$asscroll.disable({ inputOnly: true })
         // デフォルトのイベントをストップする
         this.stopDefaultPreEvent()
         // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -208,10 +208,7 @@ export default {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           onUpdate: () => {
-            // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
-            if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
-            // タッチデバイスの時、windowのメソッドでスクロールさせる
-            if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+            this.$asscroll.scrollTo(this.scroll.value)
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
@@ -271,14 +268,11 @@ export default {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
-          // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
-          if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
-          // タッチデバイスの時、windowのメソッドでスクロールさせる
-          if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+          this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
-          // タッチデバイスではない時、慣性スクロール有効
-          if (this.$SITECONFIG.isNoTouch) this.$asscroll.enable()
+          // 慣性スクロール有効
+          this.$asscroll.enable()
           // 上から侵入する監視を加える
           this.$gsap.ticker.add(this.pickupToTopEnterScroll)
           // デフォルトのイベントを戻す
@@ -322,8 +316,8 @@ export default {
         if(this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill();
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
-        // タッチデバイスではない時、慣性スクロールを無効にする
-        if (this.$SITECONFIG.isNoTouch) this.$asscroll.disable({ inputOnly: true })
+        // 慣性スクロールを無効にする
+        this.$asscroll.disable({ inputOnly: true })
         // デフォルトのイベントをストップする
         this.stopDefaultPreEvent()
         // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -343,10 +337,7 @@ export default {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           onUpdate: () => {
-            // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
-            if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
-            // タッチデバイスの時、windowのメソッドでスクロールさせる
-            if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+            this.$asscroll.scrollTo(this.scroll.value)
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
@@ -396,10 +387,7 @@ export default {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
-          // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
-          if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
-          // タッチデバイスの時、windowのメソッドでスクロールさせる
-          if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+          this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
           // 慣性スクロール有効
@@ -571,13 +559,10 @@ export default {
         })
       }
 
-      console.log(this.pickupToTopLeaveScrollAnimation.isActive())
-
       // リサイズした時に位置を更新する
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
-      if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
-      if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+      this.$asscroll.scrollTo(this.scroll.value)
       // 背景固定の位置も更新
       if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false, this.scroll.value, 0);
 
