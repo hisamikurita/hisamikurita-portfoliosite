@@ -125,7 +125,7 @@ export default {
       isScrollAnimation: false,
       wheelInterval: 0.75,
       disableTime: 1360,
-      scrollBuffer: 5.0,
+      scrollBuffer: 0,
       wheelRatio: 5,
       touchRatio: 50,
       prevTouchY: 0,
@@ -153,7 +153,9 @@ export default {
   },
 
   mounted() {
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 10.0;
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
+
     setTimeout(() => {
       this.$gsap.ticker.add(this.pickupToTopEnterScroll)
     }, 100)
@@ -597,6 +599,7 @@ export default {
       window.addEventListener('touchstart', preEventTouch, { passive: false })
       window.addEventListener('touchmove', preEventTouch, { passive: false })
       window.addEventListener('wheel', preEvent, { passive: false })
+      window.addEventListener('scroll', preEvent, { passive: false })
     },
 
     /**
@@ -621,6 +624,7 @@ export default {
       })
       window.removeEventListener('touchmove', preEventTouch, { passive: false })
       window.removeEventListener('wheel', preEvent, { passive: false })
+      window.removeEventListener('scroll', preEvent, { passive: false })
       window.removeEventListener('keydown', this.pickupSceneWheelManager)
     },
 
