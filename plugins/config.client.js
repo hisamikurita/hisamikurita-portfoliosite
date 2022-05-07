@@ -5,6 +5,7 @@ const SITECONFIG = {
   breakPoint: 767,
   isPc: false,
   isMobile: false,
+  isTab: false,
   isTouch: false,
   isNoTouch: false,
   fullDuration: 2.0,
@@ -13,12 +14,21 @@ const SITECONFIG = {
   firstAccess: false,
 }
 
-if (window.innerWidth > SITECONFIG.breakPoint) {
+// 767以上のデバイスはPCをtrueにする
+if (window.innerWidth >= SITECONFIG.breakPoint) {
   SITECONFIG.isPc = true;
-} else {
+}
+// 767以下のデバイスはSPをtrueにする
+if(window.innerWidth <= SITECONFIG.breakPoint){
   SITECONFIG.isMobile = true;
 }
+// 768以上の1280以下のデバイスはTABをtrueにする
+if (window.innerWidth <= 1280 && window.innerWidth >= SITECONFIG.breakPoint) {
+  console.log('発火')
+  SITECONFIG.isTab = true;
+}
 
+// タッチイベント判定
 if ('ontouchstart' in document.documentElement) {
   SITECONFIG.isTouch = true;
 } else {

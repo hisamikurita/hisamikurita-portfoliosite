@@ -71,53 +71,8 @@
             :class="`pickup-link-0${index + 1}`"
             @click="nextPage(data)"
           >
-            <!-- <NuxtLink :to="`/works/${data.id}`"> </NuxtLink> -->
           </span>
           <div class="pickup-clip">
-            <!-- <p class="pickup-section-number">
-              <span
-                v-for="num in pickupData.length"
-                :key="num.id"
-                class="pickup-section-number-wrapper"
-                :class="'pickup-section-number-wrapper-0' + num"
-              >
-                <AppSectionReadTitle
-                  :state="isTextSegmentState[num]"
-                  :text="['・', 'SELECTED', 'PROJECT', '0' + num]"
-                  :modifier="'pickup-section'"
-                />
-              </span>
-            </p> -->
-            <!-- <p class="pickup-section-text">
-              <span
-                v-for="(data, index) in pickupData"
-                :key="data.id"
-                class="pickup-section-text-wrapper"
-                :class="`pickup-section-text-wrapper-0${index + 1}`"
-                :style="`color:${data.siteColor.allTextColor};`"
-              >
-                <span class="pickup-section-text-title">
-                  <AppTextSegment
-                    :state="isTextSegmentState[Number(index + 1)]"
-                    :rotate="$BASEROTATE.right"
-                    :text="data.title.full"
-                  />
-                </span>
-                <span>
-                  <span
-                    v-for="tIndex of Object.keys(data.pickup.text[0]).length -
-                    1"
-                    :key="tIndex"
-                  >
-                    <AppTextSegment
-                      :state="isTextSegmentState[index + 1]"
-                      :start="tIndex * 0.12"
-                      :text="`${data.pickup.text[0]['text0' + tIndex]}`"
-                    />
-                  </span>
-                </span>
-              </span>
-            </p> -->
             <h2 class="pickup-title">
               <span
                 v-for="(data, index) in pickupData"
@@ -165,6 +120,7 @@ export default {
       pickupSectionCurrentNum: 0,
       isScrollAnimation: false,
       wheelInterval: 0.75,
+      scrollBuffer: 5.0,
       wheelRatio: 5,
       touchRatio: 50,
       prevTouchY: 0,
@@ -294,7 +250,7 @@ export default {
 
       // スクロール処理
       this.$gsap.to(this.scroll, {
-        value: pickupTopPos,
+        value: pickupTopPos - this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
@@ -409,7 +365,7 @@ export default {
 
       // スクロール処理
       this.$gsap.to(this.scroll, {
-        value: pickupBottomPos,
+        value: pickupBottomPos + this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
@@ -524,10 +480,12 @@ export default {
     pickupSceneWheelManager(e) {
       if (this.isScrollAnimation || this.hambergerMenuState) return
 
-      if (e.deltaY > this.wheelRatio) {
+      console.log(e.key)
+
+      if (e.deltaY > this.wheelRatio || e.key === 'ArrowDown') {
         this.pickupSceneNext()
         this.disable()
-      } else if (e.deltaY < -this.wheelRatio) {
+      } else if (e.deltaY < -this.wheelRatio || e.key === 'ArrowUp') {
         this.pickupScenePrev()
         this.disable()
       }
@@ -539,7 +497,7 @@ export default {
       const touchY = e.touches[0].clientY
       const deltaY = -(touchY - this.prevTouchY)
 
-      if (deltaY > this.touchRatio) {
+      if (deltaY > this.touchRatio ) {
         this.pickupSceneNext()
         this.disable()
       } else if (deltaY < -this.touchRatio) {
@@ -562,9 +520,7 @@ export default {
     },
 
     pickupResize() {
-      /**
-       * リサイズした時に一番目の円の位置と大きさを更新する
-       */
+      // リサイズした時に一番目の円の位置と大きさを更新する
       if (this.$SITECONFIG.isPc) {
         this.$gsap.set(this.$refs.PickupCircleEnter, {
           y: window.innerHeight / 2,
@@ -576,9 +532,7 @@ export default {
         })
       }
 
-      /**
-       * リサイズした時にasscrollのcontainerの位置を更新する
-       */
+      // リサイズした時にasscrollのcontainerの位置を更新する
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
       this.$asscroll.scrollTo(this.scroll.value)
@@ -616,6 +570,7 @@ export default {
       window.addEventListener('touchmove', this.pickupSceneTouchManager)
       window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false, })
       window.addEventListener('resize', this.pickupResize)
+      window.addEventListener('keydown', this.pickupSceneWheelManager)
     },
 
     /**
@@ -625,6 +580,7 @@ export default {
       window.removeEventListener('touchstart', preEventTouch, { passive: false,})
       window.removeEventListener('touchmove', preEventTouch, { passive: false })
       window.removeEventListener('wheel', preEvent, { passive: false })
+      window.removeEventListener('keydown', this.pickupSceneWheelManager)
     },
 
     /**
@@ -637,6 +593,9 @@ export default {
       window.removeEventListener('resize', this.pickupResize)
     },
 
+    /**
+     * 次のページに移動するとき
+     */
     nextPage(data) {
       this.resetDefaultPreEvent();
       this.removeSceneEvent();

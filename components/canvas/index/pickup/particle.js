@@ -1,107 +1,192 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 
 export default class Particle {
   constructor(config, canvas, color) {
-    this.config = config;
-    this.canvas = canvas;
-    this.ctx = this.canvas.getContext('2d');
-    this.dpr = window.devicePixelRatio;
+    this.canvas = canvas || null;
+    this.ctx = this.canvas.getContext('2d') || null;
+    this.dpr = window.devicePixelRatio || 1.0;
+    // サイト共通の設定
+    this.config = config || null;
+    // 生成したパーティクルを入れておく空配列
     this.particles = [];
-    // パーティクルの数
+    // パーティクルの初期値を入れておく空配列
+    this.particlesInit = [];
+    // パーティクルの合計数
     this.num = 7;
     // パーティクルのスピード
-    this.speed = window.innerWidth > 767 ? 2.4 : 1.2;
+    this.speed = this.config.isPc ? 2.4 : 1.2;
     // パーティクルの色
-    this.color = color;
-    this.clear = false;
+    this.color = color || '#000000';
 
-    // 半径初期値
-    this.radiusPc = [
-      130,
-      158,
-      100,
-      74,
-      60,
-      60,
-      46
-    ]
-    this.radiusSp = [
-      65,
-      37,
-      60,
-      47,
-      18,
-      24,
-      20
-    ]
-
-    // 初期値
-    this.particlesInit = [{
-        x: window.innerWidth > 767 ? 160 : 500,
-        y: window.innerWidth > 767 ? 160 : 150,
-        r: window.innerWidth > 767 ? this.radiusPc[0] : this.radiusSp[0],
-        clipR: 0,
-        color: this.color[0].dark,
-        rand: 0.5,
+    // パーティクルの位置初期値
+    this.pos = [{
+        x: {
+          'pc': 500,
+          'sp': 160,
+        },
+        y: {
+          'pc': 160,
+          'sp': 150,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 1060 : 560,
-        y: window.innerWidth > 767 ? 220 : 550,
-        r: window.innerWidth > 767 ? this.radiusPc[1] : this.radiusSp[1],
-        clipR: 0,
-        color: this.color[0].dark,
-        rand: 0.8,
+        x: {
+          'pc': 1060,
+          'sp': 560,
+        },
+        y: {
+          'pc': 220,
+          'sp': 550,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 110 : 150,
-        y: window.innerWidth > 767 ? 630 : 630,
-        r: window.innerWidth > 767 ? this.radiusPc[2] : this.radiusSp[2],
-        clipR: 0,
-        color: this.color[0].dark,
-        rand: 0.9,
+        x: {
+          'pc': 110,
+          'sp': 150,
+        },
+        y: {
+          'pc': 630,
+          'sp': 630,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 1080 : 200,
-        y: window.innerWidth > 767 ? 530 : 930,
-        r: window.innerWidth > 767 ? this.radiusPc[3] : this.radiusSp[3],
-        clipR: 0,
-        color: this.color[0].dark,
-        rand: 0.7,
+        x: {
+          'pc': 1080,
+          'sp': 200,
+        },
+        y: {
+          'pc': 530,
+          'sp': 930,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 410 : 280,
-        y: window.innerWidth > 767 ? 500 : 780,
-        r: window.innerWidth > 767 ? this.radiusPc[4] : this.radiusSp[4],
-        clipR: 0,
-        color: this.color[0].light,
-        rand: 0.8,
+        x: {
+          'pc': 410,
+          'sp': 280,
+        },
+        y: {
+          'pc': 500,
+          'sp': 780,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 910 : 630,
-        y: window.innerWidth > 767 ? 500 : 400,
-        r: window.innerWidth > 767 ? this.radiusPc[5] : this.radiusSp[5],
-        clipR: 0,
-        color: this.color[0].light,
-        rand: 0.6,
+        x: {
+          'pc': 910,
+          'sp': 630,
+        },
+        y: {
+          'pc': 500,
+          'sp': 400,
+        }
       },
       {
-        x: window.innerWidth > 767 ? 1076 : 680,
-        y: window.innerWidth > 767 ? 684 : 684,
-        r: window.innerWidth > 767 ? this.radiusPc[6] : this.radiusSp[6],
-        clipR: 0,
-        color: this.color[0].light,
-        rand: 0.92,
+        x: {
+          'pc': 1076,
+          'sp': 680,
+        },
+        y: {
+          'pc': 684,
+          'sp': 684,
+        }
       },
     ]
 
+    // パーティクルの半径初期値
+    this.radius = {
+      'pc': [
+        130,
+        158,
+        100,
+        74,
+        60,
+        60,
+        46
+      ],
+      'tab': [
+        80,
+        108,
+        50,
+        64,
+        40,
+        42,
+        46
+      ],
+      'sp': [
+        65,
+        37,
+        60,
+        47,
+        18,
+        24,
+        20
+      ]
+    }
+
+    // パーティクルの乱数初期値
+    this.rand = [
+      0.5,
+      0.8,
+      0.9,
+      0.7,
+      0.8,
+      0.6,
+      0.92,
+    ]
+
+    // パーティクル初期値をまとめる
+    for (let i = 0; i < this.num; i++) {
+      let x = 0;
+      let y = 0;
+      let r = 0;
+      let color = '';
+      const rand = this.rand[i];
+      const clipR = 0;
+
+      if (this.config.isPc) {
+        x = this.pos[i].x.pc
+        y = this.pos[i].y.pc
+        r = this.radius.pc[i]
+      }
+
+      if (this.config.isTab) {
+        r = this.radius.tab[i]
+      }
+
+      if (this.config.isMobile) {
+        x = this.pos[i].x.sp
+        y = this.pos[i].y.sp
+        r = this.radius.sp[i]
+      }
+
+      if(i >= 4.0){
+        color = this.color[0].dark;
+      }
+      else{
+        color = this.color[0].light;
+      }
+
+      const particle = {
+        x: x,
+        y: y,
+        r: r,
+        clipR : clipR,
+        color: color,
+        rand: rand,
+      }
+
+      this.particlesInit.push(particle);
+    }
+
+    // 各シーンで動かしているGSAPを格納しておく空配列①
     this.setSceneAnimations = [];
+    // 各シーンで動かしているGSAPを格納しておく空配列②
     this.setSceneReverseAnimations = [];
+
+    // 衝突無効用のフラッグ
     this.collision = true;
-    this.pageTransitionSpeed = {
-      value: 1.0
-    };
+
+    // シーンから次のページに遷移する時にパーティクルのスピードをGSAPで変更するためにオブジェクトにする必要がある
+    this.pageTransitionSpeed = { value: 1.0 };
   }
 
   _update() {
@@ -212,8 +297,8 @@ export default class Particle {
       const color = this.particlesInit[i].color;
       const clipR = this.particlesInit[i].clipR;
       const r = this.particlesInit[i].r;
-      const x = window.innerWidth > 767 ? (this.particlesInit[i].x / 1280) * window.innerWidth : (this.particlesInit[i].x / 750) * window.innerWidth;
-      const y = window.innerWidth > 767 ? (this.particlesInit[i].y / 800) * window.innerHeight : (this.particlesInit[i].y / 1100) * window.innerHeight;
+      const x = this.config.isPc ? (this.particlesInit[i].x / 1280) * window.innerWidth : (this.particlesInit[i].x / 750) * window.innerWidth;
+      const y = this.config.isPc ? (this.particlesInit[i].y / 800) * window.innerHeight : (this.particlesInit[i].y / 1100) * window.innerHeight;
       const s = Math.random() * this.speed;
       const angle = Math.floor(Math.random() * 360)
       const radians = angle * Math.PI / 180;
@@ -280,19 +365,15 @@ export default class Particle {
       // パーティクルの色を定義
       this.setParticleColor(i, sceneNumber);
 
-      gsap.fromTo(this.particles[i],
-        {
-          clipR: 0,
-        },
-        {
+      // 拡大
+      gsap.fromTo(this.particles[i], {
+        clipR: 0,
+      }, {
         duration: this.setParticleDuration(i),
         delay: this.setParticleDelay(i),
         ease: this.config.transform,
-        clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
+        clipR: this.particlesInit[i].r,
       })
-    }
-    for (let i = 0; i < this.particles.length; i++) {
-      console.log(this.particles[i])
     }
   }
 
@@ -311,6 +392,7 @@ export default class Particle {
       // パーティクルの色を定義
       this.setParticleColor(i, sceneNumber);
 
+      // 縮小
       gsap.to(this.particles[i], {
         duration: this.setParticleDuration(i),
         delay: this.setParticleDelay(i),
@@ -337,6 +419,7 @@ export default class Particle {
     this.setSceneReverseAnimations = [];
 
     for (let i = 0; i < this.particles.length; i++) {
+      // 縮小
       const setSceneAnimation = gsap.to(this.particles[i], {
         duration: this.setParticleDuration(i),
         delay: this.setParticleDelay(i),
@@ -353,11 +436,12 @@ export default class Particle {
           // パーティクルの色を定義
           this.setParticleColor(i, sceneNumber);
 
+          // 拡大
           const setSceneReverseAnimation = gsap.to(this.particles[i], {
             duration: this.setParticleDuration(i),
             delay: this.setParticleDelay(i),
             ease: this.config.transform,
-            clipR: window.innerWidth > 767 ? this.radiusPc[i] : this.radiusSp[i]
+            clipR: this.particlesInit[i].r,
           });
           this.setSceneReverseAnimations.push(setSceneReverseAnimation);
         }
@@ -367,6 +451,9 @@ export default class Particle {
     }
   }
 
+  /**
+   * 次のページに遷移した時
+   */
   setNextPageStart() {
     // 衝突無効
     this.collision = false;
@@ -390,6 +477,9 @@ export default class Particle {
     }
   }
 
+  /**
+   * 次のページに遷移を終えた時
+   */
   setNextPageEnd() {
     //
   }
@@ -412,8 +502,8 @@ export default class Particle {
    * particleの位置をリセット
    */
   setParticleResetPosition(index) {
-    const x = window.innerWidth > 767 ? (this.particlesInit[index].x / 1280) * window.innerWidth : (this.particlesInit[index].x / 750) * window.innerWidth;
-    const y = window.innerWidth > 767 ? (this.particlesInit[index].y / 800) * window.innerHeight : (this.particlesInit[index].y / 1100) * window.innerHeight;
+    const x = this.config.isPc ? (this.particlesInit[index].x / 1280) * window.innerWidth : (this.particlesInit[index].x / 750) * window.innerWidth;
+    const y = this.config.isPc ? (this.particlesInit[index].y / 800) * window.innerHeight : (this.particlesInit[index].y / 1100) * window.innerHeight;
     const angle = Math.floor(Math.random() * 360)
     const radians = angle * Math.PI / 180;
     const vx = Math.cos(radians) * this.speed;

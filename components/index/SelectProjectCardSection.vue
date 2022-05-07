@@ -136,6 +136,8 @@ export default {
     ProjectAnimationState: function () {
       switch (this.ProjectAnimationState) {
         case 'start':
+
+          // 円の縮小
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
@@ -152,15 +154,19 @@ export default {
               scale: 1.0,
             }
           )
+
+          // 背景色変更
           setTimeout(() => {
             this.$refs.ProjectBg.style.backgroundColor = '#f0efeb'
           }, this.$SITECONFIG.baseDuration * 1000)
           break
         case 'end':
+          // 動きをスムーズに見せるために背景色変更の処理を遅らせる
           setTimeout(() => {
             this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor;
-          }, 240)
+          }, 300)
 
+          // 円の縮小
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
@@ -184,11 +190,9 @@ export default {
   },
 
   mounted() {
-    /* circle */
+    // 円の位置をセットする
     this.$nextTick(() => {
-      // this.$refs.ProjectBg.style.backgroundColor = '#f0efeb'
       this.$gsap.set(this.$refs.ProjectCircleEnter, {
-        // backgroundColor: '#f0efeb',
         y: -(
           window.innerHeight / 2 +
           this.$refs.ProjectCircleEnter.clientHeight / 2
@@ -196,7 +200,7 @@ export default {
       })
     })
 
-    /* text-animation */
+    // テキストアニメーション
     this.observe = this.$refs.ProjectLoopTitle
     this.iObserverTextSegment = new IntersectionObserver(
       (entries) => {
@@ -214,7 +218,7 @@ export default {
     )
     this.iObserverTextSegment.observe(this.observe)
 
-    /* loop-text-animation */
+    // ループテキストアニメーションの発火の管理
     this.iObserverLoopText = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -231,6 +235,7 @@ export default {
   },
 
   beforeDestroy() {
+    // リセット
     this.iObserverTextSegment.unobserve(this.observe)
     this.iObserverLoopText.unobserve(this.observe)
   },
