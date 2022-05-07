@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 160.0;
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 160.0
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -186,7 +186,8 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
-        if(this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill();
+        if (this.pickupToTopLeaveScrollAnimation)
+          this.pickupToTopLeaveScrollAnimation.kill()
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         // 慣性スクロールを無効にする
@@ -212,7 +213,9 @@ export default {
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
-            if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            setTimeout(() => {
+              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            }, 100)
             // 次のシーンへ移動させる
             this.pickupSceneNext()
             // シーン用のイベントを付与する
@@ -246,7 +249,8 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-      if(this.pickupToTopEnterScrollAnimation) this.pickupToTopEnterScrollAnimation.kill();
+      if (this.pickupToTopEnterScrollAnimation)
+        this.pickupToTopEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -271,7 +275,7 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
-          setTimeout(() =>{
+          setTimeout(() => {
             // 慣性スクロール有効
             this.$asscroll.enable()
             // 上から侵入する監視を加える
@@ -282,7 +286,7 @@ export default {
             this.$store.commit('hambergerMenu/enable')
             // ピックアップを出たことを知らせる
             this.$store.commit('indexPickup/sceneAnimationState', false)
-          },200)
+          }, 200)
         },
       })
 
@@ -315,7 +319,8 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        if(this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill();
+        if (this.pickupToBottomLeaveScrollAnimation)
+          this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         // 慣性スクロールを無効にする
@@ -343,7 +348,9 @@ export default {
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
-            if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            setTimeout(() => {
+              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            }, 100)
             // 前のシーンへ移動させる
             this.pickupScenePrev()
             // シーン用のイベントを付与する
@@ -367,7 +374,8 @@ export default {
      * ピックアップセクションの下に離れる時
      */
     pickupToBottomLeaveScroll() {
-      if(this.pickupToBottomEnterScrollAnimation) this.pickupToBottomEnterScrollAnimation.kill();
+      if (this.pickupToBottomEnterScrollAnimation)
+        this.pickupToBottomEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -392,7 +400,7 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
-          setTimeout(() =>{
+          setTimeout(() => {
             // 慣性スクロール有効
             this.$asscroll.enable()
             // 下から侵入する監視を加える
@@ -403,7 +411,7 @@ export default {
             this.$store.commit('hambergerMenu/enable')
             // ピックアップを出たことを知らせる
             this.$store.commit('indexPickup/sceneAnimationState', false)
-          },200)
+          }, 200)
         },
       })
     },
@@ -568,7 +576,8 @@ export default {
       this.scroll.value = pickupPos
       this.$asscroll.scrollTo(this.scroll.value)
       // 背景固定の位置も更新
-      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false, this.scroll.value, 0);
+      if (this.$SITECONFIG.isTouch)
+        this.$backfaceScroll(false, this.scroll.value, 0)
 
       // if (this.$SITECONFIG.isTouch) this.$store.commit('indexPickup/setPickupPos', pickupPos)
     },

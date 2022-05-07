@@ -1,9 +1,11 @@
 <template>
   <div :class="[isAndroid, isWindows, isSafari]">
     <BaseOpenning />
-    <div ref="LayoutsFix" class="layouts-fix">
-      <div ref="Webgl" class="webgl"></div>
-      <div class="particle"><canvas ref="Particle"></canvas></div>
+    <BaseMouse />
+    <BaseHeader />
+    <BaseHambergerMenu />
+    <!--transition-->
+    <div class="transition">
       <div
         ref="LayoutsNormalTransitionBg"
         class="layouts-normal-transition-img-wrapper"
@@ -33,21 +35,29 @@
         ></span>
       </div>
     </div>
-    <BaseMouse />
+    <!--canvas-->
+    <div ref="CanvasFix" class="canvas-fix">
+      <div ref="CanvasFixContents" class="canavs-fix-contents">
+        <!--metaball-->
+        <div ref="Webgl" class="webgl"></div>
+        <!--particle-->
+        <div class="particle"><canvas ref="Particle"></canvas></div>
+      </div>
+    </div>
+    <!--asscroll-->
     <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
       <div class="asscroll" asscroll>
-        <div ref="PageContents" class="page-contents">
+        <div ref="AsscrollContents" class="asscroll-contents">
           <nuxt />
         </div>
       </div>
     </div>
+    <!--ハンバーガーメニューを閉じるための空dom-->
     <div
       ref="AsscrollContainerCover"
       class="asscroll-container-cover"
       @click="hambergerMenuOnClose"
     ></div>
-    <BaseHeader />
-    <BaseHambergerMenu />
   </div>
 </template>
 
@@ -132,7 +142,10 @@ export default {
     imageTransitionState: function () {
       // アニメーション開始
       if (this.imageTransitionState) {
-        const index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex
+        const index =
+          this.imageTransitionIndex > this.getProjectData.length - 1
+            ? 0
+            : this.imageTransitionIndex
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
@@ -164,13 +177,7 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.AsscrollContainer, {
-            delay: 0.16,
-            duration: 0.3,
-            ease: this.$EASING.transform,
-            x: -560,
-          })
-          this.$gsap.to(this.$refs.LayoutsFix, {
+          this.$gsap.to(this.container, {
             delay: 0.16,
             duration: 0.3,
             ease: this.$EASING.transform,
@@ -190,13 +197,7 @@ export default {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$SITECONFIG.isPc) {
-          this.$gsap.to(this.$refs.AsscrollContainer, {
-            delay: 0,
-            duration: 0.3,
-            ease: this.$EASING.transform,
-            x: 0,
-          })
-          this.$gsap.to(this.$refs.LayoutsFix, {
+          this.$gsap.to(this.container, {
             delay: 0,
             duration: 0.3,
             ease: this.$EASING.transform,
@@ -245,10 +246,10 @@ export default {
       // no current
       else {
         // setTimeout(()=>{
-          console.log('remove')
-          this.particle.delete();
-          this.$gsap.ticker.remove(this.pRaf)
-          // this.$gsap.ticker.remove(this.mRaf)
+        console.log('remove')
+        this.particle.delete()
+        this.$gsap.ticker.remove(this.pRaf)
+        // this.$gsap.ticker.remove(this.mRaf)
         // },10)
       }
     },
@@ -290,9 +291,11 @@ export default {
     },
   },
   mounted() {
+    // console
     console.log(`///////////////////////////////////////////////
 ///// Don't look at the source code (ﾟｰﾟ) /////
 //////////////////////////////////////////////`)
+
     // checkdevice
     if (this.$checkDevice.isAndroid) {
       this.isAndroid = 'is-android'
@@ -359,27 +362,38 @@ export default {
     //   stage.onRaf()
     //   this.mesh.onRaf()
     // }
+    this.container = this.$gsap.utils.toArray([
+      this.$refs.CanvasFix,
+      this.$refs.AsscrollContainer,
+    ])
+    this.contents = this.$gsap.utils.toArray([
+      this.$refs.CanvasFixContents,
+      this.$refs.AsscrollContents,
+    ])
+    // console.log(this.$refs.LayoutsFix)
+    console.log(this.container)
+    console.log(this.contents)
   },
   methods: {
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
     },
     onTransitionStart() {
-      this.$gsap.set(this.$refs.AsscrollContainer, {
+      this.$gsap.set(this.container, {
         overflow: 'hidden',
       })
-      this.scaleAnimation01 = this.$gsap.to(this.$refs.AsscrollContainer, {
+      this.scaleAnimation01 = this.$gsap.to(this.container, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         scaleX: 0.97,
         borderRadius: '14px',
       })
-      this.scaleAnimation02 = this.$gsap.to(this.$refs.AsscrollContainer, {
+      this.scaleAnimation02 = this.$gsap.to(this.container, {
         duration: this.$SITECONFIG.baseDuration * 0.92,
         ease: this.$EASING.transform,
         scaleY: 0.94,
       })
-      this.pageTranslateAnimation = this.$gsap.to(this.$refs.PageContents, {
+      this.pageTranslateAnimation = this.$gsap.to(this.contents, {
         duration: this.$SITECONFIG.baseDuration * 0.92,
         ease: this.$EASING.transform,
         y: -500,
@@ -391,18 +405,19 @@ export default {
       })
     },
     onTransitionEnd() {
-          console.log(this.indexPickupIsAnimation)
-          if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
+      if (this.indexPickupIsAnimation)
+        this.$store.commit('indexPickup/sceneAnimationState', false)
       this.scaleAnimation01.kill()
       this.scaleAnimation02.kill()
       this.pageTranslateAnimation.kill()
       this.bgAnimation.kill()
-      this.$gsap.set(this.$refs.AsscrollContainer, {
+
+      this.$gsap.set(this.container, {
         scale: 1.0,
         borderRadius: '0px',
         overflow: 'visible',
       })
-      this.$gsap.set(this.$refs.PageContents, {
+      this.$gsap.set(this.contents, {
         y: 0,
       })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
@@ -418,6 +433,8 @@ export default {
   --viewportWidth: 0;
   --viewportHeight: 0;
 }
+
+// asscroll
 
 .asscroll-container-cover {
   position: fixed;
@@ -446,28 +463,17 @@ export default {
   height: 100%;
 }
 
-.layouts-fix {
-  // display: none;
+// transition
+.transition {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
   overflow: hidden;
 }
-
-// .layouts-normal-transition-bg {
-//   display: block;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate3d(-50%, -50%, 0);
-//   width: 100%;
-//   height: 100%;
-//   clip-path: ellipse(80% 0% at 50% 100%);
-// }
 
 .layouts-normal-transition-img-wrapper {
   display: block;
@@ -508,6 +514,20 @@ export default {
   width: 100%;
   height: 100%;
   opacity: 0;
+}
+
+// canvas
+
+.canvas-fix {
+  // display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
 }
 
 .webgl {
