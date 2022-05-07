@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 10.0;
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 20.0;
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -570,6 +570,8 @@ export default {
           scale: 1.2,
         })
       }
+
+      console.log(this.pickupToTopLeaveScrollAnimation.isActive())
 
       // リサイズした時に位置を更新する
       const pickupPos = this.$refs.Pickup.offsetTop
