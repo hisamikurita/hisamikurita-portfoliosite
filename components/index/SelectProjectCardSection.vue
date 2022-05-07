@@ -289,7 +289,7 @@ export default {
   padding: 206px 0 0 0;
 
   @include sp() {
-    padding: 240px 0 0 0;
+    padding: 340px 0 0 0;
   }
 }
 

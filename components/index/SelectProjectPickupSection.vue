@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 70.0;
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 160.0;
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -282,7 +282,7 @@ export default {
             this.$store.commit('hambergerMenu/enable')
             // ピックアップを出たことを知らせる
             this.$store.commit('indexPickup/sceneAnimationState', false)
-          },100)
+          },200)
         },
       })
 
@@ -403,7 +403,7 @@ export default {
             this.$store.commit('hambergerMenu/enable')
             // ピックアップを出たことを知らせる
             this.$store.commit('indexPickup/sceneAnimationState', false)
-          },100)
+          },200)
         },
       })
     },
