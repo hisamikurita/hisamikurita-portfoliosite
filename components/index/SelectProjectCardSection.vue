@@ -289,7 +289,7 @@ export default {
   padding: 206px 0 0 0;
 
   @include sp() {
-    padding: 170px 0 0 0;
+    padding: 200px 0 0 0;
   }
 }
 
@@ -322,7 +322,7 @@ export default {
   text-align: right;
 
   @include sp() {
-    top: -71px;
+    top: -51px;
     right: 19px;
   }
 }
