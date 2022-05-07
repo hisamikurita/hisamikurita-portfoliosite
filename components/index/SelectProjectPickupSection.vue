@@ -1,5 +1,6 @@
 <template>
   <div ref="Pickup" class="pickup is-pickup-scene-00">
+    <!--背景サークルー(侵入時の背景サークルとDOMを分ける)-->
     <span
       ref="PickupCircleEnter"
       class="pickup-circle-bg-enter"
@@ -18,6 +19,7 @@
         :color="pickupData[2].siteColor.bodyContentsColor"
       />
     </span>
+    <!--シーンごとのセクションナンバー-->
     <p class="pickup-section-number">
       <span
         v-for="num in pickupData.length"
@@ -32,6 +34,7 @@
         />
       </span>
     </p>
+    <!--シーンごとのセクションテキスト-->
     <p class="pickup-section-text">
       <span
         v-for="(data, index) in pickupData"
@@ -61,6 +64,7 @@
         </span>
       </span>
     </p>
+    <!--シーンごとのセクションタイトル-->
     <div class="pickup-bg">
       <div class="pickup-inner">
         <div class="l-container">
@@ -120,6 +124,7 @@ export default {
       pickupSectionCurrentNum: 0,
       isScrollAnimation: false,
       wheelInterval: 0.75,
+      disableTime: 1360,
       scrollBuffer: 5.0,
       wheelRatio: 5,
       touchRatio: 50,
@@ -148,6 +153,7 @@ export default {
   },
 
   mounted() {
+    this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
     setTimeout(() => {
       this.$gsap.ticker.add(this.pickupToTopEnterScroll)
     }, 100)
@@ -178,10 +184,11 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
+        if(this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill();
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
-        // 慣性スクロールを無効にする
-        this.$asscroll.disable({ inputOnly: true })
+        // タッチデバイスではない時、慣性スクロールを無効にする
+        if (this.$SITECONFIG.isNoTouch) this.$asscroll.disable({ inputOnly: true })
         // デフォルトのイベントをストップする
         this.stopDefaultPreEvent()
         // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -194,14 +201,19 @@ export default {
         // this.$store.commit('indexPickup/setPickupPos', pickupPos)
 
         // スクロール処理
-        this.$gsap.to(this.scroll, {
+        this.pickupToTopEnterScrollAnimation = this.$gsap.to(this.scroll, {
           value: pickupPos,
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           onUpdate: () => {
-            this.$asscroll.scrollTo(this.scroll.value)
+            // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
+            if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
+            // タッチデバイスの時、windowのメソッドでスクロールさせる
+            if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
           },
           onComplete: () => {
+            // タッチデバイスの時、背景固定
+            if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
             // 次のシーンへ移動させる
             this.pickupSceneNext()
             // シーン用のイベントを付与する
@@ -235,6 +247,9 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
+      if(this.pickupToTopEnterScrollAnimation) this.pickupToTopEnterScrollAnimation.kill();
+      // タッチデバイスの時、背景固定解除
+      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -249,16 +264,19 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       // スクロール処理
-      this.$gsap.to(this.scroll, {
+      this.pickupToTopLeaveScrollAnimation = this.$gsap.to(this.scroll, {
         value: pickupTopPos - this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
-          this.$asscroll.scrollTo(this.scroll.value)
+          // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
+          if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
+          // タッチデバイスの時、windowのメソッドでスクロールさせる
+          if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
         },
         onComplete: () => {
-          // 慣性スクロール有効
-          this.$asscroll.enable()
+          // タッチデバイスではない時、慣性スクロール有効
+          if (this.$SITECONFIG.isNoTouch) this.$asscroll.enable()
           // 上から侵入する監視を加える
           this.$gsap.ticker.add(this.pickupToTopEnterScroll)
           // デフォルトのイベントを戻す
@@ -299,10 +317,11 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        if(this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill();
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
-        // 慣性スクロールを無効にする
-        this.$asscroll.disable({ inputOnly: true })
+        // タッチデバイスではない時、慣性スクロールを無効にする
+        if (this.$SITECONFIG.isNoTouch) this.$asscroll.disable({ inputOnly: true })
         // デフォルトのイベントをストップする
         this.stopDefaultPreEvent()
         // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
@@ -317,14 +336,19 @@ export default {
         this.$store.commit('indexPickup/setProjectAnimationState', 'end')
 
         // スクロール処理
-        this.$gsap.to(this.scroll, {
+        this.pickupToBottomEnterScrollAnimation = this.$gsap.to(this.scroll, {
           value: pickupPos,
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
           onUpdate: () => {
-            this.$asscroll.scrollTo(this.scroll.value)
+            // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
+            if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
+            // タッチデバイスの時、windowのメソッドでスクロールさせる
+            if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
           },
           onComplete: () => {
+            // タッチデバイスの時、背景固定
+            if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
             // 前のシーンへ移動させる
             this.pickupScenePrev()
             // シーン用のイベントを付与する
@@ -334,9 +358,7 @@ export default {
           },
         })
 
-        /**
-         * 下から侵入する時にサイズと位置を更新する
-         */
+        // 下から侵入する時にサイズと位置を更新しておく
         if (this.$SITECONFIG.isPc) {
           this.$gsap.set(this.$refs.PickupCircleEnter, {
             y: window.innerHeight / 2,
@@ -350,6 +372,9 @@ export default {
      * ピックアップセクションの下に離れる時
      */
     pickupToBottomLeaveScroll() {
+      if(this.pickupToBottomEnterScrollAnimation) this.pickupToBottomEnterScrollAnimation.kill();
+      // タッチデバイスの時、背景固定解除
+      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -364,12 +389,15 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       // スクロール処理
-      this.$gsap.to(this.scroll, {
+      this.pickupToBottomLeaveScrollAnimation = this.$gsap.to(this.scroll, {
         value: pickupBottomPos + this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         onUpdate: () => {
-          this.$asscroll.scrollTo(this.scroll.value)
+          // タッチデバイスではない時、asscrollのメソッドでスクロールさせる
+          if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
+          // タッチデバイスの時、windowのメソッドでスクロールさせる
+          if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
         },
         onComplete: () => {
           // 慣性スクロール有効
@@ -396,8 +424,8 @@ export default {
       switch (this.pickupSectionCurrentNum) {
         case 1.0:
           this.$store.commit('indexPickup/setScene', 'next01')
-
           this.isTextSegmentState[1] = 'center'
+
           break
         case 2.0:
           this.$store.commit('indexPickup/setScene', 'next02')
@@ -406,29 +434,31 @@ export default {
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState02 = 'extend'
-          }, this.wheelInterval * 800)
+          }, this.animationInterval)
           break
         case 3.0:
           this.$store.commit('indexPickup/setScene', 'next03')
-
           this.isTextSegmentState[2] = 'top'
+
           setTimeout(() => {
             this.isTextSegmentState[3] = 'center'
             this.isCircleBgState03 = 'extend'
-          }, this.wheelInterval * 800)
+          }, this.animationInterval)
           break
         case 4.0:
           this.$store.commit('indexPickup/setScene', 'next04')
-
           this.isTextSegmentState[3] = 'top'
-          this.$store.commit('hambergerMenu/disable')
+
           setTimeout(() => {
+            // プロジェクトセクションにアニメーションが開始することを知らせる
             this.$store.commit('indexPickup/setProjectAnimationState', 'start')
+            // ピックアップセクションの下に離れる時のmメソッド実行
             this.pickupToBottomLeaveScroll()
-          }, this.wheelInterval * 800)
+          }, this.animationInterval)
           break
       }
 
+      // ルート要素のクラスの切り替え
       this.pickupSceneClassToggle()
     },
 
@@ -442,45 +472,43 @@ export default {
       switch (this.pickupSectionCurrentNum) {
         case 0.0:
           this.$store.commit('indexPickup/setScene', 'prev00')
-
-          this.pickupToTopLeaveScroll()
           this.isTextSegmentState[1] = 'bottom'
+          // ピックアップセクションの上に離れる時のmメソッド実行
+          this.pickupToTopLeaveScroll()
           break
         case 1.0:
           this.$store.commit('indexPickup/setScene', 'prev01')
-
           this.isTextSegmentState[2] = 'bottom'
+
           setTimeout(() => {
             this.isTextSegmentState[1] = 'center'
             this.isCircleBgState02 = 'shrink'
-          }, this.wheelInterval * 800)
+          }, this.animationInterval)
           break
         case 2.0:
           this.$store.commit('indexPickup/setScene', 'prev02')
-
           this.isTextSegmentState[3] = 'bottom'
+
           setTimeout(() => {
             this.isTextSegmentState[2] = 'center'
             this.isCircleBgState03 = 'shrink'
-          }, this.wheelInterval * 800)
+          }, this.animationInterval)
           break
         case 3.0:
           this.$store.commit('indexPickup/setScene', 'prev03')
-
           this.isTextSegmentState[3] = 'center'
           break
       }
 
+      // ルート要素のクラスの切り替え
       this.pickupSceneClassToggle()
     },
 
     /**
-     * 全体のシーン管理
+     * 全体のシーン管理(タッチデバイスではない時)
      */
     pickupSceneWheelManager(e) {
       if (this.isScrollAnimation || this.hambergerMenuState) return
-
-      console.log(e.key)
 
       if (e.deltaY > this.wheelRatio || e.key === 'ArrowDown') {
         this.pickupSceneNext()
@@ -491,13 +519,16 @@ export default {
       }
     },
 
+    /**
+     * 全体のシーン管理(タッチデバイスの時)
+     */
     pickupSceneTouchManager(e) {
       if (this.isScrollAnimation || this.hambergerMenuState) return
 
       const touchY = e.touches[0].clientY
       const deltaY = -(touchY - this.prevTouchY)
 
-      if (deltaY > this.touchRatio ) {
+      if (deltaY > this.touchRatio) {
         this.pickupSceneNext()
         this.disable()
       } else if (deltaY < -this.touchRatio) {
@@ -506,6 +537,9 @@ export default {
       }
     },
 
+    /**
+     * ルート要素のクラスの切り替え
+     */
     pickupSceneClassToggle() {
       this.$refs.Pickup.classList.remove(
         `is-pickup-scene-0${this.pickupSectionOldCurrentNum}`
@@ -519,6 +553,9 @@ export default {
       this.prevTouchY = e.touches[0].clientY
     },
 
+    /**
+     * リサイズ
+     */
     pickupResize() {
       // リサイズした時に一番目の円の位置と大きさを更新する
       if (this.$SITECONFIG.isPc) {
@@ -542,7 +579,7 @@ export default {
     /**
      * 進む戻るの操作不能
      */
-    disable(interval = 1500) {
+    disable(interval = this.disableTime) {
       this.isScrollAnimation = true
       if (this.clear) clearTimeout(this.clear)
 
@@ -568,7 +605,9 @@ export default {
     addSceneEvent() {
       window.addEventListener('touchstart', this.setTouchY)
       window.addEventListener('touchmove', this.pickupSceneTouchManager)
-      window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false, })
+      window.addEventListener('wheel', this.pickupSceneWheelManager, {
+        passive: false,
+      })
       window.addEventListener('resize', this.pickupResize)
       window.addEventListener('keydown', this.pickupSceneWheelManager)
     },
@@ -577,7 +616,9 @@ export default {
      * デフォルトのイベントを戻す
      */
     resetDefaultPreEvent() {
-      window.removeEventListener('touchstart', preEventTouch, { passive: false,})
+      window.removeEventListener('touchstart', preEventTouch, {
+        passive: false,
+      })
       window.removeEventListener('touchmove', preEventTouch, { passive: false })
       window.removeEventListener('wheel', preEvent, { passive: false })
       window.removeEventListener('keydown', this.pickupSceneWheelManager)
@@ -589,7 +630,9 @@ export default {
     removeSceneEvent() {
       window.removeEventListener('touchstart', this.setTouchY)
       window.removeEventListener('touchmove', this.pickupSceneTouchManager)
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false})
+      window.removeEventListener('wheel', this.pickupSceneWheelManager, {
+        passive: false,
+      })
       window.removeEventListener('resize', this.pickupResize)
     },
 
@@ -597,13 +640,13 @@ export default {
      * 次のページに移動するとき
      */
     nextPage(data) {
-      this.resetDefaultPreEvent();
-      this.removeSceneEvent();
-      this.$store.commit('indexPickup/transition', true);
+      this.resetDefaultPreEvent()
+      this.removeSceneEvent()
+      this.$store.commit('indexPickup/transition', true)
 
       setTimeout(() => {
         this.$router.push(`/works/${data.id}`)
-      }, ((this.$SITECONFIG.halfBaseDuration) + (7 * 0.08) / 4.0) * 1000)
+      }, (this.$SITECONFIG.halfBaseDuration + (7 * 0.08) / 4.0) * 1000)
     },
   },
 }

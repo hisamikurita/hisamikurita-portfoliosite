@@ -24,7 +24,6 @@ if(window.innerWidth <= SITECONFIG.breakPoint){
 }
 // 768以上の1280以下のデバイスはTABをtrueにする
 if (window.innerWidth <= 1280 && window.innerWidth >= SITECONFIG.breakPoint) {
-  console.log('発火')
   SITECONFIG.isTab = true;
 }
 
@@ -56,19 +55,16 @@ export default (context, inject) => {
 //   });
 // }
 
-/**
- * タッチデバイスではない時にホイールイベントのデフォルトの動作を止める
- */
+// タッチデバイスではない時にホイールイベントのデフォルトの動作を止める
 if (SITECONFIG.isNoTouch) {
   window.addEventListener('wheel', preEvent, { passive: false })
 }
 
-/**
- * ブレイクポイントを跨いだ時に強制的にロードさせる
- */
+// ブレイクポイントを跨いだ時に強制的にロードさせる
 const mediaQuery = window.matchMedia('(max-width: 767px)')
 mediaQuery.addEventListener('change', reload)
 
+// セッションストレージで訪問済みかを判定する
 if(sessionStorage.getItem('visited')){
   SITECONFIG.firstAccess = false;
 }
