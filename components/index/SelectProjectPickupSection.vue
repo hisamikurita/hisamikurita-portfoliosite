@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 60.0;
+    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 70.0;
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -271,16 +271,18 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
-          // 慣性スクロール有効
-          this.$asscroll.enable()
-          // 上から侵入する監視を加える
-          this.$gsap.ticker.add(this.pickupToTopEnterScroll)
-          // デフォルトのイベントを戻す
-          this.resetDefaultPreEvent()
-          // ハンバーガーメニューを操作可能にする
-          this.$store.commit('hambergerMenu/enable')
-          // ピックアップを出たことを知らせる
-          this.$store.commit('indexPickup/sceneAnimationState', false)
+          setTimeout(() =>{
+            // 慣性スクロール有効
+            this.$asscroll.enable()
+            // 上から侵入する監視を加える
+            this.$gsap.ticker.add(this.pickupToTopEnterScroll)
+            // デフォルトのイベントを戻す
+            this.resetDefaultPreEvent()
+            // ハンバーガーメニューを操作可能にする
+            this.$store.commit('hambergerMenu/enable')
+            // ピックアップを出たことを知らせる
+            this.$store.commit('indexPickup/sceneAnimationState', false)
+          },100)
         },
       })
 
@@ -390,16 +392,18 @@ export default {
           this.$asscroll.scrollTo(this.scroll.value)
         },
         onComplete: () => {
-          // 慣性スクロール有効
-          this.$asscroll.enable()
-          // 下から侵入する監視を加える
-          this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
-          // デフォルトのイベントを戻す
-          this.resetDefaultPreEvent()
-          // ハンバーガーメニューを操作可能にする
-          this.$store.commit('hambergerMenu/enable')
-          // ピックアップを出たことを知らせる
-          this.$store.commit('indexPickup/sceneAnimationState', false)
+          setTimeout(() =>{
+            // 慣性スクロール有効
+            this.$asscroll.enable()
+            // 下から侵入する監視を加える
+            this.$gsap.ticker.add(this.pickupToBottomEnterScroll)
+            // デフォルトのイベントを戻す
+            this.resetDefaultPreEvent()
+            // ハンバーガーメニューを操作可能にする
+            this.$store.commit('hambergerMenu/enable')
+            // ピックアップを出たことを知らせる
+            this.$store.commit('indexPickup/sceneAnimationState', false)
+          },100)
         },
       })
     },
