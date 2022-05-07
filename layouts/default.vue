@@ -105,14 +105,20 @@ export default {
     },
   },
   watch: {
+    /**
+     * 背景色が変わる遷移
+     */
     defaultTransitionState: function () {
+      // アニメーション開始
       if (this.defaultTransitionState) {
         this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
           backgroundColor: this.defaultTransitionColor,
           opacity: 1,
         })
         this.onTransitionStart()
-      } else {
+      }
+      // アニメーション終わり
+      else {
         this.onTransitionEnd()
         this.$gsap.set(this.$refs.LayoutsNormalTransitionColorBg, {
           opacity: 0,
@@ -120,25 +126,26 @@ export default {
       }
     },
 
+    /**
+     * 画像が変わる遷移
+     */
     imageTransitionState: function () {
+      // アニメーション開始
       if (this.imageTransitionState) {
-        const index =
-          this.imageTransitionIndex > this.getProjectData.length - 1
-            ? 0
-            : this.imageTransitionIndex
+        const index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
             opacity: 0,
           })
         }
-
         this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[index], {
           opacity: 1.0,
         })
-
         this.onTransitionStart()
-      } else {
+      }
+      // アニメーション終わり
+      else {
         this.onTransitionEnd()
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
@@ -148,10 +155,11 @@ export default {
       }
     },
 
+    /**
+     * ハンバーガーメニュー
+     */
     hambergerMenuState: function () {
-      /**
-       * ハンバガーメニューが開いた時
-       */
+      // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
@@ -176,10 +184,9 @@ export default {
           this.$asscroll.disable({ inputOnly: true })
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
-      } else if (!this.hambergerMenuState) {
-        /**
-         * ハンバガーメニューが閉じた時
-         */
+      }
+      // ハンバガーメニューが閉じた時
+      else if (!this.hambergerMenuState) {
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'none'
 
         if (this.$SITECONFIG.isPc) {

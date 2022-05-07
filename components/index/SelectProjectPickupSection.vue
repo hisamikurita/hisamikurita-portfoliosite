@@ -571,11 +571,15 @@ export default {
         })
       }
 
-      // リサイズした時にasscrollのcontainerの位置を更新する
+      // リサイズした時に位置を更新する
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
-      this.$asscroll.scrollTo(this.scroll.value)
-      this.$store.commit('indexPickup/setPickupPos', pickupPos)
+      if (this.$SITECONFIG.isNoTouch) this.$asscroll.scrollTo(this.scroll.value)
+      if (this.$SITECONFIG.isTouch) window.scrollTo({ top: this.scroll.value })
+      // 背景固定の位置も更新
+      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false, this.scroll.value, 0);
+
+      // if (this.$SITECONFIG.isTouch) this.$store.commit('indexPickup/setPickupPos', pickupPos)
     },
 
     /**
