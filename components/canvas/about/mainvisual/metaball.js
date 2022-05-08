@@ -23,16 +23,16 @@ export default class Particle {
       y: 800
     };
 
-    // this.video = document.createElement("video");
-    // this.video.src = "https://videos.ctfassets.net/cj90nies7oz5/4vJihp1CBpwTSZtAWHgxmj/5094e6f42502313e1012d23addc8d352/ALL_15.07.20.mp4";
-    // this.video.crossOrigin = "anonymous";
-    // this.video.muted = true;
-    // this.video.setAttribute("playsinline", "playsinline");
-    // this.video.loop = true;
-    // this.video.play();
+    this.video = document.createElement("video");
+    this.video.src = "./movie/about-mv.mp4";
+    this.video.crossOrigin = "anonymous";
+    this.video.muted = true;
+    this.video.setAttribute("playsinline", "playsinline");
+    this.video.loop = true;
+    this.video.play();
 
-    // this.texture = new THREE.VideoTexture(this.video);
-    this.texture = new THREE.TextureLoader().load('https://hisamikurita.github.io/sample-images/dist/assets/images/noise.jpg')
+    this.texture = new THREE.VideoTexture(this.video);
+    // this.texture = new THREE.TextureLoader().load('https://hisamikurita.github.io/sample-images/dist/assets/images/noise.jpg')
     this.mouse = {
       x: 0,
       y: 0
@@ -226,7 +226,7 @@ export default class Particle {
   }
 
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0;
+    this.mesh.material.uniforms.u_time.value += 0.03;
   }
 
   onRaf() {

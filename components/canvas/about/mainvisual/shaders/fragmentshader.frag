@@ -30,8 +30,8 @@ void main() {
 
     vec4 texture = texture2D(u_texture, uv);
 
-    float x = gl_FragCoord.x + u_mouse.x;
-    float y = gl_FragCoord.y + u_mouse.y;
+    float x = gl_FragCoord.x;
+    float y = gl_FragCoord.y;
 
     float sum = 0.0;
     float l = 0.0;
@@ -51,7 +51,7 @@ void main() {
         float sx = (metaball.x * vRatio) + cos(u_time * rand) * (((120.0 * vRatio) * rand * uv.x) + 40.0);
         float sy = (metaball.y * vRatio) + sin(u_time * rand) * (((120.0 * vRatio) * rand * uv.y) + 40.0);
         float dx = ((sx + (u_resolution.x / 2.0)) - x);
-        float dy = ((sy + (u_resolution.y / 2.0)) - y) + u_mouse.x;
+        float dy = ((sy + (u_resolution.y / 2.0)) - y);
         float radius = metaballRadius * vRatio;
 
         sum += (radius * radius) / (dx * dx + dy * dy);

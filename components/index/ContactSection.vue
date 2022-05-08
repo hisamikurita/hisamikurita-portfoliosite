@@ -190,7 +190,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     projectData: {
@@ -258,6 +257,14 @@ export default {
   font-size: vw(180);
   font-family: $sixcaps;
 
+  @include tab() {
+    font-size: vw(170);
+  }
+
+  @include tab-vertical() {
+    font-size: vw(150);
+  }
+
   @include sp() {
     margin: 0 0 58px 0;
     font-size: vw_sp(180);
@@ -315,6 +322,10 @@ export default {
 .contact-info-index-area {
   margin: vw(32) 40px 0 0;
 
+  @include tab-vertical() {
+    margin: vw(16) 40px 0 0;
+  }
+
   @include sp() {
     margin: 10px 40px 0 0;
   }
@@ -323,6 +334,10 @@ export default {
 .contact-info-index {
   display: block;
   margin: 0 0 56px 0;
+
+  @include tab-vertical() {
+    margin: 0 0 20px 0;
+  }
 
   @include sp() {
     margin: 0 0 59px 0;
@@ -354,6 +369,14 @@ export default {
   font-size: vw(400);
   font-family: $sixcaps;
   letter-spacing: -0.02em;
+
+  @include tab() {
+    font-size: vw(380);
+  }
+
+  @include tab-vertical() {
+    font-size: vw(320);
+  }
 
   @include sp() {
     font-size: vw_sp(400);

@@ -203,6 +203,10 @@ export default {
     height: 100%;
     object-fit: cover;
     object-position: center;
+
+    @include tab-vertical() {
+      object-position: right;
+    }
   }
 }
 

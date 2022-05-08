@@ -132,6 +132,12 @@ export default {
     text-indent: -2px;
     line-height: 0.8;
 
+    @include tab-vertical() {
+      margin: 0 0 3px 0;
+      font-size: 28px;
+      text-indent: -1px;
+    }
+
     @include sp() {
       margin: 0 0 3px 0;
       font-size: 28px;
@@ -141,6 +147,10 @@ export default {
 
   & .cmn-title-read-text-01 {
     font-size: 20px;
+
+    @include tab-vertical() {
+      font-size: 16px;
+    }
 
     @include sp() {
       font-size: 10px;

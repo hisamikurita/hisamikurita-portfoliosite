@@ -359,13 +359,15 @@ export default {
 }
 
 .award-list-wrapper {
-  // position: relative;
   margin: 0 0 40px 0;
 }
 
 .award-list {
-  // position: relative;
   width: vw(1000);
+
+  @include tab-vertical() {
+    width: vw(840);
+  }
 
   @include sp() {
     width: 100%;
@@ -401,6 +403,11 @@ export default {
   font-size: 14px;
   letter-spacing: 0.02em;
 
+  @include tab-vertical() {
+    width: vw(218);
+    font-size: 10px;
+  }
+
   @include sp() {
     top: auto;
     width: auto;
@@ -416,6 +423,11 @@ export default {
   font-family: $sixcaps;
   letter-spacing: 0.02em;
 
+  @include tab-vertical() {
+    width: vw(360);
+    font-size: 32px;
+  }
+
   @include sp() {
     width: auto;
     margin: 0 0 8px 0;
@@ -429,6 +441,10 @@ export default {
   font-size: 60px;
   font-family: $sixcaps;
   letter-spacing: 0.02em;
+
+    @include tab-vertical() {
+    font-size: 32px;
+  }
 
   @include sp() {
     width: auto;

@@ -114,7 +114,10 @@ export default {
   margin: 0 0 160px 0;
   padding: 38px 0 0 0;
   font-size: 12px;
-  // border-top: solid 1px;
+
+  @include tab-vertical() {
+    width: vw(840);
+  }
 
   @include sp() {
     display: block;
@@ -129,6 +132,10 @@ export default {
   flex-shrink: 0;
   width: 250px;
   line-height: 1.2;
+
+  @include tab-vertical() {
+    width: 170px;
+  }
 
   @include sp() {
     width: 100%;
@@ -154,9 +161,13 @@ export default {
   }
 }
 
-// 画像タイプ defalt, full, split が入ってくるのでスタイルの条件分岐 //
+// 画像タイプ defalt, full が入ってくるのでスタイルの条件分岐 //
 .contents-img-wrapper-default {
   width: vw(1000);
+
+  @include tab-vertical() {
+    width: vw(840);
+  }
 
   @include sp() {
     width: 100%;
@@ -171,11 +182,6 @@ export default {
     width: calc(100% + #{vw_sp(80)});
     margin: 0 0 20px vw_sp(-40);
   }
-}
-
-.contents-img-wrapper-split {
-  width: calc(100% + 160px);
-  margin: 0 0 160px -80px;
 }
 /////////////////////////////////////////////////////////
 

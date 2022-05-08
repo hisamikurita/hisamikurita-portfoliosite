@@ -722,7 +722,7 @@ export default {
   line-height: 0.98;
 
   @include tab-vertical() {
-    left: 42.4%;
+    left: 44%;
     font-size: vmin(160);
   }
 
@@ -793,9 +793,6 @@ export default {
   }
 }
 
-// @use "sass:math";
-// $dist: pow((0 - var(--viewportWidth)}), 2);
-
 .pickup-circle-bg-enter {
   display: block;
   position: absolute;
@@ -807,10 +804,6 @@ export default {
   height: 80px;
   border-radius: 50%;
   pointer-events: none;
-
-  // &.is-enter {
-  //   width: $dist / 2;
-  // }
 
   @include sp() {
     top: 50%;

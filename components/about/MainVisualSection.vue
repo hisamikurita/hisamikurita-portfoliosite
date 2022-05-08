@@ -204,10 +204,10 @@ export default {
     window.removeEventListener('mousemove', this.mMouse)
     window.removeEventListener('resize', this.mResize)
     this.$gsap.ticker.remove(this.mRaf)
-    this.stage._destroy();
-    this.stage = null;
-    this.mesh._destroy();
-    this.mesh = null;
+    this.stage._destroy()
+    this.stage = null
+    this.mesh._destroy()
+    this.mesh = null
   },
 
   methods: {
@@ -228,7 +228,7 @@ export default {
         this.mesh.onRaf()
       }
 
-      this.mMouse = (e) =>{
+      this.mMouse = (e) => {
         this.mesh.onMouseMove(e)
       }
 
@@ -299,6 +299,10 @@ export default {
   font-family: $sixcaps;
   letter-spacing: -0.002em;
 
+  @include tab-vertical() {
+    font-size: vw(154);
+  }
+
   @include sp() {
     font-size: vw_sp(220);
   }
@@ -308,6 +312,10 @@ export default {
   position: absolute;
   top: 6px;
   left: 40px;
+
+  @include tab-vertical() {
+    left: 20px;
+  }
 }
 
 .hero-title-wrapper {
@@ -326,6 +334,11 @@ export default {
 .hero-title-wrapper-01 {
   width: vw(450);
   margin: 0 0 24px vw(310);
+
+  @include tab-vertical() {
+    width: vw(394);
+    margin: 0 0 24px vw(270);
+  }
 }
 
 .hero-title-wrapper-02 {
@@ -334,6 +347,10 @@ export default {
   width: vw(987);
   margin: 0 0 24px vw(46);
   padding: 0 26px 0 34px;
+
+  @include tab-vertical() {
+    margin: 0 0 24px vw(-24);
+  }
 }
 
 .hero-title-wrapper-03 {
@@ -341,10 +358,18 @@ export default {
   justify-content: space-between;
   width: vw(860);
   margin: 0 0 24px vw(112);
+
+  @include tab-vertical() {
+    margin: 0 0 24px vw(34);
+  }
 }
 
 .hero-title-wrapper-04 {
   width: vw(1077);
+
+  @include tab-vertical() {
+    width: vw(934);
+  }
 }
 
 .hero-title-wrapper-01-sp {
@@ -385,6 +410,6 @@ export default {
   top: 110.8%;
   left: 33%;
   transform: rotate(-10deg);
-      z-index: 1;
+  z-index: 1;
 }
 </style>
