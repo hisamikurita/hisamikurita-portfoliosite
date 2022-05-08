@@ -232,7 +232,7 @@ path {
 
 .text-under-line--about-award-last {
   position: absolute;
-  top: vw(-34);
+  top: vw(-100);
   left: 0;
   width: 100%;
   height: vw(200);

@@ -45,8 +45,9 @@
                 <p class="award-group">{{ award.group }}</p>
                 <p class="award-title">{{ award.title }}</p>
                 <p class="award-rank">{{ award.rank }}</p>
+              </div>
+              <div class="award-list-bottom-line">
                 <AppTextUnderline
-                  v-if="index === awardData.length - 1"
                   :state="'expand'"
                   :pc-animation="false"
                   :sp-animation="false"
@@ -358,10 +359,12 @@ export default {
 }
 
 .award-list-wrapper {
+  position: relative;
   margin: 0 0 40px 0;
 }
 
 .award-list {
+  position: relative;
   width: vw(1000);
 
   @include sp() {
@@ -373,17 +376,21 @@ export default {
   display: flex;
   position: relative;
   padding: 15px 0;
-  // border-top: solid 1px $gray;
   color: $gray;
-
-  // &:last-of-type {
-  //   border-bottom: solid 1px $gray;
-  // }
 
   @include sp() {
     display: block;
     padding: 18px 0;
   }
+}
+
+.award-list-bottom-line{
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .award-group {

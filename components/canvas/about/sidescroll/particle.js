@@ -1,91 +1,172 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 
 export default class Particle {
   constructor(config, canvas) {
-    this.config = config;
-    this.canvas = canvas;
+    this.config = config || null;
+    this.canvas = canvas || null;
     this.ctx = this.canvas.getContext('2d');
-    this.dpr = window.devicePixelRatio;
+    this.dpr = window.devicePixelRatio || 1.0;
+    // 生成したパーティクルを入れておく空配列
     this.particles = [];
+     // パーティクルの初期値を入れておく空配列
+    this.particlesInit = [];
+    // パーティクルの合計数
     this.num = 8;
-    this.speed = 1.4;
+    // パーティクルのスピード
+    this.speed = this.config.isPc ? 1.4 : 1.2;
 
-    this.radiusPc = [
-      140,
-      168,
-      100,
-      40,
-      60,
-      60,
-      74,
-      46
+    // パーティクルの位置初期値
+    this.pos = [{
+        x: {
+          'pc': 160,
+          'sp': 500,
+        },
+        y: {
+          'pc': 160,
+          'sp': 150,
+        }
+      },
+      {
+        x: {
+          'pc': 1060,
+          'sp': 560,
+        },
+        y: {
+          'pc': 220,
+          'sp': 550,
+        }
+      },
+      {
+        x: {
+          'pc': 110,
+          'sp': 150,
+        },
+        y: {
+          'pc': 630,
+          'sp': 630,
+        }
+      },
+      {
+        x: {
+          'pc': 280,
+          'sp': 200,
+        },
+        y: {
+          'pc': 530,
+          'sp': 930,
+        }
+      },
+      {
+        x: {
+          'pc': 410,
+          'sp': 280,
+        },
+        y: {
+          'pc': 500,
+          'sp': 780,
+        }
+      },
+      {
+        x: {
+          'pc': 910,
+          'sp': 630,
+        },
+        y: {
+          'pc': 500,
+          'sp': 400,
+        }
+      },
+      {
+        x: {
+          'pc': 1080,
+          'sp': 680,
+        },
+        y: {
+          'pc': 530,
+          'sp': 684,
+        }
+      },
+      {
+        x: {
+          'pc': 1076,
+          'sp': 320,
+        },
+        y: {
+          'pc': 684,
+          'sp': 384,
+        }
+      },
     ]
 
-    this.radiusSp = [
-      58,
-      37,
-      60,
-      47,
-      18,
-      24,
-      24,
-      20
-    ]
+    // パーティクルの半径初期値
+    this.radius = {
+      'pc': [
+        140,
+        168,
+        100,
+        40,
+        60,
+        60,
+        74,
+        46
+      ],
+      'tab': [
+        80,
+        92,
+        50,
+        64,
+        40,
+        42,
+        52,
+        46
+      ],
+      'sp': [
+        58,
+        37,
+        60,
+        47,
+        18,
+        24,
+        24,
+        20
+      ]
+    }
 
-    this.particlesInit = [{
-        x: this.config.isPc ? 160 : 500,
-        y: this.config.isPc ? 160 : 150,
-        r: this.config.isPc ? this.radiusPc[0] : this.radiusSp[0],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 1060 : 560,
-        y: this.config.isPc ? 220 : 550,
-        r: this.config.isPc ? this.radiusPc[1] : this.radiusSp[1],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 110 : 150,
-        y: this.config.isPc ? 630 : 630,
-        r: this.config.isPc ? this.radiusPc[2] : this.radiusSp[2],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 280 : 200,
-        y: this.config.isPc ? 560 : 930,
-        r: this.config.isPc ? this.radiusPc[3] : this.radiusSp[3],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 410 : 280,
-        y: this.config.isPc ? 500 : 780,
-        r: this.config.isPc ? this.radiusPc[4] : this.radiusSp[4],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 910 : 630,
-        y: this.config.isPc ? 500 : 400,
-        r: this.config.isPc ? this.radiusPc[5] : this.radiusSp[5],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 1080 : 680,
-        y: this.config.isPc ? 530 : 684,
-        r: this.config.isPc ? this.radiusPc[6] : this.radiusSp[6],
-        clipR: 0,
-      },
-      {
-        x: this.config.isPc ? 1076 : 320,
-        y: this.config.isPc ? 684 : 384,
-        r: this.config.isPc ? this.radiusPc[7] : this.radiusSp[7],
-        clipR: 0,
-      },
-    ]
+    // パーティクル初期値をまとめる
+    for (let i = 0; i < this.num; i++) {
+      let x = 0;
+      let y = 0;
+      let r = 0;
+      const clipR = 0;
+
+      if (this.config.isPc) {
+        x = this.pos[i].x.pc
+        y = this.pos[i].y.pc
+        r = this.radius.pc[i]
+      }
+
+      if (this.config.isTab) {
+        r = this.radius.tab[i]
+      }
+
+      if (this.config.isMobile) {
+        x = this.pos[i].x.sp
+        y = this.pos[i].y.sp
+        r = this.radius.sp[i]
+      }
+
+      const particle = {
+        x: x,
+        y: y,
+        r: r,
+        clipR : clipR,
+      }
+
+      this.particlesInit.push(particle);
+    }
   }
 
-  _update(currentPos, tweenPosition) {
+  _update(currentPos = 1.0, tweenPosition = 1.0) {
     for (let i = 0; i < this.particles.length; i++) {
       const particle = this.particles[i];
       const tween = Math.abs((currentPos - tweenPosition) * 0.00002);
@@ -235,7 +316,7 @@ export default class Particle {
         duration: this.config.baseDuration,
         delay: i * 0.08,
         ease: this.config.transform,
-        clipR: this.config.isPc ? this.radiusPc[i] : this.radiusSp[i],
+        clipR: this.particlesInit[i].r,
       })
     }
   }
