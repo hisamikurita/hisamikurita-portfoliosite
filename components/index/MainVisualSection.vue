@@ -235,7 +235,9 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+    this.deviceRatio = this.$checkDevice.isIpad ? 8.0 : 4.0;
+  },
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
@@ -288,9 +290,7 @@ export default {
       this.$gsap.to(this.$refs.HeroBgCircle02, {
         duration: this.$SITECONFIG.baseDuration / 3.0,
         ease: 'none',
-        scale:
-          (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * 4.0 +
-          1.0,
+        scale: (this.$asscroll.currentPos / this.$refs.Hero.clientHeight) * this.deviceRatio + 1.0,
       })
     },
   },
@@ -311,6 +311,10 @@ export default {
   font-size: vw(180);
   font-family: $sixcaps;
   letter-spacing: -0.002em;
+
+  @include tab-vertical() {
+    font-size: vw(154);
+  }
 
   @include sp() {
     font-size: vw_sp(220);
@@ -359,6 +363,10 @@ export default {
 .hero-title-wrapper-01 {
   width: vw(783);
   margin: 0 0 24px vw(260);
+
+  @include tab-vertical() {
+    width: vw(676);
+  }
 }
 
 .hero-title-wrapper-02 {
@@ -371,11 +379,19 @@ export default {
 .hero-title-wrapper-03 {
   width: vw(668);
   margin: 0 0 22px vw(414);
+
+  @include tab-vertical() {
+    width: vw(576);
+  }
 }
 
 .hero-title-wrapper-04 {
   width: vw(336);
   margin: 0 0 0 vw(206);
+
+  @include tab-vertical() {
+    width: vw(290);
+  }
 }
 
 .hero-title-wrapper-01-sp {
@@ -443,6 +459,10 @@ export default {
   top: vw(98);
   font-family: $helvetica;
   font-size: vw(14);
+
+  @include tab-vertical() {
+    top: vw(104);
+  }
 }
 
 .hero-title-wrapper-02-base-area-helvetica-sometimes {

@@ -1,11 +1,17 @@
-@mixin sp() {
-  @media (max-width: 767px) {
+@mixin tab() {
+  @media (max-width: 1280px) {
     @content;
   }
 }
 
-@mixin tab() {
-  @media (max-width: 1280px) {
+@mixin tab-vertical() {
+  @media (max-width: 1028px) {
+    @content;
+  }
+}
+
+@mixin sp() {
+  @media (max-width: 767px) {
     @content;
   }
 }

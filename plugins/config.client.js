@@ -7,6 +7,7 @@ const SITECONFIG = {
   isMobile: false,
   isTab: false,
   isTouch: false,
+  isIpad: false,
   isNoTouch: false,
   fullDuration: 2.0,
   baseDuration: 1.0,

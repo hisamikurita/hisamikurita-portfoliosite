@@ -7,6 +7,7 @@ const checkDevice = {
   isAndroid: false,
   isWindows: false,
   isSafari: false,
+  isIpad: false,
 }
 
 if (android) {
@@ -16,6 +17,11 @@ if (android) {
 } else if (safari) {
   checkDevice.isSafari = true
 }
+
+if(ua.includes('ipad') !== -1 || (ua.includes('macintosh') !== -1 && 'ontouchend' in document)){
+  checkDevice.isIpad = true
+}
+
 
 export default (context, inject) => {
   inject('checkDevice', checkDevice)

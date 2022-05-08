@@ -142,6 +142,10 @@ export default {
 .about-inner {
   padding: 333px 0 568px 0;
 
+  @include tab-vertical() {
+    padding: 213px 0 448px 0;
+  }
+
   @include sp() {
     padding: 118px 0 340px;
   }
@@ -159,8 +163,15 @@ export default {
   line-height: 0.964;
 
   @include tab {
+    width: vw(1070);
     padding: 0 vw(56) 0 vw(40);
+    font-size: vw(76);
     line-height: 1;
+  }
+
+  @include tab-vertical() {
+    width: vw(998);
+    font-size: vw(70);
   }
 
   @include sp() {
@@ -178,6 +189,10 @@ export default {
   left: 42px;
   color: $white;
 
+  @include tab-vertical() {
+    left: vw(46);
+  }
+
   @include sp() {
     left: 9px;
   }
@@ -188,7 +203,7 @@ export default {
 }
 
 .about-title-wrapper-01 {
-  padding: 0 0 0 vw(156);
+  // padding: 0 0 0 vw(156);
   text-align: right;
 }
 
@@ -210,7 +225,11 @@ export default {
   letter-spacing: 0.02em;
 
   @include tab {
-    padding: 0 vw(56) 0 vw(40);
+    padding: 0 vw(75) 0 vw(40);
+  }
+
+  @include tab-vertical() {
+    padding: 0 vw(160) 0 40px;
   }
 
   @include sp() {

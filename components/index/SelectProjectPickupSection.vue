@@ -153,7 +153,7 @@ export default {
   },
 
   mounted() {
-    this.scrollBuffer = this.$SITECONFIG.isPc ? 5.0 : 160.0
+    this.scrollBuffer = 160.0
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
 
     setTimeout(() => {
@@ -716,10 +716,15 @@ export default {
   top: 50%;
   left: 45.4%;
   transform: translate3d(-50%, -50%, 0);
-  font-size: vh(126);
+  font-size: vmin(206);
   font-family: $sixcaps;
   text-align: center;
   line-height: 0.98;
+
+  @include tab-vertical() {
+    left: 42.4%;
+    font-size: vmin(160);
+  }
 
   @include sp() {
     top: calc(65px + 38%);

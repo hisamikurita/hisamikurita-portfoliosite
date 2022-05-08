@@ -286,7 +286,7 @@ export default {
 
 .project-inner {
   position: relative;
-  padding: 206px 0 0 0;
+  padding: 356px 0 0 0;
 
   @include sp() {
     padding: 340px 0 0 0;

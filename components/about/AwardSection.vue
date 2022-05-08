@@ -359,12 +359,12 @@ export default {
 }
 
 .award-list-wrapper {
-  position: relative;
+  // position: relative;
   margin: 0 0 40px 0;
 }
 
 .award-list {
-  position: relative;
+  // position: relative;
   width: vw(1000);
 
   @include sp() {
@@ -386,10 +386,9 @@ export default {
 
 .award-list-bottom-line{
   display: flex;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  position: relative;
   width: 100%;
+  height: 1px;
   z-index: 1;
 }
 

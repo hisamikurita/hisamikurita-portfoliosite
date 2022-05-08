@@ -55,6 +55,10 @@ export default {
   letter-spacing: 0.02em;
   line-height: 1.04;
 
+  @include tab-vertical() {
+    font-size: 10px;
+  }
+
   @include sp() {
     font-size: 10px;
   }
@@ -67,6 +71,11 @@ export default {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
+
+    @include tab-vertical() {
+      font-size: 30px;
+      text-indent: -1.6px;
+    }
 
     @include sp() {
       display: inline-block;
