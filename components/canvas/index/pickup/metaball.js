@@ -5,27 +5,85 @@ import fragmentShader from './shaders/fragmentshader.frag';
 
 export default class Particle {
   constructor(config, stage, imgPath) {
-    this.config = config;
+    // ステージ
     this.stage = stage;
-    this.imgPath = [
-      new THREE.TextureLoader().load(imgPath[0]),
-      new THREE.TextureLoader().load(imgPath[1]),
-      new THREE.TextureLoader().load(imgPath[2]),
-    ];
-    this.mesh = null;
+    // サイト共通の設定
+    this.config = config;
+    // 画像
+    this.texture = new THREE.TextureLoader().load(imgPath);
+    // 画像の元のサイズ
+    this.naturalSize = {
+      x: 1280,
+      y: 800
+    };
     this.geometryParm = {
       width: 1.0,
       height: 1.0,
       widthSegments: 1.0,
       heightSegments: 1.0
     };
-    this.width = window.innerWidth
-    this.height = window.innerHeight;
-    this.naturalSize = {
-      x: 1280,
-      y: 800
-    };
+    this.mesh = null;
+    // メタボールの総数
+    this.numMetaballs = 7;
+    this.metaballs = [
+      {
+        x: 110,
+        y: 160,
+        r: 60,
+        rand: 0.62,
+      },
+      {
+        x: -40,
+        y: 0,
+        r: 60,
+        rand: -0.43,
+      },
+      {
+        x: -20,
+        y: -240,
+        r: 80,
+        rand: -0.49,
+      },
+      {
+        x: 220,
+        y: -90,
+        r: 40,
+        rand: -0.67,
+      },
+      {
+        x: -200,
+        y: -60,
+        r: 60,
+        rand: 0.66,
+      },
+      {
+        x: -330,
+        y: 200,
+        r: 90,
+        rand: 0.84,
+      },
+      {
+        x: 190,
+        y: 0,
+        r: 20,
+        rand: 0.81,
+      },
+    ];
+
+    // 最初に円周上にメタボールを配置しておく
+    for (let i = 0; i < this.numMetaballs; i++) {
+      const radians = (i / (this.numMetaballs - 1.0)) * Math.PI * 2.0;
+      const initX = (window.innerWidth * 1.5) * Math.cos(radians);
+      const initY = (window.innerHeight * 1.5) * Math.sin(radians);
+
+      this.metaballs[i].initX = initX;
+      this.metaballs[i].initY = initY;
+    }
+
     this.speed = 0.036;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+
     this.nextPageStartAnimationArray = [];
   }
 
@@ -36,64 +94,20 @@ export default class Particle {
   _setMesh() {
     const metaballsPosition = [];
     const metaballsRadius = [];
-
-    this.numMetaballs = 7;
-    this.metaball = [{
-        x: -130,
-        y: 200,
-      },
-      {
-        x: -200,
-        y: -60,
-      },
-      {
-        x: 110,
-        y: 160,
-      },
-      {
-        x: 0,
-        y: 0,
-      },
-      {
-        x: 190,
-        y: 0,
-      },
-      {
-        x: -20,
-        y: -240,
-      },
-      {
-        x: 200,
-        y: -90,
-      },
-    ]
-    this.metaballRadius = [
-      90,
-      60,
-      60,
-      60,
-      20,
-      80,
-      40,
-    ]
-    this.rands = [
-      0.84,
-      0.66,
-      0.62,
-      -0.43,
-      0.81,
-      -0.49,
-      -0.67,
-    ]
+    const metaballsRand = [];
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
-        this.metaball[i].x,
-        this.metaball[i].y,
+        this.metaballs[i].initX,
+        this.metaballs[i].initY,
+      );
+
+      metaballsRand.push(
+        this.metaballs[i].rand,
       );
 
       metaballsRadius.push(
-        0
+        this.metaballs[i].r,
       );
     }
 
@@ -105,7 +119,7 @@ export default class Particle {
       uniforms: {
         u_texture: {
           type: "t",
-          value: this.imgPath[0]
+          value: this.texture
         },
         u_metaballsPos: {
           type: "v2v",
@@ -131,7 +145,7 @@ export default class Particle {
         },
         u_rand: {
           type: '1fv',
-          value: this.rands
+          value: metaballsRand
         },
         u_scale: {
           type: 'f',
@@ -157,63 +171,108 @@ export default class Particle {
     this.mesh.material.uniforms.u_resolution.value.y = window.innerHeight;
   }
 
-  setSceneFirst() {
-    // this.speed = 0.036;
-
+  /**
+   * 中心に集まる
+   */
+  setCenter() {
     for (let i = 0; i < this.numMetaballs; i++) {
-      const r = {
-        value: 0
-      }
-      gsap.to(r, {
-        duration: 0.60 + Math.random() * 0.75,
-        delay: i * 0.08,
-        ease: this.config.transform,
-        value: this.metaballRadius[i],
-        onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
-        }
-      })
-    }
-  }
+      const x = { value: this.metaballs[i].initX }
+      const y = { value: this.metaballs[i].initY }
+      this.mesh.material.uniforms.u_time.value = 0.0;
+      this.mesh.material.uniforms.u_metaballsRadius.value[i] = this.metaballs[i].r
 
-  setScene(sceneNumber) {
-    for (let i = 0; i < this.numMetaballs; i++) {
-      const r = {
-        value: this.metaballRadius[i]
-      }
-      gsap.to(r, {
-        duration: 0.60 + Math.random() * 0.75,
-        delay: i * 0.08,
-        ease: this.config.transform,
-        value: 0,
-        onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
+      gsap.fromTo(x,
+        {
+          value: x.value,
         },
-        onComplete: () => {
-          this.mesh.material.uniforms.u_texture.value = this.imgPath[sceneNumber - 1]
+        {
+          duration: this.setMetaballDuration(i),
+          delay: this.setMetaballDelay(i),
+          ease: this.config.transform,
+          value: this.metaballs[i].x,
+          onUpdate: () => {
+            this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = x.value
+          }
+        })
 
-          gsap.to(r, {
-            duration: 0.60 + Math.random() * 0.75,
-            delay: i * 0.08,
-            ease: this.config.transform,
-            value: this.metaballRadius[i],
-            onUpdate: () => {
-              this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
-            }
-          })
+      gsap.fromTo(y,
+        {
+          value: y.value,
+        },
+        {
+          duration: this.setMetaballDuration(i),
+          delay: this.setMetaballDelay(i),
+          ease: this.config.transform,
+          value: this.metaballs[i].y,
+          onUpdate: () => {
+            this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
+          }
+        })
+    }
+  }
+
+  /**
+   * 拡散する
+   */
+  setDiffusion() {
+    for (let i = 0; i < this.numMetaballs; i++) {
+      const x = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] }
+      const y = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] }
+
+      gsap.to(x, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
+        ease: this.config.transformReverse,
+        value: this.metaballs[i].initX,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = x.value
+        }
+      })
+
+      gsap.to(y, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
+        ease: this.config.transformReverse,
+        value: this.metaballs[i].initY,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
         }
       })
     }
   }
 
-  setSceneEnd() {
+  /**
+   * 縮小する
+   */
+  setShrink(){
     for (let i = 0; i < this.numMetaballs; i++) {
-      const r = {
-        value: this.metaballRadius[i]
-      }
+      const x = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] }
+      const y = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] }
+      const r = { value: this.mesh.material.uniforms.u_metaballsRadius.value[i] }
+
+      gsap.to(x, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
+        ease: this.config.transform,
+        value: 0,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = x.value
+        }
+      })
+
+      gsap.to(y, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
+        ease: this.config.transform,
+        value: 0,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
+        }
+      })
+
       gsap.to(r, {
-        duration: 0.60 + Math.random() * 0.75,
-        delay: i * 0.08,
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
         ease: this.config.transform,
         value: 0,
         onUpdate: () => {
@@ -221,6 +280,20 @@ export default class Particle {
         }
       })
     }
+  }
+
+  /**
+   * particle共通のduration
+   */
+  setMetaballDuration(index) {
+    return 0.80 + Math.abs(this.metaballs[index].rand) * 0.90
+  }
+
+  /**
+   * particle共通のdelay
+   */
+  setMetaballDelay(index) {
+    return index * 0.01
   }
 
   setNextPageStart() {
@@ -247,7 +320,7 @@ export default class Particle {
     }
   }
 
-  setNextPageEnd(){
+  setNextPageEnd() {
     console.log('metaball:END発火')
     // this.speed = 0;
     for (let i = 0; i < this.numMetaballs; i++) {
@@ -264,6 +337,7 @@ export default class Particle {
   }
 
   _render() {
+    this.mesh.rotation.set(1.0, 0.0, 0.0);
     this.mesh.material.uniforms.u_time.value += this.speed;
   }
 

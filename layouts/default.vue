@@ -63,8 +63,8 @@
 
 <script>
 import Particle from '../components/canvas/index/pickup/particle'
-// import Mesh from '../components/canvas/index/pickup/metaball'
-// import Stage from '../components/canvas/stage'
+import Mesh from '../components/canvas/index/pickup/metaball'
+import Stage from '../components/canvas/stage'
 import { preEvent } from '../assets/js/preEvent'
 
 export default {
@@ -239,52 +239,56 @@ export default {
     indexPickupIsAnimation: function () {
       // current
       if (this.indexPickupIsAnimation) {
-        console.log('add')
         this.$gsap.ticker.add(this.pRaf)
-        // this.$gsap.ticker.add(this.mRaf)
+        this.$gsap.ticker.add(this.mRaf)
       }
       // no current
       else {
-        // setTimeout(()=>{
-        console.log('remove')
         this.particle.delete()
         this.$gsap.ticker.remove(this.pRaf)
-        // this.$gsap.ticker.remove(this.mRaf)
-        // },10)
+        this.$gsap.ticker.remove(this.mRaf)
       }
     },
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
           this.particle.setSceneFirst(1)
-          // this.mesh.setSceneFirst()
+          this.meshList[0].setCenter()
           break
         case 'next02':
           this.particle.setScene(2)
-          // this.mesh.setScene(2)
+          this.meshList[1].setCenter()
+          this.meshList[0].setShrink()
           break
         case 'next03':
           this.particle.setScene(3)
+          this.meshList[2].setCenter()
+          this.meshList[1].setShrink()
           // this.mesh.setScene(3)
           break
         case 'next04':
           this.particle.setSceneEnd(3)
+          this.meshList[2].setShrink()
           // this.mesh.setSceneEnd()
           break
         case 'prev00':
           this.particle.setSceneEnd(1)
-          // this.mesh.setSceneEnd()
+          this.meshList[0].setDiffusion()
           break
         case 'prev01':
           this.particle.setScene(1)
-          // this.mesh.setScene(1)
+          this.meshList[0].setCenter()
+          this.meshList[1].setShrink()
           break
         case 'prev02':
           this.particle.setScene(2)
+          this.meshList[1].setCenter()
+          this.meshList[2].setShrink()
           // this.mesh.setScene(2)
           break
         case 'prev03':
           this.particle.setSceneFirst(3)
+          this.meshList[2].setCenter()
           // this.mesh.setSceneFirst()
           break
       }
@@ -336,32 +340,41 @@ export default {
     }
 
     // metaball
-    // const imgPath = [];
-    // imgPath.push(
-    //   `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-    //   `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-    //   `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-    // )
+    const imgPath = [];
+    imgPath.push(
+      `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+      `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+      `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+    )
 
-    // const stage = new Stage(this.$refs.Webgl)
-    // stage.init()
+    const stage = new Stage(this.$refs.Webgl)
+    stage.init()
 
-    // this.mesh = new Mesh(this.$SITECONFIG, stage, imgPath)
-    // this.mesh.init()
+    this.meshList = [];
+    for (let i = 0; i < 3.0; i++) {
+      this.meshList.push(this.mesh = new Mesh(this.$SITECONFIG, stage, imgPath[i]));
+      this.meshList[i].init()
+    }
 
-    // window.addEventListener('resize', () => {
-    //   this.mesh.onResize()
-    //   stage.onResize()
-    // })
+    window.addEventListener('resize', () => {
+      for (let i = 0; i < 3.0; i++) {
+        this.meshList[i].onResize()
+      }
+      stage.onResize()
+    })
 
+    this.mRaf = () => {
+      stage.onRaf()
+      for (let i = 0; i < 3.0; i++) {
+        this.meshList[i].onRaf()
+      }
+    }
     // setTimeout(()=>{
-    //   this.mesh.setNextPage();
-    // },3000);
-
-    // this.mRaf = () => {
-    //   stage.onRaf()
-    //   this.mesh.onRaf()
-    // }
+    //   this.$gsap.ticker.add(this.mRaf)
+    //   this.mesh.setCenter()
+    // },500)
+    
+    // ページ遷移のために要素を配列にまとめて取得しておく
     this.container = this.$gsap.utils.toArray([
       this.$refs.CanvasFix,
       this.$refs.AsscrollContainer,
@@ -370,9 +383,6 @@ export default {
       this.$refs.CanvasFixContents,
       this.$refs.AsscrollContents,
     ])
-    // console.log(this.$refs.LayoutsFix)
-    console.log(this.container)
-    console.log(this.contents)
   },
   methods: {
     hambergerMenuOnClose() {
