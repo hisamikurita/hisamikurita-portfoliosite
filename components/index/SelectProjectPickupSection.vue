@@ -213,9 +213,9 @@ export default {
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
-            setTimeout(() => {
-              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
-            }, 100)
+            // setTimeout(() => {
+            //   if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            // }, 100)
             // 次のシーンへ移動させる
             this.pickupSceneNext()
             // シーン用のイベントを付与する
@@ -650,6 +650,7 @@ export default {
     nextPage(data) {
       this.resetDefaultPreEvent()
       this.removeSceneEvent()
+      this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
       this.$store.commit('indexPickup/transition', true)
 
       setTimeout(() => {

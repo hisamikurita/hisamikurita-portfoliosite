@@ -4,7 +4,7 @@ import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
 
 export default class Particle {
-  constructor(config, stage, imgPath) {
+  constructor(config, stage, metaball, imgPath) {
     // ステージ
     this.stage = stage;
     // サイト共通の設定
@@ -25,50 +25,7 @@ export default class Particle {
     this.mesh = null;
     // メタボールの総数
     this.numMetaballs = 7;
-    this.metaballs = [
-      {
-        x: 110,
-        y: 160,
-        r: 60,
-        rand: 0.62,
-      },
-      {
-        x: -40,
-        y: 0,
-        r: 60,
-        rand: -0.43,
-      },
-      {
-        x: -20,
-        y: -240,
-        r: 80,
-        rand: -0.49,
-      },
-      {
-        x: 220,
-        y: -90,
-        r: 40,
-        rand: -0.67,
-      },
-      {
-        x: -200,
-        y: -60,
-        r: 60,
-        rand: 0.66,
-      },
-      {
-        x: -330,
-        y: 200,
-        r: 90,
-        rand: 0.84,
-      },
-      {
-        x: 190,
-        y: 0,
-        r: 20,
-        rand: 0.81,
-      },
-    ];
+    this.metaballs = metaball;
 
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
@@ -85,6 +42,9 @@ export default class Particle {
     this.height = window.innerHeight;
 
     this.nextPageStartAnimationArray = [];
+
+    // 各シーンで動かしているGSAPを格納しておく空配列①
+    this.setCenterAnimations = [];
   }
 
   init() {
@@ -175,13 +135,16 @@ export default class Particle {
    * 中心に集まる
    */
   setCenter() {
+    // アニメーションを入れておく配列を再度定義
+    this.setCenterAnimations = [];
+
     for (let i = 0; i < this.numMetaballs; i++) {
       const x = { value: this.metaballs[i].initX }
       const y = { value: this.metaballs[i].initY }
       this.mesh.material.uniforms.u_time.value = 0.0;
       this.mesh.material.uniforms.u_metaballsRadius.value[i] = this.metaballs[i].r
 
-      gsap.fromTo(x,
+      const setCenterXAnimation = gsap.fromTo(x,
         {
           value: x.value,
         },
@@ -195,7 +158,7 @@ export default class Particle {
           }
         })
 
-      gsap.fromTo(y,
+      const setCenterYAnimation = gsap.fromTo(y,
         {
           value: y.value,
         },
@@ -208,6 +171,8 @@ export default class Particle {
             this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
           }
         })
+      
+      this.setCenterAnimations.push(setCenterXAnimation,setCenterYAnimation);
     }
   }
 
@@ -245,13 +210,18 @@ export default class Particle {
    * 縮小する
    */
   setShrink(){
+    for (let i = 0; i < this.setCenterAnimations.length; i++) {
+      // 他のアニメーションを消しておく
+      if (this.setCenterAnimations[i]) this.setCenterAnimations[i].kill();
+    }
+
     for (let i = 0; i < this.numMetaballs; i++) {
       const x = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] }
       const y = { value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] }
       const r = { value: this.mesh.material.uniforms.u_metaballsRadius.value[i] }
 
       gsap.to(x, {
-        duration: this.setMetaballDuration(i),
+        duration: this.setMetaballDuration(i, 0.3),
         delay: this.setMetaballDelay(i),
         ease: this.config.transform,
         value: 0,
@@ -261,7 +231,7 @@ export default class Particle {
       })
 
       gsap.to(y, {
-        duration: this.setMetaballDuration(i),
+        duration: this.setMetaballDuration(i, 0.3),
         delay: this.setMetaballDelay(i),
         ease: this.config.transform,
         value: 0,
@@ -271,8 +241,8 @@ export default class Particle {
       })
 
       gsap.to(r, {
-        duration: this.setMetaballDuration(i),
-        delay: this.setMetaballDelay(i),
+        duration: this.setMetaballDuration(i, 0.6),
+        delay: 0.2,
         ease: this.config.transform,
         value: 0,
         onUpdate: () => {
@@ -285,8 +255,8 @@ export default class Particle {
   /**
    * particle共通のduration
    */
-  setMetaballDuration(index) {
-    return 0.80 + Math.abs(this.metaballs[index].rand) * 0.90
+  setMetaballDuration(index, ratio = 1.0) {
+    return (0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)
   }
 
   /**
@@ -297,27 +267,29 @@ export default class Particle {
   }
 
   setNextPageStart() {
-    for (let i = 0; i < this.numMetaballs; i++) {
-      const r = {
-        value: this.metaballRadius[i]
-      }
-      this.nextPageStartAnimation = gsap.to(r, {
-        duration: this.config.halfBaseDuration,
-        delay: i * 0.08,
-        ease: this.config.transform,
-        value: window.innerWidth / 4.0,
-        onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
-        },
-      })
-      this.nextPageStartAnimationArray.push(this.nextPageStartAnimation);
-      // setTimeout(() => {
-      //   this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
-      //   for (let i = 0; i < this.numMetaballs; i++) {
-      //     this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
-      //   }
-      // }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
-    }
+    console.log('はっか')
+
+    // for (let i = 0; i < this.numMetaballs; i++) {
+    //   const r = {
+    //     value: this.metaballRadius[i]
+    //   }
+    //   this.nextPageStartAnimation = gsap.to(r, {
+    //     duration: this.config.halfBaseDuration,
+    //     delay: i * 0.08,
+    //     ease: this.config.transform,
+    //     value: window.innerWidth / 4.0,
+    //     onUpdate: () => {
+    //       this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
+    //     },
+    //   })
+    //   this.nextPageStartAnimationArray.push(this.nextPageStartAnimation);
+    //   // setTimeout(() => {
+    //   //   this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
+    //   //   for (let i = 0; i < this.numMetaballs; i++) {
+    //   //     this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
+    //   //   }
+    //   // }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
+    // }
   }
 
   setNextPageEnd() {

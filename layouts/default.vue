@@ -66,6 +66,7 @@ import Particle from '../components/canvas/index/pickup/particle'
 import Mesh from '../components/canvas/index/pickup/metaball'
 import Stage from '../components/canvas/stage'
 import { preEvent } from '../assets/js/preEvent'
+import { metaballSceneList } from '../assets/js/metaball'
 
 export default {
   data: () => {
@@ -103,6 +104,9 @@ export default {
     },
     indexPickupIsAnimation() {
       return this.$store.getters['indexPickup/sceneAnimationState']
+    },
+    pickupCurrentNumber() {
+      return this.$store.getters['indexPickup/currnetNumber']
     },
     pickupTransitionState() {
       return this.$store.getters['indexPickup/transition']
@@ -224,7 +228,9 @@ export default {
     pickupTransitionState: function () {
       if (this.pickupTransitionState) {
         this.particle.setNextPageStart()
-        // this.mesh.setNextPageStart()
+
+        const index = this.pickupCurrentNumber - 1.0;
+        this.meshList[index].setNextPageStart()
       } else {
         // console.log('remove')
         // setTimeout(()=>{
@@ -264,12 +270,10 @@ export default {
           this.particle.setScene(3)
           this.meshList[2].setCenter()
           this.meshList[1].setShrink()
-          // this.mesh.setScene(3)
           break
         case 'next04':
           this.particle.setSceneEnd(3)
           this.meshList[2].setShrink()
-          // this.mesh.setSceneEnd()
           break
         case 'prev00':
           this.particle.setSceneEnd(1)
@@ -284,12 +288,10 @@ export default {
           this.particle.setScene(2)
           this.meshList[1].setCenter()
           this.meshList[2].setShrink()
-          // this.mesh.setScene(2)
           break
         case 'prev03':
           this.particle.setSceneFirst(3)
           this.meshList[2].setCenter()
-          // this.mesh.setSceneFirst()
           break
       }
     },
@@ -351,8 +353,9 @@ export default {
     stage.init()
 
     this.meshList = [];
+
     for (let i = 0; i < 3.0; i++) {
-      this.meshList.push(this.mesh = new Mesh(this.$SITECONFIG, stage, imgPath[i]));
+      this.meshList.push(this.mesh = new Mesh(this.$SITECONFIG, stage, metaballSceneList[i], imgPath[i]));
       this.meshList[i].init()
     }
 
@@ -369,11 +372,15 @@ export default {
         this.meshList[i].onRaf()
       }
     }
-    // setTimeout(()=>{
-    //   this.$gsap.ticker.add(this.mRaf)
-    //   this.mesh.setCenter()
-    // },500)
-    
+
+    // pickupに侵入する時にかくつかないようにRAFを1秒間まわしておく
+    this.$gsap.ticker.add(this.pRaf)
+    this.$gsap.ticker.add(this.mRaf)
+    setTimeout(() => {
+      this.$gsap.ticker.remove(this.pRaf)
+      this.$gsap.ticker.remove(this.mRaf)
+    }, 1000)
+
     // ページ遷移のために要素を配列にまとめて取得しておく
     this.container = this.$gsap.utils.toArray([
       this.$refs.CanvasFix,
@@ -385,9 +392,15 @@ export default {
     ])
   },
   methods: {
+    /**
+     * ハンバーガーメニューを閉じる
+     */
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
     },
+    /**
+     * transition start animation
+     */
     onTransitionStart() {
       this.$gsap.set(this.container, {
         overflow: 'hidden',
@@ -414,6 +427,9 @@ export default {
         clipPath: 'ellipse(70% 100% at 50% 50%)',
       })
     },
+    /**
+     * transition end setting
+     */
     onTransitionEnd() {
       if (this.indexPickupIsAnimation)
         this.$store.commit('indexPickup/sceneAnimationState', false)

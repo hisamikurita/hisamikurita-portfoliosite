@@ -11,6 +11,7 @@ export const state = () => ({
   sceneAnimation: '',
   scene: '',
   isTransition: false,
+  isCurrnetNumber: 0,
 });
 
 export const getters = {
@@ -31,6 +32,9 @@ export const getters = {
   },
   transition(state) {
     return state.isTransition;
+  },
+  currnetNumber(state) {
+    return state.isCurrnetNumber
   }
 };
 
@@ -55,5 +59,8 @@ export const mutations = {
   },
   transition(state, transition) {
     state.isTransition = transition;
+  },
+  setCurrentNumber(state, number) {
+    state.isCurrnetNumber = number;
   }
 };
