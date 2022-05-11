@@ -226,23 +226,20 @@ export default {
       }
     },
     pickupTransitionState: function () {
+      const index = this.pickupCurrentNumber - 1.0;
+
       if (this.pickupTransitionState) {
         this.particle.setNextPageStart()
 
-        const index = this.pickupCurrentNumber - 1.0;
         this.meshList[index].setNextPageStart()
       } else {
-        // console.log('remove')
-        // setTimeout(()=>{
-        // this.$gsap.ticker.remove(this.pRaf)
-        // this.particle.delete();
-        // this.mesh.setNextPageEnd()
-        // },300)
-        //     this.$gsap.ticker.remove(this.pRaf)
-        // this.$gsap.ticker.remove(this.mRaf)
+        this.meshList[index].delete()
       }
     },
     indexPickupIsAnimation: function () {
+        const index = this.pickupCurrentNumber - 1.0;
+        console.log(index)
+
       // current
       if (this.indexPickupIsAnimation) {
         this.$gsap.ticker.add(this.pRaf)
@@ -251,8 +248,11 @@ export default {
       // no current
       else {
         this.particle.delete()
-        this.$gsap.ticker.remove(this.pRaf)
-        this.$gsap.ticker.remove(this.mRaf)
+        this.meshList[index].delete()
+        setTimeout(()=>{
+          this.$gsap.ticker.remove(this.pRaf)
+          this.$gsap.ticker.remove(this.mRaf)
+        },100)
       }
     },
     indexPickupScene: function () {

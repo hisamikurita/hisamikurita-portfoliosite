@@ -155,6 +155,7 @@ export default {
   mounted() {
     this.scrollBuffer = 160.0
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
+    this.$store.commit('indexPickup/setCurrentNumber', 1.0)
 
     setTimeout(() => {
       this.$gsap.ticker.add(this.pickupToTopEnterScroll)
@@ -164,6 +165,8 @@ export default {
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
+      this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
+
     // ページを離れる時にピックアップのアニメーションをremoveする
     this.$store.commit('indexPickup/setScene', '')
     // this.$store.commit('indexPickup/sceneAnimationState', false)
@@ -655,7 +658,7 @@ export default {
 
       setTimeout(() => {
         this.$router.push(`/works/${data.id}`)
-      }, (this.$SITECONFIG.halfBaseDuration + (7 * 0.08) / 4.0) * 1000)
+      }, 500)
     },
   },
 }

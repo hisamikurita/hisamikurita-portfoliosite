@@ -561,11 +561,6 @@ export default {
         x: -window.innerWidth / 2.0 + 30 + 20,
       })
     },
-    // (root) {
-    //   if (this.$route.name === root || this.$route.params.slug) {
-    //     this.$store.commit('hambergerMenu/close')
-    //   }
-    // },
   },
 }
 </script>

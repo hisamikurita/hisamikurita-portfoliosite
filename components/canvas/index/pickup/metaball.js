@@ -41,10 +41,10 @@ export default class Particle {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
 
-    this.nextPageStartAnimationArray = [];
-
     // 各シーンで動かしているGSAPを格納しておく空配列①
     this.setCenterAnimations = [];
+    // 各シーンで動かしているGSAPを格納しておく空配列②
+    this.setNextPageAnimations = [];
   }
 
   init() {
@@ -262,54 +262,42 @@ export default class Particle {
   /**
    * particle共通のdelay
    */
-  setMetaballDelay(index) {
-    return index * 0.01
+  setMetaballDelay(index, ratio = 1.0) {
+    return index * (0.01 * ratio)
   }
 
   setNextPageStart() {
-    console.log('はっか')
+    // アニメーションを入れておく配列を再度定義
+    this.setNextPageAnimations = [];
 
-    // for (let i = 0; i < this.numMetaballs; i++) {
-    //   const r = {
-    //     value: this.metaballRadius[i]
-    //   }
-    //   this.nextPageStartAnimation = gsap.to(r, {
-    //     duration: this.config.halfBaseDuration,
-    //     delay: i * 0.08,
-    //     ease: this.config.transform,
-    //     value: window.innerWidth / 4.0,
-    //     onUpdate: () => {
-    //       this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
-    //     },
-    //   })
-    //   this.nextPageStartAnimationArray.push(this.nextPageStartAnimation);
-    //   // setTimeout(() => {
-    //   //   this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
-    //   //   for (let i = 0; i < this.numMetaballs; i++) {
-    //   //     this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
-    //   //   }
-    //   // }, (this.config.halfBaseDuration + (7 * 0.08)) * 1000)
-    // }
+    for (let i = 0; i < this.numMetaballs; i++) {
+      const r = { value: this.mesh.material.uniforms.u_metaballsRadius.value[i] }
+
+      this.setNextPageAnimation = gsap.to(r, {
+        duration: this.setMetaballDuration(i, 1.6),
+        delay: this.setMetaballDelay(i, 1.6),
+        ease: this.config.transform,
+        value: window.innerWidth * 0.50,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
+        }
+      })
+
+      this.setNextPageAnimations.push(this.setNextPageAnimation);
+    }
   }
 
-  setNextPageEnd() {
-    console.log('metaball:END発火')
-    // this.speed = 0;
+  delete() {
     for (let i = 0; i < this.numMetaballs; i++) {
-      this.nextPageStartAnimationArray[i].kill();
-    }
-    this.mesh.material.uniforms.u_texture.value = this.imgPath[0]
-    for (let i = 0; i < this.numMetaballs; i++) {
+      // 他のアニメーションを消しておく
+      if(this.setNextPageAnimations[i]) this.setNextPageAnimations[i].kill()
+
       this.mesh.material.uniforms.u_metaballsRadius.value[i] = 0
     }
-    // console.log(this.mesh)
-    // setTimeout(()=>{
-    // console.log(this.mesh)
-    // },100)
   }
 
   _render() {
-    this.mesh.rotation.set(1.0, 0.0, 0.0);
+    console.log('発火')
     this.mesh.material.uniforms.u_time.value += this.speed;
   }
 
