@@ -297,7 +297,6 @@ export default class Particle {
   }
 
   _render() {
-    console.log('発火')
     this.mesh.material.uniforms.u_time.value += this.speed;
   }
 

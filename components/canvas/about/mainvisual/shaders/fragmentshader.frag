@@ -2,7 +2,7 @@
 Reference: http://jamie-wong.com/2016/07/06/metaballs-and-webgl/
 */
 
-precision highp float;
+precision mediump float;
 
 uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
@@ -44,8 +44,8 @@ void main() {
         // float yy = u_metaballsPos[i].y + (u_mouse.y * 200.0);
 
         vec2 metaball = u_metaballsPos[i];
-        // metaball.x += u_mouse.x * 100.0;
-        // metaball.y += u_mouse.y * 100.0;
+        metaball.x += u_mouse.x;
+        metaball.y += u_mouse.y;
 
         float metaballRadius = u_metaballsRadius[i];
         float rand = u_rand[i];

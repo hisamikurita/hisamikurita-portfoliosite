@@ -6,7 +6,7 @@
         :key="index"
         ref="HeaderLogoText"
         class="header-logo-text"
-        style="transform: translateY(50px)"
+        style="transform: translateY(60px)"
         :class="{
           'header-logo-fade-text': index % 2 === 1,
           'header-logo-move-text': index % 2 === 0,

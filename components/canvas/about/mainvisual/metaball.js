@@ -7,22 +7,26 @@ import fragmentShader from './shaders/fragmentshader.frag';
 
 export default class Particle {
   constructor(stage, config) {
+    // ステージ
     this.stage = stage;
+    // サイト共通の設定
     this.config = config;
-    this.mesh = null;
     this.geometryParm = {
       width: 1.0,
       height: 1.0,
       widthSegments: 1.0,
       heightSegments: 1.0
     };
-    this.width = this.stage.renderParam.width;
-    this.height = this.stage.renderParam.height;
+    this.mesh = null;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    // 画像の元のサイズ
     this.naturalSize = {
-      x: 1280,
-      y: 800
+      x: 1200,
+      y: 830
     };
 
+    // ビデオテクスチャを生成
     this.video = document.createElement("video");
     this.video.src = "./movie/about-mv.mp4";
     this.video.crossOrigin = "anonymous";
@@ -30,9 +34,61 @@ export default class Particle {
     this.video.setAttribute("playsinline", "playsinline");
     this.video.loop = true;
     this.video.play();
-
     this.texture = new THREE.VideoTexture(this.video);
-    // this.texture = new THREE.TextureLoader().load('https://hisamikurita.github.io/sample-images/dist/assets/images/noise.jpg')
+
+    // メタボールの総数
+    this.numMetaballs = 8;
+    this.metaball = [
+      {
+        x: this.config.isPc ? -130 : 30,
+        y: this.config.isPc ? 160 : 290,
+        r: this.config.isPc ? 90 : 120,
+        rand: this.config.isPc ? 0.84 : 0.74,
+      },
+      {
+        x: -200,
+        y: 100,
+        r: 60,
+        rand: this.config.isPc ? 0.66 : 0.32,
+      },
+      {
+        x: 110,
+        y: 120,
+        r: 60,
+        rand: 0.62,
+      },
+      {
+        x: 0,
+        y: -40,
+        r: 60,
+        rand: -0.43,
+      },
+      {
+        x: 190,
+        y: -40,
+        r: 20,
+        rand: this.config.isPc ? 0.81 : 0.52,
+      },
+      {
+        x: this.config.isPc ? -20 : 10,
+        y: this.config.isPc ? -280 : -400,
+        r: 80,
+        rand: -0.49,
+      },
+      {
+        x: 200,
+        y: -130,
+        r: 40,
+        rand: -0.67,
+      },
+      {
+        x: this.config.isPc ? -300 : -190,
+        y: this.config.isPc ? -130 : -150,
+        r: 66,
+        rand: 0.57,
+      },
+    ]
+
     this.mouse = {
       x: 0,
       y: 0
@@ -46,61 +102,7 @@ export default class Particle {
   _setMesh() {
     const metaballsPosition = [];
     const metaballsRadius = [];
-
-    this.numMetaballs = 8;
-    this.metaball = [{
-        x: this.config.isPc ? -130 : 30,
-        y: this.config.isPc ? 160 : 290,
-      },
-      {
-        x: -200,
-        y: 100,
-      },
-      {
-        x: 110,
-        y: 120,
-      },
-      {
-        x: 0,
-        y: -40,
-      },
-      {
-        x: 190,
-        y: -40,
-      },
-      {
-        x: this.config.isPc ? -20 : 10,
-        y: this.config.isPc ? -280 : -400,
-      },
-      {
-        x: 200,
-        y: -130,
-      },
-      {
-        x: this.config.isPc ? -300 : -190,
-        y: this.config.isPc ? -130 : -150,
-      },
-    ]
-    this.metaballRadius = [
-      this.config.isPc ? 90 : 120,
-      60,
-      60,
-      60,
-      20,
-      80,
-      40,
-      66,
-    ]
-    this.rands = [
-      this.config.isPc ? 0.84 : 0.74,
-      this.config.isPc ? 0.66 : 0.32,
-      0.62,
-      -0.43,
-      this.config.isPc ? 0.81 : 0.52,
-      -0.49,
-      -0.67,
-      0.57,
-    ]
+    const metaballsRands = [];
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
@@ -110,6 +112,10 @@ export default class Particle {
 
       metaballsRadius.push(
         0
+      );
+
+      metaballsRands.push(
+        this.metaball[i].rand
       );
     }
 
@@ -147,7 +153,7 @@ export default class Particle {
         },
         u_rand: {
           type: '1fv',
-          value: this.rands
+          value: metaballsRands
         },
         u_scale: {
           type: 'f',
@@ -181,14 +187,13 @@ export default class Particle {
 
   fadeIn() {
     for (let i = 0; i < this.numMetaballs; i++) {
-      const r = {
-        value: 0
-      }
+      const r = { value: 0 }
+
       gsap.to(r, {
         duration: 0.60 + Math.random() * 0.75,
         delay: i * 0.08,
         ease: this.config.transform,
-        value: this.metaballRadius[i],
+        value: this.metaball[i].r,
         onUpdate: () => {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         },
@@ -215,17 +220,22 @@ export default class Particle {
 
   onMouseMove(e) {
     gsap.to(this.mouse, {
-      duration: 1.0,
-      ease: 'none',
+      duration: 0.20,
+      ease: 'power1.out',
       x: ((e.clientX / window.innerWidth) * 2.0 - 1.0) * 200,
       y: -((e.clientY / window.innerHeight) * 2.0 - 1.0) * 200,
     });
 
+    // for (let i = 0; i < this.numMetaballs; i++) {
+    //   this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = this.mouse.x
+    //   this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = this.mouse.y
+    // }
     this.mesh.material.uniforms.u_mouse.value.x = this.mouse.x;
     this.mesh.material.uniforms.u_mouse.value.y = this.mouse.y;
   }
 
   _render() {
+    console.log('発火')
     this.mesh.material.uniforms.u_time.value += 0.03;
   }
 
