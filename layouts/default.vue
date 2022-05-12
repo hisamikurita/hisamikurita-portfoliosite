@@ -238,12 +238,13 @@ export default {
     },
     indexPickupIsAnimation: function () {
         const index = this.pickupCurrentNumber - 1.0;
-        console.log(index)
 
       // current
       if (this.indexPickupIsAnimation) {
-        this.$gsap.ticker.add(this.pRaf)
-        this.$gsap.ticker.add(this.mRaf)
+        setTimeout(()=>{
+          this.$gsap.ticker.add(this.pRaf)
+          this.$gsap.ticker.add(this.mRaf)
+        },10) // メタボールの描画が残っている時があるので処理を0.01s遅らせる
       }
       // no current
       else {
@@ -252,7 +253,7 @@ export default {
         setTimeout(()=>{
           this.$gsap.ticker.remove(this.pRaf)
           this.$gsap.ticker.remove(this.mRaf)
-        },100)
+        },10) // メタボールの描画が残っている時があるので処理を0.01s遅らせる
       }
     },
     indexPickupScene: function () {

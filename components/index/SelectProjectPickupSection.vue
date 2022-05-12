@@ -255,7 +255,7 @@ export default {
       if (this.pickupToTopEnterScrollAnimation)
         this.pickupToTopEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
-      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
+      // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -351,9 +351,9 @@ export default {
           },
           onComplete: () => {
             // タッチデバイスの時、背景固定
-            setTimeout(() => {
-              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
-            }, 100)
+            // setTimeout(() => {
+            //   if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false)
+            // }, 100)
             // 前のシーンへ移動させる
             this.pickupScenePrev()
             // シーン用のイベントを付与する
@@ -380,7 +380,7 @@ export default {
       if (this.pickupToBottomEnterScrollAnimation)
         this.pickupToBottomEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
-      if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
+      // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -579,8 +579,8 @@ export default {
       this.scroll.value = pickupPos
       this.$asscroll.scrollTo(this.scroll.value)
       // 背景固定の位置も更新
-      if (this.$SITECONFIG.isTouch)
-        this.$backfaceScroll(false, this.scroll.value, 0)
+      // if (this.$SITECONFIG.isTouch)
+      //   this.$backfaceScroll(false, this.scroll.value, 0)
 
       // if (this.$SITECONFIG.isTouch) this.$store.commit('indexPickup/setPickupPos', pickupPos)
     },

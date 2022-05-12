@@ -173,6 +173,7 @@ export default class Particle {
         })
       
       this.setCenterAnimations.push(setCenterXAnimation,setCenterYAnimation);
+      console.log(this.mesh)
     }
   }
 
@@ -297,6 +298,7 @@ export default class Particle {
   }
 
   _render() {
+    console.log('発火')
     this.mesh.material.uniforms.u_time.value += this.speed;
   }
 
