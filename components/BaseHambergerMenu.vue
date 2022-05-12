@@ -627,7 +627,7 @@ export default {
     left: calc(-100vw + 60px + 20px);
     width: 100vw;
     height: calc(var(--viewportHeight, 100vh) - 32px);
-    border-radius: 0;
+    border-radius: 10px;
     transform: scaleY(0);
     transform-origin: top;
   }

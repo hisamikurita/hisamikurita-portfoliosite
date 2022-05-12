@@ -178,6 +178,7 @@ export default {
     hambergerMenuState: function () {
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
+        // 無効にしていたクリックエリアを有効にする
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
         if (this.$SITECONFIG.isPc) {
@@ -190,9 +191,13 @@ export default {
         }
 
         if (this.$SITECONFIG.isTouch) {
+          // スクロール無効
           this.$backfaceScroll(false)
-        } else if (this.$SITECONFIG.isNoTouch) {
+        }
+        else if (this.$SITECONFIG.isNoTouch) {
+          // スクロール無効
           this.$asscroll.disable({ inputOnly: true })
+          // デフォルトのホイールイベントを戻す
           window.removeEventListener('wheel', preEvent, { passive: false })
         }
       }

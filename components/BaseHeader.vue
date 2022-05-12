@@ -74,7 +74,8 @@ export default {
       })
     },
     hambergerMenuState: function () {
-      if (this.hambergerMenuState) {
+      // ハンバーガーメニューが開いて、PCだった時にロゴを動かす
+      if (this.hambergerMenuState && this.$SITECONFIG.isPc) {
         this.$gsap.to(this.$refs.HeaderLogo, {
           delay: 0.16,
           duration: 0.3,
@@ -98,6 +99,7 @@ export default {
 
   methods: {
     onScroll() {
+      // ハンバーガーメニューが開いている時と遷移中は処理を返す
       if (this.hambergerMenuState || this.indexPickupState) return
 
       if (this.$asscroll.targetPos < 1.0) {

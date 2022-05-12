@@ -32,7 +32,7 @@
               <span class="hero-title-read-block-sp"
                 >LIBRARY : GSAP/THREE.JS'</span
               >
-              <span class="hero-title-read-block-sp">SERVER : NETLIFY'</span>
+              <span class="hero-title-read-block-sp">HOSTING : AWS AMPLIFY</span>
             </span>
           </span>
           <span class="pc-only">
@@ -246,9 +246,12 @@ export default {
 
   methods: {
     mvItemViewIn() {
+      // テキストアニメーション
       this.isTextSegmentState = 'center'
+      // ラインアニメーション
       this.isTextUnderlineState = 'extend'
 
+      // サークルアニメーション①
       this.$gsap.to(this.$refs.HeroBgCircle01, {
         duration: this.$SITECONFIG.baseDuration,
         delay: 0.2,
@@ -256,12 +259,14 @@ export default {
         scale: 1,
       })
 
+      // カードアニメーション
       this.$gsap.to(this.$refs.HeroCardItem, {
         duration: this.$SITECONFIG.fullDuration,
         ease: this.$EASING.transform,
         x: 0,
         rotate: 0,
         onComplete: () => {
+          // 処理が終わったらドラッグを有効にする
           this.isMvCardDrag = true
         },
       })
@@ -271,6 +276,7 @@ export default {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+              // サークルアニメーション②
               this.$gsap.ticker.add(this.bgCircleScaleChangeScroll)
             } else {
               this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
@@ -530,7 +536,9 @@ export default {
 
   @include sp() {
     top: 28%;
-    left: 57%;
+    right: 6%;
+    left: auto;
+    transform: translateX(400px) rotate(180deg);
   }
 }
 </style>
