@@ -281,69 +281,69 @@ export default {
   }
 }
 
-.is-android {
-  & .cmn-title-read-text-wrapper--section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: -6px;
-      }
-    }
-  }
+// .is-android {
+//   & .cmn-title-read-text-wrapper--section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: -6px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--pickup-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: 12px;
-      }
-    }
-  }
+//   & .cmn-title-read-text-wrapper--pickup-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: 12px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--project-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        right: -11px;
-      }
-    }
-  }
+//   & .cmn-title-read-text-wrapper--project-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         right: -11px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--contact-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: -5px;
-      }
-    }
-  }
+//   & .cmn-title-read-text-wrapper--contact-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: -5px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--award-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: -4px;
-      }
-    }
-  }
+//   & .cmn-title-read-text-wrapper--award-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: -4px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--about-project-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: -4px;
-      }
-    }
-  }
+//   & .cmn-title-read-text-wrapper--about-project-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: -4px;
+//       }
+//     }
+//   }
 
-  & .cmn-title-read-text-wrapper--works-section {
-    & .cmn-title-read-text-00 {
-      @include sp() {
-        position: relative;
-        left: -4px;
-      }
-    }
-  }
-}
+//   & .cmn-title-read-text-wrapper--works-section {
+//     & .cmn-title-read-text-00 {
+//       @include sp() {
+//         position: relative;
+//         left: -4px;
+//       }
+//     }
+//   }
+// }
 /* stylelint-enable */
 </style>

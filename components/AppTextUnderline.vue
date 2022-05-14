@@ -189,6 +189,7 @@ path {
   stroke: $black;
 
   @include sp() {
+    bottom: vw_sp(90);
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -203,6 +204,7 @@ path {
   stroke: $black;
 
   @include sp() {
+    bottom: vw_sp(-98);
     left: 20px;
     width: calc(100% - 40px);
   }

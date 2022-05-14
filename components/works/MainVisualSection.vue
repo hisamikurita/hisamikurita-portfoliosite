@@ -305,10 +305,10 @@ export default {
   font-size: 26px;
 }
 
-.is-android .hero-index-sp-01 {
-  position: relative;
-  left: -4px;
-}
+// .is-android .hero-index-sp-01 {
+//   position: relative;
+//   left: -4px;
+// }
 
 .hero-full-title-sp{
   font-size: 108px;

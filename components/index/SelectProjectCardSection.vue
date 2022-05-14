@@ -322,7 +322,7 @@ export default {
   text-align: right;
 
   @include sp() {
-    top: -51px;
+    top: -81px;
     right: 19px;
   }
 }

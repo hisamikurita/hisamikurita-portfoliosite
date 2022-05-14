@@ -225,6 +225,8 @@ export default {
             this.addSceneEvent()
             // ハンバーガーメニューを操作可能にする
             this.$store.commit('hambergerMenu/enable')
+            // タッチはできるようにする
+            window.removeEventListener('touchstart', preEventTouch, { passive: false, })
           },
         })
 
@@ -360,6 +362,8 @@ export default {
             this.addSceneEvent()
             // ハンバーガーメニューを操作可能にする
             this.$store.commit('hambergerMenu/enable')
+            // タッチはできるようにする
+            window.removeEventListener('touchstart', preEventTouch, { passive: false, })
           },
         })
 
@@ -615,9 +619,7 @@ export default {
     addSceneEvent() {
       window.addEventListener('touchstart', this.setTouchY)
       window.addEventListener('touchmove', this.pickupSceneTouchManager)
-      window.addEventListener('wheel', this.pickupSceneWheelManager, {
-        passive: false,
-      })
+      window.addEventListener('wheel', this.pickupSceneWheelManager, { passive: false, })
       window.addEventListener('resize', this.pickupResize)
       window.addEventListener('keydown', this.pickupSceneWheelManager)
     },
@@ -626,13 +628,10 @@ export default {
      * デフォルトのイベントを戻す
      */
     resetDefaultPreEvent() {
-      window.removeEventListener('touchstart', preEventTouch, {
-        passive: false,
-      })
+      window.removeEventListener('touchstart', preEventTouch, { passive: false, })
       window.removeEventListener('touchmove', preEventTouch, { passive: false })
       window.removeEventListener('wheel', preEvent, { passive: false })
       window.removeEventListener('scroll', preEvent, { passive: false })
-      window.removeEventListener('keydown', this.pickupSceneWheelManager)
     },
 
     /**
@@ -641,9 +640,8 @@ export default {
     removeSceneEvent() {
       window.removeEventListener('touchstart', this.setTouchY)
       window.removeEventListener('touchmove', this.pickupSceneTouchManager)
-      window.removeEventListener('wheel', this.pickupSceneWheelManager, {
-        passive: false,
-      })
+      window.removeEventListener('wheel', this.pickupSceneWheelManager, { passive: false,})
+      window.removeEventListener('keydown', this.pickupSceneWheelManager)
       window.removeEventListener('resize', this.pickupResize)
     },
 

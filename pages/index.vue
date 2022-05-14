@@ -54,7 +54,7 @@ export default {
     },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        if (!this.openningEnd) return
+        if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
           this.$asscroll.enable({ reset: true })
       }
@@ -66,7 +66,9 @@ export default {
       const images = document.querySelectorAll('.index img')
       const imagesLoaded = ImagesLoaded(images)
 
+      // 画像の読み込みが全て完了した時
       imagesLoaded.on('always', () => {
+        // 遷移のアニメーションを終了させる
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
         if (this.imageTransitionState) this.$store.commit('image-transition/end')
 
@@ -76,7 +78,7 @@ export default {
   },
 
   beforeDestroy() {
-      // this.$store.commit('indexPickup/transition', true);
+    // リセット
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

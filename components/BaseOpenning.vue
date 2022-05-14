@@ -51,11 +51,14 @@ export default {
   },
 
   mounted() {
-    const projectResponse = this.$store.getters.projectData
-    const index = projectResponse.findIndex(
-      (content) => content.id === this.$router.history.current.params.slug
-    )
+    // タッチデバイスの時、OPはスクロール不可にしておく
+    if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false);
 
+    // works詳細ページに直アクセスした場合を考慮して、そのページのインデックスを取得する
+    const projectResponse = this.$store.getters.projectData
+    const index = projectResponse.findIndex((content) => content.id === this.$router.history.current.params.slug)
+
+    // 読み込み完了後
     window.addEventListener('load', () => {
       this.$gsap.set(this.$refs.OpenningName, {
         opacity: 1,
@@ -229,6 +232,9 @@ export default {
 
           onComplete: () => {
             setTimeout(() => {
+              // スクロール可能にする
+              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true);
+
               this.$store.commit('openning/end')
               if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/start', index)
@@ -251,6 +257,9 @@ export default {
       // 2回目以降
       else {
         setTimeout(() => {
+          // スクロール可能にする
+          if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true);
+
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/start', index)
@@ -289,7 +298,6 @@ export default {
   font-family: $sixcaps;
   z-index: 2;
   overflow: hidden;
-  
 }
 
 .openning-num {

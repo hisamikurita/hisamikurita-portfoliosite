@@ -148,6 +148,8 @@
 </template>
 
 <script>
+import { preEvent, preEventTouch } from '../assets/js/preEvent'
+
 export default {
   data: () => {
     return {
@@ -167,6 +169,9 @@ export default {
     },
     getProjectData() {
       return this.$store.getters.projectData
+    },
+    indexPickupState: function () {
+      return this.$store.getters['indexPickup/state']
     },
   },
   watch: {
@@ -238,7 +243,7 @@ export default {
            * bg
            */
           this.$gsap.to(this.$refs.HambergerMenuOverlay01, {
-          delay: 0.16,
+            delay: 0.16,
             duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 5.1,
@@ -246,7 +251,7 @@ export default {
             x: 10,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
-          delay: 0.16,
+            delay: 0.16,
             duration: 0.3,
             ease: this.$EASING.transform,
             scaleX: 1.0,
@@ -267,13 +272,16 @@ export default {
                 },
                 y: 0,
               }
-            );
-            this.itemLinkCenterArchive =  this.$gsap.to(this.$refs.HambergerMenuItemWrapperArchive, {
+            )
+            this.itemLinkCenterArchive = this.$gsap.to(
+              this.$refs.HambergerMenuItemWrapperArchive,
+              {
                 duration: this.$SITECONFIG.baseDuration,
                 delay: 1.08,
                 ease: this.$EASING.transform,
                 y: 0,
-              })
+              }
+            )
           }, 300)
         } else if (this.$SITECONFIG.isMobile) {
           /**
@@ -447,11 +455,11 @@ export default {
             })
             if (this.itemLinkCenter) this.itemLinkCenter.kill()
             if (this.itemLinkBottom) this.itemLinkBottom.kill()
-            if(this.itemLinkCenterArchive) this.itemLinkCenterArchive.kill()
+            if (this.itemLinkCenterArchive) this.itemLinkCenterArchive.kill()
             this.$gsap.set(this.$refs.HambergerMenuItemWrapper, {
               y: 180,
             })
-             this.$gsap.set(this.$refs.HambergerMenuItemWrapperArchive, {
+            this.$gsap.set(this.$refs.HambergerMenuItemWrapperArchive, {
               y: 180,
             })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
@@ -549,8 +557,22 @@ export default {
        */
       if (this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/close')
+
+        // pickupにいたらデフォルトのイベントを禁止する
+        if (this.indexPickupState) {
+          window.addEventListener('touchmove', preEventTouch, { passive: false })
+          window.addEventListener('wheel', preEvent, { passive: false })
+          window.addEventListener('scroll', preEvent, { passive: false })
+        }
       } else if (!this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/open')
+
+        // pickupにいたらデフォルトのイベントを戻す
+        if (this.indexPickupState) {
+          window.removeEventListener('touchmove', preEventTouch, { passive: false, })
+          window.removeEventListener('wheel', preEvent, { passive: false })
+          window.removeEventListener('scroll', preEvent, { passive: false })
+        }
       }
     },
     hambergerMenuOnClose() {

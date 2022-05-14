@@ -14,7 +14,6 @@
                   'AUTHOR : HISAMI KURITA',
                   'FRAMEWORK : VUE/NUXT',
                   'LIBRARY : GSAP/THREE.JS',
-                  'HOSTING : AWS AMPLIFY',
                   'CMS : MICROCMS',
                 ]"
                 :sp-animation="false"
@@ -32,7 +31,7 @@
               <span class="hero-title-read-block-sp"
                 >LIBRARY : GSAP/THREE.JS'</span
               >
-              <span class="hero-title-read-block-sp">HOSTING : AWS AMPLIFY</span>
+              <span class="hero-title-read-block-sp">CMS : MICROCMS</span>
             </span>
           </span>
           <span class="pc-only">
@@ -349,12 +348,12 @@ export default {
   }
 }
 
-.is-android .hero-title-read-block-sp {
-  &:nth-of-type(1) {
-    position: relative;
-    left: -8px;
-  }
-}
+// .is-android .hero-title-read-block-sp {
+//   &:nth-of-type(1) {
+//     position: relative;
+//     left: -8px;
+//   }
+// }
 
 .hero-title-wrapper {
   display: block;

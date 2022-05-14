@@ -350,9 +350,18 @@ export default {
     // metaball
     const imgPath = [];
     imgPath.push(
-      `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-      `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+      {
+        'pc' : `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        'sp' : `${this.pickupData[0].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+      },
+      {
+        'pc' : `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        'sp' : `${this.pickupData[1].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+      },
+      {
+        'pc' : `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        'sp' : `${this.pickupData[2].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+      }
     )
 
     const stage = new Stage(this.$refs.Webgl)
@@ -476,10 +485,6 @@ export default {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-
-  @include sp() {
-    display: none;
-  }
 }
 
 .asscroll-container {

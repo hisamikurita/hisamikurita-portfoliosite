@@ -464,8 +464,8 @@ export default class Particle {
       if (this.setSceneReverseAnimations[i]) this.setSceneReverseAnimations[i].kill();
 
       gsap.to(this.particles[i], {
-        duration: this.setParticleDuration(i, 1.8),
-        delay: this.setParticleDelay(i, 1.4),
+        duration: this.setParticleDuration(i, 1.6),
+        delay: this.setParticleDelay(i, 1.2),
         ease: this.config.transformReverse,
         clipR: 0,
         pageTransitionSpeed: 3.8,
