@@ -3,7 +3,10 @@
     <div class="hero-bg">
       <div ref="HeroImg" class="hero-img">
         <picture>
-          <source :srcset="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`" media="(min-width: 767px)"/>
+          <source
+            :srcset="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
+            media="(min-width: 767px)"
+          />
           <img
             :src="`${currentProject.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
             :width="`${currentProject.heroImg.pc.width}`"
@@ -78,11 +81,19 @@
       </div>
       <div class="sp-only">
         <div class="hero-textarea-sp">
-          <div class="hero-index-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
+          <div
+            class="hero-index-sp"
+            :style="`color:${currentProject.siteColor.mvTextColor};`"
+          >
             <span class="hero-index-sp-01">・</span>
             <span>WORKS 0{{ currentProject.index }}</span>
           </div>
-          <div class="hero-full-title-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">{{ currentProject.title.full }}</div>
+          <div
+            class="hero-full-title-sp"
+            :style="`color:${currentProject.siteColor.mvTextColor};`"
+          >
+            {{ currentProject.title.full }}
+          </div>
         </div>
       </div>
     </div>
@@ -207,6 +218,10 @@ export default {
     @include tab-vertical() {
       object-position: right;
     }
+
+    @include sp() {
+      object-position: center;
+    }
   }
 }
 
@@ -221,7 +236,7 @@ export default {
   line-height: 1.04;
 }
 
-.hero-title-read{
+.hero-title-read {
   position: relative;
 }
 
@@ -287,7 +302,7 @@ export default {
   line-height: 1.21;
 }
 
-.hero-textarea-sp{
+.hero-textarea-sp {
   position: absolute;
   bottom: 39px;
   left: 21px;
@@ -310,7 +325,7 @@ export default {
 //   left: -4px;
 // }
 
-.hero-full-title-sp{
+.hero-full-title-sp {
   font-size: 108px;
   font-family: $sixcaps;
 }

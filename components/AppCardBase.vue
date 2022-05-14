@@ -498,13 +498,13 @@ export default {
   }
 }
 
-.is-android .card-project-title-wrapper-01-block {
-  &:first-of-type {
-    @include sp() {
-      position: relative;
-      left: -8px;
-    }
-  }
-}
+// .is-android .card-project-title-wrapper-01-block {
+//   &:first-of-type {
+//     @include sp() {
+//       position: relative;
+//       left: -8px;
+//     }
+//   }
+// }
 /* stylelint-enable */
 </style>

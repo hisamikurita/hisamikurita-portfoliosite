@@ -285,6 +285,7 @@ path {
   width: calc(100%);
 
   @include sp() {
+    top: vw_sp(-96);
     left: 0;
     width: 100%;
   }
@@ -298,6 +299,7 @@ path {
   width: calc(100%);
 
   @include sp() {
+    bottom: vw_sp(-96);
     left: 0;
     width: 100%;
   }

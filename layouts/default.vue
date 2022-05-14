@@ -253,8 +253,8 @@ export default {
       }
       // no current
       else {
-        this.particle.delete()
-        this.meshList[index].delete()
+        if(this.particle) this.particle.delete()
+        if(this.meshList[index]) this.meshList[index].delete()
         setTimeout(()=>{
           this.$gsap.ticker.remove(this.pRaf)
           this.$gsap.ticker.remove(this.mRaf)
@@ -447,7 +447,7 @@ export default {
      */
     onTransitionEnd() {
       if (this.indexPickupIsAnimation)
-        this.$store.commit('indexPickup/sceneAnimationState', false)
+      this.$store.commit('indexPickup/sceneAnimationState', false)
       this.scaleAnimation01.kill()
       this.scaleAnimation02.kill()
       this.pageTranslateAnimation.kill()

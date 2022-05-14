@@ -48,8 +48,8 @@
         <div>
           <ul class="hambergerMenu-list">
             <li
-              v-for="(data, index) in getProjectData"
-              :key="data.id"
+              v-for="(data, index) in projectAndArchiveDatas"
+              :key="index"
               class="hambergerMenu-item"
             >
               <div
@@ -57,43 +57,10 @@
                 class="hambergerMenu-item-wrapper"
                 @click="hambergerMenuOnClose"
               >
-                <AppImageTransition
-                  :url="`/works/${data.id}`"
-                  :index="index"
-                  class="hambergerMenu-item-link"
-                >
-                  <div class="hambergerMenu-item-img">
-                    <picture>
-                      <source
-                        :srcset="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
-                        :width="`${data.hambergerMenuImg.width}`"
-                        :height="`${data.hambergerMenuImg.height}`"
-                        type="image/webp"
-                      />
-                      <img
-                        :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=50`"
-                        :width="`${data.hambergerMenuImg.width}`"
-                        :height="`${data.hambergerMenuImg.height}`"
-                      />
-                    </picture>
-                  </div>
-                  <div>
-                    <p class="hambergerMenu-item-title">
-                      {{ data.title.short }}
-                    </p>
-                    <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
-                  </div>
-                </AppImageTransition>
-              </div>
-            </li>
-            <li class="hambergerMenu-item">
-              <div
-                ref="HambergerMenuItemWrapperArchive"
-                class="hambergerMenu-item-wrapper"
-                @click="hambergerMenuOnClose"
-              >
+                <!--アーカイブページの時-->
                 <AppBgTransition
-                  :url="`archive`"
+                  v-if="index === projectAndArchiveData.length - 1.0"
+                  :url="`/archive`"
                   :color="'#000000'"
                   class="hambergerMenu-item-link"
                 >
@@ -120,6 +87,35 @@
                     </p>
                   </div>
                 </AppBgTransition>
+                <!--アーカイブページ以外の時-->
+                <AppImageTransition
+                  v-else
+                  :url="`/works/${data.id}`"
+                  :index="index"
+                  class="hambergerMenu-item-link"
+                >
+                  <div class="hambergerMenu-item-img">
+                    <picture>
+                      <source
+                        :srcset="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
+                        :width="`${data.hambergerMenuImg.width}`"
+                        :height="`${data.hambergerMenuImg.height}`"
+                        type="image/webp"
+                      />
+                      <img
+                        :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=50`"
+                        :width="`${data.hambergerMenuImg.width}`"
+                        :height="`${data.hambergerMenuImg.height}`"
+                      />
+                    </picture>
+                  </div>
+                  <div>
+                    <p class="hambergerMenu-item-title">
+                      {{ data.title.short }}
+                    </p>
+                    <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
+                  </div>
+                </AppImageTransition>
               </div>
             </li>
           </ul>
@@ -154,6 +150,7 @@ export default {
   data: () => {
     return {
       projectData: '',
+      projectAndArchiveData: [],
       isTextSegmentState: 'default',
     }
   },
@@ -169,6 +166,10 @@ export default {
     },
     getProjectData() {
       return this.$store.getters.projectData
+    },
+    projectAndArchiveDatas(){
+      this.directSubstitution()
+      return this.projectAndArchiveData;
     },
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
@@ -273,15 +274,15 @@ export default {
                 y: 0,
               }
             )
-            this.itemLinkCenterArchive = this.$gsap.to(
-              this.$refs.HambergerMenuItemWrapperArchive,
-              {
-                duration: this.$SITECONFIG.baseDuration,
-                delay: 1.08,
-                ease: this.$EASING.transform,
-                y: 0,
-              }
-            )
+            // this.itemLinkCenterArchive = this.$gsap.to(
+            //   this.$refs.HambergerMenuItemWrapperArchive,
+            //   {
+            //     duration: this.$SITECONFIG.baseDuration,
+            //     delay: 1.08,
+            //     ease: this.$EASING.transform,
+            //     y: 0,
+            //   }
+            // )
           }, 300)
         } else if (this.$SITECONFIG.isMobile) {
           /**
@@ -459,9 +460,9 @@ export default {
             this.$gsap.set(this.$refs.HambergerMenuItemWrapper, {
               y: 180,
             })
-            this.$gsap.set(this.$refs.HambergerMenuItemWrapperArchive, {
-              y: 180,
-            })
+            // this.$gsap.set(this.$refs.HambergerMenuItemWrapperArchive, {
+            //   y: 180,
+            // })
             this.$refs.HambergerMenuContents.style.pointerEvents = 'none'
           }, 300)
         } else if (this.$SITECONFIG.isMobile) {
@@ -551,6 +552,13 @@ export default {
     },
   },
   methods: {
+    /**
+     * アーカイブページ用に空のオブジェクトを追加してインデックスを一つ増やす
+     */
+    directSubstitution(){
+      this.projectAndArchiveData = Array.from(this.getProjectData)
+      this.projectAndArchiveData.push({})
+    },
     hambergerMenuOnClick() {
       /**
        * storeのハンバーガーメニューの真偽値を更新

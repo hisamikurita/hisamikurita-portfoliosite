@@ -62,13 +62,15 @@
                         ref="ProjectItemWrapper"
                         class="project-item-wraper"
                       >
+                        <!--アーカイブページの時-->
                         <AppBgTransition
                           v-if="index === projectAndArchiveData.length - 1.0"
-                          :url="`archive`"
+                          :url="`/archive`"
                           :color="'#000000'"
                           class="project-link"
                           >ARCHIVE
                         </AppBgTransition>
+                        <!--アーカイブページ以外の時-->
                         <AppImageTransition
                           v-else
                           :url="`/works/${data.id}`"
@@ -84,6 +86,7 @@
                         "
                       >
                         <span class="project-item-img">
+                          <!--アーカイブページの時-->
                           <picture v-if="index === projectAndArchiveData.length - 1.0">
                             <source
                               :srcset="`/images/archive.png`"
@@ -97,6 +100,7 @@
                               :height="`206`"
                             />
                           </picture>
+                          <!--アーカイブページ以外の時-->
                           <picture v-else>
                             <source
                               :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
@@ -339,6 +343,9 @@ export default {
   },
 
   methods: {
+    /**
+     * アーカイブページ用に空のオブジェクトを追加してインデックスを一つ増やす
+     */
     directSubstitution(){
       this.projectAndArchiveData = Array.from(this.projectData)
       this.projectAndArchiveData.push({})

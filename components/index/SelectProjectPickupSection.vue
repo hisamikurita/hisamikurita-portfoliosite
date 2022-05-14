@@ -169,7 +169,6 @@ export default {
 
     // ページを離れる時にピックアップのアニメーションをremoveする
     this.$store.commit('indexPickup/setScene', '')
-    // this.$store.commit('indexPickup/sceneAnimationState', false)
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
     // this.$gsap.ticker.remove(this.pRaf)

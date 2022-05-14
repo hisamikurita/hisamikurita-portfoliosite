@@ -42,7 +42,7 @@
               </span>
             </span>
           </AppImageTransition>
-          <div class="next-loop-card">
+          <div class="next-loop-card" :class="`next-loop-card-${nextProject.id}`">
             <AppCardBase
               :component-name="'ProjectContents'"
               :name="nextProject.title.full"
@@ -183,8 +183,56 @@ export default {
   z-index: 10;
 
   @include sp() {
-  top: 55%;
-  left: calc(50% - #{vw_sp(100)});
+    top: 55%;
+    left: calc(50% - #{vw_sp(100)});
+  }
+}
+
+.next-loop-card-mtrust{
+  @include sp() {
+    top: 59%;
+    left: calc(50% - #{vw_sp(350)});
+  }
+}
+
+.next-loop-card-ketakuma{
+    @include sp() {
+    top: 57%;
+    left: calc(50% - #{vw_sp(130)});
+  }
+}
+
+.next-loop-card-redandgreen{
+    @include sp() {
+    top: 61%;
+    left: calc(50% - #{vw_sp(370)});
+  }
+}
+
+.next-loop-card-asovision{
+    @include sp() {
+    left: calc(50% - #{vw_sp(80)});
+  }
+}
+
+.next-loop-card-basta{
+    @include sp() {
+    top: 58%;
+    left: calc(50% - #{vw_sp(250)});
+  }
+}
+
+.next-loop-card-frontier{
+    @include sp() {
+    top: 61%;
+    left: calc(50% - #{vw_sp(400)});
+  }
+}
+
+.next-loop-card-yakudoh{
+  @include sp() {
+    top: 61%;
+    left: calc(50% - #{vw_sp(-40)});
   }
 }
 

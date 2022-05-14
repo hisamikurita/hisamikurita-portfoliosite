@@ -23,6 +23,7 @@ export default {
       if (this.url === '/about' && this.$route.name === 'about') return
 
       if (this.$SITECONFIG.isTouch) {
+        this.$store.commit('indexPickup/sceneAnimationState', false)
         this.$router.push(`${this.url}`)
       }
 

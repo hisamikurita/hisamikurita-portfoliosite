@@ -22,6 +22,7 @@ export default {
       if (this.url === this.$route.path) return
 
       if (this.$SITECONFIG.isTouch) {
+        this.$store.commit('indexPickup/sceneAnimationState', false)
         this.$router.push(`${this.url}`)
       }
 
