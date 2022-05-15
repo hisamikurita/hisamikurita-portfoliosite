@@ -192,8 +192,8 @@ export default {
 
   beforeDestroy() {
     // リセット
-    this.iObserver.unobserve(this.observe)
-    window.removeEventListener('resize', this.setHeight)
+    this.iObserver.unobserve(this.observe);
+    window.removeEventListener('resize', this.setHeight);
   },
 
   methods: {
