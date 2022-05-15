@@ -85,14 +85,27 @@
             class="hero-index-sp"
             :style="`color:${currentProject.siteColor.mvTextColor};`"
           >
-            <span class="hero-index-sp-01">・</span>
-            <span>WORKS 0{{ currentProject.index }}</span>
+            <AppSectionReadTitle
+              :state="isTextSegmentState"
+              :text="[
+                '・',
+                `WORKS 0${currentProject.index }`,
+              ]"
+              :pc-animation="false"
+              :modifier="'section'"
+            />
           </div>
           <div
             class="hero-full-title-sp"
             :style="`color:${currentProject.siteColor.mvTextColor};`"
           >
-            {{ currentProject.title.full }}
+            <AppTextSegment
+              :state="isTextSegmentState"
+              :start="0.24"
+              :rotate="$BASEROTATE.right"
+              :text="currentProject.title.full"
+              :pc-animation="false"
+            />
           </div>
         </div>
       </div>
@@ -349,6 +362,7 @@ export default {
 .hero-index-sp-01 {
   display: block;
   font-size: 26px;
+  text-indent: -4px;
 }
 
 // .is-android .hero-index-sp-01 {

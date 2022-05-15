@@ -405,6 +405,9 @@ export default {
       this.$refs.CanvasFixContents,
       this.$refs.AsscrollContents,
     ])
+
+    // PC/SPでclippathの値を変える
+    this.curveDeviceRatio = this.$SITECONFIG.isPc ? '70%' : '130%';
   },
   methods: {
     /**
@@ -439,7 +442,7 @@ export default {
       this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
-        clipPath: 'ellipse(70% 100% at 50% 50%)',
+        clipPath: `ellipse(${this.curveDeviceRatio} 100% at 50% 50%)`,
       })
     },
     /**
@@ -462,7 +465,7 @@ export default {
         y: 0,
       })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
-        clipPath: 'ellipse(70% 100% at 50% 200%)',
+        clipPath: `ellipse(${this.curveDeviceRatio} 100% at 50% 200%)`,
       })
     },
   },
@@ -523,6 +526,10 @@ export default {
   backface-visibility: hidden;
   transform: translateZ(0);
   z-index: 10;
+
+  @include sp() {
+    clip-path: ellipse(130% 100% at 50% 200%);
+  }
 }
 
 .layouts-normal-transition-img {
@@ -545,6 +552,10 @@ export default {
 
     @include tab-vertical() {
       object-position: right;
+    }
+
+    @include sp() {
+      object-position: center;
     }
   }
 }
