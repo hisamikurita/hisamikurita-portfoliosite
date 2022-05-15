@@ -336,7 +336,7 @@ export default {
             scaleY: 1,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
-            delay: 0.4,
+            delay: 0.2,
             duration: 0.2,
             ease: this.$EASING.transform,
             scaleY: 1,
@@ -510,7 +510,7 @@ export default {
             scaleY: 0,
           })
           this.$gsap.to(this.$refs.HambergerMenuOverlay02, {
-            delay: 0.4,
+            delay: 0.2,
             duration: 0.2,
             ease: this.$EASING.transform,
             scaleY: 0,

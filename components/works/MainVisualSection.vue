@@ -1,6 +1,6 @@
 <template>
   <div ref="Hero" class="hero">
-    <div class="hero-bg">
+    <div ref="HeroBg" class="hero-bg">
       <div ref="HeroImg" class="hero-img">
         <picture>
           <source
@@ -170,7 +170,38 @@ export default {
     },
   },
 
+  mounted() {
+    this.setHeight()
+    this.observe = this.$refs.HeroBg
+    this.iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.addEventListener('resize', this.setHeight)
+          } else {
+            window.removeEventListener('resize', this.setHeight)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    )
+    this.iObserver.observe(this.observe)
+  },
+
+  beforeDestroy() {
+    // リセット
+    this.iObserver.unobserve(this.observe)
+    window.removeEventListener('resize', this.setHeight)
+  },
+
   methods: {
+    setHeight() {
+      this.$gsap.set(this.$refs.HeroBg, {
+        height: window.innerHeight,
+      })
+    },
     mvItemViewIn() {
       this.isTextSegmentState = 'center'
       this.isTextUnderlineState = 'extend'
@@ -191,7 +222,7 @@ export default {
   height: var(--viewportHeight, 100vh);
 
   @include sp() {
-    height: var(--viewportSpHeight, 100vh);
+    height: var(--viewportHeight, 100vh);
   }
 }
 
