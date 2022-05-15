@@ -87,10 +87,7 @@
           >
             <AppSectionReadTitle
               :state="isTextSegmentState"
-              :text="[
-                '・',
-                `WORKS 0${currentProject.index }`,
-              ]"
+              :text="['・', `WORKS 0${currentProject.index}`]"
               :pc-animation="false"
               :modifier="'section'"
             />
@@ -184,29 +181,34 @@ export default {
   },
 
   mounted() {
-    this.setHeight()
-    this.observe = this.$refs.HeroBg
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            window.addEventListener('resize', this.setHeight)
-          } else {
-            window.removeEventListener('resize', this.setHeight)
-          }
-        })
-      },
-      {
-        rootMargin: '0%',
-      }
-    )
-    this.iObserver.observe(this.observe)
+    // MVが見えている時だけ高さをリサイズする
+    if (this.$SITECONFIG.isMobile) {
+      this.setHeight()
+      this.observe = this.$refs.HeroBg
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              window.addEventListener('resize', this.setHeight)
+            } else {
+              window.removeEventListener('resize', this.setHeight)
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      )
+      this.iObserver.observe(this.observe)
+    }
   },
 
   beforeDestroy() {
     // リセット
-    this.iObserver.unobserve(this.observe);
-    window.removeEventListener('resize', this.setHeight);
+    if (this.$SITECONFIG.isMobile) {
+      this.iObserver.unobserve(this.observe)
+      window.removeEventListener('resize', this.setHeight)
+    }
   },
 
   methods: {

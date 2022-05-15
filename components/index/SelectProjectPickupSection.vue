@@ -66,7 +66,7 @@
     </p>
     <!--シーンごとのセクションタイトル-->
     <div class="pickup-bg">
-      <div class="pickup-inner">
+      <div ref="PickupInner" class="pickup-inner">
         <div class="l-container">
           <span
             v-for="(data, index) in pickupData"
@@ -188,8 +188,8 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
-        if (this.pickupToTopLeaveScrollAnimation)
-          this.pickupToTopLeaveScrollAnimation.kill()
+        if (this.$SITECONFIG.isMobile) this.setHeight();
+        if (this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill()
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         // 慣性スクロールを無効にする
@@ -323,8 +323,8 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        if (this.pickupToBottomLeaveScrollAnimation)
-          this.pickupToBottomLeaveScrollAnimation.kill()
+        if (this.$SITECONFIG.isMobile) this.setHeight();
+        if (this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         // 慣性スクロールを無効にする
@@ -557,6 +557,12 @@ export default {
       )
     },
 
+    setHeight(){
+      this.$gsap.set(this.$refs.PickupInner, {
+        height: window.innerHeight,
+      })
+    },
+
     setTouchY(e) {
       this.prevTouchY = e.touches[0].clientY
     },
@@ -586,6 +592,7 @@ export default {
       //   this.$backfaceScroll(false, this.scroll.value, 0)
 
       // if (this.$SITECONFIG.isTouch) this.$store.commit('indexPickup/setPickupPos', pickupPos)
+      this.setHeight();
     },
 
     /**

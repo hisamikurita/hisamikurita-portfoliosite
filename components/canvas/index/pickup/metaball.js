@@ -88,6 +88,8 @@ export default class Particle {
     this.setCenterAnimations = [];
     // 各シーンで動かしているGSAPを格納しておく空配列②
     this.setNextPageAnimations = [];
+
+    this.metaballDeviceDiffuseRatio = this.config.isPc ? 0.50 : 0.70;
   }
 
   init() {
@@ -332,7 +334,7 @@ export default class Particle {
         duration: this.setMetaballDuration(i, 1.6),
         delay: this.setMetaballDelay(i, 1.6),
         ease: this.config.transform,
-        value: window.innerWidth * 0.50,
+        value: window.innerWidth * this.metaballDeviceDiffuseRatio,
         onUpdate: () => {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         }
@@ -352,7 +354,6 @@ export default class Particle {
   }
 
   _render() {
-    console.log('発火')
     this.mesh.material.uniforms.u_time.value += this.speed;
   }
 

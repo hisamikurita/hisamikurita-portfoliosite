@@ -423,17 +423,19 @@ export default {
       this.$gsap.set(this.container, {
         overflow: 'hidden',
       })
-      this.scaleAnimation01 = this.$gsap.to(this.container, {
-        duration: this.$SITECONFIG.baseDuration,
-        ease: this.$EASING.transform,
-        scaleX: 0.97,
-        borderRadius: '14px',
-      })
-      this.scaleAnimation02 = this.$gsap.to(this.container, {
-        duration: this.$SITECONFIG.baseDuration * 0.92,
-        ease: this.$EASING.transform,
-        scaleY: 0.94,
-      })
+      if (this.$SITECONFIG.isPc){
+        this.scaleAnimation01 = this.$gsap.to(this.container, {
+          duration: this.$SITECONFIG.baseDuration,
+          ease: this.$EASING.transform,
+          scaleX: 0.97,
+          borderRadius: '14px',
+        })
+        this.scaleAnimation02 = this.$gsap.to(this.container, {
+          duration: this.$SITECONFIG.baseDuration * 0.92,
+          ease: this.$EASING.transform,
+          scaleY: 0.94,
+        })
+      }
       this.pageTranslateAnimation = this.$gsap.to(this.contents, {
         duration: this.$SITECONFIG.baseDuration * 0.92,
         ease: this.$EASING.transform,
@@ -451,16 +453,18 @@ export default {
     onTransitionEnd() {
       if (this.indexPickupIsAnimation)
       this.$store.commit('indexPickup/sceneAnimationState', false)
-      this.scaleAnimation01.kill()
-      this.scaleAnimation02.kill()
-      this.pageTranslateAnimation.kill()
-      this.bgAnimation.kill()
+      if(this.scaleAnimation01) this.scaleAnimation01.kill()
+      if(this.scaleAnimation02) this.scaleAnimation02.kill()
+      if(this.pageTranslateAnimation) this.pageTranslateAnimation.kill()
+      if(this.bgAnimation) this.bgAnimation.kill()
 
-      this.$gsap.set(this.container, {
-        scale: 1.0,
-        borderRadius: '0px',
-        overflow: 'visible',
-      })
+      if (this.$SITECONFIG.isPc){
+        this.$gsap.set(this.container, {
+          scale: 1.0,
+          borderRadius: '0px',
+          overflow: 'visible',
+        })
+      }
       this.$gsap.set(this.contents, {
         y: 0,
       })
