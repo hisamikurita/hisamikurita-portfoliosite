@@ -323,6 +323,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        if (this.hambergerMenuState) return
         if (this.$SITECONFIG.isMobile) this.setHeight();
         if (this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ
