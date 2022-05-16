@@ -144,6 +144,9 @@ export default {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
     },
+    hambergerMenuPickupState: function () {
+      return this.$store.getters['hambergerMenu/pickup']
+    },
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
     },
@@ -165,7 +168,7 @@ export default {
   beforeDestroy() {
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
-      this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
+    this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
 
     // ページを離れる時にピックアップのアニメーションをremoveする
     this.$store.commit('indexPickup/setScene', '')
@@ -323,7 +326,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        if (this.hambergerMenuState) return
+        if (this.hambergerMenuState || this.hambergerMenuPickupState) return
         if (this.$SITECONFIG.isMobile) this.setHeight();
         if (this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ

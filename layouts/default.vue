@@ -439,7 +439,7 @@ export default {
       this.pageTranslateAnimation = this.$gsap.to(this.contents, {
         duration: this.$SITECONFIG.baseDuration * 0.92,
         ease: this.$EASING.transform,
-        y: -500,
+        y: -250,
       })
       this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
         duration: this.$SITECONFIG.baseDuration,
@@ -491,7 +491,7 @@ export default {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
 }
 
 .asscroll-container {

@@ -167,9 +167,9 @@ export default {
     getProjectData() {
       return this.$store.getters.projectData
     },
-    projectAndArchiveDatas(){
+    projectAndArchiveDatas() {
       this.directSubstitution()
-      return this.projectAndArchiveData;
+      return this.projectAndArchiveData
     },
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
@@ -358,7 +358,7 @@ export default {
                 y: 0,
               }
             )
-          }, 500)
+          }, 300)
         }
       } else if (!this.hambergerMenuState) {
         /**
@@ -555,7 +555,7 @@ export default {
     /**
      * アーカイブページ用に空のオブジェクトを追加してインデックスを一つ増やす
      */
-    directSubstitution(){
+    directSubstitution() {
       this.projectAndArchiveData = Array.from(this.getProjectData)
       this.projectAndArchiveData.push({})
     },
@@ -565,19 +565,25 @@ export default {
        */
       if (this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/close')
+        this.$store.commit('hambergerMenu/pickupClose')
 
         // pickupにいたらデフォルトのイベントを禁止する
         if (this.indexPickupState) {
-          window.addEventListener('touchmove', preEventTouch, { passive: false })
+          window.addEventListener('touchmove', preEventTouch, {
+            passive: false,
+          })
           window.addEventListener('wheel', preEvent, { passive: false })
           window.addEventListener('scroll', preEvent, { passive: false })
         }
       } else if (!this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/open')
+        this.$store.commit('hambergerMenu/pickupOpen')
 
         // pickupにいたらデフォルトのイベントを戻す
         if (this.indexPickupState) {
-          window.removeEventListener('touchmove', preEventTouch, { passive: false, })
+          window.removeEventListener('touchmove', preEventTouch, {
+            passive: false,
+          })
           window.removeEventListener('wheel', preEvent, { passive: false })
           window.removeEventListener('scroll', preEvent, { passive: false })
         }
@@ -585,6 +591,10 @@ export default {
     },
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
+
+      setTimeout(() => {
+        this.$store.commit('hambergerMenu/pickupClose')
+      }, 1000)
     },
     hambergerMenuBtnOnResize() {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
