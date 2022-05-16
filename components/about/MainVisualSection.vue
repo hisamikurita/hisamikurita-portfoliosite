@@ -103,31 +103,125 @@
           </span>
           <span class="sp-only">
             <span class="hero-title-wrapper hero-title-wrapper-01-sp">
-              <span class="hero-text-underline"></span>
-              HELLO, WORLD
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="547"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :rotate="$BASEROTATE.right"
+                :text="'HELLO, WORLD'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02-sp">
-              <span class="hero-text-underline"></span>
-              <span>HISAMI</span>
-              <span>KURITA</span>
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.176"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="670"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.176"
+                :rotate="$BASEROTATE.left"
+                :text="'HISAMI'"
+                :pc-animation="false"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.4"
+                :rotate="$BASEROTATE.left"
+                :text="'KURITA'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03-sp">
-              <span class="hero-text-underline"></span>
-              <span>IS</span>
-              <span>CR</span>
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.42"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="590"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.42"
+                :rotate="$BASEROTATE.right"
+                :text="'IS'"
+                :pc-animation="false"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.42"
+                :rotate="$BASEROTATE.right"
+                :text="'CR'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04-sp">
-              <span class="hero-text-underline"></span>
-              <span>EATIVE</span>
-              <span>DEVELO</span>
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.6"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="670"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.6"
+                :rotate="$BASEROTATE.right"
+                :text="'EATIVE'"
+                :pc-animation="false"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.6"
+                :rotate="$BASEROTATE.right"
+                :text="'DEVELO'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-05-sp">
-              <span class="hero-text-underline"></span>
-              <span>PER AT LIG INC</span>
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.72"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="573"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.72"
+                :rotate="$BASEROTATE.right"
+                :text="'PER AT LIG INC'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-06-sp">
-              <span class="hero-text-underline"></span>
-              <span>SINCE 2020.</span>
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.84"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="452"
+                :modifier="'about-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.84"
+                :rotate="$BASEROTATE.right"
+                :text="'SINCE 2020.'"
+                :pc-animation="false"
+              />
             </span>
           </span>
         </h1>

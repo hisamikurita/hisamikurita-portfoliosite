@@ -174,6 +174,7 @@ export default {
     this.$store.commit('indexPickup/setScene', '')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
+      this.$gsap.ticker.remove(this.setPos);
     // this.$gsap.ticker.remove(this.pRaf)
     this.removeSceneEvent()
     this.resetDefaultPreEvent()
@@ -225,6 +226,7 @@ export default {
             this.pickupSceneNext()
             // シーン用のイベントを付与する
             this.addSceneEvent()
+            this.$gsap.ticker.add(this.setPos);
             // ハンバーガーメニューを操作可能にする
             this.$store.commit('hambergerMenu/enable')
             // タッチはできるようにする
@@ -268,6 +270,7 @@ export default {
       this.$store.commit('indexPickup/leave')
       // シーン用のイベントを削除する
       this.removeSceneEvent()
+      this.$gsap.ticker.remove(this.setPos);
 
       // ターゲットの領域を計算
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -363,6 +366,7 @@ export default {
             this.pickupScenePrev()
             // シーン用のイベントを付与する
             this.addSceneEvent()
+            this.$gsap.ticker.add(this.setPos);
             // ハンバーガーメニューを操作可能にする
             this.$store.commit('hambergerMenu/enable')
             // タッチはできるようにする
@@ -396,6 +400,7 @@ export default {
       this.$store.commit('indexPickup/leave')
       // シーン用のイベントを削除する
       this.removeSceneEvent()
+      this.$gsap.ticker.remove(this.setPos);
 
       // ターゲットの領域を計算
       const pickupPos = this.$refs.Pickup.offsetTop
@@ -571,6 +576,12 @@ export default {
       this.prevTouchY = e.touches[0].clientY
     },
 
+    setPos(){
+      const pickupPos = this.$refs.Pickup.offsetTop
+      this.scroll.value = pickupPos
+      this.$asscroll.scrollTo(this.scroll.value)
+    },
+
     /**
      * リサイズ
      */
@@ -588,9 +599,9 @@ export default {
       }
 
       // リサイズした時に位置を更新する
-      const pickupPos = this.$refs.Pickup.offsetTop
-      this.scroll.value = pickupPos
-      this.$asscroll.scrollTo(this.scroll.value)
+      // const pickupPos = this.$refs.Pickup.offsetTop
+      // this.scroll.value = pickupPos
+      // this.$asscroll.scrollTo(this.scroll.value)
       // 背景固定の位置も更新
       // if (this.$SITECONFIG.isTouch)
       //   this.$backfaceScroll(false, this.scroll.value, 0)

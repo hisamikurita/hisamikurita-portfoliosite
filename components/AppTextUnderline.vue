@@ -65,7 +65,11 @@ export default {
 
   watch: {
     state: function () {
-      if (!this.spAnimation && this.$SITECONFIG.isMobile) return
+      if (
+        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+        (!this.pcAnimation && this.$SITECONFIG.isPc)
+      )
+        return
       switch (this.state) {
         case 'extend':
           this.toExtend()
@@ -75,35 +79,49 @@ export default {
   },
 
   mounted() {
-    // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
+    if (
+      (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+      (!this.pcAnimation && this.$SITECONFIG.isPc)
+    )
+      // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
 
-    // アニメーションがない時は伸縮させない
-    if (!this.pcAnimation) {
-      this.path.y = 80
-    }
-    this.connected = false
+      // if(this.$SITECONFIG.isPc){
+      //   this.path.y = 200;
+      // }
+      // if(this.$SITECONFIG.isMobile){
+      //   this.path.y = 150;
+      // }
+      this.connected = false
   },
 
   methods: {
     onMousemove(e) {
-      if (e.target === this.$refs.TextUnderlineSvg) {
-        if (this.connected) return
-        if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
+      if (
+        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+        (!this.pcAnimation && this.$SITECONFIG.isPc)
+      )
+        if (e.target === this.$refs.TextUnderlineSvg) {
+          if (this.connected) return
+          if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
 
-        this.pathFixAnimation = this.$gsap.to(this.path, {
-          duration: 0.3,
-          ease: 'power1.out',
-          y:
-            (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
-              (this.$refs.TextUnderlineSvg.clientHeight +
-                this.$refs.TextUnderlineSvg.clientWidth) *
-              0.07 +
-            80,
-        })
-      }
+          this.pathFixAnimation = this.$gsap.to(this.path, {
+            duration: 0.3,
+            ease: 'power1.out',
+            y:
+              (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
+                (this.$refs.TextUnderlineSvg.clientHeight +
+                  this.$refs.TextUnderlineSvg.clientWidth) *
+                0.07 +
+              80,
+          })
+        }
     },
     onMouseLeave() {
-      if (this.pathFixAnimation) this.pathFixAnimation.kill()
+      if (
+        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+        (!this.pcAnimation && this.$SITECONFIG.isPc)
+      )
+        if (this.pathFixAnimation) this.pathFixAnimation.kill()
       this.connected = true
       this.pathLeaveAnimation01 = this.$gsap.to(this.path, {
         duration: 1.0,
@@ -216,6 +234,10 @@ path {
   left: 0;
   stroke: $black;
   // background-color: $black;
+
+  @include sp() {
+    top: vw(-222);
+  }
 }
 
 .is-safari .text-under-line--about-hero {
