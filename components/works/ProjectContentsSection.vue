@@ -6,6 +6,7 @@
           <AppTextUnderline
             :state="'extend'"
             :pc-animation="false"
+            :sp-animation="false"
             :width="1420"
             :modifier="'works-info'"
           />

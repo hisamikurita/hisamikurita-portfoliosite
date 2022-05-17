@@ -79,27 +79,17 @@ export default {
   },
 
   mounted() {
-    if (
-      (!this.spAnimation && this.$SITECONFIG.isMobile) ||
-      (!this.pcAnimation && this.$SITECONFIG.isPc)
-    )
       // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
 
-      // if(this.$SITECONFIG.isPc){
-      //   this.path.y = 200;
-      // }
-      // if(this.$SITECONFIG.isMobile){
-      //   this.path.y = 150;
-      // }
+      if(!this.pcAnimation && !this.spAnimation){
+        this.path.y = 80;
+      }
       this.connected = false
   },
 
   methods: {
     onMousemove(e) {
-      if (
-        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
-        (!this.pcAnimation && this.$SITECONFIG.isPc)
-      )
+      if ((!this.spAnimation && this.$SITECONFIG.isMobile)) return
         if (e.target === this.$refs.TextUnderlineSvg) {
           if (this.connected) return
           if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
@@ -181,7 +171,10 @@ path {
   top: vw(-100);
   left: 0;
   stroke: $white;
-  // background-color: $white;
+  
+  @include sp() {
+    top: vw_sp(-124);
+  }
 }
 
 .text-under-line--index-about {

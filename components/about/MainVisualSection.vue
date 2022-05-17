@@ -357,6 +357,7 @@ export default {
 <style scoped lang="scss">
 .hero {
   position: relative;
+  background-color: $skinColor;
   z-index: 1;
 }
 

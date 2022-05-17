@@ -495,8 +495,11 @@ export default {
 }
 
 .asscroll-container {
-  background-color: $skinColor;
   overflow: hidden;
+}
+
+.asscroll-contents{
+  background-color: $skinColor;
 }
 
 .layouts-translate {

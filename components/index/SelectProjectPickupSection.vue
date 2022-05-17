@@ -174,7 +174,7 @@ export default {
     this.$store.commit('indexPickup/setScene', '')
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
-      this.$gsap.ticker.remove(this.setPos);
+    this.$gsap.ticker.remove(this.setPos);
     // this.$gsap.ticker.remove(this.pRaf)
     this.removeSceneEvent()
     this.resetDefaultPreEvent()
@@ -580,6 +580,8 @@ export default {
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
       this.$asscroll.scrollTo(this.scroll.value)
+
+      this.setHeight();
     },
 
     /**
@@ -607,7 +609,6 @@ export default {
       //   this.$backfaceScroll(false, this.scroll.value, 0)
 
       // if (this.$SITECONFIG.isTouch) this.$store.commit('indexPickup/setPickupPos', pickupPos)
-      this.setHeight();
     },
 
     /**

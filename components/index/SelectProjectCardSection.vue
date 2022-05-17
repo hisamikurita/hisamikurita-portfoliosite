@@ -150,7 +150,7 @@ export default {
             {
               duration: this.$SITECONFIG.baseDuration * 1.2,
               ease: this.$EASING.transform,
-              y: this.$SITECONFIG.isPc ? -window.innerWidth / 2 : 0,
+              y: this.$SITECONFIG.isPc ? -window.innerWidth / 4 : 0,
               scale: 1.0,
             }
           )

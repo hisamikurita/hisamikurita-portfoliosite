@@ -6,33 +6,17 @@
       <div class="l-container">
         <h1 class="hero-title">
           <span class="hero-title-read-area">
-            <span class="pc-only">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="[
-                  '・',
-                  'AUTHOR : HISAMI KURITA',
-                  'FRAMEWORK : VUE/NUXT',
-                  'LIBRARY : GSAP/THREE.JS',
-                  'CMS : MICROCMS',
-                ]"
-                :sp-animation="false"
-                :modifier="'section'"
-              />
-            </span>
-            <span class="sp-only">
-              <span class="hero-title-read-block-sp">・</span>
-              <span class="hero-title-read-block-sp"
-                >AUTHOR : HISAMI KURITA</span
-              >
-              <span class="hero-title-read-block-sp"
-                >FRAMEWORK : VUE/NUXT'</span
-              >
-              <span class="hero-title-read-block-sp"
-                >LIBRARY : GSAP/THREE.JS'</span
-              >
-              <span class="hero-title-read-block-sp">CMS : MICROCMS</span>
-            </span>
+            <AppSectionReadTitle
+              :state="isTextSegmentState"
+              :text="[
+                '・',
+                'AUTHOR : HISAMI KURITA',
+                'FRAMEWORK : VUE/NUXT',
+                'LIBRARY : GSAP/THREE.JS',
+                'CMS : MICROCMS',
+              ]"
+              :modifier="'section'"
+            />
           </span>
           <span class="pc-only">
             <span class="hero-title-wrapper hero-title-wrapper-01">
@@ -141,33 +125,131 @@
           </span>
           <span class="sp-only">
             <span class="hero-title-wrapper hero-title-wrapper-01-sp">
-              <span class="hero-text-underline"></span>
-              FOLIO OF
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="335"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :rotate="$BASEROTATE.right"
+                :text="'FOLIO OF'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-02-sp">
-              <span class="hero-text-underline"></span>
-              HISAMI KURITA
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.176"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="586"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.176"
+                :rotate="$BASEROTATE.left"
+                :text="'HISAMI KURITA'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-03-sp">
-              <span class="hero-text-underline"></span>
-              19/AUG.1996
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.264"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="504"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.264"
+                :rotate="$BASEROTATE.right"
+                :text="'19/AUG.1996'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-04-sp">
-              ( BASED IN TOKYO AND KAWASAKI )
-              <span class="hero-title-wrapper-04-01-sp">SOMETIMES</span>
-              <span class="hero-title-wrapper-04-02-sp">ALLWAYS</span>
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.352"
+                :rotate="$BASEROTATE.left"
+                :text="'( BASED IN TOKYO AND KAWASAKI )'"
+                :pc-animation="false"
+              />
+              <span class="hero-title-wrapper-04-01-sp">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.432"
+                  :rotate="$BASEROTATE.left"
+                  :text="'SOMETIMES'"
+                  :pc-animation="false"
+                />
+              </span>
+              <span class="hero-title-wrapper-04-02-sp">
+                <AppTextSegment
+                  :state="isTextSegmentState"
+                  :start="0.512"
+                  :rotate="$BASEROTATE.left"
+                  :text="'ALLWAYS'"
+                  :pc-animation="false"
+                />
+              </span>
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-05-sp">
-              <span class="hero-text-underline"></span>
-              CREATIVE
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.592"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="367"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.592"
+                :rotate="$BASEROTATE.right"
+                :text="'CREATIVE'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-06-sp">
-              <span class="hero-text-underline"></span>
-              DEVELOPER
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.672"
+                :origin="'left'"
+                :pc-animation="false"
+                :width="420"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.672"
+                :rotate="$BASEROTATE.left"
+                :text="'DEVELOPER'"
+                :pc-animation="false"
+              />
             </span>
             <span class="hero-title-wrapper hero-title-wrapper-07-sp">
-              <span class="hero-text-underline"></span>
-              AT LIG INC
+              <AppTextUnderline
+                :state="isTextUnderlineState"
+                :start="0.752"
+                :origin="'right'"
+                :pc-animation="false"
+                :width="431"
+                :modifier="'index-hero'"
+              />
+              <AppTextSegment
+                :state="isTextSegmentState"
+                :start="0.752"
+                :rotate="$BASEROTATE.right"
+                :text="'AT LIG INC'"
+                :pc-animation="false"
+              />
             </span>
           </span>
         </h1>
