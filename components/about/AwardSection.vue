@@ -432,7 +432,6 @@ export default {
     width: auto;
     margin: 0 0 8px 0;
     font-size: vw_sp(100);
-    text-align: right;
   }
 }
 

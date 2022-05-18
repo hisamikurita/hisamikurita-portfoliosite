@@ -32,8 +32,10 @@ export default {
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
     },
-
-     openningEnd() {
+    pickupTransitionState() {
+      return this.$store.getters['indexPickup/transition']
+    },
+    openningEnd() {
       return this.$store.getters['openning/state']
     },
     imageLoaded() {
@@ -41,7 +43,7 @@ export default {
     },
   },
 
-   watch: {
+  watch: {
     openningEnd: function () {
       setTimeout(() => {
         this.$asscroll.enable({ reset: true })
@@ -49,7 +51,7 @@ export default {
     },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        if (!this.openningEnd) return
+        if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
           this.$asscroll.enable({ reset: true })
       }
@@ -57,10 +59,8 @@ export default {
   },
 
   mounted() {
-    // this.$asscroll.enable({ reset: true })
-
     this.$nextTick(() => {
-      // aboutページのみカクツキ防止のためscrolltriggerのフレームレートを上げる
+      // aboutページのみカクツキ防止のためscrolltriggerをupdateする
       const render = () => {
         this.raf = window.requestAnimationFrame(render)
         this.$ScrollTrigger.update()
@@ -69,24 +69,21 @@ export default {
 
       const images = document.querySelectorAll('.about img')
       const imagesLoaded = ImagesLoaded(images)
+
+      // 画像の読み込みが全て完了した時
       imagesLoaded.on('always', () => {
-        if (this.defaultTransitionState)
-          this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+        // 遷移のアニメーションを終了させる
+        if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
 
-        // this.$asscroll.disable()
-        // this.$asscroll.enable({ reset: true })
         this.$store.commit('imageLoaded/loaded')
-
-        setTimeout(()=>{
-          if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
-        },1000)
       })
     })
   },
 
   beforeDestroy() {
+    // リセット
     window.cancelAnimationFrame(this.raf)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')

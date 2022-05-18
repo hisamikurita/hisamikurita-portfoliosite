@@ -29,6 +29,9 @@ export default {
   name: 'Works',
 
   computed: {
+    /**
+     * 現在のプロジェクトを取得
+     */
     currentProject() {
       const projectResponse = this.$store.getters.projectData
       const index = projectResponse.findIndex(
@@ -40,6 +43,9 @@ export default {
       return currentProject
     },
 
+    /**
+     * 次のプロジェクトを取得
+     */
     nextProject() {
       const projectResponse = this.$store.getters.projectData
       const index = projectResponse.findIndex(
@@ -84,7 +90,8 @@ export default {
     },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        if (!this.openningEnd) return
+        if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
+
           this.$asscroll.enable({ reset: true })
       }
     },
@@ -95,23 +102,26 @@ export default {
       const images = document.querySelectorAll('.works img')
       const imagesLoaded = ImagesLoaded(images)
 
+      // 画像の読み込みが全て完了した時
       imagesLoaded.on('always', () => {
         setTimeout(()=>{
+          // 遷移のアニメーションを終了させる
           if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
           if (this.imageTransitionState) this.$store.commit('image-transition/end')
           if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
 
           this.$store.commit('imageLoaded/loaded')
-        },100)
+        },100) // 処理を0.1s遅らせる
 
         setTimeout(()=>{
           if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
-        },1000)
+        },1000) // パーティクルを時間差で削除
       })
     })
   },
 
   beforeDestroy() {
+    // リセット
     this.$store.commit('indexPickup/setScene', 'init')
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')

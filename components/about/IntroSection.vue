@@ -235,9 +235,9 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        setTimeout(() => {
+        // setTimeout(() => {
           this.setupScrollAnimation()
-        }, 100) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+        // }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
       }
     },
     hambergerMenuState: function () {

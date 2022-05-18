@@ -229,13 +229,13 @@ path {
   // background-color: $black;
 
   @include sp() {
-    top: vw(-222);
+    top: vw_sp(-122);
   }
 }
 
-.is-safari .text-under-line--about-hero {
-  top: vw(-94);
-}
+// .is-safari .text-under-line--about-hero {
+//   top: vw(-94);
+// }
 
 .text-under-line--about-award {
   position: absolute;

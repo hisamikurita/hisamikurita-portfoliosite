@@ -249,7 +249,7 @@ export default {
         setTimeout(()=>{
           this.$gsap.ticker.add(this.pRaf)
           this.$gsap.ticker.add(this.mRaf)
-        },10) // メタボールの描画が残っている時があるので処理を0.01s遅らせる
+        },50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
       }
       // no current
       else {
@@ -258,7 +258,7 @@ export default {
         setTimeout(()=>{
           this.$gsap.ticker.remove(this.pRaf)
           this.$gsap.ticker.remove(this.mRaf)
-        },10) // メタボールの描画が残っている時があるので処理を0.01s遅らせる
+        },50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
       }
     },
     indexPickupScene: function () {
