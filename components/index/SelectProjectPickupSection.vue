@@ -175,6 +175,7 @@ export default {
     this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
     this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
     this.$gsap.ticker.remove(this.setPos);
+    if (this.$SITECONFIG.isMobile) this.$gsap.ticker.remove(this.setHeight);
     // this.$gsap.ticker.remove(this.pRaf)
     this.removeSceneEvent()
     this.resetDefaultPreEvent()
@@ -192,7 +193,7 @@ export default {
       const pickupTopPos = pickupPos - window.innerHeight
 
       if (this.$asscroll.targetPos > pickupTopPos) {
-        if (this.$SITECONFIG.isMobile) this.setHeight();
+        if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight);
         if (this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill()
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
@@ -262,6 +263,7 @@ export default {
         this.pickupToTopEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
+      if (this.$SITECONFIG.isMobile) this.$gsap.ticker.remove(this.setHeight);
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -330,7 +332,7 @@ export default {
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
         if (this.hambergerMenuState || this.hambergerMenuPickupState) return
-        if (this.$SITECONFIG.isMobile) this.setHeight();
+        if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight);
         if (this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
@@ -392,6 +394,7 @@ export default {
         this.pickupToBottomEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
+    if (this.$SITECONFIG.isMobile) this.$gsap.ticker.remove(this.setHeight);
       // ホイールイベント不可、デフォルトの操作不可時間より長くしておく
       this.disable(3000)
       // ハンバーガーメニューを操作不能にする
@@ -580,8 +583,6 @@ export default {
       const pickupPos = this.$refs.Pickup.offsetTop
       this.scroll.value = pickupPos
       this.$asscroll.scrollTo(this.scroll.value)
-
-      this.setHeight();
     },
 
     /**
