@@ -222,7 +222,7 @@ export default {
       if (this.imageLoaded) {
         setTimeout(() => {
           this.setupScrollAnimation()
-        }, 1000)
+        }, 200)
       }
     },
   },

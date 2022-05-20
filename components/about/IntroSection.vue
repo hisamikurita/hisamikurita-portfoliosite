@@ -179,16 +179,15 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         setTimeout(() => {
-          console.log('setup')
           this.setupScrollAnimation()
-        }, 1000) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+        }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
       }
     },
     hambergerMenuState: function () {
       /**
        * ハンバガーメニューが開いた時
        */
-      if (this.hambergerMenuState) {
+      if (this.hambergerMenuState && this.$SITECONFIG.isPc) {
         this.$gsap.to(this.buffer, {
           delay: 0.16,
           duration: 0.3,
@@ -492,7 +491,7 @@ export default {
   @include sp() {
     top: calc(50% - 20px);
     right: 23px;
-    font-size: vw_sp(120);
+    font-size: vmin(170);
   }
 }
 

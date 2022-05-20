@@ -192,8 +192,11 @@ export default {
 
         if (this.$SITECONFIG.isTouch) {
           // スクロール無効
-          this.$backfaceScroll(false)
-        } else if (this.$SITECONFIG.isNoTouch) {
+          setTimeout(() =>{
+            this.$backfaceScroll(false)
+          },300)
+        }
+        else if (this.$SITECONFIG.isNoTouch) {
           // スクロール無効
           this.$asscroll.disable({ inputOnly: true })
           // デフォルトのホイールイベントを戻す
