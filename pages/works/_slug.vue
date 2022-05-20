@@ -111,7 +111,7 @@ export default {
           if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
 
           this.$store.commit('imageLoaded/loaded')
-        },100) // 処理を0.1s遅らせる
+        },100) // worksのみ慣性スクロールがバグりがちなので、処理を0.1s遅らせる
 
         setTimeout(()=>{
           if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
@@ -122,8 +122,8 @@ export default {
 
   beforeDestroy() {
     // リセット
-    this.$store.commit('indexPickup/setScene', 'init')
     this.$asscroll.disable()
+    this.$store.commit('indexPickup/setScene', 'init')
     this.$store.commit('imageLoaded/init')
   },
 }

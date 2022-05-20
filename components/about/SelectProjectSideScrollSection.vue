@@ -87,7 +87,9 @@
                       >
                         <span class="project-item-img">
                           <!--アーカイブページの時-->
-                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                          <picture
+                            v-if="index === projectAndArchiveData.length - 1.0"
+                          >
                             <source
                               :srcset="`/images/archive.png`"
                               :width="`280`"
@@ -118,10 +120,14 @@
                       </span>
                       <span
                         ref="ProjectItemImg02"
-                        class="project-item-img-wrapper project-item-img-wrapper-02"
+                        class="
+                          project-item-img-wrapper project-item-img-wrapper-02
+                        "
                       >
                         <span class="project-item-img">
-                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                          <picture
+                            v-if="index === projectAndArchiveData.length - 1.0"
+                          >
                             <source
                               :srcset="`/images/archive.png`"
                               :width="`280`"
@@ -183,9 +189,12 @@ export default {
   },
 
   computed: {
-    projectAndArchiveDatas(){
+    projectAndArchiveDatas() {
       this.directSubstitution()
-      return this.projectAndArchiveData;
+      return this.projectAndArchiveData
+    },
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
     },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
@@ -193,79 +202,36 @@ export default {
   },
 
   watch: {
+    hambergerMenuState: function () {
+      /**
+       * ハンバガーメニューが開いた時
+       */
+      if (this.hambergerMenuState) {
+        console.log(this.fixSection);
+        console.log(this.synchronousScroll);
+        this.fixSection.pause();
+        //
+      } else if (!this.hambergerMenuState) {
+      /**
+       * ハンバガーメニューが閉じた時
+       */
+      
+      }
+    },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        this.fixSection = this.$fixSection(
-          this.$refs.ProjectWrapper,
-          this.$SITECONFIG.isTouch,
-          3500
-        )
-
-        this.synchronousScroll = this.$gsap.fromTo(
-          this.$refs.ProjectList,
-          {
-            x: window.innerWidth - 80,
-          },
-          {
-            x: () =>
-              -(
-                this.$refs.ProjectList.clientWidth * 1.12 -
-                this.$refs.ProjectWrapper.clientWidth +
-                this.deveiceOffsetWidth
-              ),
-            ease: 'none',
-            scrollTrigger: {
-              start: 'center center',
-              end: () => `+=${3500 - window.innerHeight}px`,
-              trigger: this.$refs.ProjectWrapper,
-              scrub: 0.8,
-              invalidateOnRefresh: true,
-            },
-          }
-        )
-
         setTimeout(() => {
-          this.synchronousScroll.scrollTrigger.refresh()
-          this.fixSection.scrollTrigger.refresh()
-
-          this.$gsap.to(
-            {},
-            {
-              scrollTrigger: {
-                once: true,
-                // start: 'start end',
-                trigger: this.$refs.ProjectWrapper,
-                onEnter: () => {
-                  this.$gsap.to(this.wrapper, {
-                    duration: this.$SITECONFIG.fullDuration,
-                    ease: this.$EASING.transform,
-                    rotate: 0,
-                  })
-                  this.$gsap.to(this.text, {
-                    duration: this.$SITECONFIG.baseDuration,
-                    ease: this.$EASING.transform,
-                    yPercent: 0,
-                    onComplete: () => {
-                      setTimeout(() => {
-                        this.isTextAnimationState = true
-                      }, 300)
-                    },
-                  })
-                  this.isTextSegmentState = 'center'
-                  this.isCircleBgState = 'extend'
-                  this.isTextUnderlineState = 'extend'
-                },
-              },
-            }
-          )
-        }, 0)
+          this.setupScrollAnimation()
+        }, 1000)
       }
     },
   },
 
   mounted() {
-    // 初期化
-    this.deveiceOffsetWidth = this.$SITECONFIG.isPc ? 80 + 120 + 80 : 40
+    // 初期宣言
+    this.deveiceOffsetStart = this.$SITECONFIG.isPc ? 80 : 0
+    this.deveiceOffsetWidth = this.$SITECONFIG.isPc ? 80 + 120 + 80 : 0
+    this.deveiceOffsetRatio = this.$SITECONFIG.isPc ? 1.12 : 1.026
     this.wrapper = this.$refs.ProjectItemWrapperRotate
     this.text = this.$refs.ProjectItemWrapperTranslate
     this.$gsap.set(this.wrapper, {
@@ -275,8 +241,10 @@ export default {
     this.$gsap.set(this.text, {
       yPercent: 103.8,
     })
+    this.enterflag = false
+    this.leaveflag = false
 
-    // パーティクル
+    // パーティクル作成
     this.particle = new Particle(this.$SITECONFIG, this.$refs.Canvas)
     this.particle.init()
 
@@ -284,15 +252,20 @@ export default {
       value: 0,
     }
 
+    // パーティクルRAF
     this.pRaf = () => {
       this.$gsap.to(tweenPosition, {
         duration: 1.0,
         ease: 'none',
         value: this.$asscroll.currentPos,
       })
-      this.particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
+      this.particle._drawParticles(
+        this.$asscroll.currentPos,
+        tweenPosition.value
+      )
     }
 
+    // パーティクルオブザーバー
     this.observe = this.$refs.ProjectWrapper
     this.iObserver = new IntersectionObserver(
       (entries) => {
@@ -311,6 +284,8 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.particle._fadeIn()
+
+            this.pObserver.unobserve(this.observe)
           }
         })
       },
@@ -319,64 +294,140 @@ export default {
     this.pObserver.observe(this.observe)
     this.iObserver.observe(this.observe)
 
+    // パーティクルリサイズ
     this.pResize = () => {
       this.particle.onResize()
     }
 
     window.addEventListener('resize', this.pResize)
-
-    this.enterflag = false
-    this.leaveflag = false
   },
 
   beforeDestroy() {
+    console.log('はっか')
+    // リセット
     this.fixSection.kill()
     this.synchronousScroll.kill()
+    this.textAnimation.kill()
     this.iObserver.unobserve(this.observe)
 
     // パーティクル削除
     window.removeEventListener('resize', this.pResize)
     this.pObserver.unobserve(this.observe)
     this.$gsap.ticker.remove(this.pRaf)
-    this.particle.destroy();
-    this.particle = null;
+    this.particle.destroy()
+    this.particle = null
   },
 
   methods: {
+    setupScrollAnimation() {
+      // セクション固定 グローバル関数(fixSection)
+      this.fixSection = this.$fixSection(
+        this.$refs.ProjectWrapper,
+        this.$SITECONFIG.isTouch,
+        3500
+      )
+
+      // リストをスクロール量に応じてx軸を移動させる
+      this.synchronousScroll = this.$gsap.fromTo(
+        this.$refs.ProjectList,
+        {
+          x: () => window.innerWidth - this.deveiceOffsetStart,
+        },
+        {
+          x: () =>
+            -(
+              this.$refs.ProjectList.clientWidth * this.deveiceOffsetRatio -
+              this.$refs.ProjectWrapper.clientWidth +
+              this.deveiceOffsetWidth
+            ),
+          ease: 'none',
+          scrollTrigger: {
+            start: 'center center',
+            end: () => `+=${3500 - window.innerHeight}px`,
+            trigger: this.$refs.ProjectWrapper,
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+          },
+        }
+      )
+
+      // テキストアニメーション
+      this.textAnimation = this.$gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            once: true,
+            trigger: this.$refs.ProjectWrapper,
+            onEnter: () => {
+              this.$gsap.to(this.wrapper, {
+                duration: this.$SITECONFIG.fullDuration,
+                ease: this.$EASING.transform,
+                rotate: 0,
+              })
+              this.$gsap.to(this.text, {
+                duration: this.$SITECONFIG.baseDuration,
+                ease: this.$EASING.transform,
+                yPercent: 0,
+                onComplete: () => {
+                  setTimeout(() => {
+                    this.isTextAnimationState = true
+                  }, 300)
+                },
+              })
+              this.isTextSegmentState = 'center'
+              this.isCircleBgState = 'extend'
+              this.isTextUnderlineState = 'extend'
+            },
+          },
+        }
+      )
+    },
     /**
      * アーカイブページ用に空のオブジェクトを追加してインデックスを一つ増やす
      */
-    directSubstitution(){
+    directSubstitution() {
       this.projectAndArchiveData = Array.from(this.projectData)
       this.projectAndArchiveData.push({})
     },
-    onMouseEnter: function(index) {
-      if (this.enterflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
+    onMouseEnter: function (index) {
+      if (
+        this.enterflag ||
+        this.$SITECONFIG.isTouch ||
+        !this.isTextAnimationState
+      )
+        return
       this.enterflag = true
       this.leaveflag = false
-      this.target = this.$refs.ProjectItem[index];
+      this.target = this.$refs.ProjectItem[index]
 
-      if(this.target) this.target.classList.add('is-current-hover')
-      if(this.target) this.target.classList.add('is-overlay')
+      if (this.target) this.target.classList.add('is-current-hover')
+      if (this.target) this.target.classList.add('is-overlay')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          if(this.$refs.ProjectItem[i])this.$refs.ProjectItem[i].classList.add('is-hover')
+          if (this.$refs.ProjectItem[i])
+            this.$refs.ProjectItem[i].classList.add('is-hover')
         }
       }
     },
     onMouseLeave() {
-      if (this.leaveflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
+      if (
+        this.leaveflag ||
+        this.$SITECONFIG.isTouch ||
+        !this.isTextAnimationState
+      )
+        return
 
       this.leaveflag = true
-      if(this.target) this.target.classList.remove('is-current-hover')
+      if (this.target) this.target.classList.remove('is-current-hover')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          if(this.$refs.ProjectItem[i])this.$refs.ProjectItem[i].classList.remove('is-hover')
+          if (this.$refs.ProjectItem[i])
+            this.$refs.ProjectItem[i].classList.remove('is-hover')
         }
       }
       setTimeout(() => {
         this.enterflag = false
-        if(this.target) this.target.classList.remove('is-overlay')
+        if (this.target) this.target.classList.remove('is-overlay')
       }, 100)
     },
   },
@@ -392,6 +443,7 @@ export default {
 .project {
   position: relative;
   height: 3500px;
+  z-index: 1;
 }
 
 .project-wrapper {
@@ -497,8 +549,6 @@ export default {
   }
 }
 
-
-
 .project-item-wraper {
   display: block;
   position: relative;
@@ -523,7 +573,7 @@ export default {
   transition: transform $half-base-duration $transform-easing;
   transform-style: preserve-3d;
 
-  & img{
+  & img {
     position: relative;
     width: 100%;
     height: 100%;

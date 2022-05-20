@@ -76,7 +76,7 @@
                   :state="isTextSegmentState"
                   :start="0"
                   :rotate="$BASEROTATE.right"
-                  :text="'LOREM I'"
+                  :text="'HI, I WORK'"
                   :pc-animation="false"
                 />
               </span>
@@ -85,7 +85,7 @@
                   :state="isTextSegmentState"
                   :start="0.12"
                   :rotate="$BASEROTATE.left"
-                  :text="'PSUM DOLOR SI'"
+                  :text="'FULL REMOTE DURING'"
                   :pc-animation="false"
                 />
               </span>
@@ -94,7 +94,7 @@
                   :state="isTextSegmentState"
                   :start="0.24"
                   :rotate="$BASEROTATE.right"
-                  :text="'TAMET, CONSEC'"
+                  :text="'THE WEEK, BUT I ALSO'"
                   :pc-animation="false"
                 />
               </span>
@@ -103,7 +103,7 @@
                   :state="isTextSegmentState"
                   :start="0.36"
                   :rotate="$BASEROTATE.left"
-                  :text="'TETUR ADIPISCI'"
+                  :text="'DO CREATIVE CODING'"
                   :pc-animation="false"
                 />
               </span>
@@ -112,7 +112,7 @@
                   :state="isTextSegmentState"
                   :start="0.48"
                   :rotate="$BASEROTATE.right"
-                  :text="'NGELIT, LOREM'"
+                  :text="'AS A HOBBY ON MY D'"
                   :pc-animation="false"
                 >
                 </AppTextSegment>
@@ -122,7 +122,7 @@
                   :state="isTextSegmentState"
                   :start="0.6"
                   :rotate="$BASEROTATE.left"
-                  :text="'IPSUM DOLOR S'"
+                  :text="'AYS OFF. AND MY SPE'"
                   :pc-animation="false"
                 />
               </span>
@@ -131,7 +131,7 @@
                   :state="isTextSegmentState"
                   :start="0.72"
                   :rotate="$BASEROTATE.right"
-                  :text="'IT AMET.'"
+                  :text="'CIAL SKILL IS GO.'"
                   :pc-animation="false"
                 />
               </span>
@@ -139,67 +139,10 @@
           </span>
           <span class="intro-note">
             <span class="pc-only">
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
-              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
-              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
-              CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M
-              STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE
-              DAY!
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
             </span>
             <span class="sp-only">
-              <span class="intro-note-wrapper intro-note-wrapper-sp-01">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :rotate="$BASEROTATE.right"
-                  :text="'LOREM IPSUM DOLOR SIT'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-note-wrapper intro-note-wrapper-sp-02">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.12"
-                  :rotate="$BASEROTATE.left"
-                  :text="'AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-note-wrapper intro-note-wrapper-sp-03">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.24"
-                  :rotate="$BASEROTATE.right"
-                  :text="'TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-note-wrapper intro-note-wrapper-sp-04">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.36"
-                  :rotate="$BASEROTATE.left"
-                  :text="'ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-note-wrapper intro-note-wrapper-sp-05">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :rotate="$BASEROTATE.right"
-                  :text="'LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-note-wrapper intro-note-wrapper-sp-06">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.6"
-                  :rotate="$BASEROTATE.left"
-                  :text="'AUTE IR'"
-                  :pc-animation="false"
-                />
-              </span>
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
             </span>
           </span>
         </span>
@@ -235,9 +178,10 @@ export default {
   watch: {
     imageLoaded: function () {
       if (this.imageLoaded) {
-        // setTimeout(() => {
+        setTimeout(() => {
+          console.log('setup')
           this.setupScrollAnimation()
-        // }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+        }, 1000) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
       }
     },
     hambergerMenuState: function () {
@@ -276,7 +220,7 @@ export default {
 
   methods: {
     setupScrollAnimation() {
-      // セクション固定
+      // セクション固定 グローバル関数(fixSection)
       this.fixSection = this.$fixSection(
         this.$refs.IntroWrapper,
         this.$SITECONFIG.isTouch,
@@ -381,13 +325,11 @@ export default {
       // テキスト固定
       this.introTextFixed = () => {
         this.$gsap.set(this.$refs.IntroBgClip, {
-          x:
-            -this.$refs.IntroBg.getBoundingClientRect().left +
-            this.buffer.value,
+          x: -this.$refs.IntroBg.getBoundingClientRect().left + this.buffer.value,
           y: Math.min(-this.$refs.IntroBg.getBoundingClientRect().top, 0),
         })
       }
-      this.observe = this.$refs.IntroBgClip
+      this.observe = this.$refs.IntroSpacer02
       this.iObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -437,9 +379,10 @@ export default {
   position: relative;
   height: 5500px;
   margin: vw(600) 0 0 0;
+  z-index: 1;
 
   @include sp() {
-    margin: 100px 0 0 0;
+    margin: vw_sp(200) 0 0 0;
   }
 }
 
@@ -577,9 +520,12 @@ export default {
   letter-spacing: 0.02em;
 
   @include sp() {
-    bottom: 20px;
-    left: 20px;
-    font-size: vw_sp(20);
+    right: 0;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    font-size: 10px;
   }
 }
 

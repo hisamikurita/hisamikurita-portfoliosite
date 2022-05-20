@@ -373,10 +373,6 @@ export default {
   height: 100%;
   z-index: 100;
   pointer-events: none;
-
-  & canvas {
-    margin: 0 auto;
-  }
 }
 
 .hero-inner {

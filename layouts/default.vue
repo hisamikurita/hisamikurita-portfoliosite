@@ -193,8 +193,7 @@ export default {
         if (this.$SITECONFIG.isTouch) {
           // スクロール無効
           this.$backfaceScroll(false)
-        }
-        else if (this.$SITECONFIG.isNoTouch) {
+        } else if (this.$SITECONFIG.isNoTouch) {
           // スクロール無効
           this.$asscroll.disable({ inputOnly: true })
           // デフォルトのホイールイベントを戻す
@@ -231,7 +230,7 @@ export default {
       }
     },
     pickupTransitionState: function () {
-      const index = this.pickupCurrentNumber - 1.0;
+      const index = this.pickupCurrentNumber - 1.0
 
       if (this.pickupTransitionState) {
         this.particle.setNextPageStart()
@@ -242,23 +241,23 @@ export default {
       }
     },
     indexPickupIsAnimation: function () {
-        const index = this.pickupCurrentNumber - 1.0;
+      const index = this.pickupCurrentNumber - 1.0
 
       // current
       if (this.indexPickupIsAnimation) {
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$gsap.ticker.add(this.pRaf)
           this.$gsap.ticker.add(this.mRaf)
-        },50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
+        }, 50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
       }
       // no current
       else {
-        if(this.particle) this.particle.delete()
-        if(this.meshList[index]) this.meshList[index].delete()
-        setTimeout(()=>{
+        if (this.particle) this.particle.delete()
+        if (this.meshList[index]) this.meshList[index].delete()
+        setTimeout(() => {
           this.$gsap.ticker.remove(this.pRaf)
           this.$gsap.ticker.remove(this.mRaf)
-        },50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
+        }, 50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
       }
     },
     indexPickupScene: function () {
@@ -348,29 +347,36 @@ export default {
     }
 
     // metaball
-    const imgPath = [];
+    const imgPath = []
     imgPath.push(
       {
-        'pc' : `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-        'sp' : `${this.pickupData[0].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        pc: `${this.pickupData[0].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        sp: `${this.pickupData[0].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
       },
       {
-        'pc' : `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-        'sp' : `${this.pickupData[1].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        pc: `${this.pickupData[1].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        sp: `${this.pickupData[1].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
       },
       {
-        'pc' : `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
-        'sp' : `${this.pickupData[2].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        pc: `${this.pickupData[2].heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`,
+        sp: `${this.pickupData[2].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
       }
     )
 
     const stage = new Stage(this.$refs.Webgl)
     stage.init()
 
-    this.meshList = [];
+    this.meshList = []
 
     for (let i = 0; i < 3.0; i++) {
-      this.meshList.push(this.mesh = new Mesh(this.$SITECONFIG, stage, metaballSceneList[i], imgPath[i]));
+      this.meshList.push(
+        (this.mesh = new Mesh(
+          this.$SITECONFIG,
+          stage,
+          metaballSceneList[i],
+          imgPath[i]
+        ))
+      )
       this.meshList[i].init()
     }
 
@@ -407,7 +413,7 @@ export default {
     ])
 
     // PC/SPでclippathの値を変える
-    this.curveDeviceRatio = this.$SITECONFIG.isPc ? '70%' : '130%';
+    this.curveDeviceRatio = this.$SITECONFIG.isPc ? '70%' : '130%'
   },
   methods: {
     /**
@@ -420,10 +426,10 @@ export default {
      * transition start animation
      */
     onTransitionStart() {
-      this.$gsap.set(this.container, {
-        overflow: 'hidden',
-      })
-      if (this.$SITECONFIG.isPc){
+      if (this.$SITECONFIG.isPc) {
+        this.$gsap.set(this.container, {
+          overflow: 'hidden',
+        })
         this.scaleAnimation01 = this.$gsap.to(this.container, {
           duration: this.$SITECONFIG.baseDuration,
           ease: this.$EASING.transform,
@@ -435,12 +441,12 @@ export default {
           ease: this.$EASING.transform,
           scaleY: 0.94,
         })
+        this.pageTranslateAnimation = this.$gsap.to(this.contents, {
+          duration: this.$SITECONFIG.baseDuration * 0.92,
+          ease: this.$EASING.transform,
+          y: -500,
+        })
       }
-      this.pageTranslateAnimation = this.$gsap.to(this.contents, {
-        duration: this.$SITECONFIG.baseDuration * 0.92,
-        ease: this.$EASING.transform,
-        y: -250,
-      })
       this.bgAnimation = this.$gsap.to(this.$refs.LayoutsNormalTransitionBg, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
@@ -452,22 +458,23 @@ export default {
      */
     onTransitionEnd() {
       if (this.indexPickupIsAnimation)
-      this.$store.commit('indexPickup/sceneAnimationState', false)
-      if(this.scaleAnimation01) this.scaleAnimation01.kill()
-      if(this.scaleAnimation02) this.scaleAnimation02.kill()
-      if(this.pageTranslateAnimation) this.pageTranslateAnimation.kill()
-      if(this.bgAnimation) this.bgAnimation.kill()
+        this.$store.commit('indexPickup/sceneAnimationState', false)
+      if (this.scaleAnimation01) this.scaleAnimation01.kill()
+      if (this.scaleAnimation02) this.scaleAnimation02.kill()
+      if (this.pageTranslateAnimation) this.pageTranslateAnimation.kill()
+      if (this.bgAnimation) this.bgAnimation.kill()
 
-      if (this.$SITECONFIG.isPc){
+      if (this.$SITECONFIG.isPc) {
         this.$gsap.set(this.container, {
           scale: 1.0,
           borderRadius: '0px',
           overflow: 'visible',
         })
+        this.$gsap.set(this.contents, {
+          y: 0,
+          clearProps: 'y', // fixedが効かなくなるのでstyleをremoveしておく
+        })
       }
-      this.$gsap.set(this.contents, {
-        y: 0,
-      })
       this.$gsap.set(this.$refs.LayoutsNormalTransitionBg, {
         clipPath: `ellipse(${this.curveDeviceRatio} 100% at 50% 200%)`,
       })
@@ -495,10 +502,12 @@ export default {
 }
 
 .asscroll-container {
+  position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
-.asscroll-contents{
+.asscroll-contents {
   background-color: $skinColor;
 }
 
@@ -518,7 +527,7 @@ export default {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 3;
+  z-index: 4;
   overflow: hidden;
 }
 

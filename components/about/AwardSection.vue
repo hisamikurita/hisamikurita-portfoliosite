@@ -313,6 +313,7 @@ export default {
 .award {
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .award-bg {
