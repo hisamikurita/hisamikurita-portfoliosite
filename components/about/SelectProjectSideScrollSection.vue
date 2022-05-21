@@ -90,12 +90,6 @@
                           <picture
                             v-if="index === projectAndArchiveData.length - 1.0"
                           >
-                            <source
-                              :srcset="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
-                              type="image/webp"
-                            />
                             <img
                               :src="`/images/archive.png`"
                               :width="`280`"
@@ -104,16 +98,11 @@
                           </picture>
                           <!--アーカイブページ以外の時-->
                           <picture v-else>
-                            <source
-                              :srcset="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
+                            <img
+                              :src="`${data.aboutImages.img01.url}?fm=webp&w=2560&h=1600&q=50`"
                               :width="`${data.aboutImages.img01.width}`"
                               :height="`${data.aboutImages.img01.height}`"
                               type="image/webp"
-                            />
-                            <img
-                              :src="`${data.aboutImages.img01.url}?w=2560&h=1600&q=50`"
-                              :width="`${data.aboutImages.img01.width}`"
-                              :height="`${data.aboutImages.img01.height}`"
                             />
                           </picture>
                         </span>
@@ -128,12 +117,6 @@
                           <picture
                             v-if="index === projectAndArchiveData.length - 1.0"
                           >
-                            <source
-                              :srcset="`/images/archive.png`"
-                              :width="`280`"
-                              :height="`206`"
-                              type="image/webp"
-                            />
                             <img
                               :src="`/images/archive.png`"
                               :width="`280`"
@@ -141,16 +124,11 @@
                             />
                           </picture>
                           <picture v-else>
-                            <source
-                              :srcset="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
+                            <img
+                              :src="`${data.aboutImages.img02.url}?fm=webp&w=2560&h=1600&q=50`"
                               :width="`${data.aboutImages.img02.width}`"
                               :height="`${data.aboutImages.img02.height}`"
                               type="image/webp"
-                            />
-                            <img
-                              :src="`${data.aboutImages.img02.url}?w=2560&h=1600&q=50`"
-                              :width="`${data.aboutImages.img02.width}`"
-                              :height="`${data.aboutImages.img02.height}`"
                             />
                           </picture>
                         </span>
