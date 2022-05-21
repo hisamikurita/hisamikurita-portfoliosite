@@ -52,7 +52,10 @@ export default {
 
   mounted() {
     // タッチデバイスの時、OPはスクロール不可にしておく
-    if (this.$SITECONFIG.isTouch) this.$backfaceScroll(false);
+    if (this.$SITECONFIG.isTouch){
+      window.scrollTo({ top: 0 });
+      this.$backfaceScroll(false);
+    }
 
     // works詳細ページに直アクセスした場合を考慮して、そのページのインデックスを取得する
     const projectResponse = this.$store.getters.projectData
@@ -128,7 +131,6 @@ export default {
         duration: 0.58,
         delay: 5.38,
         ease: this.$EASING.transform,
-        // letterSpacing: '-10px',
         scaleX: 0.2,
 
         onComplete: () => {
@@ -149,8 +151,6 @@ export default {
         duration: 0.78,
         delay: 5.98,
         ease: this.$EASING.transform,
-        // letterSpacing: '0',
-        // z:0,
         scaleX: 1.0,
       })
 
@@ -232,9 +232,6 @@ export default {
 
           onComplete: () => {
             setTimeout(() => {
-              // スクロール可能にする
-              if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true);
-
               this.$store.commit('openning/end')
               if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/start', index)
@@ -257,9 +254,6 @@ export default {
       // 2回目以降
       else {
         setTimeout(() => {
-          // スクロール可能にする
-          if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true);
-
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/start', index)
@@ -394,7 +388,6 @@ export default {
   width: 14px;
   height: 86px;
   margin: 0 auto;
-  // background-color: $black;
   border-radius: 8px;
   transform-origin: bottom;
   line-height: 0.84;
@@ -405,8 +398,6 @@ export default {
     $black 75%,
     transparent
   );
-  // overflow: hidden;
-  // box-shadow: 57px 3px 48px -30px $black;
 }
 
 .openning-circle-line-02 {
@@ -417,11 +408,9 @@ export default {
   width: 14px;
   height: 86px;
   margin: 0 auto;
-  // background-color: $black;
   border-radius: 8px;
   transform-origin: top;
   line-height: 0.84;
-  // overflow: hidden;
   background: linear-gradient(
     to bottom,
     transparent,

@@ -49,6 +49,9 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
+
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
@@ -56,7 +59,9 @@ export default {
       if (this.imageLoaded) {
         if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
-          this.$asscroll.enable({ reset: true })
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
+        this.$asscroll.enable({ reset: true })
       }
     },
   },
@@ -70,7 +75,8 @@ export default {
       imagesLoaded.on('always', () => {
         // 遷移のアニメーションを終了させる
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.imageTransitionState)
+          this.$store.commit('image-transition/end')
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -79,6 +85,7 @@ export default {
 
   beforeDestroy() {
     // リセット
+    this.$preDefaultEvent(false);
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

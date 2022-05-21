@@ -114,8 +114,12 @@ export default {
 
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
-      } else {
+      }
+      else {
+        this.$preDefaultEvent(true);
+        this.$asscroll.disable()
         this.$store.commit('bg-transition/start', '#f0efeb')
+
         setTimeout(() => {
           this.$router.push(`/`)
         }, this.$SITECONFIG.baseDuration * 0.8 * 1000)

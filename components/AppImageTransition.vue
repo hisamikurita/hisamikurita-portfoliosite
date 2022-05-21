@@ -21,19 +21,13 @@ export default {
 
       if (this.url === this.$route.path) return
 
-      // if (this.$SITECONFIG.isTouch) {
-      //   this.$store.commit('indexPickup/sceneAnimationState', false)
-      //   this.$router.push(`${this.url}`)
-      // }
-
-      // if (this.$SITECONFIG.isNoTouch) {
+        this.$preDefaultEvent(true);
         this.$asscroll.disable()
         this.$store.commit('image-transition/start', this.index)
 
         setTimeout(() => {
           this.$router.push(`${this.url}`)
         }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
-      // }
     },
   },
 }

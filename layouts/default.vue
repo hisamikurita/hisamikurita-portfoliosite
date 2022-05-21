@@ -429,7 +429,7 @@ export default {
      * transition start animation
      */
     onTransitionStart() {
-      if (this.$SITECONFIG.isPc) {
+      if (this.$SITECONFIG.isNoTouch) {
         this.$gsap.set(this.container, {
           overflow: 'hidden',
         })
@@ -467,7 +467,7 @@ export default {
       if (this.pageTranslateAnimation) this.pageTranslateAnimation.kill()
       if (this.bgAnimation) this.bgAnimation.kill()
 
-      if (this.$SITECONFIG.isPc) {
+      if (this.$SITECONFIG.isNoTouch) {
         this.$gsap.set(this.container, {
           scale: 1.0,
           borderRadius: '0px',

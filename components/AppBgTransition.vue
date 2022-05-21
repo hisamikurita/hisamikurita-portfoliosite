@@ -22,12 +22,7 @@ export default {
       if (this.url === '/' && this.$route.name === 'index') return
       if (this.url === '/about' && this.$route.name === 'about') return
 
-      // if (this.$SITECONFIG.isTouch) {
-      //   this.$store.commit('indexPickup/sceneAnimationState', false)
-      //   this.$router.push(`${this.url}`)
-      // }
-
-      // if (this.$SITECONFIG.isNoTouch) {
+        this.$preDefaultEvent(true);
         this.$asscroll.disable()
         this.$store.commit('bg-transition/start', this.color)
 

@@ -46,6 +46,8 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
@@ -53,6 +55,8 @@ export default {
       if (this.imageLoaded) {
         if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
           this.$asscroll.enable({ reset: true })
       }
     },
@@ -85,6 +89,7 @@ export default {
   beforeDestroy() {
     // リセット
     window.cancelAnimationFrame(this.raf)
+    this.$preDefaultEvent(false);
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

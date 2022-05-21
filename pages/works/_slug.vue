@@ -85,6 +85,9 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
+
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
@@ -92,6 +95,8 @@ export default {
       if (this.imageLoaded) {
         if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
           this.$asscroll.enable({ reset: true })
       }
     },
@@ -115,13 +120,14 @@ export default {
 
         setTimeout(()=>{
           if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
-        },1000) // パーティクルを時間差で削除
+        },1200) // パーティクルを時間差で削除
       })
     })
   },
 
   beforeDestroy() {
     // リセット
+    this.$preDefaultEvent(false);
     this.$asscroll.disable()
     this.$store.commit('indexPickup/setScene', 'init')
     this.$store.commit('imageLoaded/init')
