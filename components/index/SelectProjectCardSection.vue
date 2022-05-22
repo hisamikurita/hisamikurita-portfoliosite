@@ -237,7 +237,9 @@ export default {
   beforeDestroy() {
     // リセット
     this.iObserverTextSegment.unobserve(this.observe)
+    this.iObserverTextSegment = null
     this.iObserverLoopText.unobserve(this.observe)
+    this.iObserverLoopText = null
   },
 }
 </script>

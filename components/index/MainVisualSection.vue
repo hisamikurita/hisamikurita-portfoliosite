@@ -322,6 +322,7 @@ export default {
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null
     this.$gsap.ticker.remove(this.bgCircleScaleChangeScroll)
   },
 

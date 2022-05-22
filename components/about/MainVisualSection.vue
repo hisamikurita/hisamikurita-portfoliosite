@@ -293,6 +293,7 @@ export default {
   beforeDestroy() {
     // リセット
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null;
 
     // メタボールリセット
     window.removeEventListener('mousemove', this.mMouse)
@@ -306,7 +307,7 @@ export default {
 
   methods: {
     mvItemViewIn() {
-      this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroTitle)
+      this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroCanvas)
       this.stage.init()
 
       this.mesh = new Mesh(this.stage, this.$SITECONFIG)
@@ -322,11 +323,6 @@ export default {
         this.mesh.onRaf()
       }
 
-      this.mMouse = (e) => {
-        this.mesh.onMouseMove(e)
-      }
-
-      window.addEventListener('mousemove', this.mMouse)
       window.addEventListener('resize', this.mResize)
 
       this.observe = this.$refs.Hero
@@ -367,10 +363,10 @@ export default {
 
 .hero-canvas {
   position: absolute;
-  top: 0;
+  top: -92px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + (92px * 2.0));
   z-index: 100;
   pointer-events: none;
 }

@@ -185,8 +185,6 @@ export default {
        * ハンバガーメニューが開いた時
        */
       if (this.hambergerMenuState) {
-        console.log(this.fixSection);
-        console.log(this.synchronousScroll);
         this.fixSection.pause();
         //
       } else if (!this.hambergerMenuState) {
@@ -281,16 +279,17 @@ export default {
   },
 
   beforeDestroy() {
-    console.log('はっか')
     // リセット
     this.fixSection.kill()
     this.synchronousScroll.kill()
     this.textAnimation.kill()
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null;
 
     // パーティクル削除
     window.removeEventListener('resize', this.pResize)
     this.pObserver.unobserve(this.observe)
+    this.pObserver = null
     this.$gsap.ticker.remove(this.pRaf)
     this.particle.destroy()
     this.particle = null

@@ -214,6 +214,7 @@ export default {
     this.scrollTl.kill()
     this.IntroImgParallaxAnimation.kill()
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null;
     this.$gsap.ticker.remove(this.introTextFixed)
   },
 

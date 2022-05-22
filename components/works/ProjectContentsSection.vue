@@ -94,6 +94,7 @@ export default {
       for (let i = 0; i < this.observer.length; i++) {
         this.iObserver.unobserve(this.observer[i]) // リセット
       }
+      this.iObserver = null
     }
   },
 }

@@ -140,9 +140,12 @@ export default {
   beforeDestroy() {
     // リセット
     this.iObserverTextSegment.unobserve(this.observe)
+    this.iObserverTextSegment = null
     this.iObserverLoopText.unobserve(this.observe)
+    this.iObserverLoopText = null
     if (this.$SITECONFIG.isPc && this.$SITECONFIG.isNoTouch) {
       this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
+      this.iObserverLoopVideo = null
       window.removeEventListener('mousemove', this.onMoseMove)
     }
   },

@@ -41,58 +41,53 @@ export default class Particle {
     this.metaball = [
       {
         x: this.config.isPc ? -130 : 30,
-        y: this.config.isPc ? 160 : 290,
+        y: this.config.isPc ? 240 : 290,
         r: this.config.isPc ? 90 : 120,
         rand: this.config.isPc ? 0.84 : 0.74,
       },
       {
         x: -200,
-        y: 100,
+        y: 180,
         r: 60,
         rand: this.config.isPc ? 0.66 : 0.32,
       },
       {
         x: 110,
-        y: 120,
+        y: 200,
         r: 60,
         rand: 0.62,
       },
       {
         x: 0,
-        y: -40,
+        y: 40,
         r: 60,
         rand: -0.43,
       },
       {
         x: 190,
-        y: -40,
+        y: 40,
         r: 20,
         rand: this.config.isPc ? 0.81 : 0.52,
       },
       {
         x: this.config.isPc ? -20 : 10,
-        y: this.config.isPc ? -280 : -400,
+        y: this.config.isPc ? -200 : -400,
         r: 80,
         rand: -0.49,
       },
       {
         x: 200,
-        y: -130,
+        y: -50,
         r: 40,
         rand: -0.67,
       },
       {
         x: this.config.isPc ? -300 : -190,
-        y: this.config.isPc ? -130 : -150,
+        y: this.config.isPc ? -50 : -150,
         r: 66,
         rand: 0.57,
       },
     ]
-
-    this.mouse = {
-      x: 0,
-      y: 0
-    };
   }
 
   init() {
@@ -218,24 +213,7 @@ export default class Particle {
     this.mesh.material.uniforms.u_resolution.value.y = this.height;
   }
 
-  onMouseMove(e) {
-    gsap.to(this.mouse, {
-      duration: 0.20,
-      ease: 'power1.out',
-      x: ((e.clientX / window.innerWidth) * 2.0 - 1.0) * 200,
-      y: -((e.clientY / window.innerHeight) * 2.0 - 1.0) * 200,
-    });
-
-    // for (let i = 0; i < this.numMetaballs; i++) {
-    //   this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = this.mouse.x
-    //   this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = this.mouse.y
-    // }
-    this.mesh.material.uniforms.u_mouse.value.x = this.mouse.x;
-    this.mesh.material.uniforms.u_mouse.value.y = this.mouse.y;
-  }
-
   _render() {
-    console.log('発火')
     this.mesh.material.uniforms.u_time.value += 0.03;
   }
 

@@ -229,6 +229,7 @@ export default {
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null
   },
 }
 </script>

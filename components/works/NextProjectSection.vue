@@ -119,7 +119,9 @@ export default {
 
   beforeDestroy() {
     this.iObserverLoopText.unobserve(this.observe)
+    this.iObserverLoopText = null
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null
   },
 }
 </script>

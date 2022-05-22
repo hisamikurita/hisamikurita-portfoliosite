@@ -156,12 +156,14 @@ export default {
 
   beforeDestroy() {
     this.iObserver.unobserve(this.observe)
+    this.iObserver = null
     if (this.$SITECONFIG.isNoTouch) {
       this.$gsap.ticker.remove(this.cardScrollPos)
       this.$gsap.ticker.remove(this.cardScrollAnimation)
       window.removeEventListener('mousemove', this.onMousemove)
       window.removeEventListener('mousemove', this.saveMousemove)
       this.animationObserver.unobserve(this.observe)
+      this.animationObserver = null
     }
   },
 

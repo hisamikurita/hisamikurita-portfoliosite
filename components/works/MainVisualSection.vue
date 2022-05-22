@@ -207,6 +207,7 @@ export default {
     // リセット
     if (this.$SITECONFIG.isMobile) {
       this.iObserver.unobserve(this.observe)
+      this.iObserver = null
       window.removeEventListener('resize', this.setHeight)
     }
   },

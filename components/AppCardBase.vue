@@ -235,16 +235,23 @@ export default {
   },
 
   beforeDestroy() {
-    // SPの時は任意(spAnimation = false)で,処理を返す
+    // SPの時は任意(spAnimation = false)で処理を返す
     // デフォルトではSPもアニメーションする
     if (!this.spAnimation && this.$SITECONFIG.isMobile) return
 
     // リセット
-    if (this.dragAnimation) this.drag[0].kill()
+    if (this.dragAnimation) {
+      this.drag[0].kill()
+      this.drag = null
+    }
     this.$store.commit('mouse/mouseleave')
     this.$gsap.ticker.remove(this.cardPallax)
-    if (this.viewAnimation) this.iObserverTextSegment.unobserve(this.observe)
+    if (this.viewAnimation) {
+      this.iObserverTextSegment.unobserve(this.observe)
+      this.iObserverTextSegment = null
+    }
     this.iObserverAnimation.unobserve(this.observe)
+    this.iObserverAnimation = null
   },
 
   methods: {
