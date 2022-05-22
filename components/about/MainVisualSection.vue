@@ -277,7 +277,7 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
-        this.mvItemViewIn()
+        this.mvItemViewIn();
       }, 1000)
     },
     imageLoaded: function () {
