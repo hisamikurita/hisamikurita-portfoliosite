@@ -8,9 +8,7 @@ uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform sampler2D u_texture;
-uniform float u_scale;
 uniform float u_ratio;
-uniform float u_alpha;
 uniform float u_time;
 uniform float u_rand[8];
 uniform vec2 u_metaballsPos[8];
@@ -70,7 +68,7 @@ void main() {
 
     // 閾値を超えた時だけ描画する
     if (sum > 1.0) {
-        gl_FragColor = vec4(texture.rgb, u_alpha);
+        gl_FragColor = vec4(texture.rgb, 1.0);
         return;
     }
 }

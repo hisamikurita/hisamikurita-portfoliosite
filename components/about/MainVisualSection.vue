@@ -255,6 +255,7 @@
 <script>
 import Mesh from '../canvas/about/mainvisual/metaball'
 import Stage from '../canvas/stage'
+import { aboutMv } from '../../assets/js/metaball'
 
 export default {
   data: () => {
@@ -277,7 +278,7 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
-        this.mvItemViewIn();
+        this.mvItemViewIn()
       }, 1000)
     },
     imageLoaded: function () {
@@ -288,12 +289,47 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+    this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroCanvas)
+    this.stage.init()
+
+    this.mesh = new Mesh(this.stage, this.$SITECONFIG, aboutMv)
+    this.mesh.init()
+
+    this.mResize = () => {
+      this.stage.onResize()
+      this.mesh.onResize()
+    }
+
+    this.mRaf = () => {
+      this.stage.onRaf()
+      this.mesh.onRaf()
+    }
+
+    window.addEventListener('resize', this.mResize)
+
+    this.observe = this.$refs.Hero
+    this.iObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$gsap.ticker.add(this.mRaf)
+          } else {
+            this.$gsap.ticker.remove(this.mRaf)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    )
+    this.iObserver.observe(this.observe)
+  },
 
   beforeDestroy() {
     // リセット
     this.iObserver.unobserve(this.observe)
-    this.iObserver = null;
+    this.iObserver = null
 
     // メタボールリセット
     window.removeEventListener('mousemove', this.mMouse)
@@ -307,41 +343,6 @@ export default {
 
   methods: {
     mvItemViewIn() {
-      this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroCanvas)
-      this.stage.init()
-
-      this.mesh = new Mesh(this.stage, this.$SITECONFIG)
-      this.mesh.init()
-
-      this.mResize = () => {
-        this.stage.onResize()
-        this.mesh.onResize()
-      }
-
-      this.mRaf = () => {
-        this.stage.onRaf()
-        this.mesh.onRaf()
-      }
-
-      window.addEventListener('resize', this.mResize)
-
-      this.observe = this.$refs.Hero
-      this.iObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              this.$gsap.ticker.add(this.mRaf)
-            } else {
-              this.$gsap.ticker.remove(this.mRaf)
-            }
-          })
-        },
-        {
-          rootMargin: '0%',
-        }
-      )
-      this.iObserver.observe(this.observe)
-
       this.isTextSegmentState = 'center'
       this.isTextUnderlineState = 'extend'
       this.mesh.fadeIn()
@@ -366,7 +367,7 @@ export default {
   top: -92px;
   left: 0;
   width: 100%;
-  height: calc(100% + (92px * 2.0));
+  height: calc(100% + (92px * 2));
   z-index: 100;
   pointer-events: none;
 }

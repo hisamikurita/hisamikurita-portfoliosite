@@ -6,7 +6,7 @@ import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
 
 export default class Particle {
-  constructor(stage, config) {
+  constructor(stage, config, metaball) {
     // ステージ
     this.stage = stage;
     // サイト共通の設定
@@ -18,12 +18,12 @@ export default class Particle {
       heightSegments: 1.0
     };
     this.mesh = null;
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = this.stage.renderParam.width;
+    this.height = this.stage.renderParam.height;
     // 画像の元のサイズ
     this.naturalSize = {
-      x: 1200,
-      y: 830
+      x: 1280,
+      y: 800
     };
 
     // ビデオテクスチャを生成
@@ -38,56 +38,49 @@ export default class Particle {
 
     // メタボールの総数
     this.numMetaballs = 8;
-    this.metaball = [
-      {
-        x: this.config.isPc ? -130 : 30,
-        y: this.config.isPc ? 240 : 290,
-        r: this.config.isPc ? 90 : 120,
-        rand: this.config.isPc ? 0.84 : 0.74,
-      },
-      {
-        x: -200,
-        y: 180,
-        r: 60,
-        rand: this.config.isPc ? 0.66 : 0.32,
-      },
-      {
-        x: 110,
-        y: 200,
-        r: 60,
-        rand: 0.62,
-      },
-      {
-        x: 0,
-        y: 40,
-        r: 60,
-        rand: -0.43,
-      },
-      {
-        x: 190,
-        y: 40,
-        r: 20,
-        rand: this.config.isPc ? 0.81 : 0.52,
-      },
-      {
-        x: this.config.isPc ? -20 : 10,
-        y: this.config.isPc ? -200 : -400,
-        r: 80,
-        rand: -0.49,
-      },
-      {
-        x: 200,
-        y: -50,
-        r: 40,
-        rand: -0.67,
-      },
-      {
-        x: this.config.isPc ? -300 : -190,
-        y: this.config.isPc ? -50 : -150,
-        r: 66,
-        rand: 0.57,
-      },
-    ]
+    this.metaball = metaball;
+    this.metaballs = [];
+
+    // メタボールの初期値をまとめる
+    for (let i = 0; i < this.numMetaballs; i++) {
+      let x = 0;
+      let y = 0;
+      let rand = 0;
+      let r = 0;
+
+      if (this.config.isPc) {
+        x = this.metaball[i].x.pc;
+        y = this.metaball[i].y.pc;
+        r = this.metaball[i].r.pc;
+        rand = this.metaball[i].rand.pc
+      }
+
+      if (this.config.isMobile) {
+        x = this.metaball[i].x.sp;
+        y = this.metaball[i].y.sp;
+        r = this.metaball[i].r.sp;
+        rand = this.metaball[i].rand.sp
+      }
+
+      const metaball = {
+        x: x,
+        y: y,
+        r: r,
+        rand: rand,
+      }
+
+      this.metaballs.push(metaball);
+    }
+
+    // 最初に円周上にメタボールを配置しておく
+    for (let i = 0; i < this.numMetaballs; i++) {
+      const radians = (i / (this.numMetaballs)) * Math.PI * 2.0;
+      const initX = (window.innerWidth * 1.5) * Math.cos(radians);
+      const initY = (window.innerHeight * 1.5) * Math.sin(radians);
+
+      this.metaballs[i].initX = initX;
+      this.metaballs[i].initY = initY;
+    }
   }
 
   init() {
@@ -101,16 +94,16 @@ export default class Particle {
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
-        this.metaball[i].x,
-        this.metaball[i].y,
+        this.metaballs[i].x,
+        this.metaballs[i].y,
       );
 
       metaballsRadius.push(
-        0
+        0,
       );
 
       metaballsRands.push(
-        this.metaball[i].rand
+        this.metaballs[i].rand
       );
     }
 
@@ -150,17 +143,9 @@ export default class Particle {
           type: '1fv',
           value: metaballsRands
         },
-        u_scale: {
-          type: 'f',
-          value: 0.0
-        },
-        u_alpha: {
-          type: 'f',
-          value: 1.0
-        },
         u_ratio: {
           type: 'f',
-          value: this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 750,
+          value: this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 800,
         },
         u_time: {
           type: 'f',
@@ -182,18 +167,52 @@ export default class Particle {
 
   fadeIn() {
     for (let i = 0; i < this.numMetaballs; i++) {
-      const r = { value: 0 }
+      const x = {
+        value: this.metaballs[i].initX
+      }
+      const y = {
+        value: this.metaballs[i].initY
+      }
+      this.mesh.material.uniforms.u_metaballsRadius.value[i] = this.metaballs[i].r
 
-      gsap.to(r, {
-        duration: 0.60 + Math.random() * 0.75,
-        delay: i * 0.08,
+    gsap.fromTo(x, {
+        value: x.value,
+      }, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
         ease: this.config.transform,
-        value: this.metaball[i].r,
+        value: this.metaballs[i].x,
         onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
-        },
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = x.value
+        }
+      })
+
+      gsap.fromTo(y, {
+        value: y.value,
+      }, {
+        duration: this.setMetaballDuration(i),
+        delay: this.setMetaballDelay(i),
+        ease: this.config.transform,
+        value: this.metaballs[i].y,
+        onUpdate: () => {
+          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
+        }
       })
     }
+  }
+
+  /**
+   * particle共通のduration
+   */
+  setMetaballDuration(index, ratio = 1.0) {
+    return (0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)
+  }
+
+  /**
+   * particle共通のdelay
+   */
+  setMetaballDelay(index, ratio = 1.0) {
+    return index * (0.01 * ratio)
   }
 
   _destroy() {
@@ -207,7 +226,7 @@ export default class Particle {
     this.width = this.stage.renderParam.width;
     this.height = this.stage.renderParam.height;
 
-    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 750;
+    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? this.width / 1280 : this.height / 800;
 
     this.mesh.material.uniforms.u_resolution.value.x = this.width;
     this.mesh.material.uniforms.u_resolution.value.y = this.height;

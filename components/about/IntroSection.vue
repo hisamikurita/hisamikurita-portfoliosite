@@ -12,10 +12,11 @@
         INTRODUCTION INTRODUCTION INT
       </div>
       <span ref="IntroBg" class="intro-bg">
-        <span>
-          <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80" />
-        </span>
         <span ref="IntroBgClip" class="intro-bg-clip">
+          <span class="intro-bg-wrapper">
+            <span ref="IntroBgCanvas" class="intro-bg-canvas"></span>
+            <!-- <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80" /> -->
+          </span>
           <span class="intro-title">
             <span class="intro-title-read-area">
               <AppSectionReadTitle
@@ -139,10 +140,18 @@
           </span>
           <span class="intro-note">
             <span class="pc-only">
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
+              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
+              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
+              CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M
+              STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE
+              DAY!
             </span>
             <span class="sp-only">
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET THEM AND WORK WITH THEM ONE DAY!
+              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
+              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
+              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET
+              THEM AND WORK WITH THEM ONE DAY!
             </span>
           </span>
         </span>
@@ -152,6 +161,8 @@
 </template>
 
 <script>
+import Mesh from '../canvas/about/intro/mesh'
+import Stage from '../canvas/stage'
 import { vw, vwSp } from '../../assets/js/vw'
 
 export default {
@@ -209,13 +220,64 @@ export default {
   },
 
   beforeDestroy() {
+    // canvasリセット
+    window.removeEventListener('mousemove', this.mMouse)
+    this.$gsap.ticker.remove(this.mRaf)
+    this.stage._destroy()
+    this.mesh._destroy()
+    this.stage = null
+    this.mesh = null
+    this.mObserver.unobserve(this.mObserve)
+    this.mObserver = null
     // リセット
     this.fixSection.kill()
     this.scrollTl.kill()
     this.IntroImgParallaxAnimation.kill()
     this.iObserver.unobserve(this.observe)
-    this.iObserver = null;
+    this.iObserver = null
     this.$gsap.ticker.remove(this.introTextFixed)
+  },
+
+  mounted() {
+    this.stage = new Stage(this.$refs.IntroBgCanvas, this.$refs.IntroBgCanvas)
+    this.stage.init()
+
+    this.mesh = new Mesh(this.stage, this.$SITECONFIG)
+    this.mesh.init()
+
+    this.mResize = () => {
+      this.stage.onResize()
+      this.mesh.onResize()
+    }
+
+    this.mRaf = () => {
+      this.mResize()
+      this.stage.onRaf()
+      this.mesh.onRaf()
+    }
+
+    this.mMouse = (e) => {
+      this.mesh.onMouseMove(e)
+    }
+
+    this.mObserve = this.$refs.Intro
+    this.mObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.addEventListener('mousemove', this.mMouse)
+            this.$gsap.ticker.add(this.mRaf)
+          } else {
+            window.removeEventListener('mousemove', this.mMouse)
+            this.$gsap.ticker.remove(this.mRaf)
+          }
+        })
+      },
+      {
+        rootMargin: '0%',
+      }
+    )
+    this.mObserver.observe(this.mObserve)
   },
 
   methods: {
@@ -325,7 +387,9 @@ export default {
       // テキスト固定
       this.introTextFixed = () => {
         this.$gsap.set(this.$refs.IntroBgClip, {
-          x: -this.$refs.IntroBg.getBoundingClientRect().left + this.buffer.value,
+          x:
+            -this.$refs.IntroBg.getBoundingClientRect().left +
+            this.buffer.value,
           y: Math.min(-this.$refs.IntroBg.getBoundingClientRect().top, 0),
         })
       }
@@ -348,7 +412,7 @@ export default {
 
       // 画像パララックスアニメーション
       this.IntroImgParallaxAnimation = this.$gsap.fromTo(
-        this.$refs.IntroImg.$el,
+        this.$refs.IntroBgCanvas,
         {
           y: 350,
         },
@@ -436,6 +500,7 @@ export default {
 }
 
 .intro-bg {
+  display: block;
   position: absolute;
   top: 0;
   right: 0;
@@ -459,17 +524,46 @@ export default {
     transform: translate(vw_sp(121), vw_sp(39));
   }
 
-  & img {
+  // & img {
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: calc(100% + 700px);
+  //   margin: auto;
+  //   object-fit: cover;
+  // }
+}
+
+.intro-bg-wrapper {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 700px);
+
+  & canvas {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: calc(100% + 700px);
     margin: auto;
-    object-fit: cover;
   }
+}
+
+.intro-bg-canvas {
+  display: block;
+  position: absolute;
+  top: -350px;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .intro-bg-clip {
@@ -485,7 +579,7 @@ export default {
   top: 50%;
   right: 158px;
   transform: translate3d(0, -50%, 0);
-  color: $gold;
+  color: #eae0cc;
   font-size: vmin(128);
   font-family: $sixcaps;
 
@@ -513,7 +607,7 @@ export default {
   bottom: 34px;
   right: 158px;
   left: 40px;
-  color: $gold;
+  color: #eae0cc;
   font-size: 12px;
   text-indent: 180px;
   line-height: 1.2;

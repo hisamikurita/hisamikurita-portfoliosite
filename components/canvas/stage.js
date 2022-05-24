@@ -66,7 +66,10 @@ export default class Stage {
     this.renderParam.width = !this.wrapper ? window.innerWidth : this.wrapper.clientWidth;
     this.renderParam.height = !this.wrapper ? window.innerHeight : this.wrapper.clientHeight;
     this.camera.aspect = this.renderParam.width / this.renderParam.height;
-    this.camera.fov = this.cameraParam.fov;
+    this.camera.fov =
+    THREE.MathUtils.radToDeg(
+      Math.atan(this.renderParam.width / this.camera.aspect / (2 * this.camera.position.z))
+    ) * 2;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.renderParam.width, this.renderParam.height);
   }
