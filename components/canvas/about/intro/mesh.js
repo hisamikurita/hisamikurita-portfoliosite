@@ -141,7 +141,7 @@ export default class Mesh {
         x: this.mouse.x,
         y: this.mouse.y,
     });
-}
+  }
 
   onResize() {
     this._setMeshScale();

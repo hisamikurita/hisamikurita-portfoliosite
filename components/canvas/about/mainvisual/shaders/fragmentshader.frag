@@ -38,12 +38,7 @@ void main() {
     float vRatio = u_ratio;
 
     for (int i = 0; i < 8; i++) {
-        // float xx = u_metaballsPos[i].x + (u_mouse.x * 200.0);
-        // float yy = u_metaballsPos[i].y + (u_mouse.y * 200.0);
-
         vec2 metaball = u_metaballsPos[i];
-        metaball.x += u_mouse.x;
-        metaball.y += u_mouse.y;
 
         float metaballRadius = u_metaballsRadius[i];
         float rand = u_rand[i];
@@ -60,10 +55,6 @@ void main() {
         // rの値を加算代入していくことによって、円と円とが近づいた時に円の外側にかけて閾値を超える場所が出てくるので、
         // 結果として円と円がくっついたような表現になる
         sum += (radius * radius) / (dx * dx + dy * dy);
-
-                // mouse
-        // dx += (u_mouse.x * (metaballRadius * rand * 4.0));
-        // dy += (u_mouse.y * (metaballRadius * rand * 4.0));
     }
 
     // 閾値を超えた時だけ描画する

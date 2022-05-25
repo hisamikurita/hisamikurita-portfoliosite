@@ -16,11 +16,11 @@ export default class Particle {
     this.texture = new THREE.TextureLoader().load(this.texturePath);
     // 画像の元のサイズ
     this.naturalSizes = {
-      'pc' : {
+      'pc': {
         x: 1280,
         y: 800
       },
-      'sp' : {
+      'sp': {
         x: 750,
         y: 1106
       },
@@ -35,7 +35,7 @@ export default class Particle {
     };
     this.mesh = null;
     // メタボールの総数
-    this.numMetaballs = 7;
+    this.numMetaballs = 8;
     this.metaball = metaball;
     this.metaballs = [];
 
@@ -45,6 +45,7 @@ export default class Particle {
       let y = 0;
       let rand = 0;
       let r = 0;
+      let a = 1.0
 
       if (this.config.isPc) {
         x = this.metaball[i].x.pc;
@@ -60,15 +61,19 @@ export default class Particle {
         rand = this.metaball[i].rand.sp
       }
 
+      if (i === this.numMetaballs - 1.0) a = 0.3;
+
       const metaball = {
         x: x,
         y: y,
         r: r,
         rand: rand,
+        alpha: a,
       }
 
       this.metaballs.push(metaball);
     }
+    console.log(this.metaballs)
 
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
@@ -90,6 +95,8 @@ export default class Particle {
     this.setNextPageAnimations = [];
 
     this.metaballDeviceDiffuseRatio = this.config.isPc ? 0.50 : 0.70;
+
+    this.mouse = { x: 0, y: 0, };
   }
 
   init() {
@@ -100,6 +107,7 @@ export default class Particle {
     const metaballsPosition = [];
     const metaballsRadius = [];
     const metaballsRand = [];
+    const metaballsAlpha = [];
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
@@ -113,6 +121,10 @@ export default class Particle {
 
       metaballsRadius.push(
         this.metaballs[i].r,
+      );
+
+      metaballsAlpha.push(
+        this.metaballs[i].alpha,
       );
     }
 
@@ -148,22 +160,25 @@ export default class Particle {
             y: this.naturalSize.y
           }
         },
+        u_alpha: {
+          type: '1fv',
+          value: metaballsAlpha
+        },
         u_rand: {
           type: '1fv',
           value: metaballsRand
-        },
-        u_scale: {
-          type: 'f',
-          value: 0.0
-        },
-        u_alpha: {
-          type: 'f',
-          value: 1.0
         },
         u_time: {
           type: 'f',
           value: 0.0
         },
+        u_mouse: {
+          type: "v2",
+          value: {
+            x: 0,
+            y: 0
+          }
+        }
       },
       transparent: true
     });
@@ -355,6 +370,22 @@ export default class Particle {
 
   _render() {
     this.mesh.material.uniforms.u_time.value += this.speed;
+  }
+
+  onMouseMove(e) {
+    const x = ((e.clientX / window.innerWidth) * 2.0 - 1.0) * (window.innerWidth / 2.0);
+    const y = (-(e.clientY / window.innerHeight) * 2.0 + 1.0) * (window.innerHeight / 2.0);
+
+    gsap.to(this.mouse, {
+      duration: 1.6,
+      ease: "power2.out",
+      x: x,
+      y: y,
+
+      onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsPos.value[14] = this.mouse.x;
+        this.mesh.material.uniforms.u_metaballsPos.value[15] = this.mouse.y;      }
+    });
   }
 
   onRaf() {

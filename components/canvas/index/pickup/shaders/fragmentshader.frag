@@ -7,12 +7,12 @@ precision highp float;
 uniform vec2 u_texturesize;
 uniform vec2 u_resolution;
 uniform sampler2D u_texture;
-uniform float u_scale;
-uniform float u_alpha;
+uniform vec2 u_mouse;
 uniform float u_time;
-uniform float u_rand[7];
-uniform vec2 u_metaballsPos[7];
-uniform float u_metaballsRadius[7];
+uniform float u_rand[8];
+uniform float u_alpha[8];
+uniform vec2 u_metaballsPos[8];
+uniform float u_metaballsRadius[8];
 varying vec2 vUv;
 
 void main() {
@@ -36,8 +36,9 @@ void main() {
     float l = 0.0;
     float dist = 0.0;
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         vec2 metaball = u_metaballsPos[i];
+
         float metaballRadius = u_metaballsRadius[i];
         float rand = u_rand[i];
         float sx = metaball.x + cos(u_time * rand) * ((120.0 * rand * uv.x) + 40.0);
@@ -57,7 +58,7 @@ void main() {
 
     // 閾値を超えた時だけ描画する
     if (sum > 1.0) {
-        gl_FragColor = vec4(texture.rgb, u_alpha);
+        gl_FragColor = vec4(texture.rgb, 1.0);
         return;
     }
 }

@@ -192,11 +192,10 @@ export default {
 
         if (this.$SITECONFIG.isTouch) {
           // スクロール無効
-          setTimeout(() =>{
+          setTimeout(() => {
             this.$backfaceScroll(false)
-          },300)
-        }
-        else if (this.$SITECONFIG.isNoTouch) {
+          }, 300)
+        } else if (this.$SITECONFIG.isNoTouch) {
           // スクロール無効
           this.$asscroll.disable({ inputOnly: true })
           // デフォルトのホイールイベントを戻す
@@ -268,38 +267,50 @@ export default {
         case 'next01':
           this.particle.setSceneFirst(1)
           this.meshList[0].setCenter()
+          window.addEventListener('mousemove', this.m1Mouse);
           break
         case 'next02':
           this.particle.setScene(2)
           this.meshList[1].setCenter()
+          window.addEventListener('mousemove', this.m2Mouse);
           this.meshList[0].setShrink()
+          window.removeEventListener('mousemove', this.m1Mouse);
           break
         case 'next03':
           this.particle.setScene(3)
           this.meshList[2].setCenter()
+          window.addEventListener('mousemove', this.m3Mouse);
           this.meshList[1].setShrink()
+          window.removeEventListener('mousemove', this.m2Mouse);
           break
         case 'next04':
           this.particle.setSceneEnd(3)
           this.meshList[2].setShrink()
+          window.removeEventListener('mousemove', this.m3Mouse);
           break
         case 'prev00':
           this.particle.setSceneEnd(1)
           this.meshList[0].setDiffusion()
+          window.removeEventListener('mousemove', this.m1Mouse);
           break
         case 'prev01':
           this.particle.setScene(1)
           this.meshList[0].setCenter()
+          window.addEventListener('mousemove', this.m1Mouse);
           this.meshList[1].setShrink()
+          window.removeEventListener('mousemove', this.m2Mouse);
           break
         case 'prev02':
           this.particle.setScene(2)
           this.meshList[1].setCenter()
+          window.addEventListener('mousemove', this.m2Mouse);
           this.meshList[2].setShrink()
+          window.removeEventListener('mousemove', this.m3Mouse);
           break
         case 'prev03':
           this.particle.setSceneFirst(3)
           this.meshList[2].setCenter()
+          window.addEventListener('mousemove', this.m3Mouse);
           break
       }
     },
@@ -381,6 +392,18 @@ export default {
         ))
       )
       this.meshList[i].init()
+    }
+
+    this.m1Mouse = (e) => {
+      this.meshList[0].onMouseMove(e)
+    }
+
+    this.m2Mouse = (e) => {
+      this.meshList[1].onMouseMove(e)
+    }
+
+    this.m3Mouse = (e) => {
+      this.meshList[2].onMouseMove(e)
     }
 
     window.addEventListener('resize', () => {
