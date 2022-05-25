@@ -415,6 +415,7 @@ export default {
 :root {
   --viewportWidth: 0;
   --viewportHeight: 0;
+  --viewportSpHeight: 0;
 }
 
 .project {
@@ -432,6 +433,10 @@ export default {
   width: 100%;
   height: var(--viewportHeight, 100vh) !important;
   background-color: $darkBlack;
+
+  @include sp() {
+    height: var(--viewportSpHeight, 100vh) !important;
+  }
 }
 
 .project-canvas {

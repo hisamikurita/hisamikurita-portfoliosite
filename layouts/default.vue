@@ -256,6 +256,10 @@ export default {
       else {
         if (this.particle) this.particle.delete()
         if (this.meshList[index]) this.meshList[index].delete()
+        window.removeEventListener('mousemove', this.m1Mouse)
+        window.removeEventListener('mousemove', this.m2Mouse)
+        window.removeEventListener('mousemove', this.m3Mouse)
+
         setTimeout(() => {
           this.$gsap.ticker.remove(this.pRaf)
           this.$gsap.ticker.remove(this.mRaf)
@@ -267,50 +271,50 @@ export default {
         case 'next01':
           this.particle.setSceneFirst(1)
           this.meshList[0].setCenter()
-          window.addEventListener('mousemove', this.m1Mouse);
+          window.addEventListener('mousemove', this.m1Mouse)
           break
         case 'next02':
           this.particle.setScene(2)
           this.meshList[1].setCenter()
-          window.addEventListener('mousemove', this.m2Mouse);
+          window.addEventListener('mousemove', this.m2Mouse)
           this.meshList[0].setShrink()
-          window.removeEventListener('mousemove', this.m1Mouse);
+          window.removeEventListener('mousemove', this.m1Mouse)
           break
         case 'next03':
           this.particle.setScene(3)
           this.meshList[2].setCenter()
-          window.addEventListener('mousemove', this.m3Mouse);
+          window.addEventListener('mousemove', this.m3Mouse)
           this.meshList[1].setShrink()
-          window.removeEventListener('mousemove', this.m2Mouse);
+          window.removeEventListener('mousemove', this.m2Mouse)
           break
         case 'next04':
           this.particle.setSceneEnd(3)
           this.meshList[2].setShrink()
-          window.removeEventListener('mousemove', this.m3Mouse);
+          window.removeEventListener('mousemove', this.m3Mouse)
           break
         case 'prev00':
           this.particle.setSceneEnd(1)
           this.meshList[0].setDiffusion()
-          window.removeEventListener('mousemove', this.m1Mouse);
+          window.removeEventListener('mousemove', this.m1Mouse)
           break
         case 'prev01':
           this.particle.setScene(1)
           this.meshList[0].setCenter()
-          window.addEventListener('mousemove', this.m1Mouse);
+          window.addEventListener('mousemove', this.m1Mouse)
           this.meshList[1].setShrink()
-          window.removeEventListener('mousemove', this.m2Mouse);
+          window.removeEventListener('mousemove', this.m2Mouse)
           break
         case 'prev02':
           this.particle.setScene(2)
           this.meshList[1].setCenter()
-          window.addEventListener('mousemove', this.m2Mouse);
+          window.addEventListener('mousemove', this.m2Mouse)
           this.meshList[2].setShrink()
-          window.removeEventListener('mousemove', this.m3Mouse);
+          window.removeEventListener('mousemove', this.m3Mouse)
           break
         case 'prev03':
           this.particle.setSceneFirst(3)
           this.meshList[2].setCenter()
-          window.addEventListener('mousemove', this.m3Mouse);
+          window.addEventListener('mousemove', this.m3Mouse)
           break
       }
     },

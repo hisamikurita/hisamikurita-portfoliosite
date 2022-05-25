@@ -1,6 +1,5 @@
 <template>
   <div class="archive">
-    <p>archive</p>
   </div>
 </template>
 
@@ -41,15 +40,12 @@ export default {
   },
 
   mounted() {
-    // this.$asscroll.enable({ reset: true })
-
     this.$nextTick(() => {
       const images = document.querySelectorAll('.achive img')
       const imagesLoaded = ImagesLoaded(images)
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -66,6 +62,8 @@ export default {
 
 <style lang="scss" scoped>
 .archive {
+  position: relative;
   overflow: hidden;
+  background-color: $darkBlack;
 }
 </style>
