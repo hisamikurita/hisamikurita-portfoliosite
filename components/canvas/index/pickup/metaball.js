@@ -45,7 +45,6 @@ export default class Particle {
       let y = 0;
       let rand = 0;
       let r = 0;
-      let a = 1.0
 
       if (this.config.isPc) {
         x = this.metaball[i].x.pc;
@@ -61,19 +60,15 @@ export default class Particle {
         rand = this.metaball[i].rand.sp
       }
 
-      if (i === this.numMetaballs - 1.0) a = 0.3;
-
       const metaball = {
         x: x,
         y: y,
         r: r,
         rand: rand,
-        alpha: a,
       }
 
       this.metaballs.push(metaball);
     }
-    console.log(this.metaballs)
 
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
@@ -96,7 +91,11 @@ export default class Particle {
 
     this.metaballDeviceDiffuseRatio = this.config.isPc ? 0.50 : 0.70;
 
-    this.mouse = { x: 0, y: 0, };
+    this.mouse = {
+      x: 0,
+      y: 0,
+    };
+    this.lastIndex = (this.numMetaballs - 1.0) * 2.0;
   }
 
   init() {
@@ -107,7 +106,6 @@ export default class Particle {
     const metaballsPosition = [];
     const metaballsRadius = [];
     const metaballsRand = [];
-    const metaballsAlpha = [];
 
     for (let i = 0; i < this.numMetaballs; i++) {
       metaballsPosition.push(
@@ -122,11 +120,9 @@ export default class Particle {
       metaballsRadius.push(
         this.metaballs[i].r,
       );
-
-      metaballsAlpha.push(
-        this.metaballs[i].alpha,
-      );
     }
+    // console.log(metaballsPosition)
+    // console.log(metaballsRadius)
 
     const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
@@ -160,10 +156,6 @@ export default class Particle {
             y: this.naturalSize.y
           }
         },
-        u_alpha: {
-          type: '1fv',
-          value: metaballsAlpha
-        },
         u_rand: {
           type: '1fv',
           value: metaballsRand
@@ -172,13 +164,6 @@ export default class Particle {
           type: 'f',
           value: 0.0
         },
-        u_mouse: {
-          type: "v2",
-          value: {
-            x: 0,
-            y: 0
-          }
-        }
       },
       transparent: true
     });
@@ -198,7 +183,7 @@ export default class Particle {
     // アニメーションを入れておく配列を再度定義
     this.setCenterAnimations = [];
 
-    for (let i = 0; i < this.numMetaballs; i++) {
+    for (let i = 0; i < this.numMetaballs - 1.0; i++) {
       const x = {
         value: this.metaballs[i].initX
       }
@@ -234,40 +219,22 @@ export default class Particle {
 
       this.setCenterAnimations.push(setCenterXAnimation, setCenterYAnimation);
     }
-  }
 
-  /**
-   * 拡散する
-   */
-  setDiffusion() {
-    for (let i = 0; i < this.numMetaballs; i++) {
-      const x = {
-        value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0]
+    // mouse
+    const mouseR = {
+      value: 0
+    };
+    this.mouseAnimation = gsap.fromTo(mouseR, {
+      value: 0,
+    }, {
+      duration: 1.0,
+      delay: 0.2,
+      ease: this.config.transform,
+      value: this.metaballs[this.numMetaballs - 1.0].r,
+      onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsRadius.value[this.numMetaballs - 1.0] = mouseR.value
       }
-      const y = {
-        value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0]
-      }
-
-      gsap.to(x, {
-        duration: this.setMetaballDuration(i),
-        delay: this.setMetaballDelay(i),
-        ease: this.config.transformReverse,
-        value: this.metaballs[i].initX,
-        onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0] = x.value
-        }
-      })
-
-      gsap.to(y, {
-        duration: this.setMetaballDuration(i),
-        delay: this.setMetaballDelay(i),
-        ease: this.config.transformReverse,
-        value: this.metaballs[i].initY,
-        onUpdate: () => {
-          this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0 - 1.0] = y.value
-        }
-      })
-    }
+    })
   }
 
   /**
@@ -279,7 +246,7 @@ export default class Particle {
       if (this.setCenterAnimations[i]) this.setCenterAnimations[i].kill();
     }
 
-    for (let i = 0; i < this.numMetaballs; i++) {
+    for (let i = 0; i < this.numMetaballs - 1.0; i++) {
       const x = {
         value: this.mesh.material.uniforms.u_metaballsPos.value[i * 2.0]
       }
@@ -320,6 +287,22 @@ export default class Particle {
         }
       })
     }
+
+    // mouse
+    const mouseR = {
+      value: this.metaballs[this.numMetaballs - 1.0].r
+    };
+    this.mouseAnimation = gsap.fromTo(mouseR, {
+      value: this.metaballs[this.numMetaballs - 1.0].r,
+    }, {
+      duration: 1.0,
+      delay: 0.2,
+      ease: this.config.transform,
+      value: 0,
+      onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsRadius.value[this.numMetaballs - 1.0] = mouseR.value
+      }
+    })
   }
 
   /**
@@ -339,6 +322,9 @@ export default class Particle {
   setNextPageStart() {
     // アニメーションを入れておく配列を再度定義
     this.setNextPageAnimations = [];
+
+    // マウスのアニメーションを消しておく
+    this.mouseAnimation.kill()
 
     for (let i = 0; i < this.numMetaballs; i++) {
       const r = {
@@ -377,14 +363,15 @@ export default class Particle {
     const y = (-(e.clientY / window.innerHeight) * 2.0 + 1.0) * (window.innerHeight / 2.0);
 
     gsap.to(this.mouse, {
-      duration: 1.6,
-      ease: "power2.out",
+      duration: 6.0,
+      ease: "power3.out",
       x: x,
       y: y,
 
       onUpdate: () => {
-        this.mesh.material.uniforms.u_metaballsPos.value[14] = this.mouse.x;
-        this.mesh.material.uniforms.u_metaballsPos.value[15] = this.mouse.y;      }
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex] = this.mouse.x;
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex + 1.0] = this.mouse.y;
+      }
     });
   }
 

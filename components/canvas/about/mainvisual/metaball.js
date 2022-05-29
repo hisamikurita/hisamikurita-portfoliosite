@@ -37,7 +37,7 @@ export default class Particle {
     this.texture = new THREE.VideoTexture(this.video);
 
     // メタボールの総数
-    this.numMetaballs = 8;
+    this.numMetaballs = 9;
     this.metaball = metaball;
     this.metaballs = [];
 
@@ -81,6 +81,12 @@ export default class Particle {
       this.metaballs[i].initX = initX;
       this.metaballs[i].initY = initY;
     }
+
+    this.mouse = {
+      x: 0,
+      y: 0,
+    };
+    this.lastIndex = (this.numMetaballs - 1.0) * 2.0;
   }
 
   init() {
@@ -97,15 +103,16 @@ export default class Particle {
         this.metaballs[i].x,
         this.metaballs[i].y,
       );
-
       metaballsRadius.push(
-        0,
+        this.metaballs[i].rand,
       );
 
       metaballsRands.push(
         this.metaballs[i].rand
       );
     }
+    console.log(metaballsPosition)
+    console.log(metaballsRadius)
 
     this.geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
@@ -151,18 +158,12 @@ export default class Particle {
           type: 'f',
           value: 0.0
         },
-        u_mouse: {
-          type: "v2",
-          value: {
-            x: 0,
-            y: 0
-          }
-        }
       },
       transparent: true
     });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.stage.scene.add(this.mesh);
+    console.log(this.mesh)
   }
 
   fadeIn() {
@@ -175,7 +176,7 @@ export default class Particle {
       }
       this.mesh.material.uniforms.u_metaballsRadius.value[i] = this.metaballs[i].r
 
-    gsap.fromTo(x, {
+      gsap.fromTo(x, {
         value: x.value,
       }, {
         duration: this.setMetaballDuration(i),
@@ -199,6 +200,22 @@ export default class Particle {
         }
       })
     }
+
+    // mouse
+    const mouseR = {
+      value: 0
+    };
+    this.mouseAnimation = gsap.fromTo(mouseR, {
+      value: 0
+    }, {
+      duration: 1.0,
+      delay: 0.2,
+      ease: this.config.transform,
+      value: this.metaballs[this.numMetaballs - 1.0].r,
+      onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsRadius.value[this.numMetaballs - 1.0] = mouseR.value
+      }
+    })
   }
 
   /**
@@ -233,7 +250,25 @@ export default class Particle {
   }
 
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0.03;
+    this.mesh.material.uniforms.u_time.value += 0;
+  }
+
+  onMouseMove(e, s) {
+    const x = ((e.clientX / this.width) * 2.0 - 1.0) * (this.width/ 2.0);
+    console.log(x)
+    const y = (-(e.clientY / this.height) * 2.0 + 1.0) * (this.height / 2.0) - s;
+
+    // gsap.to(this.mouse, {
+    //   duration: 6.0,
+    //   ease: "power3.out",
+    //   x: x,
+    //   y: y,
+
+    //   onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex] = x;
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex + 1.0] = y;
+      // }
+    // });
   }
 
   onRaf() {

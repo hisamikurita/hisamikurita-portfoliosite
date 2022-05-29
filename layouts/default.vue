@@ -231,6 +231,10 @@ export default {
         }
       }
     },
+
+    /**
+     * ページ遷移のアニメーション発火管理
+     */
     pickupTransitionState: function () {
       const index = this.pickupCurrentNumber - 1.0
 
@@ -242,6 +246,9 @@ export default {
         this.meshList[index].delete()
       }
     },
+    /**
+     * ピックアップ管理
+     */
     indexPickupIsAnimation: function () {
       const index = this.pickupCurrentNumber - 1.0
 
@@ -266,6 +273,9 @@ export default {
         }, 50) // メタボールの描画が残っている時があるので処理を0.05s遅らせる
       }
     },
+    /**
+     * ピックアップのシーン管理
+     */
     indexPickupScene: function () {
       switch (this.indexPickupScene) {
         case 'next01':
@@ -294,7 +304,7 @@ export default {
           break
         case 'prev00':
           this.particle.setSceneEnd(1)
-          this.meshList[0].setDiffusion()
+          this.meshList[0].setShrink()
           window.removeEventListener('mousemove', this.m1Mouse)
           break
         case 'prev01':

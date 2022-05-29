@@ -10,9 +10,9 @@ uniform vec2 u_mouse;
 uniform sampler2D u_texture;
 uniform float u_ratio;
 uniform float u_time;
-uniform float u_rand[8];
-uniform vec2 u_metaballsPos[8];
-uniform float u_metaballsRadius[8];
+uniform float u_rand[9];
+uniform vec2 u_metaballsPos[9];
+uniform float u_metaballsRadius[9];
 varying vec2 vUv;
 
 void main() {
@@ -37,7 +37,7 @@ void main() {
     float dist = 0.0;
     float vRatio = u_ratio;
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         vec2 metaball = u_metaballsPos[i];
 
         float metaballRadius = u_metaballsRadius[i];

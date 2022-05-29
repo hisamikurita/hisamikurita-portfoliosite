@@ -306,6 +306,11 @@ export default {
       this.mesh.onRaf()
     }
 
+
+    this.mMouse = (e) => {
+      this.mesh.onMouseMove(e,this.$asscroll.currentPos)
+    }
+
     window.addEventListener('resize', this.mResize)
 
     this.observe = this.$refs.Hero
@@ -314,8 +319,10 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.$gsap.ticker.add(this.mRaf)
+            this.$refs.HeroCanvas.addEventListener('mousemove', this.mMouse)
           } else {
             this.$gsap.ticker.remove(this.mRaf)
+            this.$refs.HeroCanvas.removeEventListener('mousemove', this.mMouse)
           }
         })
       },

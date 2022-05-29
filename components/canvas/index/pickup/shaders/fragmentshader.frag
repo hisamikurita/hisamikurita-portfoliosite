@@ -10,7 +10,6 @@ uniform sampler2D u_texture;
 uniform vec2 u_mouse;
 uniform float u_time;
 uniform float u_rand[8];
-uniform float u_alpha[8];
 uniform vec2 u_metaballsPos[8];
 uniform float u_metaballsRadius[8];
 varying vec2 vUv;
