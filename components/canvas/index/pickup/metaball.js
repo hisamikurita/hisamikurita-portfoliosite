@@ -73,8 +73,13 @@ export default class Particle {
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
       const radians = (i / (this.numMetaballs - 1.0)) * Math.PI * 2.0;
-      const initX = (window.innerWidth * 1.5) * Math.cos(radians);
-      const initY = (window.innerHeight * 1.5) * Math.sin(radians);
+      let initX = (window.innerWidth * 1.5) * Math.cos(radians);
+      let initY = (window.innerHeight * 1.5) * Math.sin(radians);
+
+      if(i === this.numMetaballs - 1.0) {
+        initX = 0
+        initY = 0
+      }
 
       this.metaballs[i].initX = initX;
       this.metaballs[i].initY = initY;
@@ -118,12 +123,9 @@ export default class Particle {
       );
 
       metaballsRadius.push(
-        this.metaballs[i].r,
+        0,
       );
     }
-    // console.log(metaballsPosition)
-    // console.log(metaballsRadius)
-
     const geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
     const material = new THREE.RawShaderMaterial({
