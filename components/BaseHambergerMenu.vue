@@ -70,12 +70,14 @@
                         :srcset="`/images/archive.png`"
                         :width="`180`"
                         :height="`180`"
+                        :alt="`archive`"
                         type="image/webp"
                       />
                       <img
                         :src="`/images/archive.png`"
                         :width="`180`"
                         :height="`180`"
+                        :alt="`archive`"
                       />
                     </picture>
                   </div>
@@ -98,14 +100,13 @@
                     <picture>
                       <source
                         :srcset="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
-                        :width="`${data.hambergerMenuImg.width}`"
-                        :height="`${data.hambergerMenuImg.height}`"
                         type="image/webp"
                       />
                       <img
                         :src="`${data.hambergerMenuImg.url}?w=360&h=360&q=50`"
                         :width="`${data.hambergerMenuImg.width}`"
                         :height="`${data.hambergerMenuImg.height}`"
+                        :alt="`${data.id}`"
                       />
                     </picture>
                   </div>
@@ -124,6 +125,7 @@
     </span>
     <button
       ref="HambergerMenuBtn"
+      aria-label="hambergermenu btn"
       class="hambergerMenu-btn"
       @click="hambergerMenuOnClick"
     >

@@ -1,6 +1,6 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top is-op">
-    <a class="header-link" @click="onClickSameUrlReload">
+    <div class="header-link" @click="onClickSameUrlReload">
       <span
         v-for="(char, index) of name"
         :key="index"
@@ -13,7 +13,7 @@
         }"
         >{{ char }}</span
       >
-    </a>
+    </div>
   </div>
 </template>
 <script>

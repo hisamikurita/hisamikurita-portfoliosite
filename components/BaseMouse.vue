@@ -7,6 +7,7 @@
       width="88"
       height="143"
       quality="80"
+      alt="mouse-img-click"
       class="mouse-img-click"
     />
     <nuxt-img
@@ -14,6 +15,7 @@
       src="/images/mouse-hold.png"
       width="200"
       height="170"
+      alt="mouse-img-hold"
       quality="80"
       class="mouse-img-hold"
     />
@@ -22,6 +24,7 @@
       src="/images/mouse.png"
       width="191"
       height="234"
+      alt="mouse-img"
       quality="80"
       class="mouse-img"
     />

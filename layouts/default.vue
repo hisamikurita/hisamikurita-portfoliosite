@@ -25,6 +25,7 @@
               :src="`${data.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
               :width="`${data.heroImg.pc.width}`"
               :height="`${data.heroImg.pc.height}`"
+              :alt="`${data.id}`"
               type="image/webp"
             />
           </picture>
