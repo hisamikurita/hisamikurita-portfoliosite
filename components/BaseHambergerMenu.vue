@@ -564,23 +564,9 @@ export default {
     hambergerMenuOnClick() {
       if(!this.hambergerMenuState) this.$store.commit('hambergerMenu/open')
       else if(this.hambergerMenuState) this.$store.commit('hambergerMenu/close')
-
-      // ハンバガーメニューが開いた時
-      if (this.hambergerMenuState) {
-        // this.$store.commit('hambergerMenu/pickupOpen')
-      }
-      // ハンバガーメニューが閉じた時
-      else if (!this.hambergerMenuState) {
-        console.log('閉じる')
-        this.$store.commit('hambergerMenu/pickupClose')
-      }
     },
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
-
-      // setTimeout(() => {
-        this.$store.commit('hambergerMenu/pickupClose')
-      // }, 1000)
     },
     hambergerMenuBtnOnResize() {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
