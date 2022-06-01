@@ -144,6 +144,9 @@ export default {
     hambergerMenuState: function () {
       return this.$store.getters['hambergerMenu/state']
     },
+    hambergerMenuPickupState: function () {
+      return this.$store.getters['hambergerMenu/pickup']
+    },
     indexPickupState: function () {
       return this.$store.getters['indexPickup/state']
     },
@@ -336,7 +339,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
-        if (this.hambergerMenuState) return
+        if (this.hambergerMenuState || this.hambergerMenuPickupState) return
         if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight)
         if (this.pickupToBottomLeaveScrollAnimation)
           this.pickupToBottomLeaveScrollAnimation.kill()

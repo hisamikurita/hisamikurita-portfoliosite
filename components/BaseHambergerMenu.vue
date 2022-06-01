@@ -562,8 +562,20 @@ export default {
       this.projectAndArchiveData.push({})
     },
     hambergerMenuOnClick() {
-      if(!this.hambergerMenuState) this.$store.commit('hambergerMenu/open')
-      else if(this.hambergerMenuState) this.$store.commit('hambergerMenu/close')
+      if (!this.hambergerMenuState) this.$store.commit('hambergerMenu/open')
+      else if (this.hambergerMenuState)
+        this.$store.commit('hambergerMenu/close')
+
+      // ハンバガーメニューが開いた時
+      if (this.hambergerMenuState) {
+        if (this.$SITECONFIG.isTouch)
+          this.$store.commit('hambergerMenu/pickupOpen')
+      }
+      // ハンバガーメニューが閉じた時
+      else if (!this.hambergerMenuState) {
+        if (this.$SITECONFIG.isTouch)
+          this.$store.commit('hambergerMenu/pickupClose')
+      }
     },
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
