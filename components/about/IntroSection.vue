@@ -15,7 +15,6 @@
         <span ref="IntroBgClip" class="intro-bg-clip">
           <span class="intro-bg-wrapper">
             <span ref="IntroBgCanvas" class="intro-bg-canvas"></span>
-            <!-- <nuxt-img ref="IntroImg" src="/images/intro.jpg" quality="80" /> -->
           </span>
           <span class="intro-title">
             <span class="intro-title-read-area">

@@ -1,5 +1,12 @@
 <template>
   <div class="archive">
+    <ul class="archive-list">
+      <li class="archive-item">
+        <a href="#" target="_blank" rel="noopener">
+          <img src="" alt="">
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 

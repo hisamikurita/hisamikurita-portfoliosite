@@ -4,11 +4,11 @@
       <div ref="HeroImg" class="hero-img">
         <picture>
           <source
-            :srcset="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
-            media="(min-width: 767px)"
+            :srcset="`${currentProject.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+            media="(max-width: 767px)"
           />
           <img
-            :src="`${currentProject.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+            :src="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
             :width="`${currentProject.heroImg.pc.width}`"
             :height="`${currentProject.heroImg.pc.height}`"
             type="image/webp"
