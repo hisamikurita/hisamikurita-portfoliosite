@@ -339,6 +339,7 @@ export default {
       const pickupBottomPos = pickupPos + window.innerHeight
 
       if (this.$asscroll.targetPos < pickupBottomPos) {
+        console.log(this.hambergerMenuPickupState)
         if (this.hambergerMenuState || this.hambergerMenuPickupState) return
         if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight)
         if (this.pickupToBottomLeaveScrollAnimation)

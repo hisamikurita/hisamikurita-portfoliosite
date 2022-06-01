@@ -11,6 +11,7 @@
             :src="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
             :width="`${currentProject.heroImg.pc.width}`"
             :height="`${currentProject.heroImg.pc.height}`"
+            :alt="currentProject.id"
             type="image/webp"
           />
         </picture>

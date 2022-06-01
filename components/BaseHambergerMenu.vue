@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import { preEvent, preEventTouch } from '../assets/js/preEvent'
+// import { preEvent, preEventTouch } from '../assets/js/preEvent'
 
 export default {
   data: () => {
@@ -562,41 +562,25 @@ export default {
       this.projectAndArchiveData.push({})
     },
     hambergerMenuOnClick() {
-      /**
-       * storeのハンバーガーメニューの真偽値を更新
-       */
+      if(!this.hambergerMenuState) this.$store.commit('hambergerMenu/open')
+      else if(this.hambergerMenuState) this.$store.commit('hambergerMenu/close')
+
+      // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
-        this.$store.commit('hambergerMenu/close')
+        // this.$store.commit('hambergerMenu/pickupOpen')
+      }
+      // ハンバガーメニューが閉じた時
+      else if (!this.hambergerMenuState) {
+        console.log('閉じる')
         this.$store.commit('hambergerMenu/pickupClose')
-
-        // pickupにいたらデフォルトのイベントを禁止する
-        if (this.indexPickupState) {
-          window.addEventListener('touchmove', preEventTouch, {
-            passive: false,
-          })
-          window.addEventListener('wheel', preEvent, { passive: false })
-          window.addEventListener('scroll', preEvent, { passive: false })
-        }
-      } else if (!this.hambergerMenuState) {
-        this.$store.commit('hambergerMenu/open')
-        this.$store.commit('hambergerMenu/pickupOpen')
-
-        // pickupにいたらデフォルトのイベントを戻す
-        if (this.indexPickupState) {
-          window.removeEventListener('touchmove', preEventTouch, {
-            passive: false,
-          })
-          window.removeEventListener('wheel', preEvent, { passive: false })
-          window.removeEventListener('scroll', preEvent, { passive: false })
-        }
       }
     },
     hambergerMenuOnClose() {
       this.$store.commit('hambergerMenu/close')
 
-      setTimeout(() => {
+      // setTimeout(() => {
         this.$store.commit('hambergerMenu/pickupClose')
-      }, 1000)
+      // }, 1000)
     },
     hambergerMenuBtnOnResize() {
       this.$gsap.set(this.$refs.HambergerMenuBtn, {
