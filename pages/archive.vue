@@ -188,7 +188,6 @@ export default {
 
       this.scrollCurrent.x = this.save.x
       this.scrollCurrent.y = this.save.y
-      // console.log('down', this.x, this.y)
     },
     onTouchMove(e) {
       if (!this.isDown) return
@@ -205,8 +204,6 @@ export default {
 
       this.x.target = this.x.distance + this.scrollCurrent.x
       this.y.target = this.y.distance + this.scrollCurrent.y
-
-      console.log('move', this.y.target)
     },
     onTouchUp(e) {
       this.isDown = false
@@ -226,15 +223,12 @@ export default {
 
       this.x.target = this.x.distance + this.scrollCurrent.x
       this.y.target = this.y.distance + this.scrollCurrent.y
-
-      console.log('up', this.y)
     },
     onMouseWheel(e) {
       this.wheel.x += e.deltaX
       this.wheel.y += e.deltaY
       this.x.target = this.wheel.x + this.x.allDistance
       this.y.target = this.wheel.y + this.y.allDistance
-      console.log('wheel', this.y.target )
     },
   },
 }
