@@ -11,6 +11,7 @@ const SITECONFIG = {
   isNoTouch: false,
   fullDuration: 2.0,
   baseDuration: 1.0,
+  pageTransitionDuration: 800,
   halfBaseDuration: 0.5,
   firstAccess: false,
 }

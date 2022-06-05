@@ -235,7 +235,11 @@ export default {
               this.$store.commit('openning/end')
               if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/start', index)
-              } else {
+              }
+              else if(this.$route.name === 'archive'){
+                this.$store.commit('bg-transition/start', '#000000')
+              }
+              else {
                 this.$store.commit('bg-transition/start', '#f0efeb')
               }
             }, 1680)
@@ -243,7 +247,11 @@ export default {
             setTimeout(() => {
               if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/end')
-              } else {
+              }
+              else if(this.$route.name === 'archive'){
+                this.$store.commit('bg-transition/end')
+              }
+              else {
                 this.$store.commit('bg-transition/end')
               }
               this.$refs.Openning.remove()
@@ -257,7 +265,11 @@ export default {
           this.$store.commit('openning/end')
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/start', index)
-          } else {
+          }
+          else if(this.$route.name === 'archive'){
+            this.$store.commit('bg-transition/start', '#000000')
+          }
+          else {
             this.$store.commit('bg-transition/start', '#f0efeb')
           }
         }, 100)
@@ -265,7 +277,11 @@ export default {
         setTimeout(() => {
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/end')
-          } else {
+          }
+          else if(this.$route.name === 'archive'){
+            this.$store.commit('bg-transition/end')
+          }
+          else {
             this.$store.commit('bg-transition/end')
           }
           this.$refs.Openning.remove()

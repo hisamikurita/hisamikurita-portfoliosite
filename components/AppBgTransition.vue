@@ -28,8 +28,7 @@ export default {
 
         setTimeout(() => {
           this.$router.push(`${this.url}`)
-        }, this.$SITECONFIG.baseDuration * 0.8 * 1000)
-      // }
+        }, this.$SITECONFIG.pageTransitionDuration)
     },
   },
 }
