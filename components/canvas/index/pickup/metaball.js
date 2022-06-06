@@ -53,6 +53,12 @@ export default class Particle {
         rand = this.metaball[i].rand.pc
       }
 
+      if (this.config.isTab) {
+        x = this.metaball[i].x.tab;
+        y = this.metaball[i].y.tab;
+        r = this.metaball[i].r.tab;
+      }
+
       if (this.config.isMobile) {
         x = this.metaball[i].x.sp;
         y = this.metaball[i].y.sp;

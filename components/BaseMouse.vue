@@ -163,7 +163,7 @@ export default {
         )
         // ホールドできる要素を全てのコンポーネントから取得
         this.mouseHoldTarget = document.querySelectorAll(
-          '.card-project-article'
+          '.card-project-article, .archive'
         )
 
         // イベント付与

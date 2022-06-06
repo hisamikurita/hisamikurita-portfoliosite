@@ -95,7 +95,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/archive.png`"
+                              :src="`/images/about-archive-01.jpg`"
                               :width="`280`"
                               :height="`206`"
                               :alt="`archive`"
@@ -133,7 +133,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/archive.png`"
+                              :src="`/images/about-archive-02.jpg`"
                               :width="`280`"
                               :height="`206`"
                               :alt="`archive`"
@@ -213,7 +213,7 @@ export default {
       /**
        * ハンバガーメニューが閉じた時
        */
-      
+
       }
     },
     imageLoaded: function () {
