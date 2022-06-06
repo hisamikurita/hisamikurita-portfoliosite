@@ -29,7 +29,6 @@ export default {
 
         setTimeout(() => {
           this.$router.push(`${this.url}`)
-          if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
         }, this.$SITECONFIG.pageTransitionDuration)
     },
   },

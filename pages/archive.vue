@@ -136,10 +136,9 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
-        if (this.pickupTransitionState)
-          this.$store.commit('indexPickup/transition', false)
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
+        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
 
         this.$store.commit('imageLoaded/loaded')
       })

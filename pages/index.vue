@@ -75,8 +75,8 @@ export default {
       imagesLoaded.on('always', () => {
         // 遷移のアニメーションを終了させる
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
 
         this.$store.commit('imageLoaded/loaded')
       })

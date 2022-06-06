@@ -53,11 +53,13 @@ export default {
     },
     imageLoaded: function () {
       if (this.imageLoaded) {
-        if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
+        // アクセス時はopenningEndが発火するので、処理を返す
+        if (!this.openningEnd) return
 
+        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
-          this.$asscroll.enable({ reset: true })
+        this.$asscroll.enable({ reset: true })
       }
     },
   },

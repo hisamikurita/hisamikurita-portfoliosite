@@ -114,6 +114,7 @@ export default {
           if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
           if (this.imageTransitionState) this.$store.commit('image-transition/end')
           if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
+          if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
 
           this.$store.commit('imageLoaded/loaded')
         },100) // worksのみ慣性スクロールがバグりがちなので、処理を0.1s遅らせる
