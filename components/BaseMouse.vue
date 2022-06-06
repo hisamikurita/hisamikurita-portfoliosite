@@ -1,6 +1,21 @@
 <template>
   <div ref="MouseArea" class="mouse">
-    <span ref="MouseAction" class="mouse-action"><span ref="MouseActionWrapper" class="mouse-action-wrapper"><span ref="MouseActionBlock" class="mouse-action-block">ACTION</span></span></span>
+    <span ref="MouseAction" class="mouse-action"
+      ><span ref="MouseActionWrapper" class="mouse-action-wrapper"
+        ><span ref="MouseActionBlock" class="mouse-action-block"
+          >ACTION</span
+        ></span
+      ></span
+    >
+    <span ref="MouseLoading" class="mouse-loading"
+      ><span ref="MouseLoadingWrapper" class="mouse-loading-wrapper"
+        ><span ref="MouseLoadingBlock" class="mouse-loading-block"
+          >LOADING<span class="mouse-loading-dot">.</span
+          ><span class="mouse-loading-dot">.</span
+          ><span class="mouse-loading-dot">.</span></span
+        ></span
+      ></span
+    >
     <nuxt-img
       ref="MouseImgClick"
       src="/images/mouse-click.png"
@@ -40,6 +55,9 @@ export default {
     mouseDown() {
       return this.$store.getters['mouse/isDown']
     },
+    mouseLoad() {
+      return this.$store.getters['mouse/isLoad']
+    },
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
@@ -52,26 +70,30 @@ export default {
           ease: this.$EASING.transform,
           scale: 1,
         })
-        this.$gsap.fromTo(this.$refs.MouseActionWrapper,
-        {
-          rotate: 8,
-        },
-        {
-          duration: this.$SITECONFIG.halfBaseDuration,
-          delay: 0.2,
-          ease: this.$EASING.transform,
-          rotate: 0,
-        })
-        this.$gsap.fromTo(this.$refs.MouseActionBlock,
-        {
-          y: 10,
-        },
-        {
-          duration: this.$SITECONFIG.halfBaseDuration,
-          delay: 0.2,
-          ease: this.$EASING.transform,
-          y: 0,
-        })
+        this.$gsap.fromTo(
+          this.$refs.MouseActionWrapper,
+          {
+            rotate: 8,
+          },
+          {
+            duration: this.$SITECONFIG.halfBaseDuration,
+            delay: 0.2,
+            ease: this.$EASING.transform,
+            rotate: 0,
+          }
+        )
+        this.$gsap.fromTo(
+          this.$refs.MouseActionBlock,
+          {
+            y: 10,
+          },
+          {
+            duration: this.$SITECONFIG.halfBaseDuration,
+            delay: 0.2,
+            ease: this.$EASING.transform,
+            y: 0,
+          }
+        )
       } else {
         this.$gsap.to(this.$refs.MouseAction, {
           duration: this.$SITECONFIG.halfBaseDuration,
@@ -89,16 +111,63 @@ export default {
         })
       }
     },
+    mouseLoad: function () {
+      if (this.mouseLoad) {
+        this.$refs.MouseLoading.classList.add('is-loading')
+
+        this.$gsap.to(this.$refs.MouseLoading, {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
+          scale: 1,
+        })
+        this.$gsap.fromTo(
+          this.$refs.MouseLoadingWrapper,
+          {
+            rotate: 8,
+          },
+          {
+            duration: this.$SITECONFIG.halfBaseDuration,
+            delay: 0.2,
+            ease: this.$EASING.transform,
+            rotate: 0,
+          }
+        )
+        this.$gsap.fromTo(
+          this.$refs.MouseLoadingBlock,
+          {
+            y: 10,
+          },
+          {
+            duration: this.$SITECONFIG.halfBaseDuration,
+            delay: 0.2,
+            ease: this.$EASING.transform,
+            y: 0,
+          }
+        )
+      } else {
+        this.$refs.MouseLoading.classList.remove('is-loading')
+
+        this.$gsap.to(this.$refs.MouseLoading, {
+          duration: this.$SITECONFIG.halfBaseDuration,
+          ease: this.$EASING.transform,
+          scale: 0,
+        })
+      }
+    },
     imageLoaded: function () {
       // タッチイベントではない時
       if (this.$SITECONFIG.isNoTouch) {
         // クリックできる要素を全てのコンポーネントから取得
-        this.mouseClickTarget = document.querySelectorAll('.hambergerMenu-btn, .hambergerMenu-item-wrapper, .header-link,.hambergerMenu-title-wrapper-01, .hambergerMenu-title-wrapper-02, .pickup-link, .contact-info-item, .next-loop-title-wrapper, .next-backbtn, .project-item');
+        this.mouseClickTarget = document.querySelectorAll(
+          '.hambergerMenu-btn, .hambergerMenu-item-wrapper, .header-link,.hambergerMenu-title-wrapper-01, .hambergerMenu-title-wrapper-02, .pickup-link, .contact-info-item, .next-loop-title-wrapper, .next-backbtn, .project-item'
+        )
         // ホールドできる要素を全てのコンポーネントから取得
-        this.mouseHoldTarget = document.querySelectorAll('.card-project-article');
+        this.mouseHoldTarget = document.querySelectorAll(
+          '.card-project-article'
+        )
 
         // イベント付与
-        setTimeout(()=>{
+        setTimeout(() => {
           this.$gsap.set(this.$refs.MouseArea, {
             opacity: 1,
           })
@@ -107,7 +176,7 @@ export default {
             ease: this.$EASING.transform,
             scale: 1,
           })
-        },200);
+        }, 200)
 
         for (let i = 0; i < this.mouseClickTarget.length; i++) {
           this.mouseClickTarget[i].addEventListener('mousedown', () => {
@@ -218,15 +287,62 @@ export default {
   transform: scale(0);
 }
 
-.mouse-action-wrapper{
+.mouse-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -18px;
+  right: -38px;
+  width: 64px;
+  height: 14px;
+  padding: 1px 0 0 0;
+  background-color: $white;
+  color: $black;
+  font-size: 10px;
+  border-radius: 8px;
+  transform: scale(0);
+}
+
+.mouse-action-wrapper,
+.mouse-loading-wrapper {
   position: relative;
   overflow: hidden;
   transform: rotate(8deg);
 }
 
-.mouse-action-block{
+.mouse-action-block,
+.mouse-loading-block {
   display: inline-block;
   transform: translateY(10px);
+}
+
+.is-loading .mouse-loading-dot {
+  animation: loadingFade $base-duration $colorAndOpacity-easing infinite;
+}
+
+.mouse-loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.mouse-loading-dot:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.mouse-loading-dot:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes loadingFade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .mouse-img-click {

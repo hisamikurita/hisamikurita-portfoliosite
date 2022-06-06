@@ -119,9 +119,11 @@ export default {
         this.$preDefaultEvent(true);
         this.$asscroll.disable()
         this.$store.commit('bg-transition/start', '#f0efeb')
+        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loading')
 
         setTimeout(() => {
           this.$router.push(`/`)
+          if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
         }, this.$SITECONFIG.pageTransitionDuration)
       }
     },

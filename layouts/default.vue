@@ -498,8 +498,7 @@ export default {
      * transition end setting
      */
     onTransitionEnd() {
-      if (this.indexPickupIsAnimation)
-        this.$store.commit('indexPickup/sceneAnimationState', false)
+      if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
       if (this.scaleAnimation01) this.scaleAnimation01.kill()
       if (this.scaleAnimation02) this.scaleAnimation02.kill()
       if (this.pageTranslateAnimation) this.pageTranslateAnimation.kill()

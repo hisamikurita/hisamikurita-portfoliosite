@@ -1,6 +1,7 @@
 export const state = () => ({
   isHover: false,
   isDown: false,
+  isLoad: false,
 });
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   isDown(state) {
     return state.isDown;
+  },
+  isLoad(state) {
+    return state.isLoad;
   },
 };
 
@@ -25,4 +29,10 @@ export const mutations = {
   mouseup(state) {
     state.isDown = false;
   },
+  loading(state) {
+    state.isLoad = true;
+  },
+  loadend(state) {
+    state.isLoad = false;
+  }
 };
