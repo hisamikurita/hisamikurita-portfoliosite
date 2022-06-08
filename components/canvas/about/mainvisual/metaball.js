@@ -255,9 +255,8 @@ export default class Particle {
 
   onMouseMove(e, s) {
     const x = ((e.clientX / this.width) * 2.0 - 1.0) * (this.width/ 2.0);
-    console.log(x)
     const y = (-(e.clientY / this.height) * 2.0 + 1.0) * (this.height / 2.0) - s;
-
+    console.log('mouse', x, y)
     // gsap.to(this.mouse, {
     //   duration: 6.0,
     //   ease: "power3.out",

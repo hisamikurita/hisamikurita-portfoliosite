@@ -21,6 +21,7 @@ export default {
 
       if (this.url === '/' && this.$route.name === 'index') return
       if (this.url === '/about' && this.$route.name === 'about') return
+      if (this.url === '/archive' && this.$route.name === 'archive') return
 
         this.$preDefaultEvent(true);
         this.$asscroll.disable()

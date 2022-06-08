@@ -51,6 +51,9 @@ export default {
     pickupTransitionState() {
       return this.$store.getters['indexPickup/transition']
     },
+    hambergerMenuState() {
+      return this.$store.getters['hambergerMenu/state']
+    },
     openningEnd() {
       return this.$store.getters['openning/state']
     },
@@ -66,6 +69,10 @@ export default {
 
   watch: {
     openningEnd: function () {
+      // update
+      this.setWrapPosition()
+      this.$gsap.ticker.add(this.updatePosition)
+
       setTimeout(() => {
         this.$asscroll.enable({ reset: true })
         this.$asscroll.disable()
@@ -77,12 +84,26 @@ export default {
 
         this.$asscroll.enable({ reset: true })
         this.$asscroll.disable()
+
+        // update
+        this.setWrapPosition()
+        this.$gsap.ticker.add(this.updatePosition)
       }
     },
   },
 
   mounted() {
     // init
+    this.medias = [];
+    for (let i = 0; i < this.$refs.ArchiveItem.length; i++) {
+      this.medias[i] = {}
+      this.medias[i].elm = this.$refs.ArchiveItem[i];
+      this.medias[i].extra = {
+        x: 0,
+        y: 0,
+      }
+    }
+
     this.isDown = false
     this.x = {
       start: 0,
@@ -91,7 +112,8 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.1,
+      lerp: 0.075,
+      direction: '',
     }
     this.y = {
       start: 0,
@@ -100,7 +122,8 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.1,
+      lerp: 0.075,
+      direction: '',
     }
     this.scrollCurrent = {
       x: 0,
@@ -111,26 +134,29 @@ export default {
       y: 0,
     }
     this.wheel = {
-        x: 0,
+      x: 0,
       y: 0,
     }
-
-    // update
-    this.setWrapPosition()
-    this.$gsap.ticker.add(this.updatePosition)
-
-    // events
-    window.addEventListener('resize', this.setWrapPosition)
-    window.removeEventListener('wheel', preEvent, { passive: false })
-    window.addEventListener('mousedown', this.onTouchDown)
-    window.addEventListener('mousemove', this.onTouchMove)
-    window.addEventListener('mouseup', this.onTouchUp)
-    window.addEventListener('touchstart', this.onTouchDown)
-    window.addEventListener('touchmove', this.onTouchMove)
-    window.addEventListener('touchend', this.onTouchUp)
-    window.addEventListener('wheel', this.onMouseWheel)
+    this.extra = {
+      x: 0,
+      y: 0,
+    }
+    this.wrapper = this.$refs.ArchiveList;
+    this.wrapperRect = null;
 
     this.$nextTick(() => {
+      // events
+      window.addEventListener('resize', this.onResize)
+      window.addEventListener('resize', this.setWrapPosition)
+      window.removeEventListener('wheel', preEvent, { passive: false })
+      window.addEventListener('mousedown', this.onTouchDown)
+      window.addEventListener('mousemove', this.onTouchMove)
+      window.addEventListener('mouseup', this.onTouchUp)
+      window.addEventListener('touchstart', this.onTouchDown)
+      window.addEventListener('touchmove', this.onTouchMove)
+      window.addEventListener('touchend', this.onTouchUp)
+      window.addEventListener('wheel', this.onMouseWheel)
+
       const images = document.querySelectorAll('.archive img')
       const imagesLoaded = ImagesLoaded(images)
 
@@ -147,6 +173,7 @@ export default {
 
   beforeDestroy() {
     window.addEventListener('wheel', preEvent, { passive: false })
+    window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
     window.removeEventListener('mousedown', this.onTouchDown)
     window.removeEventListener('mousemove', this.onTouchMove)
@@ -162,24 +189,59 @@ export default {
 
   methods: {
     setWrapPosition() {
-      const x =
-        window.innerWidth / 2.0 - this.$refs.ArchiveList.clientWidth / 2.0
-      const y =
-        window.innerHeight / 2.0 - this.$refs.ArchiveList.clientHeight / 2.0
-      this.$refs.ArchiveList.style.transform = `translate(${x}px, ${y}px)`
+      this.wrapperRect = this.wrapper.getBoundingClientRect();
+
+      const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
+      const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
+      this.wrapper.style.transform = `translate(${x}px, ${y}px)`
     },
     updatePosition() {
+      if(this.hambergerMenuState) return;
+
       this.x.current = this.$gsap.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
       this.y.current = this.$gsap.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
+
+
+      if(this.save.x < this.x.current){
+        this.x.direction = 'right'
+      }
+      else if(this.save.x > this.x.current){
+        this.x.direction = 'left'
+      }
+
+      if(this.save.y < this.y.current){
+        this.y.direction = 'bottom'
+      }
+      else if(this.save.y > this.y.current){
+        this.y.direction = 'top'
+      }
 
       this.save.x = this.x.current
       this.save.y = this.y.current
 
-      for (let i = 0; i < this.$refs.ArchiveItem.length; i++) {
-        this.$refs.ArchiveItem[i].style.transform = `translate(${-this.x.current}px, ${-this.y.current}px)`
+      for (let i = 0; i < this.medias.length; i++) {
+        const rect = this.medias[i].elm.getBoundingClientRect();
+
+        if(this.x.direction === 'right' && rect.left < -rect.width){
+          this.medias[i].extra.x += this.wrapperRect.width
+        }
+        else if(this.x.direction === 'left' &&  window.innerWidth < rect.left){
+          this.medias[i].extra.x -= this.wrapperRect.width
+        }
+
+        if(this.y.direction === 'top' && window.innerHeight < rect.top){
+          this.medias[i].extra.y -= this.wrapperRect.height
+        }
+        else if(this.y.direction === 'bottom' && rect.top < -rect.height){
+          this.medias[i].extra.y += this.wrapperRect.height
+        }
+
+        this.medias[i].elm.style.transform = `translate(${-this.x.current + this.medias[i].extra.x}px, ${-this.y.current + this.medias[i].extra.y}px)`
       }
     },
     onTouchDown(e) {
+      if(this.hambergerMenuState) return;
+
       this.isDown = true
 
       this.x.start = e.touches ? e.touches[0].clientX : e.clientX
@@ -189,7 +251,8 @@ export default {
       this.scrollCurrent.y = this.save.y
     },
     onTouchMove(e) {
-      if (!this.isDown) return
+      if (this.hambergerMenuState || !this.isDown) return
+
       this.$refs.ArchiveList.style.pointerEvents = 'none'
 
       const x = e.touches ? e.touches[0].clientX : e.clientX
@@ -205,6 +268,8 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onTouchUp(e) {
+      if(this.hambergerMenuState) return;
+
       this.isDown = false
       this.$refs.ArchiveList.style.pointerEvents = 'auto'
 
@@ -224,16 +289,37 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onMouseWheel(e) {
+      if(this.hambergerMenuState) return;
+
       this.wheel.x += e.deltaX
       this.wheel.y += e.deltaY
       this.x.target = this.wheel.x + this.x.allDistance
       this.y.target = this.wheel.y + this.y.allDistance
     },
+    onResize(){
+      this.x.current = 0;
+      this.y.current = 0;
+      this.wheel.x = 0;
+      this.wheel.y = 0;
+      this.x.allDistance = 0;
+      this.y.allDistance = 0;
+      this.save.x = 0;
+      this.save.y = 0;
+      this.x.target = 0;
+      this.y.target = 0;
+
+      for (let i = 0; i < this.medias.length; i++) {
+        this.medias[i].extra.x = 0
+        this.medias[i].extra.y = 0
+      }
+    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
+$gap: 50px;
+
 .archive {
   background-color: $darkBlack;
 }
@@ -245,9 +331,11 @@ export default {
 .archive-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, #{vw(220)});
-  grid-row-gap: 40px;
-  grid-column-gap: 40px;
-  width: calc((#{vw(220)} * 6) + (40px * 5));
+  grid-row-gap: $gap;
+  grid-column-gap: $gap;
+  width: calc((#{vw(220)} * 6) + (#{$gap} * 5));
+  padding: $gap / 2.0;
+  box-sizing: content-box;
 }
 
 .archive-item {

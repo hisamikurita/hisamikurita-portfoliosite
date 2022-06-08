@@ -319,10 +319,10 @@ export default {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.$gsap.ticker.add(this.mRaf)
-            this.$refs.HeroCanvas.addEventListener('mousemove', this.mMouse)
+            window.addEventListener('mousemove', this.mMouse)
           } else {
             this.$gsap.ticker.remove(this.mRaf)
-            this.$refs.HeroCanvas.removeEventListener('mousemove', this.mMouse)
+            window.removeEventListener('mousemove', this.mMouse)
           }
         })
       },
