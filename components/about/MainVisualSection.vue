@@ -273,6 +273,9 @@ export default {
     imageLoaded() {
       return this.$store.getters['imageLoaded/isLoad']
     },
+    hambergerMenuState: function () {
+      return this.$store.getters['hambergerMenu/state']
+    },
   },
 
   watch: {
@@ -308,6 +311,8 @@ export default {
 
 
     this.mMouse = (e) => {
+      if(this.hambergerMenuState) return;
+
       this.mesh.onMouseMove(e,this.$asscroll.currentPos)
     }
 

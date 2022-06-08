@@ -678,7 +678,7 @@ export const aboutMv = [
       'sp' : 0,
     },
     rand: {
-      'pc' : 0,
+      'pc' : 0.56,
       'sp' : 0,
     },
   },

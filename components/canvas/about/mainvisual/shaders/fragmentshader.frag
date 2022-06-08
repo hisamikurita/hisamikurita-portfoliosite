@@ -42,8 +42,8 @@ void main() {
 
         float metaballRadius = u_metaballsRadius[i];
         float rand = u_rand[i];
-        float sx = (metaball.x * vRatio) + cos(u_time * rand) * (((120.0 * vRatio) * rand * uv.x) + 40.0);
-        float sy = (metaball.y * vRatio) + sin(u_time * rand) * (((120.0 * vRatio) * rand * uv.y) + 40.0);
+        float sx = (metaball.x * vRatio) + cos(u_time * rand) * (((1.0 * vRatio) * rand * uv.x) + 40.0);
+        float sy = (metaball.y * vRatio) + sin(u_time * rand) * (((1.0 * vRatio) * rand * uv.y) + 40.0);
         // 円の方程式 (x-a**2) + (y-b**2) = r**2 から、
         // (particle.z * particle.z) / (dx * dx + dy * dy) の計算をすると、
         // 任意の半径の箇所が r = 1,0 になり円の内側にかけて値が 2.0、3.0、4.0・・・と大きくなる

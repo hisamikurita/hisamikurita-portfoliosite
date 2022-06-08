@@ -256,6 +256,8 @@ export default {
     }
 
     this.mMouse = (e) => {
+      if(this.hambergerMenuState) return;
+
       this.mesh.onMouseMove(e)
     }
 

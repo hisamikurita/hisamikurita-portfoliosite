@@ -331,11 +331,6 @@ export default {
     },
   },
   mounted() {
-    // console
-    console.log(`///////////////////////////////////////////////
-///// Don't look at the source code (ﾟｰﾟ) /////
-//////////////////////////////////////////////`)
-
     // checkdevice
     if (this.$checkDevice.isAndroid) {
       this.isAndroid = 'is-android'
@@ -410,14 +405,20 @@ export default {
     }
 
     this.m1Mouse = (e) => {
+      if(this.hambergerMenuState) return;
+
       this.meshList[0].onMouseMove(e)
     }
 
     this.m2Mouse = (e) => {
+      if(this.hambergerMenuState) return;
+
       this.meshList[1].onMouseMove(e)
     }
 
     this.m3Mouse = (e) => {
+      if(this.hambergerMenuState) return;
+
       this.meshList[2].onMouseMove(e)
     }
 

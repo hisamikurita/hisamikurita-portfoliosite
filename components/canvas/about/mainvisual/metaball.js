@@ -81,7 +81,7 @@ export default class Particle {
       this.metaballs[i].initX = initX;
       this.metaballs[i].initY = initY;
     }
-
+    this.speed = 0.036;
     this.mouse = {
       x: 0,
       y: 0,
@@ -111,8 +111,6 @@ export default class Particle {
         this.metaballs[i].rand
       );
     }
-    console.log(metaballsPosition)
-    console.log(metaballsRadius)
 
     this.geometry = new THREE.PlaneBufferGeometry(2, 2, 1, 1);
 
@@ -163,7 +161,6 @@ export default class Particle {
     });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.stage.scene.add(this.mesh);
-    console.log(this.mesh)
   }
 
   fadeIn() {
@@ -243,31 +240,28 @@ export default class Particle {
     this.width = this.stage.renderParam.width;
     this.height = this.stage.renderParam.height;
 
-    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? this.width / 1280 : this.height / 800;
+    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? this.width / 1280 : this.width / 800;
 
     this.mesh.material.uniforms.u_resolution.value.x = this.width;
     this.mesh.material.uniforms.u_resolution.value.y = this.height;
   }
 
   _render() {
-    this.mesh.material.uniforms.u_time.value += 0;
+    this.mesh.material.uniforms.u_time.value += this.speed;
   }
 
   onMouseMove(e, s) {
-    const x = ((e.clientX / this.width) * 2.0 - 1.0) * (this.width/ 2.0);
-    const y = (-(e.clientY / this.height) * 2.0 + 1.0) * (this.height / 2.0) - s;
-    console.log('mouse', x, y)
-    // gsap.to(this.mouse, {
-    //   duration: 6.0,
-    //   ease: "power3.out",
-    //   x: x,
-    //   y: y,
+    gsap.to(this.mouse, {
+      duration: 6.0,
+      ease: "power3.out",
+      x: ((e.clientX / this.width) * 2.0 - 1.0) * (this.width/ 2.8),
+      y: (-(e.clientY / this.height) * 2.0 + 1.0) * (this.height / 2.8) - s * 0.9,
 
-    //   onUpdate: () => {
-        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex] = x;
-        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex + 1.0] = y;
-      // }
-    // });
+      onUpdate: () => {
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex] = this.mouse.x;
+        this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex + 1.0] = this.mouse.y;
+      }
+    });
   }
 
   onRaf() {
