@@ -319,6 +319,7 @@ export default {
 
 <style lang="scss" scoped>
 $gap: 50px;
+$gap-sp: 26px;
 
 .archive {
   background-color: $darkBlack;
@@ -334,18 +335,48 @@ $gap: 50px;
   grid-row-gap: $gap;
   grid-column-gap: $gap;
   width: calc((#{vw(220)} * 6) + (#{$gap} * 5));
-  padding: $gap / 2.0;
+  padding: $gap * 0.5;
   box-sizing: content-box;
+
+  @include sp() {
+    grid-template-columns: repeat(auto-fit, #{vw_sp(352)});
+    grid-row-gap: $gap-sp;
+    grid-column-gap: $gap-sp;
+    padding: $gap-sp * 0.5;
+    width: calc((#{vw_sp(352)} * 4) + (#{$gap-sp} * 3));
+  }
 }
 
 .archive-item {
   position: relative;
   width: vw(220);
   height: vw(340);
+
+  @include sp() {
+    width: vw_sp(352);
+    height: vw_sp(528);
+  }
+}
+
+.archive-item:nth-of-type(even) {
+  margin: vw(-190) 0 0 0;
+
+  @include sp() {
+    margin: vw_sp(-300) 0 0 0;
+  }
+}
+
+// SPで余が出ないように消しておく
+.archive-item:nth-of-type(17),.archive-item:nth-of-type(18) {
+  @include sp() {
+    display: none;
+  }
 }
 
 .archive-link{
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .archive-textarea {
@@ -355,6 +386,10 @@ $gap: 50px;
   width: 100%;
   height: 100%;
   padding: 20px;
+
+  @include sp() {
+    padding: 14px;
+  }
 }
 
 .archive-circle {
@@ -362,6 +397,10 @@ $gap: 50px;
   font-size: 36px;
   text-indent: -4px;
   line-height: 1;
+
+  @include sp() {
+    font-size: 28px;
+  }
 }
 
 .archive-fulltitle {
@@ -370,6 +409,10 @@ $gap: 50px;
   font-size: 20px;
   font-family: $helvetica;
   line-height: 1.2;
+
+  @include sp() {
+    font-size: 16px;
+  }
 }
 
 .archive-index {
@@ -377,6 +420,10 @@ $gap: 50px;
   font-size: 20px;
   font-family: $helvetica;
   line-height: 1.2;
+
+  @include sp() {
+    font-size: 16px;
+  }
 }
 
 .archive-shorttitle {
@@ -386,6 +433,12 @@ $gap: 50px;
   width: 100%;
   font-size: 120px;
   font-family: 'Six Caps', sans-serif;
+
+  @include sp() {
+    bottom: 18px;
+    left: 14px;
+    font-size: 76px;
+  }
 }
 
 .archive-img {
