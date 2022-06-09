@@ -74,6 +74,8 @@ export default {
       this.$gsap.ticker.add(this.updatePosition)
 
       setTimeout(() => {
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
         this.$asscroll.disable()
       }, 1200)
@@ -81,6 +83,10 @@ export default {
     imageLoaded: function () {
       if (this.imageLoaded) {
         if (!this.openningEnd) return
+
+        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
+        // スクロール可能にする
+        if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
 
         this.$asscroll.enable({ reset: true })
         this.$asscroll.disable()
@@ -112,7 +118,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: this.$SITECONFIG.isPc ? 0.075 : 0.15,
+      lerp: 0.075,
       direction: '',
     }
     this.y = {
@@ -122,7 +128,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: this.$SITECONFIG.isPc ? 0.075 : 0.15,
+      lerp: 0.075,
       direction: '',
     }
     this.scrollCurrent = {
@@ -141,6 +147,7 @@ export default {
       x: 0,
       y: 0,
     }
+    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0;
     this.wrapper = this.$refs.ArchiveList;
     this.wrapperRect = null;
     this.width = window.innerWidth;
@@ -165,7 +172,6 @@ export default {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
         if (this.imageTransitionState) this.$store.commit('image-transition/end')
         if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
-        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -192,9 +198,13 @@ export default {
     setWrapPosition() {
       this.wrapperRect = this.wrapper.getBoundingClientRect();
 
-      const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
-      const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
-      this.wrapper.style.transform = `translate(${x}px, ${y}px)`
+      if (this.width !== window.innerWidth) {
+        this.width = window.innerWidth
+
+        const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
+        const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
+        this.wrapper.style.transform = `translate(${x}px, ${y}px)`
+      }
     },
     updatePosition() {
       if(this.hambergerMenuState) return;
@@ -262,8 +272,8 @@ export default {
       this.x.end = x
       this.y.end = y
 
-      this.x.distance = this.x.start - this.x.end
-      this.y.distance = this.y.start - this.y.end
+      this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
+      this.y.distance = (this.y.start - this.y.end) * this.deviceRatio
 
       this.x.target = this.x.distance + this.scrollCurrent.x
       this.y.target = this.y.distance + this.scrollCurrent.y
@@ -280,8 +290,8 @@ export default {
       this.x.end = x
       this.y.end = y
 
-      this.x.distance = this.x.start - this.x.end
-      this.y.distance = this.y.start - this.y.end
+          this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
+      this.y.distance = (this.y.start - this.y.end) * this.deviceRatio
 
       this.x.allDistance += this.x.distance
       this.y.allDistance += this.y.distance
@@ -356,6 +366,7 @@ $gap-sp: 26px;
   position: relative;
   width: vw(220);
   height: vw(340);
+  overflow: hidden;
 
   @include sp() {
     width: vw_sp(352);
@@ -391,6 +402,7 @@ $gap-sp: 26px;
   width: 100%;
   height: 100%;
   padding: 20px;
+  z-index: 1;
 
   @include sp() {
     padding: 14px;
@@ -451,5 +463,6 @@ $gap-sp: 26px;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transform: scale(1.05);
 }
 </style>
