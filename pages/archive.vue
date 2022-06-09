@@ -29,7 +29,7 @@
 
 <script>
 import ImagesLoaded from 'imagesloaded'
-import { preEvent } from '../assets/js/preEvent'
+// import { preEvent } from '../assets/js/preEvent'
 import archives from '@/assets/json/archive.json'
 
 export default {
@@ -156,7 +156,7 @@ export default {
       // events
       window.addEventListener('resize', this.onResize)
       window.addEventListener('resize', this.setWrapPosition)
-      window.removeEventListener('wheel', preEvent, { passive: false })
+      // window.removeEventListener('wheel', preEvent, { passive: false })
       window.addEventListener('mousedown', this.onTouchDown)
       window.addEventListener('mousemove', this.onTouchMove)
       window.addEventListener('mouseup', this.onTouchUp)
@@ -179,7 +179,7 @@ export default {
   },
 
   beforeDestroy() {
-    window.addEventListener('wheel', preEvent, { passive: false })
+    // window.addEventListener('wheel', preEvent, { passive: false })
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
     window.removeEventListener('mousedown', this.onTouchDown)
@@ -188,6 +188,7 @@ export default {
     window.removeEventListener('touchstart', this.onTouchDown)
     window.removeEventListener('touchmove', this.onTouchMove)
     window.removeEventListener('touchend', this.onTouchUp)
+    window.removeEventListener('wheel', this.onMouseWheel)
     this.$gsap.ticker.remove(this.updatePosition)
     this.$preDefaultEvent(false)
     this.$asscroll.disable()

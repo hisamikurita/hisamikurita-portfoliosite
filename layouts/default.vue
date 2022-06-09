@@ -546,7 +546,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  transform: translate(0, 0);
 }
 
 .asscroll-container {

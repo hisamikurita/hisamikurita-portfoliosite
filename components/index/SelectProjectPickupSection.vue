@@ -166,6 +166,7 @@ export default {
   },
 
   beforeDestroy() {
+          this.$store.commit('hambergerMenu/pickupClose')
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
     this.$store.commit(

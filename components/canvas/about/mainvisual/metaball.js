@@ -18,8 +18,8 @@ export default class Particle {
       heightSegments: 1.0
     };
     this.mesh = null;
-    this.width = this.stage.renderParam.width;
-    this.height = this.stage.renderParam.height;
+    this.width = this.stage.renderParam.width * this.stage.devicePixelRatio;
+    this.height = this.stage.renderParam.height * this.stage.devicePixelRatio;
     // 画像の元のサイズ
     this.naturalSize = {
       x: 1280,
@@ -63,9 +63,9 @@ export default class Particle {
       }
 
       const metaball = {
-        x: x,
-        y: y,
-        r: r,
+        x: x * this.stage.devicePixelRatio,
+        y: y * this.stage.devicePixelRatio,
+        r: r * this.stage.devicePixelRatio,
         rand: rand,
       }
 
@@ -75,8 +75,8 @@ export default class Particle {
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
       const radians = (i / (this.numMetaballs)) * Math.PI * 2.0;
-      const initX = (window.innerWidth * 1.5) * Math.cos(radians);
-      const initY = (window.innerHeight * 1.5) * Math.sin(radians);
+      const initX = (window.innerWidth * this.stage.devicePixelRatio * 1.5) * Math.cos(radians);
+      const initY = (window.innerHeight * this.stage.devicePixelRatio * 1.5) * Math.sin(radians);
 
       this.metaballs[i].initX = initX;
       this.metaballs[i].initY = initY;
@@ -237,8 +237,8 @@ export default class Particle {
   }
 
   onResize() {
-    this.width = this.stage.renderParam.width;
-    this.height = this.stage.renderParam.height;
+    this.width = this.stage.renderParam.width * this.stage.devicePixelRatio;
+    this.height = this.stage.renderParam.height * this.stage.devicePixelRatio;
 
     this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? this.width / 1280 : this.width / 800;
 
@@ -254,8 +254,8 @@ export default class Particle {
     gsap.to(this.mouse, {
       duration: 6.0,
       ease: "power3.out",
-      x: ((e.clientX / this.width) * 2.0 - 1.0) * (this.width/ 2.8),
-      y: (-(e.clientY / this.height) * 2.0 + 1.0) * (this.height / 2.8) - s * 0.9,
+      x: (((e.clientX * this.stage.devicePixelRatio / this.width) * 2.0 - 1.0) * (this.width / 2.8)),
+      y: (-(e.clientY * this.stage.devicePixelRatio / this.height) * 2.0 + 1.0) * (this.height / 2.8) - s * 0.9,
 
       onUpdate: () => {
         this.mesh.material.uniforms.u_metaballsPos.value[this.lastIndex] = this.mouse.x;

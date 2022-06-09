@@ -67,9 +67,9 @@ export default class Particle {
       }
 
       const metaball = {
-        x: x,
-        y: y,
-        r: r,
+        x: x * this.stage.devicePixelRatio,
+        y: y * this.stage.devicePixelRatio,
+        r: r * this.stage.devicePixelRatio,
         rand: rand,
       }
 
@@ -79,8 +79,8 @@ export default class Particle {
     // 最初に円周上にメタボールを配置しておく
     for (let i = 0; i < this.numMetaballs; i++) {
       const radians = (i / (this.numMetaballs - 1.0)) * Math.PI * 2.0;
-      let initX = (window.innerWidth * 1.5) * Math.cos(radians);
-      let initY = (window.innerHeight * 1.5) * Math.sin(radians);
+      let initX = (window.innerWidth * 1.5 * this.stage.devicePixelRatio) * Math.cos(radians);
+      let initY = (window.innerHeight * 1.5 * this.stage.devicePixelRatio) * Math.sin(radians);
 
       if(i === this.numMetaballs - 1.0) {
         initX = 0
@@ -92,8 +92,8 @@ export default class Particle {
     }
 
     this.speed = 0.036;
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = window.innerWidth * this.stage.devicePixelRatio;
+    this.height = window.innerHeight * this.stage.devicePixelRatio;
 
     // 各シーンで動かしているGSAPを格納しておく空配列①
     this.setCenterAnimations = [];
@@ -180,8 +180,8 @@ export default class Particle {
   }
 
   onResize() {
-    this.mesh.material.uniforms.u_resolution.value.x = window.innerWidth;
-    this.mesh.material.uniforms.u_resolution.value.y = window.innerHeight;
+    this.mesh.material.uniforms.u_resolution.value.x = window.innerWidth * this.stage.devicePixelRatio;
+    this.mesh.material.uniforms.u_resolution.value.y = window.innerHeight * this.stage.devicePixelRatio;
   }
 
   /**
@@ -343,7 +343,7 @@ export default class Particle {
         duration: this.setMetaballDuration(i, 1.6),
         delay: this.setMetaballDelay(i, 1.6),
         ease: this.config.transform,
-        value: window.innerWidth * this.metaballDeviceDiffuseRatio,
+        value: window.innerWidth * this.stage.devicePixelRatio * this.metaballDeviceDiffuseRatio,
         onUpdate: () => {
           this.mesh.material.uniforms.u_metaballsRadius.value[i] = r.value
         }
@@ -367,8 +367,8 @@ export default class Particle {
   }
 
   onMouseMove(e) {
-    const x = ((e.clientX / window.innerWidth) * 2.0 - 1.0) * (window.innerWidth / 2.0);
-    const y = (-(e.clientY / window.innerHeight) * 2.0 + 1.0) * (window.innerHeight / 2.0);
+    const x = (((e.clientX / window.innerWidth) * 2.0 - 1.0) * (window.innerWidth / 2.0)) * this.stage.devicePixelRatio;
+    const y = ((-(e.clientY / window.innerHeight) * 2.0 + 1.0) * (window.innerHeight / 2.0)) * this.stage.devicePixelRatio;
 
     gsap.to(this.mouse, {
       duration: 6.0,

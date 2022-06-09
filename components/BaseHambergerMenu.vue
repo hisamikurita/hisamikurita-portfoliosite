@@ -563,8 +563,7 @@ export default {
     },
     hambergerMenuOnClick() {
       if (!this.hambergerMenuState) this.$store.commit('hambergerMenu/open')
-      else if (this.hambergerMenuState)
-        this.$store.commit('hambergerMenu/close')
+      else if (this.hambergerMenuState) this.$store.commit('hambergerMenu/close')
 
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {

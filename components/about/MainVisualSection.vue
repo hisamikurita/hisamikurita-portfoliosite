@@ -293,49 +293,51 @@ export default {
   },
 
   mounted() {
-    this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroCanvas)
-    this.stage.init()
+    this.$nextTick(() => {
+      this.stage = new Stage(this.$refs.HeroCanvas, this.$refs.HeroCanvas)
+      this.stage.init()
 
-    this.mesh = new Mesh(this.stage, this.$SITECONFIG, aboutMv)
-    this.mesh.init()
+      this.mesh = new Mesh(this.stage, this.$SITECONFIG, aboutMv)
+      this.mesh.init()
 
-    this.mResize = () => {
-      this.stage.onResize()
-      this.mesh.onResize()
-    }
-
-    this.mRaf = () => {
-      this.stage.onRaf()
-      this.mesh.onRaf()
-    }
-
-
-    this.mMouse = (e) => {
-      if(this.hambergerMenuState) return;
-
-      this.mesh.onMouseMove(e,this.$asscroll.currentPos)
-    }
-
-    window.addEventListener('resize', this.mResize)
-
-    this.observe = this.$refs.Hero
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.$gsap.ticker.add(this.mRaf)
-            window.addEventListener('mousemove', this.mMouse)
-          } else {
-            this.$gsap.ticker.remove(this.mRaf)
-            window.removeEventListener('mousemove', this.mMouse)
-          }
-        })
-      },
-      {
-        rootMargin: '0%',
+      this.mResize = () => {
+        this.stage.onResize()
+        this.mesh.onResize()
       }
-    )
-    this.iObserver.observe(this.observe)
+
+      this.mRaf = () => {
+        this.stage.onRaf()
+        this.mesh.onRaf()
+      }
+
+
+      this.mMouse = (e) => {
+        if(this.hambergerMenuState) return;
+
+        this.mesh.onMouseMove(e,this.$asscroll.currentPos)
+      }
+
+      window.addEventListener('resize', this.mResize)
+
+      this.observe = this.$refs.Hero
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.$gsap.ticker.add(this.mRaf)
+              window.addEventListener('mousemove', this.mMouse)
+            } else {
+              this.$gsap.ticker.remove(this.mRaf)
+              window.removeEventListener('mousemove', this.mMouse)
+            }
+          })
+        },
+        {
+          rootMargin: '0%',
+        }
+      )
+      this.iObserver.observe(this.observe)
+    });
   },
 
   beforeDestroy() {
