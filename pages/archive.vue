@@ -112,7 +112,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.075,
+      lerp: this.$SITECONFIG.isPc ? 0.075 : 0.15,
       direction: '',
     }
     this.y = {
@@ -122,7 +122,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.075,
+      lerp: this.$SITECONFIG.isPc ? 0.075 : 0.15,
       direction: '',
     }
     this.scrollCurrent = {
@@ -143,6 +143,7 @@ export default {
     }
     this.wrapper = this.$refs.ArchiveList;
     this.wrapperRect = null;
+    this.width = window.innerWidth;
 
     this.$nextTick(() => {
       // events
@@ -297,20 +298,24 @@ export default {
       this.y.target = this.wheel.y + this.y.allDistance
     },
     onResize(){
-      this.x.current = 0;
-      this.y.current = 0;
-      this.wheel.x = 0;
-      this.wheel.y = 0;
-      this.x.allDistance = 0;
-      this.y.allDistance = 0;
-      this.save.x = 0;
-      this.save.y = 0;
-      this.x.target = 0;
-      this.y.target = 0;
+      if (this.width !== window.innerWidth) {
+        this.width = window.innerWidth
 
-      for (let i = 0; i < this.medias.length; i++) {
-        this.medias[i].extra.x = 0
-        this.medias[i].extra.y = 0
+        this.x.current = 0;
+        this.y.current = 0;
+        this.wheel.x = 0;
+        this.wheel.y = 0;
+        this.x.allDistance = 0;
+        this.y.allDistance = 0;
+        this.save.x = 0;
+        this.save.y = 0;
+        this.x.target = 0;
+        this.y.target = 0;
+
+        for (let i = 0; i < this.medias.length; i++) {
+          this.medias[i].extra.x = 0
+          this.medias[i].extra.y = 0
+        }
       }
     }
   },
