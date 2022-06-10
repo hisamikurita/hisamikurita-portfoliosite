@@ -227,7 +227,7 @@ export default {
           /**
            * ピックアップセクションだった場合はasscrollを有効しない、それ以外は有効にする
            */
-          if (this.indexPickupState) return
+          if (this.indexPickupState || this.$route.name === 'archive') return
           this.$asscroll.enable()
         }
       }
