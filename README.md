@@ -1,6 +1,6 @@
 # hisamikurita-portfolio
 
-![](https://hsmkrt1996.com/images/ogp.jpg)
+![](./static//images//ogp.jpg)
 
 This is the repository of [Hisami Kurita](https://hsmkrt1996.com/) portfolio.
 
