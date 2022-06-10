@@ -46,6 +46,7 @@ export default {
   watch: {
     openningEnd: function () {
       setTimeout(() => {
+        // console.log('opend')
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
@@ -55,6 +56,7 @@ export default {
       if (this.imageLoaded) {
         // アクセス時はopenningEndが発火するので、処理を返す
         if (!this.openningEnd) return
+        // console.log('imgend')
 
         if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
         // スクロール可能にする

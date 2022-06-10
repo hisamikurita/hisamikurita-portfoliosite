@@ -142,6 +142,11 @@ export default {
       x: 0,
       y: 0,
     }
+    this.key = {
+      x: 0,
+      y: 0,
+      strength: 0,
+    }
     this.extra = {
       x: 0,
       y: 0,
@@ -163,6 +168,8 @@ export default {
       window.addEventListener('touchmove', this.onTouchMove)
       window.addEventListener('touchend', this.onTouchUp)
       window.addEventListener('wheel', this.onMouseWheel)
+      window.addEventListener('keyup', this.onKeyUp)
+      window.addEventListener('keydown', this.onKeyDown)
 
       const images = document.querySelectorAll('.archive img')
       const imagesLoaded = ImagesLoaded(images)
@@ -188,6 +195,8 @@ export default {
     window.removeEventListener('touchmove', this.onTouchMove)
     window.removeEventListener('touchend', this.onTouchUp)
     window.removeEventListener('wheel', this.onMouseWheel)
+    window.removeEventListener('keyup', this.onKeyUp)
+    window.removeEventListener('keydown', this.onKeyDown)
     this.$gsap.ticker.remove(this.updatePosition)
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
@@ -304,8 +313,33 @@ export default {
 
       this.wheel.x += e.deltaX
       this.wheel.y += e.deltaY
-      this.x.target = this.wheel.x + this.x.allDistance
-      this.y.target = this.wheel.y + this.y.allDistance
+      this.x.target = this.wheel.x + this.key.x + this.x.allDistance
+      this.y.target = this.wheel.y + this.key.y + this.y.allDistance
+    },
+    onKeyUp(){
+      this.key.strength = 0;
+    },
+    onKeyDown(e) {
+      if(this.hambergerMenuState) return;
+
+
+      if(this.key.strength < 200) this.key.strength += 12.0;
+
+      if (e.key === 'ArrowDown') {
+        this.key.y += this.key.strength
+      }
+      if (e.key === 'ArrowUp') {
+        this.key.y += -this.key.strength
+      }
+      if (e.key === 'ArrowRight') {
+        this.key.x += this.key.strength
+      }
+      if (e.key === 'ArrowLeft') {
+        this.key.x += -this.key.strength
+      }
+
+      this.x.target = this.key.x + this.wheel.x + this.x.allDistance
+      this.y.target = this.key.y + this.wheel.y + this.y.allDistance
     },
     onResize(){
       if (this.width !== window.innerWidth) {

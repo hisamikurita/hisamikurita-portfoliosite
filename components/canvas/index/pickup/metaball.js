@@ -70,7 +70,7 @@ export default class Particle {
         x: x * this.stage.devicePixelRatio,
         y: y * this.stage.devicePixelRatio,
         r: r * this.stage.devicePixelRatio,
-        rand: rand * this.stage.devicePixelRatio,
+        rand: rand * (this.stage.devicePixelRatio),
       }
 
       this.metaballs.push(metaball);
@@ -91,7 +91,7 @@ export default class Particle {
       this.metaballs[i].initY = initY;
     }
 
-    this.speed = 0.036;
+    this.speed = 0.036 / (this.stage.devicePixelRatio);
     this.width = window.innerWidth * this.stage.devicePixelRatio;
     this.height = window.innerHeight * this.stage.devicePixelRatio;
 
@@ -317,7 +317,7 @@ export default class Particle {
    * particle共通のduration
    */
   setMetaballDuration(index, ratio = 1.0) {
-    return (0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)
+    return ((0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)) * (this.stage.devicePixelRatio)
   }
 
   /**
