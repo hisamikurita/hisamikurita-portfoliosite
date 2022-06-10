@@ -83,8 +83,8 @@
                   :modifier="'contact-section'"
                 />
               </span>
-              <span class="contact-info-list">
-                <span
+              <ul class="contact-info-list">
+                <li
                   v-for="(data, index) in projectData"
                   :key="data.id"
                   class="contact-info-item"
@@ -97,8 +97,8 @@
                       :text="data.title.full"
                     />
                   </AppImageTransition>
-                </span>
-                <span class="contact-info-item">
+                </li>
+                <li class="contact-info-item">
                   <AppBgTransition :url="`archive`" color="#000000">
                     <AppTextSegment
                       :state="isTextSegmentState"
@@ -107,8 +107,8 @@
                       :text="'ARCHIVE'"
                     />
                   </AppBgTransition>
-                </span>
-              </span>
+                </li>
+              </ul>
             </div>
             <div class="contact-info-name-area">
               <span class="pc-only">
@@ -127,7 +127,7 @@
               </span>
             </div>
           </div>
-          <span class="contact-card-item-01">
+          <div class="contact-card-item-01">
             <AppCardBase
               :component-name="'ContactContents'"
               :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
@@ -154,8 +154,8 @@
               :xspeed="-0.08"
               :yspeed="0.2"
             />
-          </span>
-          <span class="contact-card-item-02">
+          </div>
+          <div class="contact-card-item-02">
             <AppCardBase
               :component-name="'ContactContents'"
               :name="['・', 'CODED BY', '(HISAMI KURITA)']"
@@ -182,7 +182,7 @@
               :xspeed="0.051"
               :yspeed="0.1"
             />
-          </span>
+          </div>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@
               :modifier="'works-section'"
             />
           </div>
-          <AppImageTransition :url="`/works/${nextProject.id}`" :index="currentProject.index">
+          <AppImageTransition class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
             <span
               ref="ContentsLoopTitleWrapper"
               class="next-loop-title-wrapper"
@@ -167,6 +167,10 @@ export default {
     height: vw_sp(202);
     font-size: vw_sp(160);
   }
+}
+
+.next-loop-title-btn{
+  width: 100%;
 }
 
 .next-loop-title {

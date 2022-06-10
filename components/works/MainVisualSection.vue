@@ -5,6 +5,7 @@
         <picture>
           <source
             :srcset="`${currentProject.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+            type="image/webp"
             media="(max-width: 767px)"
           />
           <img
@@ -12,7 +13,6 @@
             :width="`${currentProject.heroImg.pc.width}`"
             :height="`${currentProject.heroImg.pc.height}`"
             :alt="currentProject.id"
-            type="image/webp"
           />
         </picture>
       </div>

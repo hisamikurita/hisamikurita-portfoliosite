@@ -1,5 +1,5 @@
 <template>
-  <a @click="onClick"><slot></slot></a>
+  <button @click="onClick"><slot></slot></button>
 </template>
 
 <script>

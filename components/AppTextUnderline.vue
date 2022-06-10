@@ -14,13 +14,6 @@
       stroke-width="1"
       :d="`M000,80 Q ${width / 2} ${path.y}, ${width},80`"
     />
-    <!-- <path
-      ref="TextUnderlinePathDammy"
-      fill="none"
-      stroke="transparent"
-      stroke-width="10"
-      :d="`M000,100 Q ${width / 2} ${path.y}, ${width},100`"
-    /> -->
   </svg>
 </template>
 
@@ -79,39 +72,43 @@ export default {
   },
 
   mounted() {
-      // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
+    // Reference https://codepen.io/osublake/pen/qaRBmY/613dea251165576962577e898b1a4ce7?editors=1010
+    this.isExtendAnimation = false;
 
-      if(!this.pcAnimation && !this.spAnimation){
-        this.path.y = 80;
-      }
-      this.connected = false
+    if (!this.pcAnimation && !this.spAnimation) {
+      this.path.y = 80
+      // this.isExtendAnimation = true
+    }
+    this.connected = false
   },
 
   methods: {
     onMousemove(e) {
-      if ((!this.spAnimation && this.$SITECONFIG.isMobile)) return
-        if (e.target === this.$refs.TextUnderlineSvg) {
-          if (this.connected) return
-          if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
+      if (!this.spAnimation && this.$SITECONFIG.isMobile) return
+      if(this.isExtendAnimation) return;
+      if (e.target === this.$refs.TextUnderlineSvg) {
+        if (this.connected) return
+        if (this.pathLeaveAnimation01) this.pathLeaveAnimation01.kill()
 
-          this.pathFixAnimation = this.$gsap.to(this.path, {
-            duration: 0.3,
-            ease: 'power1.out',
-            y:
-              (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
-                (this.$refs.TextUnderlineSvg.clientHeight +
-                  this.$refs.TextUnderlineSvg.clientWidth) *
-                0.07 +
-              80,
-          })
-        }
+        this.pathFixAnimation = this.$gsap.to(this.path, {
+          duration: 0.3,
+          ease: 'power1.out',
+          y:
+            (e.offsetY / this.$refs.TextUnderlineSvg.clientHeight - 0.5) *
+              (this.$refs.TextUnderlineSvg.clientHeight +
+                this.$refs.TextUnderlineSvg.clientWidth) *
+              0.07 +
+            80,
+        })
+      }
     },
     onMouseLeave() {
-      if (
-        (!this.spAnimation && this.$SITECONFIG.isMobile) ||
-        (!this.pcAnimation && this.$SITECONFIG.isPc)
-      )
-        if (this.pathFixAnimation) this.pathFixAnimation.kill()
+      // if (
+      //   (!this.spAnimation && this.$SITECONFIG.isMobile) ||
+      //   (!this.pcAnimation && this.$SITECONFIG.isPc)
+      // ) return
+      if(this.isExtendAnimation) return;
+      if (this.pathFixAnimation) this.pathFixAnimation.kill()
       this.connected = true
       this.pathLeaveAnimation01 = this.$gsap.to(this.path, {
         duration: 1.0,
@@ -123,11 +120,16 @@ export default {
       }, 100)
     },
     toExtend() {
+      this.isExtendAnimation = true;
+
       this.$gsap.to(this.path, {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.transform,
         delay: Number(this.start),
         y: 80,
+        onComplete: () =>{
+          this.isExtendAnimation = false;
+        }
       })
       this.$gsap.to(this.$refs.TextUnderlineSvg, {
         duration: this.$SITECONFIG.baseDuration,
@@ -171,7 +173,7 @@ path {
   top: vw(-100);
   left: 0;
   stroke: $white;
-  
+
   @include sp() {
     top: vw_sp(-124);
   }

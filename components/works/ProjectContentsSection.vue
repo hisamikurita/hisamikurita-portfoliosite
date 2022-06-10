@@ -28,16 +28,16 @@
           <picture>
             <source
               :srcset="`${image.object.url}?fm=webp&w=670&h=418&q=50`"
+              type="image/webp"
               media="(max-width: 767px)"
             />
             <img
               ref="ContentsImg"
               class="contents-img"
-              :srcset="`${image.object.url}?fm=webp&w=2560&h=1600&q=50`"
+              :src="`${image.object.url}?fm=webp&w=2560&h=1600&q=50`"
               :width="`${image.object.width}`"
               :height="`${image.object.height}`"
               :alt="currentProject.id"
-              type="image/webp"
             />
           </picture>
         </div>

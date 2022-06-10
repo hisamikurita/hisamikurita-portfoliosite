@@ -1,8 +1,8 @@
 <template>
-  <div ref="CmnLoopTextInner" class="cmn-loop-text-inner">
-    <div ref="CmnLoopTextWrapper" class="cmn-loop-text-wrapper">
-      <div ref="CmnLoopTextRotate" class="cmn-loop-text-rotate">
-        <div ref="CmnLoopTextTranslate" class="cmn-loop-text-translate">
+  <span ref="CmnLoopTextInner" class="cmn-loop-text-inner">
+    <span ref="CmnLoopTextWrapper" class="cmn-loop-text-wrapper">
+      <span ref="CmnLoopTextRotate" class="cmn-loop-text-rotate">
+        <span ref="CmnLoopTextTranslate" class="cmn-loop-text-translate">
           <span
             v-for="num in 3"
             :key="num"
@@ -11,10 +11,10 @@
           >
             {{ text }}
           </span>
-        </div>
-      </div>
-    </div>
-  </div>
+        </span>
+      </span>
+    </span>
+  </span>
 </template>
 
 <script>
@@ -204,11 +204,13 @@ export default {
 
 <style lang="scss">
 .cmn-loop-text-inner {
+  display: block;
   width: max-content;
   overflow: hidden;
 }
 
 .cmn-loop-text-wrapper{
+  display: block;
   will-change: transform;
 }
 

@@ -4,7 +4,7 @@
     class="card-project"
     :class="`card-project-${modifier}`"
   >
-    <article
+    <div
       ref="CardProjectArticle"
       :style="`color:${color}; transform: rotate(${rotate}deg); color:${color};`"
       class="card-project-article"
@@ -79,7 +79,7 @@
         :modifier="modifier"
         :state="state"
       />
-    </article>
+    </div>
 
     <!--
       intersection-obsereverで監視する用の空dom
@@ -359,6 +359,8 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
+  text-align: left;
+  line-height: 1;
 }
 
 .card-project-title-wrapper-01 {

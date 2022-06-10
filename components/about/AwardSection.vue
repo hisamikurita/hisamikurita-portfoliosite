@@ -1,6 +1,6 @@
 <template>
   <div ref="Award" class="award">
-    <span ref="AwardCardArea" class="award-card-area">
+    <div ref="AwardCardArea" class="award-card-area">
       <div
         v-for="award in awardData"
         :key="award.id"
@@ -15,7 +15,7 @@
           :modifier="award.modifier"
         />
       </div>
-    </span>
+    </div>
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <span class="pc-only">
+          <div class="pc-only">
             <ul class="award-total-list">
               <li class="award-total-item">
                 AWWWARDS*{{ awardDataLength.awwwwardsTotalLength }}
@@ -69,7 +69,7 @@
                 CSSWINNER*{{ awardDataLength.csswinnerTotalLength }}
               </li>
             </ul>
-          </span>
+          </div>
         </div>
       </div>
     </div>

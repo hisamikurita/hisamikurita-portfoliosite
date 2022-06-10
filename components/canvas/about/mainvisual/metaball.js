@@ -66,7 +66,7 @@ export default class Particle {
         x: x * this.stage.devicePixelRatio,
         y: y * this.stage.devicePixelRatio,
         r: r * this.stage.devicePixelRatio,
-        rand: rand,
+        rand: rand * this.stage.devicePixelRatio,
       }
 
       this.metaballs.push(metaball);

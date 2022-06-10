@@ -15,7 +15,7 @@ export default class Mesh {
     // サイト共通の設定
     this.config = config;
     // 画像
-    this.texturePath = this.config.isPc ? './images/intro.jpg' : './images/intro-sp.jpg';
+    this.texturePath = this.config.isPc ? '/images/intro.jpg' : '/images/intro-sp.jpg';
     this.texture = new THREE.TextureLoader().load(this.texturePath);
     // 画像の元のサイズ
     this.naturalSizes = {

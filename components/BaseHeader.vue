@@ -1,6 +1,6 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top is-op">
-    <div class="header-link" @click="onClickSameUrlReload">
+    <button class="header-link" @click="onClickSameUrlReload">
       <span
         v-for="(char, index) of name"
         :key="index"
@@ -13,7 +13,7 @@
         }"
         >{{ char }}</span
       >
-    </div>
+    </button>
   </div>
 </template>
 <script>
@@ -193,10 +193,6 @@ export default {
   position: fixed;
   top: 20px;
   left: 40px;
-  color: $black;
-  font-size: 50px;
-  font-family: $sixcaps;
-  letter-spacing: 0.04em;
   z-index: 10;
   overflow: hidden;
   white-space: nowrap;
@@ -211,6 +207,10 @@ export default {
 
   & .header-link {
     display: block;
+      color: $black;
+  font-size: 50px;
+  font-family: $sixcaps;
+  letter-spacing: 0.04em;
 
     @include hover() {
       & .header-logo-move-text {

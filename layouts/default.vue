@@ -19,6 +19,7 @@
           <picture>
             <source
               :srcset="`${data.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
+              type="image/webp"
               media="(min-width: 767px)"
             />
             <img
@@ -26,7 +27,6 @@
               :width="`${data.heroImg.pc.width}`"
               :height="`${data.heroImg.pc.height}`"
               :alt="`${data.id}`"
-              type="image/webp"
             />
           </picture>
         </span>
@@ -46,8 +46,8 @@
       </div>
     </div>
     <!--asscroll-->
-    <div ref="AsscrollContainer" class="asscroll-container" asscroll-container>
-      <div class="asscroll" asscroll>
+    <div ref="AsscrollContainer" class="asscroll-container">
+      <div class="asscroll">
         <div ref="AsscrollContents" class="asscroll-contents">
           <nuxt />
         </div>

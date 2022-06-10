@@ -11,8 +11,7 @@
           <span class="archive-textarea">
             <span class="archive-circle">・</span>
             <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
-            <span class="archive-index">#{{ sortNumber(index) }}</span>
-            <span class="archive-shorttitle">{{ archive.shortTitle }}</span>
+            <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
           </span>
           <img
             class="archive-img"
@@ -62,7 +61,7 @@ export default {
     },
     sortNumber() {
       return function (number) {
-        return ('00' + (number + 1.0)).slice(-2)
+        return ('0' + (number + 1.0)).slice(-3)
       }
     },
   },
@@ -334,7 +333,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$gap: 50px;
+$gap: 70px;
 $gap-sp: 26px;
 
 .archive {
@@ -366,7 +365,8 @@ $gap-sp: 26px;
 .archive-item {
   position: relative;
   width: vw(220);
-  height: vw(340);
+  height: vw(300);
+  border-radius: 6px;
   overflow: hidden;
 
   @include sp() {

@@ -68,14 +68,14 @@
     <div class="pickup-bg">
       <div ref="PickupInner" class="pickup-inner">
         <div class="l-container">
-          <span
+          <button
             v-for="(data, index) in pickupData"
             :key="data.id"
             class="pickup-link"
             :class="`pickup-link-0${index + 1}`"
             @click="nextPage(data)"
           >
-          </span>
+          </button>
           <div class="pickup-clip">
             <h2 class="pickup-title">
               <span

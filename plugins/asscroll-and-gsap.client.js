@@ -7,7 +7,12 @@ import { InertiaPlugin } from '../vendor/InertiaPlugin'
 gsap.registerPlugin(CustomEase, Draggable, InertiaPlugin, ScrollTrigger);
 gsap.ticker.fps(60);
 
+const asscrollContainerEl = document.querySelector('.asscroll-container');
+const asscrollScrollEl = document.querySelector('.asscroll');
+
 const asscroll = new ASScroll({
+  containerElement: asscrollContainerEl,
+  scrollElements: asscrollScrollEl,
   ease: 0.09,
   customScrollbar: false,
 });

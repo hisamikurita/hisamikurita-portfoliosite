@@ -27,7 +27,7 @@
         :text="currentProject.loopText"
       />
     </div>
-    <span class="contents-loop-card">
+    <div class="contents-loop-card">
       <AppCardBase
         :component-name="'WorksLinkContents'"
         :shadow-color="currentProject.siteColor.shadowColor"
@@ -37,7 +37,7 @@
         :yspeed="0.04"
         :modifier="'works-contents-external'"
       />
-    </span>
+    </div>
   </div>
 </template>
 

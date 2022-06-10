@@ -112,7 +112,6 @@
                               :width="`${data.aboutImages.img01.width}`"
                               :height="`${data.aboutImages.img01.height}`"
                               :alt="`${data.id}`"
-                              type="image/webp"
                             />
                           </picture>
                         </span>
@@ -150,7 +149,6 @@
                               :width="`${data.aboutImages.img02.width}`"
                               :height="`${data.aboutImages.img02.height}`"
                               :alt="`${data.id}`"
-                              type="image/webp"
                             />
                           </picture>
                         </span>

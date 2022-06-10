@@ -8,15 +8,15 @@
         :state="isCircleBgState"
         :modifier="'about-intro'"
       />
-      <div ref="IntroReadText" class="intro-read-text">
+      <p ref="IntroReadText" class="intro-read-text">
         INTRODUCTION INTRODUCTION INT
-      </div>
-      <span ref="IntroBg" class="intro-bg">
-        <span ref="IntroBgClip" class="intro-bg-clip">
-          <span class="intro-bg-wrapper">
-            <span ref="IntroBgCanvas" class="intro-bg-canvas"></span>
-          </span>
-          <span class="intro-title">
+      </p>
+      <div ref="IntroBg" class="intro-bg">
+        <div ref="IntroBgClip" class="intro-bg-clip">
+          <div class="intro-bg-wrapper">
+            <div ref="IntroBgCanvas" class="intro-bg-canvas"></div>
+          </div>
+          <h2 class="intro-title">
             <span class="intro-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
@@ -136,8 +136,8 @@
                 />
               </span>
             </span>
-          </span>
-          <span class="intro-note">
+          </h2>
+          <p class="intro-note">
             <span class="pc-only">
               THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
               WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
@@ -152,9 +152,9 @@
               GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET
               THEM AND WORK WITH THEM ONE DAY!
             </span>
-          </span>
-        </span>
-      </span>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
