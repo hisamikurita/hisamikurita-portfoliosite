@@ -28,10 +28,10 @@ export default class Particle {
 
     // ビデオテクスチャを生成
     this.video = document.createElement("video");
-    this.video.src = "./movie/about-mv.mp4";
-    this.video.crossOrigin = "anonymous";
-    this.video.muted = true;
+    this.video.src = "/movie/about-mv.mp4";
+    this.video.setAttribute("crossOrigin", "anonymous");
     this.video.setAttribute("playsinline", "playsinline");
+    this.video.muted = true;
     this.video.loop = true;
     this.video.play();
     this.texture = new THREE.VideoTexture(this.video);
@@ -240,7 +240,7 @@ export default class Particle {
     this.width = this.stage.renderParam.width * this.stage.devicePixelRatio;
     this.height = this.stage.renderParam.height * this.stage.devicePixelRatio;
 
-    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? this.width / 1280 : this.width / 800;
+    this.mesh.material.uniforms.u_ratio.value = this.config.isPc ? window.innerWidth / 1280 : window.innerWidth / 800;
 
     this.mesh.material.uniforms.u_resolution.value.x = this.width;
     this.mesh.material.uniforms.u_resolution.value.y = this.height;
