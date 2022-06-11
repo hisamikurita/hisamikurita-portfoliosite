@@ -33,6 +33,9 @@ export default {
     defaultTransitionState() {
       return this.$store.getters['bg-transition/state']
     },
+    pickupTransitionState() {
+      return this.$store.getters['indexPickup/transition']
+    },
     imageTransitionState() {
       return this.$store.getters['image-transition/state']
     },
@@ -52,6 +55,14 @@ export default {
     },
     imageTransitionState: function () {
       if (this.imageTransitionState) {
+        this.$asscroll.off('scroll', this.onScroll)
+        this.$refs.HeaderLogo.classList.add('is-top')
+      } else {
+        this.$asscroll.on('scroll', this.onScroll)
+      }
+    },
+    pickupTransitionState: function () {
+      if (this.pickupTransitionState) {
         this.$asscroll.off('scroll', this.onScroll)
         this.$refs.HeaderLogo.classList.add('is-top')
       } else {
@@ -207,10 +218,10 @@ export default {
 
   & .header-link {
     display: block;
-      color: $black;
-  font-size: 50px;
-  font-family: $sixcaps;
-  letter-spacing: 0.04em;
+    color: $black;
+    font-size: 50px;
+    font-family: $sixcaps;
+    letter-spacing: 0.04em;
 
     @include hover() {
       & .header-logo-move-text {
