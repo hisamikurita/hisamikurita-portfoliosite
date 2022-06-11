@@ -143,6 +143,8 @@ export default {
       projectData: '',
       projectAndArchiveData: [],
       isTextSegmentState: 'default',
+      isOpen: false,
+      isClose: false,
     }
   },
   computed: {
@@ -507,11 +509,20 @@ export default {
       this.projectAndArchiveData.push({})
     },
     hambergerMenuOnClick() {
+      if(this.isOpen || this.isClose) return
+
       if (!this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/open')
-        this.$store.commit('hambergerMenu/open')
+        this.isOpen = true
+        setTimeout(() => {
+          this.isOpen = false
+        }, 400);
       } else if (this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/close')
+        this.isClose = true
+         setTimeout(() => {
+          this.isClose = false
+        }, 400);
       }
 
       // ハンバガーメニューが開いた時

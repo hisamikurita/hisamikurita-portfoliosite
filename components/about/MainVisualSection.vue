@@ -72,14 +72,14 @@
                 :state="isTextSegmentState"
                 :start="0.42"
                 :rotate="$BASEROTATE.right"
-                :text="'IS  CR'"
+                :text="'IS  FRO'"
                 :sp-animation="false"
               />
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="0.6"
                 :rotate="$BASEROTATE.right"
-                :text="'EATIVE'"
+                :text="'NTEND'"
                 :sp-animation="false"
               />
             </span>

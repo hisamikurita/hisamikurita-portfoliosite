@@ -101,7 +101,7 @@
                 :state="isTextSegmentState"
                 :start="0.4"
                 :rotate="$BASEROTATE.right"
-                :text="'CREATIVE DEVELOPER'"
+                :text="'FRONTEND DEVELOPER'"
                 :sp-animation="false"
               />
             </span>
@@ -213,7 +213,7 @@
                 :state="isTextSegmentState"
                 :start="0.592"
                 :rotate="$BASEROTATE.right"
-                :text="'CREATIVE'"
+                :text="'FRONTEND'"
                 :pc-animation="false"
               />
             </span>
@@ -465,11 +465,11 @@ export default {
 }
 
 .hero-title-wrapper-03 {
-  width: vw(668);
+  width: vw(698);
   margin: 0 0 22px vw(414);
 
   @include tab-vertical() {
-    width: vw(576);
+    width: vw(596);
   }
 }
 

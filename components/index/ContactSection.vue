@@ -17,7 +17,7 @@
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :rotate="$BASEROTATE.right"
-                  :text="'I AM CREATIVE DEVELOPER'"
+                  :text="'I AM FRONTEND DEVELOPER'"
                   :sp-animation="false"
                 />
               </span>
@@ -51,7 +51,7 @@
             </span>
             <span class="sp-only">
               <span class="contact-title-wrapper contact-title-wrapper-01-sp">
-                I AM CREATIVE
+                I AM FRONTEND
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-02-sp">
                 DEVELOPER

@@ -29,7 +29,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) creative developer at LIG inc',
+        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) frontend developer at LIG inc',
       },
       {
         hid: 'og:site_name',
@@ -54,7 +54,7 @@ export default {
       {
         hid: 'og:description',
         property: 'og:description',
-        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) creative developer at LIG inc',
+        content: 'Folio of Hisami Kurita 19/Aug.1996 (based in Tokyo and Kawasaki) frontend developer at LIG inc',
       },
       {
         hid: 'og:image',
