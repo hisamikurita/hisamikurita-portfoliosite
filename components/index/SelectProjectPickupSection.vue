@@ -156,7 +156,24 @@ export default {
     },
   },
 
+  watch: {
+    hambergerMenuState: function () {
+      if(this.indexPickupState){
+      if (this.hambergerMenuState) {
+        this.resetDefaultPreEvent();
+      }
+      else{
+        this.stopDefaultPreEvent()
+        window.removeEventListener('touchstart', preEventTouch, {
+              passive: false,
+            })
+      }
+      }
+    }
+  },
+
   mounted() {
+    this.scrollDuartion = this.$SITECONFIG.isPc ? this.$SITECONFIG.baseDuration : this.$SITECONFIG.baseDuration * 1.2;
     this.scrollBuffer = 160.0
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
     this.$store.commit('indexPickup/setCurrentNumber', 1.0)
@@ -219,7 +236,7 @@ export default {
         // スクロール処理
         this.pickupToTopEnterScrollAnimation = this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$SITECONFIG.baseDuration,
+          duration: this.scrollDuartion,
           ease: this.$EASING.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
@@ -289,7 +306,7 @@ export default {
       // スクロール処理
       this.pickupToTopLeaveScrollAnimation = this.$gsap.to(this.scroll, {
         value: pickupTopPos - this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
-        duration: this.$SITECONFIG.baseDuration,
+        duration: this.scrollDuartion,
         ease: this.$EASING.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)
@@ -365,7 +382,7 @@ export default {
         // スクロール処理
         this.pickupToBottomEnterScrollAnimation = this.$gsap.to(this.scroll, {
           value: pickupPos,
-          duration: this.$SITECONFIG.baseDuration,
+          duration: this.scrollDuartion,
           ease: this.$EASING.transform,
           onUpdate: () => {
             this.$asscroll.scrollTo(this.scroll.value)
@@ -427,7 +444,7 @@ export default {
       // スクロール処理
       this.pickupToBottomLeaveScrollAnimation = this.$gsap.to(this.scroll, {
         value: pickupBottomPos + this.scrollBuffer, // 領域判定がシビアなので離れる時にバッファーを設けてスクロールさせる
-        duration: this.$SITECONFIG.baseDuration,
+        duration: this.scrollDuartion,
         ease: this.$EASING.transform,
         onUpdate: () => {
           this.$asscroll.scrollTo(this.scroll.value)

@@ -91,7 +91,7 @@ export default class Particle {
       this.metaballs[i].initY = initY;
     }
 
-    this.speed = 0.036 / (this.stage.devicePixelRatio);
+    this.speed = this.config.isPc ? 0.036 / (this.stage.devicePixelRatio) : 0.036;
     this.width = window.innerWidth * this.stage.devicePixelRatio;
     this.height = window.innerHeight * this.stage.devicePixelRatio;
 

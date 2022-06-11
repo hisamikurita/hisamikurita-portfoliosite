@@ -2,6 +2,7 @@
   <div :class="[isAndroid, isWindows, isSafari]">
     <BaseOpenning />
     <BaseMouse />
+    <BaseLoading />
     <BaseHeader />
     <BaseHambergerMenu />
     <!--transition-->
@@ -58,7 +59,8 @@
       ref="AsscrollContainerCover"
       class="asscroll-container-cover"
       @click="hambergerMenuOnClose"
-    ></div>
+    >
+    </div>
   </div>
 </template>
 

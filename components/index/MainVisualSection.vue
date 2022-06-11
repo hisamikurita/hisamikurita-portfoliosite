@@ -504,7 +504,7 @@ export default {
 }
 
 .hero-title-wrapper-05-sp {
-  width: vw_sp(367);
+  width: vw_sp(398);
   margin: 0 0 vw_sp(40) 18px;
 }
 

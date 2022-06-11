@@ -161,7 +161,7 @@
                 :state="isTextSegmentState"
                 :start="0.42"
                 :rotate="$BASEROTATE.right"
-                :text="'CR'"
+                :text="'FRO'"
                 :pc-animation="false"
               />
             </span>
@@ -178,7 +178,7 @@
                 :state="isTextSegmentState"
                 :start="0.6"
                 :rotate="$BASEROTATE.right"
-                :text="'EATIVE'"
+                :text="'NTEND'"
                 :pc-animation="false"
               />
               <AppTextSegment

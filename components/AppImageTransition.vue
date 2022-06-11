@@ -24,7 +24,7 @@ export default {
         this.$preDefaultEvent(true);
         this.$asscroll.disable()
         this.$store.commit('image-transition/start', this.index)
-        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loading')
+        this.$store.commit('mouse/loading')
 
         setTimeout(() => {
           this.$router.push(`${this.url}`)

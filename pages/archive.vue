@@ -83,7 +83,7 @@ export default {
       if (this.imageLoaded) {
         if (!this.openningEnd) return
 
-        if (this.$SITECONFIG.isNoTouch) this.$store.commit('mouse/loadend')
+        this.$store.commit('mouse/loadend')
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
 

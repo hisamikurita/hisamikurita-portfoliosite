@@ -112,6 +112,8 @@ export default {
       }
     },
     mouseLoad: function () {
+      if(this.$SITECONFIG.isSp) return;
+
       if (this.mouseLoad) {
         this.$refs.MouseLoading.classList.add('is-loading')
 
