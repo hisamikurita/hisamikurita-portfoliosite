@@ -13,6 +13,4 @@ Cms : [microCMS](https://microcms.io/)
 
 ## Overview
 
-This is the repository of [Hisami Kurita](https://hsmkrt1996.com/) portfolio.<br>
-This site was created using Vue.js/Nuxt.js, but since this was my first attempt, there is a lot of redundant code that is not best practice.<br>
-If you use it as a reference, please be very careful.
+This is the repository of [Hisami Kurita](https://hsmkrt1996.com/) portfolio. This site was created using Vue.js/Nuxt.js, but since this was my first attempt, there is a lot of redundant code that is not best practice. If you use it as a reference, please be very careful.
