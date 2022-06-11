@@ -81,7 +81,7 @@ export default class Particle {
       this.metaballs[i].initX = initX;
       this.metaballs[i].initY = initY;
     }
-    this.speed = 0.036;
+    this.speed = 0.036 / (this.stage.devicePixelRatio);
     this.mouse = {
       x: 0,
       y: 0,
@@ -219,7 +219,7 @@ export default class Particle {
    * particle共通のduration
    */
   setMetaballDuration(index, ratio = 1.0) {
-    return (0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)
+    return ((0.80 * ratio) + Math.abs(this.metaballs[index].rand / this.stage.devicePixelRatio) * (0.90 * ratio))
   }
 
   /**

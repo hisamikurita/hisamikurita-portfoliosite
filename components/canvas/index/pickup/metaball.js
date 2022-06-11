@@ -317,7 +317,7 @@ export default class Particle {
    * particle共通のduration
    */
   setMetaballDuration(index, ratio = 1.0) {
-    return ((0.80 * ratio) + Math.abs(this.metaballs[index].rand) * (0.90 * ratio)) * (this.stage.devicePixelRatio)
+    return ((0.80 * ratio) + Math.abs(this.metaballs[index].rand / this.stage.devicePixelRatio) * (0.90 * ratio))
   }
 
   /**

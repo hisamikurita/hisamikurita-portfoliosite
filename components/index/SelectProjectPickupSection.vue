@@ -73,6 +73,7 @@
             :key="data.id"
             class="pickup-link"
             :class="`pickup-link-0${index + 1}`"
+            aria-label="pickup page"
             @click="nextPage(data)"
           >
           </button>
