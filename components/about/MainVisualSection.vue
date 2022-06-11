@@ -225,8 +225,8 @@
             </span>
           </span>
         </h1>
-        <span class="pc-only">
-          <span class="hero-card-item">
+        <div class="pc-only">
+          <div class="hero-card-item">
             <AppCardBase
               :component-name="'CompanyContents'"
               :name="['・', 'LIG INC']"
@@ -246,8 +246,8 @@
               :sp-animation="false"
               :modifier="'about-hero'"
             />
-          </span>
-        </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

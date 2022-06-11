@@ -2,7 +2,7 @@
   <div ref="CardAward" class="card-award">
     <article class="card-award-article" :class="'card-award-article-' + modifier">
       <div class="card-award-inner">
-        <span class="card-award-title-wrapper-01">
+        <div class="card-award-title-wrapper-01">
           <span v-if="group === 'AWWWARDS'">
             <nuxt-img src="/images/awwwards.png" width="112" height="66" quality="80" alt="AWWWARDS" />
           </span>
@@ -12,11 +12,11 @@
           <span v-else-if="group === 'CSS WINNER'">
             <nuxt-img src="/images/csswinner.png" width="156" height="98" quality="80" alt="CSS WINNER" />
           </span>
-        </span>
-        <span class="card-award-title-wrapper-02">{{ rank }}</span>
-        <span class="card-award-title-wrapper-03">{{ date }}</span>
-        <span class="card-award-title-wrapper-04">{{ title }}</span>
-        <span class="card-award-title-wrapper-05">
+        </div>
+        <p class="card-award-title-wrapper-02">{{ rank }}</p>
+        <p class="card-award-title-wrapper-03">{{ date }}</p>
+        <h2 class="card-award-title-wrapper-04">{{ title }}</h2>
+        <div class="card-award-title-wrapper-05">
           <span v-if="rank === 'HONORARABLE MENTION'">HM</span>
           <span v-else-if="rank === 'MOBILE EXELLENCE'">ME</span>
           <span v-else-if="rank === 'SITE OF THE DAY'">SOTD</span>
@@ -25,7 +25,7 @@
           <span v-else-if="rank === 'UX DESIGN AWARD'">UX AWD</span>
           <span v-else-if="rank === 'INNOVATION AWARD'">INN AWD</span>
           <span v-else-if="rank === 'WEBSITE OF THE DAY'">WOTD</span>
-        </span>
+        </div>
       </div>
     </article>
   </div>
