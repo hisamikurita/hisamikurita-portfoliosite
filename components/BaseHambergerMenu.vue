@@ -11,7 +11,7 @@
     <div ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <div ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
-          <span
+          <div
             class="hambergerMenu-title-wrapper-01"
             @click="hambergerMenuOnClose"
           >
@@ -22,8 +22,8 @@
                 :text="'HISAMIKURITA'"
               />
             </AppBgTransition>
-          </span>
-          <span
+          </div>
+          <div
             class="hambergerMenu-title-wrapper-02"
             @click="hambergerMenuOnClose"
           >
@@ -35,7 +35,7 @@
                 :text="'ABOUT'"
               />
             </AppBgTransition>
-          </span>
+          </div>
         </div>
         <div class="hambergerMenu-section-title">
           <AppSectionReadTitle
@@ -64,7 +64,7 @@
                   :color="'#000000'"
                   class="hambergerMenu-item-link"
                 >
-                  <div class="hambergerMenu-item-img">
+                  <span class="hambergerMenu-item-img">
                     <picture>
                       <img
                         :src="`/images/about-archive-01.jpg`"
@@ -73,14 +73,14 @@
                         :alt="`archive`"
                       />
                     </picture>
-                  </div>
-                  <div>
-                    <p class="hambergerMenu-item-title">ARCHIVE</p>
-                    <p class="hambergerMenu-item-desc">
+                  </span>
+                  <span>
+                    <span class="hambergerMenu-item-title">ARCHIVE</span>
+                    <span class="hambergerMenu-item-desc">
                       I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK
                       I'M SUBMITTING TO CODEPEN.
-                    </p>
-                  </div>
+                    </span>
+                  </span>
                 </AppBgTransition>
                 <!--アーカイブページ以外の時-->
                 <AppImageTransition
@@ -89,7 +89,7 @@
                   :index="index"
                   class="hambergerMenu-item-link"
                 >
-                  <div class="hambergerMenu-item-img">
+                  <span class="hambergerMenu-item-img">
                     <picture>
                       <img
                         :src="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
@@ -98,13 +98,13 @@
                         :alt="`${data.id}`"
                       />
                     </picture>
-                  </div>
-                  <div>
-                    <p class="hambergerMenu-item-title">
+                  </span>
+                  <span>
+                    <span class="hambergerMenu-item-title">
                       {{ data.title.short }}
-                    </p>
-                    <p class="hambergerMenu-item-desc">{{ data.desc }}</p>
-                  </div>
+                    </span>
+                    <span class="hambergerMenu-item-desc">{{ data.desc }}</span>
+                  </span>
                 </AppImageTransition>
               </div>
             </li>
@@ -539,8 +539,8 @@ export default {
 
 <style scoped lang="scss">
 :root {
-  --viewportWidth: 0;
-  --viewportHeight: 0;
+  --viewportWidth: 100vw;
+  --viewportHeight: 100vh;
 }
 
 .hambergerMenu {
@@ -732,6 +732,7 @@ export default {
 }
 
 .hambergerMenu-item-title {
+      display: block;
   margin: -12px 0 20px 0;
   color: #302c1a;
   font-size: 56px;
@@ -745,6 +746,7 @@ export default {
 }
 
 .hambergerMenu-item-desc {
+      display: block;
   color: #302c1a;
   font-size: 10px;
   line-height: 1.3;

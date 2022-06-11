@@ -1,14 +1,14 @@
 <template>
-  <span class="card-project-inner">
-    <span class="card-project-title-wrapper-01">
+  <div class="card-project-inner">
+    <div class="card-project-title-wrapper-01">
       <span v-for="(char, index) of name" :key="index" class="card-project-title-wrapper-01-block" v-text="char"></span>
-    </span>
-    <span class="card-project-title-wrapper-02">
-      <span v-for="(char, index) of info" :key="index" class="card-project-title-wrapper-02-block">
+    </div>
+    <ul class="card-project-title-wrapper-02">
+      <li v-for="(char, index) of info" :key="index" class="card-project-title-wrapper-02-block">
         <a :href="char.link" target="_blank" rel="noopener">{{ char.text }}</a>
-      </span>
-    </span>
-    <span class="card-project-title-wrapper-03">
+      </li>
+    </ul>
+    <div class="card-project-title-wrapper-03">
       <span class="pc-only">
         <a v-if="title.link" :href="title.link" target="_blank" rel="noopener" class="card-project-title-wrapper-03-link">
           <AppTextSegment
@@ -27,7 +27,7 @@
             />
           </span>
         </a>
-        <span v-else :href="title.link" class="card-project-title-wrapper-03-link">
+        <span v-else class="card-project-title-wrapper-03-link">
           <AppTextSegment
             :state="state"
             :rotate="$BASEROTATE.left"
@@ -53,8 +53,8 @@
           </span>
         </a>
       </span>
-    </span>
-  </span>
+    </div>
+  </div>
 </template>
 
 <script>

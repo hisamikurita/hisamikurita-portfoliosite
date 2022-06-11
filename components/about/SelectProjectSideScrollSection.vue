@@ -433,9 +433,9 @@ export default {
 
 <style lang="scss" scoped>
 :root {
-  --viewportWidth: 0;
-  --viewportHeight: 0;
-  --viewportSpHeight: 0;
+  --viewportWidth: 100vw;
+  --viewportHeight: 100vh;
+  --viewportSpHeight: 100vh;
 }
 
 .project {

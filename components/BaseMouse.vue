@@ -256,7 +256,7 @@ export default {
 
 <style scoped lang="scss">
 :root {
-  --viewportHeight: 0;
+  --viewportHeight: 100vh;
 }
 
 .mouse {

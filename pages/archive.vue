@@ -323,7 +323,7 @@ export default {
       if(this.hambergerMenuState) return;
 
 
-      if(this.key.strength < 200) this.key.strength += 12.0;
+      if(this.key.strength < 140) this.key.strength += 12.0;
 
       if (e.key === 'ArrowDown') {
         this.key.y += this.key.strength
@@ -367,7 +367,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$gap: 70px;
+$gap: 60px;
 $gap-sp: 26px;
 
 .archive {

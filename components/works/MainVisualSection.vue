@@ -229,8 +229,8 @@ export default {
 
 <style lang="scss" scoped>
 :root {
-  --viewportWidth: 0;
-  --viewportHeight: 0;
+  --viewportWidth: 100vw;
+  --viewportHeight: 100vh;
 }
 
 /////////////////////// PC STYLE //////////////////////////

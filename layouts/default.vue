@@ -526,8 +526,8 @@ export default {
 
 <style scoped lang="scss">
 :root {
-  --viewportWidth: 0;
-  --viewportHeight: 0;
+  --viewportWidth: 100vw;
+  --viewportHeight: 100vh;
 }
 
 // asscroll
