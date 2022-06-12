@@ -226,6 +226,7 @@ export default {
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
+
   },
 
   methods: {
