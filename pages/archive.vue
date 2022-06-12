@@ -6,29 +6,39 @@
         :key="index"
         ref="ArchiveItem"
         class="archive-item"
+        :data-img="`/images/${archive.image}`"
       >
-        <a :href="`${archive.link}`" class="archive-link" target="_blank" rel="noopener">
+        <a
+          :href="`${archive.link}`"
+          class="archive-link"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="archive-textarea">
             <span class="archive-circle">・</span>
             <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
             <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
           </span>
-          <img
+          <!-- <img
             class="archive-img"
             :src="`/images/${archive.image}`"
             width="440"
             height="680"
             :alt="`${archive.fullTitle}`"
-          />
+          /> -->
         </a>
       </li>
     </ul>
+    <div ref="ArchiveCanvas" class="archive-canvas"></div>
   </div>
 </template>
 
 <script>
 import ImagesLoaded from 'imagesloaded'
-// import { preEvent } from '../assets/js/preEvent'
+import { preEvent } from '../assets/js/preEvent'
+import Mesh from '../components/canvas/archive/mesh'
+import GlElements from '../components/canvas/archive/gl-elements'
+import Stage from '../components/canvas/stage'
 import archives from '@/assets/json/archive.json'
 
 export default {
@@ -99,10 +109,10 @@ export default {
 
   mounted() {
     // init
-    this.medias = [];
+    this.medias = []
     for (let i = 0; i < this.$refs.ArchiveItem.length; i++) {
       this.medias[i] = {}
-      this.medias[i].elm = this.$refs.ArchiveItem[i];
+      this.medias[i].elm = this.$refs.ArchiveItem[i]
       this.medias[i].extra = {
         x: 0,
         y: 0,
@@ -151,16 +161,29 @@ export default {
       x: 0,
       y: 0,
     }
-    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0;
-    this.wrapper = this.$refs.ArchiveList;
-    this.wrapperRect = null;
-    this.width = window.innerWidth;
+    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0
+    this.wrapper = this.$refs.ArchiveList
+    this.wrapperRect = null
+    this.width = window.innerWidth
+
+    this.stage = new Stage(this.$refs.ArchiveCanvas)
+    this.stage.init()
+
+    this.meshArray = []
+
+    this.glElements = new GlElements(this.$refs.ArchiveItem)
+    this.glElements.init()
+
+    this.glElements.optionList.forEach((item, i) => {
+      this.meshArray[i] = new Mesh(this.stage, item, this.$SITECONFIG)
+      this.meshArray[i].init()
+    })
 
     this.$nextTick(() => {
       // events
       window.addEventListener('resize', this.onResize)
       window.addEventListener('resize', this.setWrapPosition)
-      // window.removeEventListener('wheel', preEvent, { passive: false })
+      window.removeEventListener('wheel', preEvent, { passive: false })
       window.addEventListener('mousedown', this.onTouchDown)
       window.addEventListener('mousemove', this.onTouchMove)
       window.addEventListener('mouseup', this.onTouchUp)
@@ -176,8 +199,10 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState) this.$store.commit('image-transition/end')
-        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
+        if (this.imageTransitionState)
+          this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState)
+          this.$store.commit('indexPickup/transition', false)
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -185,7 +210,7 @@ export default {
   },
 
   beforeDestroy() {
-    // window.addEventListener('wheel', preEvent, { passive: false })
+    window.addEventListener('wheel', preEvent, { passive: false })
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
     window.removeEventListener('mousedown', this.onTouchDown)
@@ -205,7 +230,7 @@ export default {
 
   methods: {
     setWrapPosition() {
-      this.wrapperRect = this.wrapper.getBoundingClientRect();
+      this.wrapperRect = this.wrapper.getBoundingClientRect()
 
       if (this.width !== window.innerWidth) {
         this.width = window.innerWidth
@@ -216,23 +241,28 @@ export default {
       }
     },
     updatePosition() {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
-      this.x.current = this.$gsap.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
-      this.y.current = this.$gsap.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
+      this.x.current = this.$gsap.utils.interpolate(
+        this.x.current,
+        this.x.target,
+        this.x.lerp
+      )
+      this.y.current = this.$gsap.utils.interpolate(
+        this.y.current,
+        this.y.target,
+        this.y.lerp
+      )
 
-
-      if(this.save.x < this.x.current){
+      if (this.save.x < this.x.current) {
         this.x.direction = 'right'
-      }
-      else if(this.save.x > this.x.current){
+      } else if (this.save.x > this.x.current) {
         this.x.direction = 'left'
       }
 
-      if(this.save.y < this.y.current){
+      if (this.save.y < this.y.current) {
         this.y.direction = 'bottom'
-      }
-      else if(this.save.y > this.y.current){
+      } else if (this.save.y > this.y.current) {
         this.y.direction = 'top'
       }
 
@@ -240,27 +270,42 @@ export default {
       this.save.y = this.y.current
 
       for (let i = 0; i < this.medias.length; i++) {
-        const rect = this.medias[i].elm.getBoundingClientRect();
+        const rect = this.medias[i].elm.getBoundingClientRect()
 
-        if(this.x.direction === 'right' && rect.left < -rect.width){
+        if (this.x.direction === 'right' && rect.left < -rect.width) {
           this.medias[i].extra.x += this.wrapperRect.width
-        }
-        else if(this.x.direction === 'left' &&  window.innerWidth < rect.left){
+        } else if (
+          this.x.direction === 'left' &&
+          window.innerWidth < rect.left
+        ) {
           this.medias[i].extra.x -= this.wrapperRect.width
         }
 
-        if(this.y.direction === 'top' && window.innerHeight < rect.top){
+        if (this.y.direction === 'top' && window.innerHeight < rect.top) {
           this.medias[i].extra.y -= this.wrapperRect.height
-        }
-        else if(this.y.direction === 'bottom' && rect.top < -rect.height){
+        } else if (this.y.direction === 'bottom' && rect.top < -rect.height) {
           this.medias[i].extra.y += this.wrapperRect.height
         }
 
-        this.medias[i].elm.style.transform = `translate(${-this.x.current + this.medias[i].extra.x}px, ${-this.y.current + this.medias[i].extra.y}px)`
+        this.medias[i].elm.style.transform = `translate(${
+          -this.x.current + this.medias[i].extra.x
+        }px, ${-this.y.current + this.medias[i].extra.y}px)`
+      }
+
+      // webgl
+      this.stage.onRaf()
+      this.glElements.onResize()
+      for (let i = 0; i < this.medias.length; i++) {
+        const strengthX = ((this.x.current - this.x.target) / window.innerWidth ) * 1.8;
+        const strengthY = ((this.y.current - this.y.target) / window.innerWidth ) * 1.8;
+        const rotateValue = (strengthX + strengthY) / 16.0
+        this.meshArray[i]._setStrength(strengthX, strengthY)
+        this.meshArray[i]._setRotate(rotateValue)
+        this.meshArray[i].onRaf()
       }
     },
     onTouchDown(e) {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.isDown = true
 
@@ -288,7 +333,7 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onTouchUp(e) {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.isDown = false
       this.$refs.ArchiveList.style.pointerEvents = 'auto'
@@ -299,7 +344,7 @@ export default {
       this.x.end = x
       this.y.end = y
 
-          this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
+      this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
       this.y.distance = (this.y.start - this.y.end) * this.deviceRatio
 
       this.x.allDistance += this.x.distance
@@ -309,21 +354,20 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onMouseWheel(e) {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
       this.wheel.x += e.deltaX
       this.wheel.y += e.deltaY
       this.x.target = this.wheel.x + this.key.x + this.x.allDistance
       this.y.target = this.wheel.y + this.key.y + this.y.allDistance
     },
-    onKeyUp(){
-      this.key.strength = 0;
+    onKeyUp() {
+      this.key.strength = 0
     },
     onKeyDown(e) {
-      if(this.hambergerMenuState) return;
+      if (this.hambergerMenuState) return
 
-
-      if(this.key.strength < 140) this.key.strength += 12.0;
+      if (this.key.strength < 140) this.key.strength += 12.0
 
       if (e.key === 'ArrowDown') {
         this.key.y += this.key.strength
@@ -341,27 +385,31 @@ export default {
       this.x.target = this.key.x + this.wheel.x + this.x.allDistance
       this.y.target = this.key.y + this.wheel.y + this.y.allDistance
     },
-    onResize(){
+    onResize() {
       if (this.width !== window.innerWidth) {
         this.width = window.innerWidth
 
-        this.x.current = 0;
-        this.y.current = 0;
-        this.wheel.x = 0;
-        this.wheel.y = 0;
-        this.x.allDistance = 0;
-        this.y.allDistance = 0;
-        this.save.x = 0;
-        this.save.y = 0;
-        this.x.target = 0;
-        this.y.target = 0;
+        this.x.current = 0
+        this.y.current = 0
+        this.wheel.x = 0
+        this.wheel.y = 0
+        this.x.allDistance = 0
+        this.y.allDistance = 0
+        this.save.x = 0
+        this.save.y = 0
+        this.x.target = 0
+        this.y.target = 0
+
+        this.stage.onResize()
 
         for (let i = 0; i < this.medias.length; i++) {
           this.medias[i].extra.x = 0
           this.medias[i].extra.y = 0
+
+          this.meshArray[i].onResize()
         }
       }
-    }
+    },
   },
 }
 </script>
@@ -383,9 +431,11 @@ $gap-sp: 26px;
   grid-template-columns: repeat(auto-fit, #{vw(220)});
   grid-row-gap: $gap;
   grid-column-gap: $gap;
+  position: relative;
   width: calc((#{vw(220)} * 6) + (#{$gap} * 5));
   padding: $gap * 0.5;
   box-sizing: content-box;
+  z-index: 1;
 
   @include sp() {
     grid-template-columns: repeat(auto-fit, #{vw_sp(352)});
@@ -418,13 +468,14 @@ $gap-sp: 26px;
 }
 
 // SPで余が出ないように消しておく
-.archive-item:nth-of-type(17),.archive-item:nth-of-type(18) {
+.archive-item:nth-of-type(17),
+.archive-item:nth-of-type(18) {
   @include sp() {
     display: none;
   }
 }
 
-.archive-link{
+.archive-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -499,5 +550,15 @@ $gap-sp: 26px;
   object-fit: cover;
   object-position: center;
   transform: scale(1.05);
+}
+
+.archive-canvas {
+  // opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 </style>
