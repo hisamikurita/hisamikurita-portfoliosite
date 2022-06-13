@@ -14,11 +14,11 @@
           target="_blank"
           rel="noopener"
         >
-          <span class="archive-textarea">
+          <!-- <span class="archive-textarea">
             <span class="archive-circle">・</span>
             <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
             <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
-          </span>
+          </span> -->
           <!-- <img
             class="archive-img"
             :src="`/images/${archive.image}`"
@@ -490,6 +490,7 @@ $gap-sp: 26px;
   height: 100%;
   padding: 20px;
   z-index: 1;
+  pointer-events: none;
 
   @include sp() {
     padding: 14px;

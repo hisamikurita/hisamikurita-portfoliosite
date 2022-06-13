@@ -41,7 +41,8 @@ export default class Stage {
 
   _setRender() {
     this.renderer = new THREE.WebGLRenderer({
-      alpha: true
+      antialias: true,
+      alpha: true,
     });
     this.renderer.setPixelRatio(this.devicePixelRatio);
     this.renderer.setSize(this.renderParam.width, this.renderParam.height);
