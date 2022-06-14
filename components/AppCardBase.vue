@@ -343,8 +343,8 @@ export default {
   border-radius: 14px;
 
   @include sp() {
-    width: 211px;
-    height: 288px;
+    width: 212px;
+    height: 302px;
     padding: 20px 16px;
     border-radius: 7px;
   }
