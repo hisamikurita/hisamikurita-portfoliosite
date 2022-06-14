@@ -19,17 +19,18 @@
             <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
             <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
           </span> -->
-          <!-- <img
+          <img
             class="archive-img"
             :src="`/images/${archive.image}`"
             width="440"
             height="680"
             :alt="`${archive.fullTitle}`"
-          /> -->
+          />
         </a>
       </li>
     </ul>
-    <div ref="ArchiveCanvas" class="archive-canvas"></div>
+    <div ref="ArchiveCanvas" class="archive-canvas" style="display: none;opacity: 0"></div>
+    <div ref="ArchiveCover" class="archive-cover"></div>
   </div>
 </template>
 
@@ -80,7 +81,10 @@ export default {
     openningEnd: function () {
       // update
       this.setWrapPosition()
-      this.$gsap.ticker.add(this.updatePosition)
+       setTimeout(()=>{
+          this.$gsap.ticker.add(this.updatePosition)
+          this.onOpening()
+        },100)
 
       setTimeout(() => {
         // スクロール可能にする
@@ -102,12 +106,16 @@ export default {
 
         // update
         this.setWrapPosition()
-        this.$gsap.ticker.add(this.updatePosition)
+        setTimeout(()=>{
+          this.raf = this.$gsap.ticker.add(this.updatePosition)
+          this.onOpening()
+        },100)
       }
     },
   },
 
   mounted() {
+    this.raf = null
     // init
     this.medias = []
     for (let i = 0; i < this.$refs.ArchiveItem.length; i++) {
@@ -119,7 +127,11 @@ export default {
       }
     }
 
+    this.isOpenningEnd = false
     this.isDown = false
+    this.opOffset = {
+      value: window.innerHeight * 1.5,
+    }
     this.x = {
       start: 0,
       end: 0,
@@ -135,7 +147,7 @@ export default {
       end: 0,
       distance: 0,
       allDistance: 0,
-      target: 0,
+      target: -this.opOffset.value,
       current: 0,
       lerp: 0.075,
       direction: '',
@@ -180,20 +192,6 @@ export default {
     })
 
     this.$nextTick(() => {
-      // events
-      window.addEventListener('resize', this.onResize)
-      window.addEventListener('resize', this.setWrapPosition)
-      window.removeEventListener('wheel', preEvent, { passive: false })
-      window.addEventListener('mousedown', this.onTouchDown)
-      window.addEventListener('mousemove', this.onTouchMove)
-      window.addEventListener('mouseup', this.onTouchUp)
-      window.addEventListener('touchstart', this.onTouchDown)
-      window.addEventListener('touchmove', this.onTouchMove)
-      window.addEventListener('touchend', this.onTouchUp)
-      window.addEventListener('wheel', this.onMouseWheel)
-      window.addEventListener('keyup', this.onKeyUp)
-      window.addEventListener('keydown', this.onKeyDown)
-
       const images = document.querySelectorAll('.archive img')
       const imagesLoaded = ImagesLoaded(images)
 
@@ -223,23 +221,36 @@ export default {
     window.removeEventListener('keyup', this.onKeyUp)
     window.removeEventListener('keydown', this.onKeyDown)
     this.$gsap.ticker.remove(this.updatePosition)
+    // this.$refs.ArchiveCanvas.style.display = 'none'
+    //   this.$refs.ArchiveCanvas.style.opacity = 0
+    this.stage._destroy()
+    this.stage = null
+    for (let i = 0; i < this.medias.length; i++) {
+      this.meshArray[i]._destroy()
+      this.meshArray[i] = null
+    }
+    this.glElements = null
+this.$refs.ArchiveCanvas.remove()
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
-
   },
 
   methods: {
     setWrapPosition() {
       this.wrapperRect = this.wrapper.getBoundingClientRect()
 
-      if (this.width !== window.innerWidth) {
-        this.width = window.innerWidth
+      // if (this.width !== window.innerWidth) {
+      //   this.width = window.innerWidth
 
         const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
         const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
-        this.wrapper.style.transform = `translate(${x}px, ${y}px)`
-      }
+        this.$gsap.set(this.wrapper,{
+          x: x,
+          y: y
+        })
+        // this.wrapper.style.transform = `translate(${x}px, ${y}px)`
+      // }
     },
     updatePosition() {
       if (this.hambergerMenuState) return
@@ -271,34 +282,40 @@ export default {
       this.save.y = this.y.current
 
       for (let i = 0; i < this.medias.length; i++) {
-        const rect = this.medias[i].elm.getBoundingClientRect()
+        if (this.isOpenningEnd) {
+          const rect = this.medias[i].elm.getBoundingClientRect()
 
-        if (this.x.direction === 'right' && rect.left < -rect.width) {
-          this.medias[i].extra.x += this.wrapperRect.width
-        } else if (
-          this.x.direction === 'left' &&
-          window.innerWidth < rect.left
-        ) {
-          this.medias[i].extra.x -= this.wrapperRect.width
-        }
+          if (this.x.direction === 'right' && rect.left < -rect.width) {
+            this.medias[i].extra.x += this.wrapperRect.width
+          } else if (
+            this.x.direction === 'left' &&
+            window.innerWidth < rect.left
+          ) {
+            this.medias[i].extra.x -= this.wrapperRect.width
+          }
 
-        if (this.y.direction === 'top' && window.innerHeight < rect.top) {
-          this.medias[i].extra.y -= this.wrapperRect.height
-        } else if (this.y.direction === 'bottom' && rect.top < -rect.height) {
-          this.medias[i].extra.y += this.wrapperRect.height
+          if (this.y.direction === 'top' && window.innerHeight < rect.top) {
+            this.medias[i].extra.y -= this.wrapperRect.height
+          } else if (this.y.direction === 'bottom' && rect.top < -rect.height) {
+            this.medias[i].extra.y += this.wrapperRect.height
+          }
         }
 
         this.medias[i].elm.style.transform = `translate(${
           -this.x.current + this.medias[i].extra.x
-        }px, ${-this.y.current + this.medias[i].extra.y}px)`
+        }px, ${
+          -this.y.current + this.medias[i].extra.y + this.opOffset.value
+        }px)`
       }
 
       // webgl
       this.stage.onRaf()
       this.glElements.onResize()
       for (let i = 0; i < this.medias.length; i++) {
-        const strengthX = ((this.x.current - this.x.target) / window.innerWidth ) * 1.8;
-        const strengthY = ((this.y.current - this.y.target) / window.innerWidth ) * 1.8;
+        const strengthX =
+          ((this.x.current - this.x.target) / window.innerWidth) * 1.8
+        const strengthY =
+          ((this.y.current - this.y.target) / window.innerWidth) * 1.8
         const rotateValue = (strengthX + strengthY) / 16.0
         this.meshArray[i]._setStrength(strengthX, strengthY)
         this.meshArray[i]._setRotate(rotateValue)
@@ -411,6 +428,42 @@ export default {
         }
       }
     },
+    onOpening() {
+      this.$refs.ArchiveCanvas.style.display = 'block'
+      this.$refs.ArchiveCanvas.style.opacity = 1.0
+      this.$refs.ArchiveCanvas.style.zIndex = 1.0
+      this.$refs.ArchiveCover.style.opacity = 0
+
+
+      this.$gsap.to(this.opOffset, {
+        duration: this.$SITECONFIG.baseDuration,
+        delay: 0.2,
+        ease: this.$EASING.transform,
+        value: 0,
+        onUpdate: () => {
+          this.y.target = -this.opOffset.value
+        },
+        onComplete: () => {
+          this.isOpenningEnd = true
+
+          // events
+          setTimeout(() => {
+            window.addEventListener('resize', this.onResize)
+            window.addEventListener('resize', this.setWrapPosition)
+            window.removeEventListener('wheel', preEvent, { passive: false })
+            window.addEventListener('mousedown', this.onTouchDown)
+            window.addEventListener('mousemove', this.onTouchMove)
+            window.addEventListener('mouseup', this.onTouchUp)
+            window.addEventListener('touchstart', this.onTouchDown)
+            window.addEventListener('touchmove', this.onTouchMove)
+            window.addEventListener('touchend', this.onTouchUp)
+            window.addEventListener('wheel', this.onMouseWheel)
+            window.addEventListener('keyup', this.onKeyUp)
+            window.addEventListener('keydown', this.onKeyDown)
+          }, 100)
+        },
+      })
+    },
   },
 }
 </script>
@@ -421,6 +474,17 @@ $gap-sp: 26px;
 
 .archive {
   background-color: $darkBlack;
+}
+
+.archive-cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $darkBlack;
+  z-index: 100;
+  pointer-events: none;
 }
 
 .archive * {
@@ -437,6 +501,7 @@ $gap-sp: 26px;
   padding: $gap * 0.5;
   box-sizing: content-box;
   z-index: 1;
+  // transform: translate(0, 9999px);
 
   @include sp() {
     grid-template-columns: repeat(auto-fit, #{vw_sp(352)});
@@ -453,6 +518,8 @@ $gap-sp: 26px;
   height: vw(300);
   border-radius: 6px;
   overflow: hidden;
+  transform: translate(0, 9999px);
+  opacity: 0;
 
   @include sp() {
     width: vw_sp(352);
@@ -551,16 +618,19 @@ $gap-sp: 26px;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.05);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .archive-canvas {
-  // opacity: 0;
+  display: none;
+  opacity: 0;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: -1;
 }
 </style>

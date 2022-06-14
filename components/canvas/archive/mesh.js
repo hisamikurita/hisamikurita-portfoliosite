@@ -10,7 +10,6 @@ export default class Mesh {
     this.config = config;
 
     this.elements = elementOption;
-    console.log(this.elements)
     this.meshSize = {
       x: this.elements.width,
       y: this.elements.height,
@@ -23,6 +22,8 @@ export default class Mesh {
       heightSegments: 32.0
     };
     this.mesh = null;
+
+    this.texture = new THREE.TextureLoader().load(this.elements.img)
 
     this.windowWidth = 0;
     this.windowHeight = 0;
@@ -63,7 +64,7 @@ export default class Mesh {
       uniforms: {
         u_texture: {
           type: "t",
-          value: new THREE.TextureLoader().load(this.elements.img)
+          value: this.texture
         },
         u_meshsize: {
           type: "v2",
@@ -80,8 +81,13 @@ export default class Mesh {
         u_strength: {
           type: "v2",
           value: { x: 0, y: 0},
+        },
+        u_alpha: {
+          type: "f",
+          value: 0,
         }
       },
+      transparent: true
     });
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.stage.scene.add(this.mesh);
@@ -114,7 +120,10 @@ export default class Mesh {
   }
 
   _destroy() {
-    //
+    this.stage.scene.remove(this.mesh);
+    this.texture.dispose();
+    this.geometry.dispose();
+    this.material.dispose();
   }
 
   onResize() {
