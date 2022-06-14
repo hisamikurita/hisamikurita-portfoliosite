@@ -395,7 +395,7 @@ export default {
 
   @include sp() {
     top: 48%;
-    left: 41%;
+    left: 38%;
   }
 }
 
@@ -409,7 +409,7 @@ export default {
 
   @include sp() {
     top: 46%;
-    right: 32%;
+    right: 50%;
   }
 }
 </style>

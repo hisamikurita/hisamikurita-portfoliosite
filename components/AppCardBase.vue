@@ -343,8 +343,9 @@ export default {
   border-radius: 14px;
 
   @include sp() {
-    width: 264px;
-    height: 360px;
+    width: 211px;
+    height: 288px;
+    padding: 20px 16px;
     border-radius: 7px;
   }
 }
@@ -368,7 +369,7 @@ export default {
   margin: 0 0 60px 0;
 
   @include sp() {
-    margin: 0 0 52px 0;
+    margin: 0 0 40px 0;
   }
 }
 
@@ -379,7 +380,7 @@ export default {
   line-height: 1.2;
 
   @include sp() {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   &:first-of-type {
@@ -390,7 +391,8 @@ export default {
     @include sp() {
       display: inline-block;
       margin: 0 0 0 -4px;
-      font-size: 32px;
+      font-size: 28px;
+      line-height: 0.9;
       text-indent: 0;
     }
   }
@@ -405,7 +407,8 @@ export default {
   line-height: 1.24;
 
   @include sp() {
-    font-size: 11px;
+    width: 180px;
+    font-size: 10px;
   }
 }
 
@@ -418,7 +421,8 @@ export default {
   font-family: $sixcaps;
 
   @include sp() {
-    font-size: 108px;
+    bottom: -5px;
+    font-size: 80px;
   }
 
   & .card-project-sub-title {
@@ -430,7 +434,8 @@ export default {
     letter-spacing: 0.02em;
 
     @include sp() {
-      font-size: 11px;
+      top: 7px;
+      font-size: 10px;
     }
   }
 }
@@ -475,6 +480,7 @@ export default {
 
   & .card-project-title-wrapper-02-block {
     width: 110%;
+    font-size: 11px;
     line-height: 1.4;
     transform: scale(0.82);
     transform-origin: left;
