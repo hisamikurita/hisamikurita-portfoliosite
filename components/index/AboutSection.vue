@@ -35,7 +35,7 @@
                   :state="isTextSegmentState"
                   :start="0.24"
                   :rotate="$BASEROTATE.right"
-                  text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY GREATE"
+                  text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY STREN"
                   :sp-animation="false"
                 />
               </span>
@@ -44,7 +44,7 @@
                   :state="isTextSegmentState"
                   :start="0.36"
                   :rotate="$BASEROTATE.left"
-                  :text="'ST STRENGTH IS MY NEVER-ENDING INQUISITIVENESS.'"
+                  :text="'GTH IS INSATIABLE CURIOSITY.'"
                   :sp-animation="false"
                 />
               </span>

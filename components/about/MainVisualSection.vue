@@ -512,6 +512,6 @@ export default {
   top: 110.8%;
   left: 33%;
   transform: rotate(-10deg);
-  z-index: 1;
+  z-index: 101;
 }
 </style>
