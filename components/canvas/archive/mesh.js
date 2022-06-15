@@ -1,3 +1,4 @@
+import { gsap } from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
@@ -39,6 +40,7 @@ export default class Mesh {
     this._setWindowSize();
     this._setMesh();
     this._setMeshScale();
+    // this._setMeshPosition();
   }
 
   _setWindowSize() {
@@ -128,6 +130,24 @@ export default class Mesh {
 
   onResize() {
     this._setWindowSize();
+  }
+
+  onOpening(delay = 0) {
+    // gsap.to(this.mesh.material.uniforms.u_strength.value, {
+    //   duration: this.config.baseDuration,
+    //   delay: 0.6,
+    //   ease: this.config.transform,
+    //   x: 3,
+    //   y: 3,
+    // });
+
+    gsap.to(this.mesh.position, {
+      duration: this.config.baseDuration,
+      delay: delay,
+      ease: 'power2.out',
+      y: this.windowHeightHalf - this.meshHeightHalf - this.elements.top,
+      x: -this.windowWidthHalf + this.meshWidthHalf + this.elements.left,
+    });
   }
 
   _render() {

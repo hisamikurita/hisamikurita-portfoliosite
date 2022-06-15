@@ -29,8 +29,7 @@
         </a>
       </li>
     </ul>
-    <div ref="ArchiveCanvas" class="archive-canvas" style="display: none;opacity: 0"></div>
-    <div ref="ArchiveCover" class="archive-cover"></div>
+    <div ref="ArchiveCanvas" class="archive-canvas"></div>
   </div>
 </template>
 
@@ -81,10 +80,13 @@ export default {
     openningEnd: function () {
       // update
       this.setWrapPosition()
-       setTimeout(()=>{
-          this.$gsap.ticker.add(this.updatePosition)
-          this.onOpening()
-        },100)
+
+      this.crateMesh();
+
+      setTimeout(() => {
+        this.$gsap.ticker.add(this.updatePosition)
+        this.onOpening()
+      }, 100)
 
       setTimeout(() => {
         // スクロール可能にする
@@ -106,10 +108,13 @@ export default {
 
         // update
         this.setWrapPosition()
-        setTimeout(()=>{
+
+        this.crateMesh();
+
+        setTimeout(() => {
           this.raf = this.$gsap.ticker.add(this.updatePosition)
           this.onOpening()
-        },100)
+        }, 100)
       }
     },
   },
@@ -129,9 +134,6 @@ export default {
 
     this.isOpenningEnd = false
     this.isDown = false
-    this.opOffset = {
-      value: window.innerHeight * 1.5,
-    }
     this.x = {
       start: 0,
       end: 0,
@@ -147,7 +149,7 @@ export default {
       end: 0,
       distance: 0,
       allDistance: 0,
-      target: -this.opOffset.value,
+      target: 0,
       current: 0,
       lerp: 0.075,
       direction: '',
@@ -177,19 +179,6 @@ export default {
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = null
     this.width = window.innerWidth
-
-    this.stage = new Stage(this.$refs.ArchiveCanvas)
-    this.stage.init()
-
-    this.meshArray = []
-
-    this.glElements = new GlElements(this.$refs.ArchiveItem)
-    this.glElements.init()
-
-    this.glElements.optionList.forEach((item, i) => {
-      this.meshArray[i] = new Mesh(this.stage, item, this.$SITECONFIG)
-      this.meshArray[i].init()
-    })
 
     this.$nextTick(() => {
       const images = document.querySelectorAll('.archive img')
@@ -221,8 +210,6 @@ export default {
     window.removeEventListener('keyup', this.onKeyUp)
     window.removeEventListener('keydown', this.onKeyDown)
     this.$gsap.ticker.remove(this.updatePosition)
-    // this.$refs.ArchiveCanvas.style.display = 'none'
-    //   this.$refs.ArchiveCanvas.style.opacity = 0
     this.stage._destroy()
     this.stage = null
     for (let i = 0; i < this.medias.length; i++) {
@@ -230,26 +217,41 @@ export default {
       this.meshArray[i] = null
     }
     this.glElements = null
-this.$refs.ArchiveCanvas.remove()
+    this.$refs.ArchiveCanvas.remove()
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },
 
   methods: {
+    crateMesh(){
+        this.stage = new Stage(this.$refs.ArchiveCanvas)
+        this.stage.init()
+
+        this.meshArray = []
+
+        this.glElements = new GlElements(this.$refs.ArchiveItem)
+        this.glElements.init()
+
+        this.glElements.optionList.forEach((item, i) => {
+          this.meshArray[i] = new Mesh(this.stage, item, this.$SITECONFIG)
+          this.meshArray[i].init()
+        })
+    },
+
     setWrapPosition() {
       this.wrapperRect = this.wrapper.getBoundingClientRect()
 
       // if (this.width !== window.innerWidth) {
       //   this.width = window.innerWidth
 
-        const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
-        const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
-        this.$gsap.set(this.wrapper,{
-          x: x,
-          y: y
-        })
-        // this.wrapper.style.transform = `translate(${x}px, ${y}px)`
+      const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
+      const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
+      this.$gsap.set(this.wrapper, {
+        x: x,
+        y: y,
+      })
+      // this.wrapper.style.transform = `translate(${x}px, ${y}px)`
       // }
     },
     updatePosition() {
@@ -303,24 +305,22 @@ this.$refs.ArchiveCanvas.remove()
 
         this.medias[i].elm.style.transform = `translate(${
           -this.x.current + this.medias[i].extra.x
-        }px, ${
-          -this.y.current + this.medias[i].extra.y + this.opOffset.value
-        }px)`
+        }px, ${-this.y.current + this.medias[i].extra.y}px)`
       }
 
       // webgl
       this.stage.onRaf()
       this.glElements.onResize()
-      for (let i = 0; i < this.medias.length; i++) {
-        const strengthX =
-          ((this.x.current - this.x.target) / window.innerWidth) * 1.8
-        const strengthY =
-          ((this.y.current - this.y.target) / window.innerWidth) * 1.8
-        const rotateValue = (strengthX + strengthY) / 16.0
-        this.meshArray[i]._setStrength(strengthX, strengthY)
-        this.meshArray[i]._setRotate(rotateValue)
-        this.meshArray[i].onRaf()
-      }
+      // for (let i = 0; i < this.medias.length; i++) {
+      //   const strengthX =
+      //     ((this.x.current - this.x.target) / window.innerWidth) * 1.8
+      //   const strengthY =
+      //     ((this.y.current - this.y.target) / window.innerWidth) * 1.8
+      //   const rotateValue = (strengthX + strengthY) / 16.0
+      //   this.meshArray[i]._setStrength(strengthX, strengthY)
+      //   this.meshArray[i]._setRotate(rotateValue)
+      //   this.meshArray[i].onRaf()
+      // }
     },
     onTouchDown(e) {
       if (this.hambergerMenuState) return
@@ -429,40 +429,34 @@ this.$refs.ArchiveCanvas.remove()
       }
     },
     onOpening() {
-      this.$refs.ArchiveCanvas.style.display = 'block'
-      this.$refs.ArchiveCanvas.style.opacity = 1.0
-      this.$refs.ArchiveCanvas.style.zIndex = 1.0
-      this.$refs.ArchiveCover.style.opacity = 0
+      // this.isOpenningEnd = true
 
-
-      this.$gsap.to(this.opOffset, {
-        duration: this.$SITECONFIG.baseDuration,
-        delay: 0.2,
-        ease: this.$EASING.transform,
-        value: 0,
-        onUpdate: () => {
-          this.y.target = -this.opOffset.value
-        },
-        onComplete: () => {
-          this.isOpenningEnd = true
-
-          // events
-          setTimeout(() => {
-            window.addEventListener('resize', this.onResize)
-            window.addEventListener('resize', this.setWrapPosition)
-            window.removeEventListener('wheel', preEvent, { passive: false })
-            window.addEventListener('mousedown', this.onTouchDown)
-            window.addEventListener('mousemove', this.onTouchMove)
-            window.addEventListener('mouseup', this.onTouchUp)
-            window.addEventListener('touchstart', this.onTouchDown)
-            window.addEventListener('touchmove', this.onTouchMove)
-            window.addEventListener('touchend', this.onTouchUp)
-            window.addEventListener('wheel', this.onMouseWheel)
-            window.addEventListener('keyup', this.onKeyUp)
-            window.addEventListener('keydown', this.onKeyDown)
-          }, 100)
-        },
+      this.$gsap.to(this.$refs.ArchiveCanvas, {
+        duration: this.$SITECONFIG.fullDuration,
+        delay: 0.6,
+        ease: this.$EASING.colorAndOpacity,
+        opacity: 1.0,
       })
+
+      for (let i = 0; i < this.medias.length; i++) {
+        this.meshArray[i].onOpening(0.6)
+      }
+
+      // events
+      setTimeout(() => {
+        window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.setWrapPosition)
+        window.removeEventListener('wheel', preEvent, { passive: false })
+        window.addEventListener('mousedown', this.onTouchDown)
+        window.addEventListener('mousemove', this.onTouchMove)
+        window.addEventListener('mouseup', this.onTouchUp)
+        window.addEventListener('touchstart', this.onTouchDown)
+        window.addEventListener('touchmove', this.onTouchMove)
+        window.addEventListener('touchend', this.onTouchUp)
+        window.addEventListener('wheel', this.onMouseWheel)
+        window.addEventListener('keyup', this.onKeyUp)
+        window.addEventListener('keydown', this.onKeyDown)
+      }, 100)
     },
   },
 }
@@ -476,7 +470,7 @@ $gap-sp: 26px;
   background-color: $darkBlack;
 }
 
-.archive-cover{
+.archive-cover {
   position: absolute;
   top: 0;
   left: 0;
@@ -501,7 +495,6 @@ $gap-sp: 26px;
   padding: $gap * 0.5;
   box-sizing: content-box;
   z-index: 1;
-  // transform: translate(0, 9999px);
 
   @include sp() {
     grid-template-columns: repeat(auto-fit, #{vw_sp(352)});
@@ -518,7 +511,6 @@ $gap-sp: 26px;
   height: vw(300);
   border-radius: 6px;
   overflow: hidden;
-  transform: translate(0, 9999px);
   opacity: 0;
 
   @include sp() {
@@ -618,19 +610,18 @@ $gap-sp: 26px;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
 }
 
 .archive-canvas {
-  display: none;
-  opacity: 0;
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
+  opacity: 0;
 }
 </style>

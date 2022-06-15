@@ -1,6 +1,4 @@
-import {
-  gsap
-} from 'gsap';
+import { gsap } from 'gsap';
 import * as THREE from 'three';
 import vertexShader from './shaders/vertexshader.vert';
 import fragmentShader from './shaders/fragmentshader.frag';
