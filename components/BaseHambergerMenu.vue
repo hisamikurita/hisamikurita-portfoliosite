@@ -67,7 +67,7 @@
                   <span class="hambergerMenu-item-img">
                     <picture>
                       <img
-                        :src="`/images/about-archive-01.jpg`"
+                        :src="`/images/archive.jpg`"
                         :width="`180`"
                         :height="`180`"
                         :alt="`archive`"
