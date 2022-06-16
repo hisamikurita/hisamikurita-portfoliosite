@@ -17,7 +17,12 @@ export default class GlElments {
       this.optionList[i].height = rect.height;
       this.optionList[i].top = rect.top;
       this.optionList[i].left = rect.left;
-      this.optionList[i].img = this.targetElArray[i].dataset.img;
+      if(window.innerWidth > 767){
+        this.optionList[i].img = this.targetElArray[i].dataset.pcimg;
+      }
+      else{
+        this.optionList[i].img = this.targetElArray[i].dataset.spimg;
+      }
     }
   }
 

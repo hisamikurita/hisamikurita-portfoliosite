@@ -23,7 +23,18 @@ export default class Mesh {
     };
     this.mesh = null;
 
+    this.image = null;
+
     this.texture = new THREE.TextureLoader().load(this.elements.img)
+
+    this.textureSize = null;
+
+    if(this.config.isPc){
+      this.textureSize = { x: 220, y: 300 }
+    }
+    else{
+      this.textureSize = { x: 176, y: 264 }
+    }
 
     this.windowWidth = 0;
     this.windowHeight = 0;
@@ -73,7 +84,7 @@ export default class Mesh {
         },
         u_texturesize: {
           type: "v2",
-          value: { x: 220, y: 300 }
+          value: this.textureSize
         },
         u_resolution: {
           type: "v2",

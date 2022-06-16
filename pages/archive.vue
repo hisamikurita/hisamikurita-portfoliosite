@@ -6,7 +6,8 @@
         :key="index"
         ref="ArchiveItem"
         class="archive-item"
-        :data-img="`/images/${archive.image}`"
+        :data-pcimg="`/images/${archive.image.pc}`"
+        :data-spimg="`/images/archive-01-sp.png`"
       >
         <a
           :href="`${archive.link}`"
@@ -19,13 +20,19 @@
             <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
             <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
           </span> -->
-          <img
-            class="archive-img"
-            :src="`/images/${archive.image}`"
-            width="440"
-            height="680"
-            :alt="`${archive.fullTitle}`"
-          />
+          <picture>
+            <source
+              :srcset="`/images/archive-01-sp.png`"
+              media="(max-width: 767px)"
+            />
+            <img
+              class="archive-img"
+              :src="`/images/${archive.image.pc}`"
+              width="440"
+              height="680"
+              :alt="`${archive.fullTitle}`"
+            />
+          </picture>
         </a>
       </li>
     </ul>
@@ -136,7 +143,7 @@ export default {
 
     this.isOpenningEnd = false
     this.opOffset = {
-      value: this.wrapperRect.height,
+      value: this.wrapperRect.height * 1.20,
       end: this.wrapperRect.height,
     }
 
