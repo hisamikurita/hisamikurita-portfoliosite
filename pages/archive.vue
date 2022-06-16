@@ -7,7 +7,7 @@
         ref="ArchiveItem"
         class="archive-item"
         :data-pcimg="`/images/${archive.image.pc}`"
-        :data-spimg="`/images/archive-01-sp.png`"
+        :data-spimg="`/images/${archive.image.sp}`"
       >
         <a
           :href="`${archive.link}`"
@@ -22,7 +22,7 @@
           </span> -->
           <picture>
             <source
-              :srcset="`/images/archive-01-sp.png`"
+              :srcset="`/images/${archive.image.sp}`"
               media="(max-width: 767px)"
             />
             <img
@@ -442,7 +442,7 @@ export default {
     },
     onOpening() {
       this.$gsap.to(this.opOffset, {
-        duration: this.$SITECONFIG.fullDuration + 0.40,
+        duration: this.$SITECONFIG.fullDuration + 0.80,
         delay: 0.2,
         ease: this.$EASING.transform,
         value: -this.opOffset.end,
