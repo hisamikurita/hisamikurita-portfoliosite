@@ -81,7 +81,7 @@ export default {
       // update
       this.setWrapPosition()
 
-      this.crateMesh();
+      this.crateMesh()
 
       setTimeout(() => {
         this.$gsap.ticker.add(this.updatePosition)
@@ -109,7 +109,7 @@ export default {
         // update
         this.setWrapPosition()
 
-        this.crateMesh();
+        this.crateMesh()
 
         setTimeout(() => {
           this.raf = this.$gsap.ticker.add(this.updatePosition)
@@ -120,6 +120,8 @@ export default {
   },
 
   mounted() {
+    this.wrapper = this.$refs.ArchiveList
+    this.wrapperRect = this.wrapper.getBoundingClientRect()
     this.raf = null
     // init
     this.medias = []
@@ -133,6 +135,11 @@ export default {
     }
 
     this.isOpenningEnd = false
+    this.opOffset = {
+      value: this.wrapperRect.height,
+      end: this.wrapperRect.height,
+    }
+
     this.isDown = false
     this.x = {
       start: 0,
@@ -149,7 +156,7 @@ export default {
       end: 0,
       distance: 0,
       allDistance: 0,
-      target: 0,
+      target: -this.opOffset.value,
       current: 0,
       lerp: 0.075,
       direction: '',
@@ -164,7 +171,7 @@ export default {
     }
     this.wheel = {
       x: 0,
-      y: 0,
+      y: this.opOffset.end,
     }
     this.key = {
       x: 0,
@@ -176,8 +183,6 @@ export default {
       y: 0,
     }
     this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0
-    this.wrapper = this.$refs.ArchiveList
-    this.wrapperRect = null
     this.width = window.innerWidth
 
     this.$nextTick(() => {
@@ -224,19 +229,19 @@ export default {
   },
 
   methods: {
-    crateMesh(){
-        this.stage = new Stage(this.$refs.ArchiveCanvas)
-        this.stage.init()
+    crateMesh() {
+      this.stage = new Stage(this.$refs.ArchiveCanvas)
+      this.stage.init()
 
-        this.meshArray = []
+      this.meshArray = []
 
-        this.glElements = new GlElements(this.$refs.ArchiveItem)
-        this.glElements.init()
+      this.glElements = new GlElements(this.$refs.ArchiveItem)
+      this.glElements.init()
 
-        this.glElements.optionList.forEach((item, i) => {
-          this.meshArray[i] = new Mesh(this.stage, item, this.$SITECONFIG)
-          this.meshArray[i].init()
-        })
+      this.glElements.optionList.forEach((item, i) => {
+        this.meshArray[i] = new Mesh(this.stage, item, this.$SITECONFIG)
+        this.meshArray[i].init()
+      })
     },
 
     setWrapPosition() {
@@ -305,22 +310,22 @@ export default {
 
         this.medias[i].elm.style.transform = `translate(${
           -this.x.current + this.medias[i].extra.x
-        }px, ${-this.y.current + this.medias[i].extra.y}px)`
+        }px, ${-this.y.current + this.medias[i].extra.y + this.opOffset.value}px)`
       }
 
       // webgl
       this.stage.onRaf()
       this.glElements.onResize()
-      // for (let i = 0; i < this.medias.length; i++) {
-      //   const strengthX =
-      //     ((this.x.current - this.x.target) / window.innerWidth) * 1.8
-      //   const strengthY =
-      //     ((this.y.current - this.y.target) / window.innerWidth) * 1.8
-      //   const rotateValue = (strengthX + strengthY) / 16.0
-      //   this.meshArray[i]._setStrength(strengthX, strengthY)
-      //   this.meshArray[i]._setRotate(rotateValue)
-      //   this.meshArray[i].onRaf()
-      // }
+      for (let i = 0; i < this.medias.length; i++) {
+        const strengthX =
+          ((this.x.current - this.x.target) / window.innerWidth) * 1.8
+        const strengthY =
+          ((this.y.current - this.y.target) / window.innerWidth) * 1.8
+        const rotateValue = (strengthX + strengthY) / 16.0
+        this.meshArray[i]._setStrength(strengthX, strengthY)
+        this.meshArray[i]._setRotate(rotateValue)
+        this.meshArray[i].onRaf()
+      }
     },
     onTouchDown(e) {
       if (this.hambergerMenuState) return
@@ -429,34 +434,39 @@ export default {
       }
     },
     onOpening() {
-      // this.isOpenningEnd = true
-
-      this.$gsap.to(this.$refs.ArchiveCanvas, {
+      this.$gsap.to(this.opOffset, {
         duration: this.$SITECONFIG.fullDuration,
-        delay: 0.6,
-        ease: this.$EASING.colorAndOpacity,
-        opacity: 1.0,
+        delay: 0.2,
+        ease: this.$EASING.transform,
+        value: -this.opOffset.end,
+        onUpdate: () => {
+          this.y.target = -this.opOffset.value
+
+          if(this.y.target > 0){
+            this.isOpenningEnd = true
+          }
+        },
+        onComplete: () => {
+          // events
+          setTimeout(() => {
+            // this.y.target = 0;
+            // this.y.current = 0;
+
+            window.addEventListener('resize', this.onResize)
+            window.addEventListener('resize', this.setWrapPosition)
+            window.removeEventListener('wheel', preEvent, { passive: false })
+            window.addEventListener('mousedown', this.onTouchDown)
+            window.addEventListener('mousemove', this.onTouchMove)
+            window.addEventListener('mouseup', this.onTouchUp)
+            window.addEventListener('touchstart', this.onTouchDown)
+            window.addEventListener('touchmove', this.onTouchMove)
+            window.addEventListener('touchend', this.onTouchUp)
+            window.addEventListener('wheel', this.onMouseWheel)
+            window.addEventListener('keyup', this.onKeyUp)
+            window.addEventListener('keydown', this.onKeyDown)
+          }, 100)
+        },
       })
-
-      for (let i = 0; i < this.medias.length; i++) {
-        this.meshArray[i].onOpening(0.6)
-      }
-
-      // events
-      setTimeout(() => {
-        window.addEventListener('resize', this.onResize)
-        window.addEventListener('resize', this.setWrapPosition)
-        window.removeEventListener('wheel', preEvent, { passive: false })
-        window.addEventListener('mousedown', this.onTouchDown)
-        window.addEventListener('mousemove', this.onTouchMove)
-        window.addEventListener('mouseup', this.onTouchUp)
-        window.addEventListener('touchstart', this.onTouchDown)
-        window.addEventListener('touchmove', this.onTouchMove)
-        window.addEventListener('touchend', this.onTouchUp)
-        window.addEventListener('wheel', this.onMouseWheel)
-        window.addEventListener('keyup', this.onKeyUp)
-        window.addEventListener('keydown', this.onKeyDown)
-      }, 100)
     },
   },
 }
@@ -512,6 +522,7 @@ $gap-sp: 26px;
   border-radius: 6px;
   overflow: hidden;
   opacity: 0;
+  transform: translate(0, 9999px);
 
   @include sp() {
     width: vw_sp(352);
@@ -622,6 +633,5 @@ $gap-sp: 26px;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0;
 }
 </style>
