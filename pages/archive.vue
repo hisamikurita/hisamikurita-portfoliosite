@@ -435,7 +435,7 @@ export default {
     },
     onOpening() {
       this.$gsap.to(this.opOffset, {
-        duration: this.$SITECONFIG.fullDuration,
+        duration: this.$SITECONFIG.fullDuration + 0.40,
         delay: 0.2,
         ease: this.$EASING.transform,
         value: -this.opOffset.end,
