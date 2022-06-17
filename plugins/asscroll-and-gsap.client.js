@@ -13,7 +13,6 @@ const asscrollScrollEl = document.querySelector('.asscroll');
 const asscroll = new ASScroll({
   containerElement: asscrollContainerEl,
   scrollElements: asscrollScrollEl,
-  touchScrollType: 'scrollTop',
   ease: 0.09,
   customScrollbar: false,
 });
@@ -29,11 +28,11 @@ const fixSection = (trigger, deveice, height) => {
     ease: 'none',
     scrollTrigger: {
       pin: true,
-      pinType: 'transform',
+      pinType: deveice ? 'fixed' : 'transform',
       trigger: trigger,
       start: 'start end',
       end: () => `+=${height - window.innerHeight}px`,
-      scrub: 0,
+      scrub: true,
       invalidateOnRefresh: true,
     },
   })

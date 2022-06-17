@@ -127,7 +127,11 @@ export default {
   },
 
   mounted() {
-    this.$preDefaultEvent(true)
+    if (this.$SITECONFIG.isTouch) {
+        window.addEventListener('wheel', preEvent, { passive: false })
+      window.addEventListener('scroll', preEvent, { passive: false })
+    }
+
 
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
@@ -211,16 +215,20 @@ export default {
   },
 
   beforeDestroy() {
-    window.addEventListener('wheel', preEvent, { passive: false })
+       if (this.$SITECONFIG.isTouch) {
+        window.removeEventListener('wheel', preEvent, { passive: false })
+      window.removeEventListener('scroll', preEvent, { passive: false })
+    }
+
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
     window.removeEventListener('mousedown', this.onTouchDown)
     window.removeEventListener('mousemove', this.onTouchMove)
     window.removeEventListener('mouseup', this.onTouchUp)
-    window.removeEventListener('touchstart', this.onTouchDown)
-    window.removeEventListener('touchmove', this.onTouchMove)
-    window.removeEventListener('touchend', this.onTouchUp)
-    window.removeEventListener('wheel', this.onMouseWheel)
+    window.removeEventListener('touchstart', this.onTouchDown, { passive: false })
+    window.removeEventListener('touchmove', this.onTouchMove, { passive: false })
+    window.removeEventListener('touchend', this.onTouchUp, { passive: false })
+    window.removeEventListener('wheel', this.onMouseWheel, { passive: false })
     window.removeEventListener('keyup', this.onKeyUp)
     window.removeEventListener('keydown', this.onKeyDown)
     this.$gsap.ticker.remove(this.updatePosition)
@@ -339,6 +347,8 @@ export default {
       }
     },
     onTouchDown(e) {
+      // e.preventDefault()
+
       if (this.hambergerMenuState) return
 
       this.isDown = true
@@ -350,6 +360,8 @@ export default {
       this.scrollCurrent.y = this.save.y
     },
     onTouchMove(e) {
+      e.preventDefault()
+
       if (this.hambergerMenuState || !this.isDown) return
 
       this.$refs.ArchiveList.style.pointerEvents = 'none'
@@ -367,6 +379,8 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onTouchUp(e) {
+      // e.preventDefault()
+
       if (this.hambergerMenuState) return
 
       this.isDown = false
@@ -463,14 +477,13 @@ export default {
           setTimeout(() => {
             window.addEventListener('resize', this.onResize)
             window.addEventListener('resize', this.setWrapPosition)
-            window.removeEventListener('wheel', preEvent, { passive: false })
             window.addEventListener('mousedown', this.onTouchDown)
             window.addEventListener('mousemove', this.onTouchMove)
             window.addEventListener('mouseup', this.onTouchUp)
-            window.addEventListener('touchstart', this.onTouchDown)
-            window.addEventListener('touchmove', this.onTouchMove)
-            window.addEventListener('touchend', this.onTouchUp)
-            window.addEventListener('wheel', this.onMouseWheel)
+            window.addEventListener('touchstart', this.onTouchDown, { passive: false })
+            window.addEventListener('touchmove', this.onTouchMove, { passive: false })
+            window.addEventListener('touchend', this.onTouchUp, { passive: false })
+            window.addEventListener('wheel', this.onMouseWheel, { passive: false })
             window.addEventListener('keyup', this.onKeyUp)
             window.addEventListener('keydown', this.onKeyDown)
           }, 100)
