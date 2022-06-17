@@ -42,7 +42,7 @@
 
 <script>
 import ImagesLoaded from 'imagesloaded'
-import { preEvent } from '../assets/js/preEvent'
+// import { preEvent } from '../assets/js/preEvent'
 import Mesh from '../components/canvas/archive/mesh'
 import GlElements from '../components/canvas/archive/gl-elements'
 import Stage from '../components/canvas/stage'
@@ -127,11 +127,10 @@ export default {
   },
 
   mounted() {
-    if (this.$SITECONFIG.isTouch) {
-        window.addEventListener('wheel', preEvent, { passive: false })
-      window.addEventListener('scroll', preEvent, { passive: false })
-    }
-
+    // if (this.$SITECONFIG.isTouch) {
+    //     window.addEventListener('wheel', preEvent, { passive: false })
+    //   window.addEventListener('scroll', preEvent, { passive: false })
+    // }
 
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
@@ -215,10 +214,10 @@ export default {
   },
 
   beforeDestroy() {
-       if (this.$SITECONFIG.isTouch) {
-        window.removeEventListener('wheel', preEvent, { passive: false })
-      window.removeEventListener('scroll', preEvent, { passive: false })
-    }
+    //    if (this.$SITECONFIG.isTouch) {
+    //     window.removeEventListener('wheel', preEvent, { passive: false })
+    //   window.removeEventListener('scroll', preEvent, { passive: false })
+    // }
 
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
