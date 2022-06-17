@@ -143,7 +143,7 @@ export default {
 
     this.isOpenningEnd = false
     this.opOffset = {
-      value: this.wrapperRect.height * 1.20,
+      value: this.wrapperRect.height * 1.2,
       end: this.wrapperRect.height,
     }
 
@@ -317,7 +317,9 @@ export default {
 
         this.medias[i].elm.style.transform = `translate(${
           -this.x.current + this.medias[i].extra.x
-        }px, ${-this.y.current + this.medias[i].extra.y + this.opOffset.value}px)`
+        }px, ${
+          -this.y.current + this.medias[i].extra.y + this.opOffset.value
+        }px)`
       }
 
       // webgl
@@ -430,34 +432,33 @@ export default {
         this.x.target = 0
         this.y.target = 0
 
-        this.stage.onResize()
-
         for (let i = 0; i < this.medias.length; i++) {
           this.medias[i].extra.x = 0
           this.medias[i].extra.y = 0
-
-          this.meshArray[i].onResize()
         }
+      }
+
+      this.stage.onResize()
+
+      for (let i = 0; i < this.medias.length; i++) {
+        this.meshArray[i].onResize()
       }
     },
     onOpening() {
       this.$gsap.to(this.opOffset, {
-        duration: this.$SITECONFIG.fullDuration + 0.80,
+        duration: this.$SITECONFIG.fullDuration + 0.8,
         ease: this.$EASING.transform,
         value: -this.opOffset.end,
         onUpdate: () => {
           this.y.target = -this.opOffset.value
 
-          if(this.y.target > 0){
+          if (this.y.target > 0) {
             this.isOpenningEnd = true
           }
         },
         onComplete: () => {
           // events
           setTimeout(() => {
-            // this.y.target = 0;
-            // this.y.current = 0;
-
             window.addEventListener('resize', this.onResize)
             window.addEventListener('resize', this.setWrapPosition)
             window.removeEventListener('wheel', preEvent, { passive: false })
