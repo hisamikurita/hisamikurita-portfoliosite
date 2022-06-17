@@ -172,14 +172,14 @@ export default {
 }
 
 .cmn-text-segment-wrapper {
-  display: inline-block;
+  display: block;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .cmn-text-segment {
-  display: inline-block;
-  position: relative;
+  display: block;
   transform: translateY(103.8%);
   opacity: 0;
   white-space: nowrap;
