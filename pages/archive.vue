@@ -127,6 +127,8 @@ export default {
   },
 
   mounted() {
+    this.$preDefaultEvent(true)
+
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
     this.raf = null
