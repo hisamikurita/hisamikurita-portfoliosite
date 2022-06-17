@@ -12,6 +12,7 @@ const asscrollScrollEl = document.querySelector('.asscroll');
 
 const asscroll = new ASScroll({
   containerElement: asscrollContainerEl,
+  touchScrollType: 'scrollTop',
   scrollElements: asscrollScrollEl,
   ease: 0.09,
   customScrollbar: false,
