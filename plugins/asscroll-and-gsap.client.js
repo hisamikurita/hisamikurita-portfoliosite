@@ -33,7 +33,7 @@ const fixSection = (trigger, deveice, height) => {
       trigger: trigger,
       start: 'start end',
       end: () => `+=${height - window.innerHeight}px`,
-      scrub: true,
+      scrub: 0,
       invalidateOnRefresh: true,
     },
   })
