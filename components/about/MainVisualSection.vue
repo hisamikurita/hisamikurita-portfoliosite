@@ -261,8 +261,8 @@ export default {
   data: () => {
     return {
       delay: [0, 0.176, 0.4, 0.42, 0.6, 0.7],
-      isTextSegmentState: 'default',
-      isTextUnderlineState: 'default',
+      isTextSegmentState: 'init',
+      isTextUnderlineState: 'init',
     }
   },
 
