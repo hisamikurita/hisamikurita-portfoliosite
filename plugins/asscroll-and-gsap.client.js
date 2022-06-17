@@ -29,7 +29,7 @@ const fixSection = (trigger, deveice, height) => {
     ease: 'none',
     scrollTrigger: {
       pin: true,
-      pinType: deveice ? 'fixed' : 'transform',
+      pinType: 'transform',
       trigger: trigger,
       start: 'start end',
       end: () => `+=${height - window.innerHeight}px`,
