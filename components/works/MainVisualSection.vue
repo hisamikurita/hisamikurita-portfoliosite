@@ -220,8 +220,8 @@ export default {
       })
     },
     mvItemViewIn() {
-      // this.isTextSegmentState = 'center'
-      // this.isTextUnderlineState = 'extend'
+      this.isTextSegmentState = 'center'
+      this.isTextUnderlineState = 'extend'
     },
   },
 }

@@ -329,9 +329,9 @@ export default {
   methods: {
     mvItemViewIn() {
       // テキストアニメーション
-      // this.isTextSegmentState = 'center'
+      this.isTextSegmentState = 'center'
       // ラインアニメーション
-      // this.isTextUnderlineState = 'extend'
+      this.isTextUnderlineState = 'extend'
 
       // サークルアニメーション①
       this.$gsap.to(this.$refs.HeroBgCircle01, {

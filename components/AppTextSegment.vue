@@ -88,7 +88,7 @@ export default {
       })
       this.$gsap.set(this.textArray, {
         opacity: 1.0,
-        // y: 103.8,
+        yPercent: 103.8,
       })
     },
 
@@ -111,7 +111,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        y: 0,
+        yPercent: 0,
       })
     },
 
@@ -134,7 +134,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        y: -103.8,
+        yPercent: -103.8,
       })
     },
 
@@ -157,7 +157,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        y: 103.8,
+        yPercent: 103.8,
       })
     },
   },
@@ -169,18 +169,21 @@ export default {
   display: block;
   pointer-events: none;
   user-select: none;
+
+  @include sp() {
+    position: relative;
+    overflow: hidden;
+  }
 }
 
 .cmn-text-segment-wrapper {
-  display: block;
+  display: inline-block;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
 .cmn-text-segment {
-  display: block;
-  transform: translateY(103.8%);
+  display: inline-block;
   opacity: 0;
   white-space: nowrap;
 }
