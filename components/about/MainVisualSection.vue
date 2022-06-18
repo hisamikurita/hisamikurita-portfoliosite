@@ -357,8 +357,8 @@ export default {
 
   methods: {
     mvItemViewIn() {
-      this.isTextSegmentState = 'center'
-      this.isTextUnderlineState = 'extend'
+      // this.isTextSegmentState = 'center'
+      // this.isTextUnderlineState = 'extend'
       this.mesh.fadeIn()
     },
   },

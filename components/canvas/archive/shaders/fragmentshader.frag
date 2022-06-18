@@ -18,7 +18,10 @@ void main() {
       vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
     );
 
+    uv -= 0.5;
     uv *= ratio;
+    uv += 0.5;
+
 
     vec4 texture = texture2D(u_texture, uv);
 
