@@ -54,8 +54,7 @@
                 >IN THE SUMMER OF 22, I</span
               >STARTED PROGRAMMING. IT WA<br />S LATER THAN MOST, BUT I THI<br />NK
               I FOUND SOMETHING THAT I<br />WAS PASSIONATE ABOUT. I'VE B<br />EEN
-              WRITING CODE EVERY DAY<br />EVER SINCE. MY GREATEST STRE<br />NGTH
-              IS MY NEVER-ENDING INQ<br />UISITIVENESS.
+              WRITING CODE EVERY DAY<br />EVER SINCE. MY STRENGTH IS<br />INSATIABLE CURIOSITY.
             </span>
             <span class="pc-only">
               <AppTextUnderline
