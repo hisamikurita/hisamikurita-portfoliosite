@@ -127,7 +127,7 @@ export default {
   },
 
   mounted() {
-    this.$preDefaultEvent(false)
+    this.$preDefaultEvent(true)
 
     this.deviceRatioLerp = this.$SITECONFIG.isPc ? 1.0 : 2.0
     this.deviceRatioMove = this.$SITECONFIG.isPc ? 1.0 : 2.5
