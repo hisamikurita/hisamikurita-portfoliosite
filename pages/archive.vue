@@ -127,8 +127,6 @@ export default {
   },
 
   mounted() {
-    // this.$preDefaultEvent(true)
-    // this.$store.commit('body-class/bodyClass', 'archive')
     this.deviceRatioLerp = this.$SITECONFIG.isPc ? 1.0 : 2.0
     this.deviceRatioMove = this.$SITECONFIG.isPc ? 1.0 : 2.5
     this.wrapper = this.$refs.ArchiveList
@@ -236,11 +234,9 @@ export default {
       this.meshArray[i] = null
     }
     this.glElements = null
-    this.$refs.ArchiveCanvas.remove()
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
-    // this.$store.commit('body-class/bodyClass', '')
   },
 
   methods: {
@@ -345,8 +341,6 @@ export default {
       }
     },
     onTouchDown(e) {
-      // e.preventDefault()
-
       if (this.hambergerMenuState) return
 
       this.isDown = true
@@ -358,8 +352,6 @@ export default {
       this.scrollCurrent.y = this.save.y
     },
     onTouchMove(e) {
-      e.preventDefault()
-
       if (this.hambergerMenuState || !this.isDown) return
 
       this.$refs.ArchiveList.style.pointerEvents = 'none'
@@ -377,8 +369,6 @@ export default {
       this.y.target = this.y.distance + this.scrollCurrent.y
     },
     onTouchUp(e) {
-      // e.preventDefault()
-
       if (this.hambergerMenuState) return
 
       this.isDown = false
