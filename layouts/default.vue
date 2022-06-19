@@ -1,5 +1,5 @@
 <template>
-  <div :class="[isAndroid, isWindows, isSafari]">
+  <div :class="[bodyClass,isAndroid, isWindows, isSafari]">
     <BaseOpenning />
     <BaseMouse />
     <BaseLoading />
@@ -120,6 +120,9 @@ export default {
     indexPickupPos() {
       return this.$store.getters['indexPickup/pos']
     },
+    bodyClass() {
+      return this.$store.getters['body-class/state']
+    },
   },
   watch: {
     /**
@@ -179,7 +182,7 @@ export default {
      * ハンバーガーメニュー
      */
     hambergerMenuState: function () {
-      this.$preDefaultEvent(false)
+      // this.$preDefaultEvent(false)
 
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
@@ -532,6 +535,15 @@ export default {
 :root {
   --viewportWidth: 100vw;
   --viewportHeight: 100vh;
+}
+
+.archive{
+  position: relative;
+  overflow: hidden;
+}
+
+.clip{
+  // position: relative;
 }
 
 // asscroll

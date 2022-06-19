@@ -127,7 +127,8 @@ export default {
   },
 
   mounted() {
-    this.$preDefaultEvent(true)
+    // this.$preDefaultEvent(true)
+    this.$store.commit('body-class/bodyClass', 'archive')
 
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
@@ -239,6 +240,7 @@ export default {
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
+    this.$store.commit('body-class/bodyClass', '')
   },
 
   methods: {
