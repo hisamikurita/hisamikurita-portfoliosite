@@ -127,6 +127,8 @@ export default {
   },
 
   mounted() {
+    this.$preDefaultEvent(false)
+
     this.deviceRatioLerp = this.$SITECONFIG.isPc ? 1.0 : 2.0
     this.deviceRatioMove = this.$SITECONFIG.isPc ? 1.0 : 2.5
     this.wrapper = this.$refs.ArchiveList
@@ -210,11 +212,6 @@ export default {
   },
 
   beforeDestroy() {
-    //    if (this.$SITECONFIG.isTouch) {
-    //     window.removeEventListener('wheel', preEvent, { passive: false })
-    //   window.removeEventListener('scroll', preEvent, { passive: false })
-    // }
-
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('resize', this.setWrapPosition)
     window.removeEventListener('mousedown', this.onTouchDown)

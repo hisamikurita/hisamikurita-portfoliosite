@@ -182,10 +182,9 @@ export default {
      * ハンバーガーメニュー
      */
     hambergerMenuState: function () {
-      // this.$preDefaultEvent(false)
-
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
+        this.$preDefaultEvent(false)
         // 無効にしていたクリックエリアを有効にする
         this.$refs.AsscrollContainerCover.style.pointerEvents = 'auto'
 
