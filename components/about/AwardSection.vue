@@ -314,9 +314,8 @@ export default {
 <style lang="scss" scoped>
 .award {
   position: relative;
-  transform: translateZ(0);
   overflow: hidden;
-  z-index: 10;
+  z-index: 1;
 }
 
 .award-bg {

@@ -1,164 +1,166 @@
 <template>
-  <div ref="Intro" class="intro">
-    <span ref="IntroSpacer01" class="intro-spacer-01"></span>
-    <span ref="IntroSpacer02" class="intro-spacer-02"></span>
-    <div ref="IntroWrapper" class="intro-wrapper">
-      <AppCircleBg
-        ref="IntroCircleBg"
-        :state="isCircleBgState"
-        :modifier="'about-intro'"
-      />
-      <p ref="IntroReadText" class="intro-read-text">
-        INTRODUCTION INTRODUCTION INT
-      </p>
-      <div ref="IntroBg" class="intro-bg">
-        <div ref="IntroBgClip" class="intro-bg-clip">
-          <div class="intro-bg-wrapper">
-            <div
-              ref="IntroBgCanvas"
-              class="intro-bg-canvas"
-              :data-pcimg="`/images/intro.jpg`"
-              :data-spimg="`/images/intro-sp.jpg`"
-            >
+  <div class="intro">
+    <div ref="IntroContainer" class="intro-container">
+      <span ref="IntroSpacer01" class="intro-spacer-01"></span>
+      <span ref="IntroSpacer02" class="intro-spacer-02"></span>
+      <div ref="IntroWrapper" class="intro-wrapper">
+        <AppCircleBg
+          ref="IntroCircleBg"
+          :state="isCircleBgState"
+          :modifier="'about-intro'"
+        />
+        <p ref="IntroReadText" class="intro-read-text">
+          INTRODUCTION INTRODUCTION INT
+        </p>
+        <div ref="IntroBg" class="intro-bg">
+          <div ref="IntroBgClip" class="intro-bg-clip">
+            <div class="intro-bg-wrapper">
+              <div
+                ref="IntroBgCanvas"
+                class="intro-bg-canvas"
+                :data-pcimg="`/images/intro.jpg`"
+                :data-spimg="`/images/intro-sp.jpg`"
+              >
+              </div>
             </div>
+            <h2 class="intro-title">
+              <span class="intro-title-read-area">
+                <AppSectionReadTitle
+                  :state="isTextSegmentState"
+                  :text="['・', 'ABOUT']"
+                  :modifier="'section'"
+                />
+              </span>
+              <span class="pc-only">
+                <span class="intro-title-wrapper intro-title-wrapper-01">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :rotate="$BASEROTATE.right"
+                    :text="'HI, I WORK FULL REMOTE'"
+                    :sp-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-02">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.12"
+                    :rotate="$BASEROTATE.left"
+                    :text="'DURING THE WEEK, BUT I ALSO DO CREA'"
+                    :sp-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-03">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.24"
+                    :rotate="$BASEROTATE.right"
+                    :text="'TIVE CODING AS A HOBBY ON MY DAYS O'"
+                    :sp-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-04">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.36"
+                    :rotate="$BASEROTATE.left"
+                    :text="'FF. OTHER THAN THAT, I PLAY ANIME AND'"
+                    :sp-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-05">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.48"
+                    :rotate="$BASEROTATE.right"
+                    :text="'GAMES. MY SPECIAL SKILL IS GO.'"
+                    :sp-animation="false"
+                  />
+                </span>
+              </span>
+              <span class="sp-only">
+                <span class="intro-title-wrapper intro-title-wrapper-sp-01">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0"
+                    :rotate="$BASEROTATE.right"
+                    :text="'HI, I WORK'"
+                    :pc-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-02">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.12"
+                    :rotate="$BASEROTATE.left"
+                    :text="'FULL REMOTE DURING'"
+                    :pc-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-03">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.24"
+                    :rotate="$BASEROTATE.right"
+                    :text="'THE WEEK, BUT I ALSO'"
+                    :pc-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-04">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.36"
+                    :rotate="$BASEROTATE.left"
+                    :text="'DO CREATIVE CODING'"
+                    :pc-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-05">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.48"
+                    :rotate="$BASEROTATE.right"
+                    :text="'AS A HOBBY ON MY D'"
+                    :pc-animation="false"
+                  >
+                  </AppTextSegment>
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-06">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.6"
+                    :rotate="$BASEROTATE.left"
+                    :text="'AYS OFF. AND MY SPE'"
+                    :pc-animation="false"
+                  />
+                </span>
+                <span class="intro-title-wrapper intro-title-wrapper-sp-07">
+                  <AppTextSegment
+                    :state="isTextSegmentState"
+                    :start="0.72"
+                    :rotate="$BASEROTATE.right"
+                    :text="'CIAL SKILL IS GO.'"
+                    :pc-animation="false"
+                  />
+                </span>
+              </span>
+            </h2>
+            <p class="intro-note">
+              <span class="pc-only">
+                THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
+                WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
+                GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
+                CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M
+                STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE
+                DAY!
+              </span>
+              <span class="sp-only">
+                THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
+                WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
+                GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET
+                THEM AND WORK WITH THEM ONE DAY!
+              </span>
+            </p>
           </div>
-          <h2 class="intro-title">
-            <span class="intro-title-read-area">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="['・', 'ABOUT']"
-                :modifier="'section'"
-              />
-            </span>
-            <span class="pc-only">
-              <span class="intro-title-wrapper intro-title-wrapper-01">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :rotate="$BASEROTATE.right"
-                  :text="'HI, I WORK FULL REMOTE'"
-                  :sp-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-02">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.12"
-                  :rotate="$BASEROTATE.left"
-                  :text="'DURING THE WEEK, BUT I ALSO DO CREA'"
-                  :sp-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-03">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.24"
-                  :rotate="$BASEROTATE.right"
-                  :text="'TIVE CODING AS A HOBBY ON MY DAYS O'"
-                  :sp-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-04">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.36"
-                  :rotate="$BASEROTATE.left"
-                  :text="'FF. OTHER THAN THAT, I PLAY ANIME AND'"
-                  :sp-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-05">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :rotate="$BASEROTATE.right"
-                  :text="'GAMES. MY SPECIAL SKILL IS GO.'"
-                  :sp-animation="false"
-                />
-              </span>
-            </span>
-            <span class="sp-only">
-              <span class="intro-title-wrapper intro-title-wrapper-sp-01">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0"
-                  :rotate="$BASEROTATE.right"
-                  :text="'HI, I WORK'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-02">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.12"
-                  :rotate="$BASEROTATE.left"
-                  :text="'FULL REMOTE DURING'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-03">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.24"
-                  :rotate="$BASEROTATE.right"
-                  :text="'THE WEEK, BUT I ALSO'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-04">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.36"
-                  :rotate="$BASEROTATE.left"
-                  :text="'DO CREATIVE CODING'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-05">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :rotate="$BASEROTATE.right"
-                  :text="'AS A HOBBY ON MY D'"
-                  :pc-animation="false"
-                >
-                </AppTextSegment>
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-06">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.6"
-                  :rotate="$BASEROTATE.left"
-                  :text="'AYS OFF. AND MY SPE'"
-                  :pc-animation="false"
-                />
-              </span>
-              <span class="intro-title-wrapper intro-title-wrapper-sp-07">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.72"
-                  :rotate="$BASEROTATE.right"
-                  :text="'CIAL SKILL IS GO.'"
-                  :pc-animation="false"
-                />
-              </span>
-            </span>
-          </h2>
-          <p class="intro-note">
-            <span class="pc-only">
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
-              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
-              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, SO I STARTED
-              CSSANIMATION. I COULDN'T WRITE JAVASCRIPT BACK THEN. NOW I'M
-              STUDYING WEGBL HARD. I HOPE TO MEET THEM AND WORK WITH THEM ONE
-              DAY!
-            </span>
-            <span class="sp-only">
-              THE REASON WHY I STARTED CREATIVE CODING WAS BECAUSE I SAW A GREAT
-              WE SITE THAT USED CSSANIMATION AND WEBGL. THEIR WORK STILL LOOKS
-              GREAT AND I WANTED TO CREATE SOMETHING LIKE THAT, I HOPE TO MEET
-              THEM AND WORK WITH THEM ONE DAY!
-            </span>
-          </p>
         </div>
       </div>
     </div>
@@ -269,7 +271,7 @@ export default {
       this.mesh.onMouseMove(e)
     }
 
-    this.mObserve = this.$refs.Intro
+    this.mObserve = this.$refs.IntroContainer
     this.mObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -448,14 +450,19 @@ export default {
   --viewportHeight: 100vh;
 }
 
-.intro {
+.intro{
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.intro-container {
   position: relative;
   height: 5500px;
   margin: vw(600) 0 0 0;
-  z-index: 1;
 
   @include sp() {
-    margin: vw_sp(200) 0 0 0;
+    margin: vw_sp(340) 0 0 0;
   }
 }
 
