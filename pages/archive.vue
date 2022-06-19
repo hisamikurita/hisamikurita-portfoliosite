@@ -129,7 +129,8 @@ export default {
   mounted() {
     // this.$preDefaultEvent(true)
     // this.$store.commit('body-class/bodyClass', 'archive')
-    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0
+    this.deviceRatioLerp = this.$SITECONFIG.isPc ? 1.0 : 2.0
+    this.deviceRatioMove = this.$SITECONFIG.isPc ? 1.0 : 2.5
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
     this.raf = null
@@ -158,7 +159,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.075 / this.deviceRatio,
+      lerp: 0.075 / this.deviceRatioLerp,
       direction: '',
     }
     this.y = {
@@ -168,7 +169,7 @@ export default {
       allDistance: 0,
       target: -this.opOffset.value,
       current: 0,
-      lerp: 0.075 / this.deviceRatio,
+      lerp: 0.075 / this.deviceRatioLerp,
       direction: '',
     }
     this.scrollCurrent = {
@@ -369,8 +370,8 @@ export default {
       this.x.end = x
       this.y.end = y
 
-      this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
-      this.y.distance = (this.y.start - this.y.end) * this.deviceRatio
+      this.x.distance = (this.x.start - this.x.end) * this.deviceRatioMove
+      this.y.distance = (this.y.start - this.y.end) * this.deviceRatioMove
 
       this.x.target = this.x.distance + this.scrollCurrent.x
       this.y.target = this.y.distance + this.scrollCurrent.y
@@ -389,8 +390,8 @@ export default {
       this.x.end = x
       this.y.end = y
 
-      this.x.distance = (this.x.start - this.x.end) * this.deviceRatio
-      this.y.distance = (this.y.start - this.y.end) * this.deviceRatio
+      this.x.distance = (this.x.start - this.x.end) * this.deviceRatioMove
+      this.y.distance = (this.y.start - this.y.end) * this.deviceRatioMove
 
       this.x.allDistance += this.x.distance
       this.y.allDistance += this.y.distance
