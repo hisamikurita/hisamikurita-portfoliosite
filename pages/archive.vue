@@ -128,7 +128,7 @@ export default {
 
   mounted() {
     // this.$preDefaultEvent(true)
-    this.$store.commit('body-class/bodyClass', 'archive')
+    // this.$store.commit('body-class/bodyClass', 'archive')
 
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
@@ -240,7 +240,7 @@ export default {
     this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
-    this.$store.commit('body-class/bodyClass', '')
+    // this.$store.commit('body-class/bodyClass', '')
   },
 
   methods: {
@@ -497,6 +497,11 @@ $gap: 60px;
 $gap-sp: 26px;
 
 .archive {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: $darkBlack;
 }
 

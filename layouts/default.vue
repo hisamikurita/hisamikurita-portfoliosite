@@ -538,8 +538,8 @@ export default {
 }
 
 .archive{
-  position: relative;
-  overflow: hidden;
+  // position: relative;
+  // overflow: hidden;
 }
 
 .clip{
