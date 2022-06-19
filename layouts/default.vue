@@ -179,6 +179,8 @@ export default {
      * ハンバーガーメニュー
      */
     hambergerMenuState: function () {
+      this.$preDefaultEvent(false)
+
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
         // 無効にしていたクリックエリアを有効にする

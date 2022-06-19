@@ -127,10 +127,7 @@ export default {
   },
 
   mounted() {
-    // if (this.$SITECONFIG.isTouch) {
-    //     window.addEventListener('wheel', preEvent, { passive: false })
-    //   window.addEventListener('scroll', preEvent, { passive: false })
-    // }
+    this.$preDefaultEvent(true)
 
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
