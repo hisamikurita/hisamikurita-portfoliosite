@@ -9,14 +9,13 @@ import effectVertexShader from './shaders/effect-vertexshader.vert';
 import effectFragmentShader from './shaders/effect-fragmentshader.frag';
 
 export default class Mesh {
-  constructor(stage,config) {
+  constructor(stage,config,texture) {
     // ステージ
     this.stage = stage;
     // サイト共通の設定
     this.config = config;
     // 画像
-    this.texturePath = this.config.isPc ? '/images/intro.jpg' : '/images/intro-sp.jpg';
-    this.texture = new THREE.TextureLoader().load(this.texturePath);
+    this.texture = new THREE.TextureLoader().load(texture);
     // 画像の元のサイズ
     this.naturalSizes = {
       'pc' : {

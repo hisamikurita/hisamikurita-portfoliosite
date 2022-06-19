@@ -14,7 +14,13 @@
       <div ref="IntroBg" class="intro-bg">
         <div ref="IntroBgClip" class="intro-bg-clip">
           <div class="intro-bg-wrapper">
-            <div ref="IntroBgCanvas" class="intro-bg-canvas"></div>
+            <div
+              ref="IntroBgCanvas"
+              class="intro-bg-canvas"
+              :data-pcimg="`/images/intro.jpg`"
+              :data-spimg="`/images/intro-sp.jpg`"
+            >
+            </div>
           </div>
           <h2 class="intro-title">
             <span class="intro-title-read-area">
@@ -241,7 +247,9 @@ export default {
     this.stage = new Stage(this.$refs.IntroBgCanvas, this.$refs.IntroBgCanvas)
     this.stage.init()
 
-    this.mesh = new Mesh(this.stage, this.$SITECONFIG)
+    const texture = this.$SITECONFIG.isPc ? this.$refs.IntroBgCanvas.dataset.pcimg : this.$refs.IntroBgCanvas.dataset.spimg;
+
+    this.mesh = new Mesh(this.stage, this.$SITECONFIG, texture)
     this.mesh.init()
 
     this.mResize = () => {
