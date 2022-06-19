@@ -116,9 +116,11 @@ export default class Mesh {
   }
 
   _destroy() {
-    this.composer.removePass(this.customPass);
-    this.composer = null;
-    this.customPass = null;
+    if(this.config.isPc){
+      this.composer.removePass(this.customPass);
+      this.composer = null;
+      this.customPass = null;
+    }
     this.stage.scene.remove(this.mesh);
     this.texture.dispose();
     this.geometry.dispose();

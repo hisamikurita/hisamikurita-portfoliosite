@@ -241,7 +241,6 @@ export default {
     this.iObserver.unobserve(this.observe)
     this.iObserver = null
     this.$gsap.ticker.remove(this.introTextFixed)
-      this.$gsap.ticker.remove(this.fixSectionUpdate)
   },
 
   mounted() {
@@ -298,13 +297,6 @@ export default {
         this.$SITECONFIG.isTouch,
         5500
       )
-
-      this.fixSectionUpdate = () => {
-        console.log('発火')
-        this.fixSection.scrollTrigger.update();
-      }
-
-      this.$gsap.ticker.add(this.fixSectionUpdate)
 
       const textInit = this.$SITECONFIG.isPc ? vw(1280) : vwSp(750)
       const textMove = this.$SITECONFIG.isPc

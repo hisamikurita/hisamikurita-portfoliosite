@@ -10,6 +10,10 @@ gsap.ticker.fps(60);
 const asscrollContainerEl = document.querySelector('.asscroll-container');
 const asscrollScrollEl = document.querySelector('.asscroll');
 
+const ua = navigator.userAgent.toLowerCase()
+const ios = ua.includes("iphone") || ua.includes("ipad") || ua.includes("ipod")
+const pinType = ios ? 'fixed' : 'transform';
+
 const asscroll = new ASScroll({
   containerElement: asscrollContainerEl,
   touchScrollType: 'scrollTop',
@@ -29,7 +33,7 @@ const fixSection = (trigger, deveice, height) => {
     ease: 'none',
     scrollTrigger: {
       pin: true,
-      pinType: 'transform',
+      pinType: pinType,
       trigger: trigger,
       start: 'start end',
       end: () => `+=${height - window.innerHeight}px`,
