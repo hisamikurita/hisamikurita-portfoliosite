@@ -27,6 +27,7 @@ export default class Mesh {
         y: 1806
       },
     };
+    console.log(this.config)
     this.naturalSize = this.config.isPc ? this.naturalSizes.pc : this.naturalSizes.sp;
 
     this.geometryParm = {
@@ -47,7 +48,7 @@ export default class Mesh {
 
   init() {
     this._setMesh();
-    this._setPostEffect();
+    // this._setPostEffect();
   }
 
   _setMesh() {
@@ -151,10 +152,10 @@ export default class Mesh {
     this.diff.y = Math.abs((this.mouse.y - this.tween.y));
     this.mesh.material.uniforms.u_diffmouse.value.x = this.diff.x;
     this.mesh.material.uniforms.u_diffmouse.value.y = this.diff.y;
-    this.customPass.uniforms.u_diffmouse.value.x = this.diff.x;
-    this.customPass.uniforms.u_diffmouse.value.y = this.diff.y;
-    this.composer.setSize(this.stage.renderParam.width, this.stage.renderParam.height);
-    this.composer.render();
+    // this.customPass.uniforms.u_diffmouse.value.x = this.diff.x;
+    // this.customPass.uniforms.u_diffmouse.value.y = this.diff.y;
+    // this.composer.setSize(this.stage.renderParam.width, this.stage.renderParam.height);
+    // this.composer.render();
   }
 
   onRaf() {

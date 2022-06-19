@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 uniform sampler2D tDiffuse;
 uniform vec2 u_diffmouse;
 varying vec2 vUv;
