@@ -77,7 +77,10 @@ export default {
         sizes: '180x180',
         href: '/apple-touch-icon.png'
       },
-    ]
+    ],
+    bodyAttrs: {
+      oncontextmenu: 'return false'
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
