@@ -129,7 +129,7 @@ export default {
   mounted() {
     // this.$preDefaultEvent(true)
     // this.$store.commit('body-class/bodyClass', 'archive')
-
+    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
     this.raf = null
@@ -158,7 +158,7 @@ export default {
       allDistance: 0,
       target: 0,
       current: 0,
-      lerp: 0.075,
+      lerp: 0.075 / this.deviceRatio,
       direction: '',
     }
     this.y = {
@@ -168,7 +168,7 @@ export default {
       allDistance: 0,
       target: -this.opOffset.value,
       current: 0,
-      lerp: 0.075,
+      lerp: 0.075 / this.deviceRatio,
       direction: '',
     }
     this.scrollCurrent = {
@@ -192,7 +192,6 @@ export default {
       x: 0,
       y: 0,
     }
-    this.deviceRatio = this.$SITECONFIG.isPc ? 1.0 : 2.0
     this.width = window.innerWidth
 
     this.$nextTick(() => {
