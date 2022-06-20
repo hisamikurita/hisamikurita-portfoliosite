@@ -452,8 +452,11 @@ export default {
 
 .intro{
   position: relative;
-  overflow: hidden;
   z-index: 1;
+
+  @include sp() {
+    overflow: hidden;
+  }
 }
 
 .intro-container {
