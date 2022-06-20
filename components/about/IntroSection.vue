@@ -129,16 +129,7 @@
                     :state="isTextSegmentState"
                     :start="0.6"
                     :rotate="$BASEROTATE.left"
-                    :text="'AYS OFF. AND MY SPE'"
-                    :pc-animation="false"
-                  />
-                </span>
-                <span class="intro-title-wrapper intro-title-wrapper-sp-07">
-                  <AppTextSegment
-                    :state="isTextSegmentState"
-                    :start="0.72"
-                    :rotate="$BASEROTATE.right"
-                    :text="'CIAL SKILL IS GO.'"
+                    :text="'AYS OFF.'"
                     :pc-animation="false"
                   />
                 </span>
@@ -591,6 +582,7 @@ export default {
   left: 0;
   width: var(--viewportWidth, 100vw);
   height: var(--viewportHeight, 100vh);
+  will-change: transform;
 }
 
 .intro-title {
