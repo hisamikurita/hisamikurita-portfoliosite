@@ -67,7 +67,7 @@ export default {
   },
 
   mounted() {
-    this.movePercent = this.$SITECONFIG.isPc ? 105 : 112;
+    this.movePercent = this.$SITECONFIG.isPc ? 105 : 124;
     if (
       (!this.spAnimation && this.$SITECONFIG.isMobile) ||
       (!this.pcAnimation && this.$SITECONFIG.isPc)
