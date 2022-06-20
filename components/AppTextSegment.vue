@@ -67,6 +67,7 @@ export default {
   },
 
   mounted() {
+    this.movePercent = this.$SITECONFIG.isPc ? 105 : 112;
     if (
       (!this.spAnimation && this.$SITECONFIG.isMobile) ||
       (!this.pcAnimation && this.$SITECONFIG.isPc)
@@ -88,7 +89,7 @@ export default {
       })
       this.$gsap.set(this.textArray, {
         opacity: 1.0,
-        yPercent: 105,
+        yPercent: this.movePercent,
       })
     },
 
@@ -134,7 +135,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        yPercent: -105,
+        yPercent: -this.movePercent,
       })
     },
 
@@ -157,7 +158,7 @@ export default {
         stagger: {
           each: 0.008,
         },
-        yPercent: 105,
+        yPercent: this.movePercent,
       })
     },
   },
