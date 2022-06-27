@@ -456,7 +456,7 @@ export default {
   margin: vw(600) 0 0 0;
 
   @include sp() {
-    margin: vw_sp(340) 0 0 0;
+    margin: vw_sp(380) 0 0 0;
   }
 }
 
