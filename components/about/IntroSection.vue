@@ -18,8 +18,8 @@
               <div
                 ref="IntroBgCanvas"
                 class="intro-bg-canvas"
-                :data-pcimg="`/images/intro.jpg`"
-                :data-spimg="`/images/intro-sp.jpg`"
+                :data-pcimg="`/images/intro.webp`"
+                :data-spimg="`/images/intro-sp.webp`"
               >
               </div>
             </div>

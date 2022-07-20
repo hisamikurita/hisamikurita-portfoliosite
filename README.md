@@ -1,6 +1,6 @@
 # hisamikurita-portfolio
 
-![](./static//images//ogp.jpg)
+![](./static//images//ogp.webp)
 
 ## Technorogy
 

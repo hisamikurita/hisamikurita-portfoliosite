@@ -4,8 +4,8 @@
     "shortTitle": "PE",
     "link": "https://hisamikurita.github.io/pokemon-evolution/dist/",
     "image": {
-      "pc" : "archive-01.png",
-      "sp" : "archive-01-sp.png"
+      "pc" : "archive-01.webp",
+      "sp" : "archive-01-sp.webp"
     }
   },
   {
@@ -13,8 +13,8 @@
     "shortTitle": "3PM",
     "link": "https://hisamikurita.github.io/3d-particle-mofing/public/",
     "image": {
-      "pc" : "archive-02.png",
-      "sp" : "archive-02-sp.png"
+      "pc" : "archive-02.webp",
+      "sp" : "archive-02-sp.webp"
     }
   },
   {
@@ -22,8 +22,8 @@
     "shortTitle": "PG",
     "link": "https://hisamikurita.github.io/posteffect-gradation/public/",
     "image": {
-      "pc" : "archive-03.png",
-      "sp" : "archive-03-sp.png"
+      "pc" : "archive-03.webp",
+      "sp" : "archive-03-sp.webp"
     }
   },
   {
@@ -31,8 +31,8 @@
     "shortTitle": "CPR",
     "link": "https://codepen.io/hisamikurita/full/dyyJVQN",
     "image": {
-      "pc" : "archive-04.png",
-      "sp" : "archive-04-sp.png"
+      "pc" : "archive-04.webp",
+      "sp" : "archive-04-sp.webp"
     }
   },
   {
@@ -40,8 +40,8 @@
     "shortTitle": "TP3M",
     "link": "https://codepen.io/hisamikurita/full/NWppvZe",
     "image": {
-      "pc" : "archive-05.png",
-      "sp" : "archive-05-sp.png"
+      "pc" : "archive-05.webp",
+      "sp" : "archive-05-sp.webp"
     }
   },
   {
@@ -49,8 +49,8 @@
     "shortTitle": "TS",
     "link": "https://codepen.io/hisamikurita/full/MWjpNmX",
     "image": {
-      "pc" : "archive-06.png",
-      "sp" : "archive-06-sp.png"
+      "pc" : "archive-06.webp",
+      "sp" : "archive-06-sp.webp"
     }
   },
   {
@@ -58,8 +58,8 @@
     "shortTitle": "MS",
     "link": "https://codepen.io/hisamikurita/full/eYJYLvL",
     "image": {
-      "pc" : "archive-07.png",
-      "sp" : "archive-07-sp.png"
+      "pc" : "archive-07.webp",
+      "sp" : "archive-07-sp.webp"
     }
   },
   {
@@ -67,8 +67,8 @@
     "shortTitle": "CPR",
     "link": "https://codepen.io/hisamikurita/full/JjjJvNY",
     "image": {
-      "pc" : "archive-08.png",
-      "sp" : "archive-08-sp.png"
+      "pc" : "archive-08.webp",
+      "sp" : "archive-08-sp.webp"
     }
   },
   {
@@ -76,8 +76,8 @@
     "shortTitle": "BB",
     "link": "https://codepen.io/hisamikurita/full/GRgpdgX",
     "image": {
-      "pc" : "archive-09.png",
-      "sp" : "archive-09-sp.png"
+      "pc" : "archive-09.webp",
+      "sp" : "archive-09-sp.webp"
     }
   },
   {
@@ -85,8 +85,8 @@
     "shortTitle": "MA",
     "link": "https://codepen.io/hisamikurita/full/VwYExXy",
     "image": {
-      "pc" : "archive-10.png",
-      "sp" : "archive-10-sp.png"
+      "pc" : "archive-10.webp",
+      "sp" : "archive-10-sp.webp"
     }
   },
   {
@@ -94,8 +94,8 @@
     "shortTitle": "DH",
     "link": "https://codepen.io/hisamikurita/full/gObxKyM",
     "image": {
-      "pc" : "archive-11.png",
-      "sp" : "archive-11-sp.png"
+      "pc" : "archive-11.webp",
+      "sp" : "archive-11-sp.webp"
     }
   },
   {
@@ -103,8 +103,8 @@
     "shortTitle": "VPR",
     "link": "https://codepen.io/hisamikurita/full/dyYLGYm",
     "image": {
-      "pc" : "archive-12.png",
-      "sp" : "archive-12-sp.png"
+      "pc" : "archive-12.webp",
+      "sp" : "archive-12-sp.webp"
     }
   },
   {
@@ -112,8 +112,8 @@
     "shortTitle": "TS",
     "link": "https://codepen.io/hisamikurita/full/WNGjNgx",
     "image": {
-      "pc" : "archive-13.png",
-      "sp" : "archive-13-sp.png"
+      "pc" : "archive-13.webp",
+      "sp" : "archive-13-sp.webp"
     }
   },
   {
@@ -121,8 +121,8 @@
     "shortTitle": "PA",
     "link": "https://codepen.io/hisamikurita/full/mdeLwJW",
     "image": {
-      "pc" : "archive-14.png",
-      "sp" : "archive-14-sp.png"
+      "pc" : "archive-14.webp",
+      "sp" : "archive-14-sp.webp"
     }
   },
   {
@@ -130,8 +130,8 @@
     "shortTitle": "TP2M",
     "link": "https://codepen.io/hisamikurita/full/ExwYwdV",
     "image": {
-      "pc" : "archive-15.png",
-      "sp" : "archive-15-sp.png"
+      "pc" : "archive-15.webp",
+      "sp" : "archive-15-sp.webp"
     }
   },
   {
@@ -139,8 +139,8 @@
     "shortTitle": "TSNI",
     "link": "https://codepen.io/hisamikurita/full/VwmwVvv",
     "image": {
-      "pc" : "archive-16.png",
-      "sp" : "archive-16-sp.png"
+      "pc" : "archive-16.webp",
+      "sp" : "archive-16-sp.webp"
     }
   },
   {
@@ -148,8 +148,8 @@
     "shortTitle": "TPM",
     "link": "https://codepen.io/hisamikurita/full/rNMPdRR",
     "image": {
-      "pc" : "archive-17.png",
-      "sp" : "archive-01-sp.png"
+      "pc" : "archive-17.webp",
+      "sp" : "archive-01-sp.webp"
     }
   },
   {
@@ -157,8 +157,8 @@
     "shortTitle": "PB",
     "link": "https://codepen.io/hisamikurita/full/JjYQEzY",
     "image": {
-      "pc" : "archive-18.png",
-      "sp" : "archive-01-sp.png"
+      "pc" : "archive-18.webp",
+      "sp" : "archive-01-sp.webp"
     }
   }
 ]

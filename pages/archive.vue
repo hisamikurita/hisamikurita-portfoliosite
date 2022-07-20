@@ -15,11 +15,6 @@
           target="_blank"
           rel="noopener"
         >
-          <!-- <span class="archive-textarea">
-            <span class="archive-circle">・</span>
-            <span class="archive-fulltitle">{{ archive.fullTitle }}</span>
-            <span class="archive-shorttitle">#{{ sortNumber(index) }}</span>
-          </span> -->
           <picture>
             <source
               :srcset="`/images/${archive.image.sp}`"
@@ -42,7 +37,6 @@
 
 <script>
 import ImagesLoaded from 'imagesloaded'
-// import { preEvent } from '../assets/js/preEvent'
 import Mesh from '../components/canvas/archive/mesh'
 import GlElements from '../components/canvas/archive/gl-elements'
 import Stage from '../components/canvas/stage'
@@ -134,6 +128,7 @@ export default {
     this.wrapper = this.$refs.ArchiveList
     this.wrapperRect = this.wrapper.getBoundingClientRect()
     this.raf = null
+
     // init
     this.medias = []
     for (let i = 0; i < this.$refs.ArchiveItem.length; i++) {
@@ -201,10 +196,8 @@ export default {
 
       imagesLoaded.on('always', () => {
         if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
-        if (this.imageTransitionState)
-          this.$store.commit('image-transition/end')
-        if (this.pickupTransitionState)
-          this.$store.commit('indexPickup/transition', false)
+        if (this.imageTransitionState) this.$store.commit('image-transition/end')
+        if (this.pickupTransitionState) this.$store.commit('indexPickup/transition', false)
 
         this.$store.commit('imageLoaded/loaded')
       })
@@ -255,17 +248,12 @@ export default {
     setWrapPosition() {
       this.wrapperRect = this.wrapper.getBoundingClientRect()
 
-      // if (this.width !== window.innerWidth) {
-      //   this.width = window.innerWidth
-
       const x = window.innerWidth / 2.0 - this.wrapperRect.width / 2.0
       const y = window.innerHeight / 2.0 - this.wrapperRect.height / 2.0
       this.$gsap.set(this.wrapper, {
         x: x,
         y: y,
       })
-      // this.wrapper.style.transform = `translate(${x}px, ${y}px)`
-      // }
     },
     updatePosition() {
       if (this.hambergerMenuState) return

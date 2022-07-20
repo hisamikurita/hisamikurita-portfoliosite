@@ -16,31 +16,28 @@
         ></span
       ></span
     >
-    <nuxt-img
+    <img
       ref="MouseImgClick"
-      src="/images/mouse-click.png"
+      src="/images/mouse-click.webp"
       width="88"
       height="143"
-      quality="80"
       alt="mouse-img-click"
       class="mouse-img-click"
     />
-    <nuxt-img
+    <img
       ref="MouseImgHold"
-      src="/images/mouse-hold.png"
+      src="/images/mouse-hold.webp"
       width="200"
       height="170"
       alt="mouse-img-hold"
-      quality="80"
       class="mouse-img-hold"
     />
-    <nuxt-img
+    <img
       ref="MouseImg"
-      src="/images/mouse.png"
+      src="/images/mouse.webp"
       width="191"
       height="234"
       alt="mouse-img"
-      quality="80"
       class="mouse-img"
     />
   </div>
@@ -182,12 +179,12 @@ export default {
 
         for (let i = 0; i < this.mouseClickTarget.length; i++) {
           this.mouseClickTarget[i].addEventListener('mousedown', () => {
-            this.$gsap.to(this.$refs.MouseImgClick.$el, {
+            this.$gsap.to(this.$refs.MouseImgClick, {
               duration: 0.2,
               ease: this.$EASING.transform,
               scale: 1,
             })
-            this.$gsap.to(this.$refs.MouseImg.$el, {
+            this.$gsap.to(this.$refs.MouseImg, {
               duration: 0.2,
               ease: this.$EASING.transform,
               rotate: 15,
@@ -197,12 +194,12 @@ export default {
 
         for (let i = 0; i < this.mouseClickTarget.length; i++) {
           this.mouseClickTarget[i].addEventListener('mouseup', () => {
-            this.$gsap.to(this.$refs.MouseImgClick.$el, {
+            this.$gsap.to(this.$refs.MouseImgClick, {
               duration: 0.2,
               ease: this.$EASING.transform,
               scale: 0,
             })
-            this.$gsap.to(this.$refs.MouseImg.$el, {
+            this.$gsap.to(this.$refs.MouseImg, {
               duration: 0.2,
               ease: this.$EASING.transform,
               rotate: 0,
@@ -212,10 +209,10 @@ export default {
 
         for (let i = 0; i < this.mouseHoldTarget.length; i++) {
           this.mouseHoldTarget[i].addEventListener('mousedown', () => {
-            this.$gsap.set(this.$refs.MouseImg.$el, {
+            this.$gsap.set(this.$refs.MouseImg, {
               opacity: 0,
             })
-            this.$gsap.set(this.$refs.MouseImgHold.$el, {
+            this.$gsap.set(this.$refs.MouseImgHold, {
               opacity: 1,
             })
           })
@@ -223,10 +220,10 @@ export default {
 
         for (let i = 0; i < this.mouseHoldTarget.length; i++) {
           this.mouseHoldTarget[i].addEventListener('mouseup', () => {
-            this.$gsap.set(this.$refs.MouseImg.$el, {
+            this.$gsap.set(this.$refs.MouseImg, {
               opacity: 1,
             })
-            this.$gsap.set(this.$refs.MouseImgHold.$el, {
+            this.$gsap.set(this.$refs.MouseImgHold, {
               opacity: 0,
             })
           })

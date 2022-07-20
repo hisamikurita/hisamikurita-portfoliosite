@@ -95,7 +95,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/about-archive-01.jpg`"
+                              :src="`/images/about-archive-01.webp`"
                               :width="`280`"
                               :height="`206`"
                               :alt="`archive`"
@@ -132,7 +132,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/about-archive-02.jpg`"
+                              :src="`/images/about-archive-02.webp`"
                               :width="`280`"
                               :height="`206`"
                               :alt="`archive`"
