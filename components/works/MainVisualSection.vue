@@ -9,7 +9,7 @@
             media="(max-width: 767px)"
           />
           <img
-            :src="`${currentProject.heroImg.pc.url}?fm=webp&w=2560&h=1600&q=50`"
+            :src="`${currentProject.heroImg.pc.url}`"
             :width="`${currentProject.heroImg.pc.width}`"
             :height="`${currentProject.heroImg.pc.height}`"
             :alt="currentProject.id"
