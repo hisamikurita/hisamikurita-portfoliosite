@@ -95,9 +95,9 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/about-archive-01.webp`"
-                              :width="`280`"
-                              :height="`206`"
+                              :src="`/images/about-sidescroll-archive-01.webp`"
+                              :width="`560`"
+                              :height="`410`"
                               :alt="`archive`"
                             />
                           </picture>
@@ -108,7 +108,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`${data.aboutImages.img01.url}?fm=webp&w=600&h=440&q=50`"
+                              :src="`${data.aboutImages.img01.url}`"
                               :width="`${data.aboutImages.img01.width}`"
                               :height="`${data.aboutImages.img01.height}`"
                               :alt="`${data.id}`"
@@ -132,9 +132,9 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`/images/about-archive-02.webp`"
-                              :width="`280`"
-                              :height="`206`"
+                              :src="`/images/about-sidescroll-archive-02.webp`"
+                              :width="`560`"
+                              :height="`410`"
                               :alt="`archive`"
                             />
                           </picture>
@@ -145,7 +145,7 @@
                               media="(max-width: 767px)"
                             />
                             <img
-                              :src="`${data.aboutImages.img02.url}?fm=webp&w=600&h=440&q=50`"
+                              :src="`${data.aboutImages.img02.url}`"
                               :width="`${data.aboutImages.img02.width}`"
                               :height="`${data.aboutImages.img02.height}`"
                               :alt="`${data.id}`"

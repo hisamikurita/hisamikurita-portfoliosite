@@ -67,7 +67,7 @@
                   <span class="hambergerMenu-item-img">
                     <picture>
                       <img
-                        :src="`/images/archive.webp`"
+                        :src="`/images/hambergermenu-archive.webp`"
                         :width="`180`"
                         :height="`180`"
                         :alt="`archive`"
@@ -92,7 +92,7 @@
                   <span class="hambergerMenu-item-img">
                     <picture>
                       <img
-                        :src="`${data.hambergerMenuImg.url}?fm=webp&w=360&h=360&q=50`"
+                        :src="`${data.hambergerMenuImg.url}`"
                         :width="`${data.hambergerMenuImg.width}`"
                         :height="`${data.hambergerMenuImg.height}`"
                         :alt="`${data.id}`"
