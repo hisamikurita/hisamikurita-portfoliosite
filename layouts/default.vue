@@ -19,12 +19,12 @@
         >
           <picture>
             <source
-              :srcset="`${data.heroImg.pc.url}`"
+              :srcset="`${data.heroImg.sp.url}`"
               type="image/webp"
-              media="(min-width: 767px)"
+              media="(max-width: 767px)"
             />
             <img
-              :src="`${data.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+              :src="`${data.heroImg.pc.url}`"
               :width="`${data.heroImg.pc.width}`"
               :height="`${data.heroImg.pc.height}`"
               :alt="`${data.id}`"
@@ -381,15 +381,15 @@ export default {
     imgPath.push(
       {
         pc: `${this.pickupData[0].heroImg.pc.url}`,
-        sp: `${this.pickupData[0].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        sp: `${this.pickupData[0].heroImg.sp.url}`,
       },
       {
         pc: `${this.pickupData[1].heroImg.pc.url}`,
-        sp: `${this.pickupData[1].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        sp: `${this.pickupData[1].heroImg.sp.url}`,
       },
       {
         pc: `${this.pickupData[2].heroImg.pc.url}`,
-        sp: `${this.pickupData[2].heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`,
+        sp: `${this.pickupData[2].heroImg.sp.url}`,
       }
     )
 

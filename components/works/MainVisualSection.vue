@@ -4,7 +4,7 @@
       <div ref="HeroImg" class="hero-img">
         <picture>
           <source
-            :srcset="`${currentProject.heroImg.sp.url}?fm=webp&w=750&h=1106&q=50`"
+            :srcset="`${currentProject.heroImg.sp.url}`"
             type="image/webp"
             media="(max-width: 767px)"
           />
