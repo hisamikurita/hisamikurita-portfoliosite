@@ -12,7 +12,7 @@
         class="layouts-normal-transition-img-wrapper"
       >
         <span
-          v-for="data in getProjectData"
+          v-for="data in getProjectAndWinnerData"
           :key="data.id"
           ref="LayoutsNormalTransitionImg"
           class="layouts-normal-transition-img"
@@ -87,6 +87,9 @@ export default {
     getProjectData() {
       return this.$store.getters.projectData
     },
+    getProjectAndWinnerData() {
+      return this.$store.getters.projectAndWinnerData
+    },
     defaultTransitionState() {
       return this.$store.getters['bg-transition/state']
     },
@@ -152,10 +155,8 @@ export default {
     imageTransitionState: function () {
       // アニメーション開始
       if (this.imageTransitionState) {
-        const index =
-          this.imageTransitionIndex > this.getProjectData.length - 1
-            ? 0
-            : this.imageTransitionIndex
+        let index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex
+        if (this.$route.name === 'award-slug') index = this.getProjectAndWinnerData.length - 1
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
