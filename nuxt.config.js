@@ -54,7 +54,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://hsmkrt1996.com/images/ogp.jpg',
+        content: 'https://hsmkrt1996.com/images/ogp.webp',
       },
       {
         name: 'twitter:card',
