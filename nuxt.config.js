@@ -147,18 +147,34 @@ export default {
 
   generate: {
     async routes() {
-      const pages = await axios
-        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=200`, {
+      const generates = []
+
+      await axios.get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/works?limit=200`, {
           headers: {
             'X-MICROCMS-API-KEY': process.env.API_KEY
           }
         })
-        .then((res) =>
-          res.data.contents.map((content) => ({
-            route: `works/${content.id}`,
-          }))
-        )
-      return pages
+        .then((res) => {
+          res.data.contents.map((content) => {
+            return generates.push({
+              route: 'works/' + content.id,
+            })
+          })
+        })
+      await axios
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/winner?limit=200`, {
+          headers: {
+            'X-MICROCMS-API-KEY': process.env.API_KEY
+          }
+        })
+        .then((res) => {
+          res.data.contents.map((content) => {
+            return generates.push({
+              route: 'award/' + content.id,
+            })
+          })
+        })
+      return generates
     }
   }
 }
