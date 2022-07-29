@@ -25,7 +25,7 @@
             <span class="hero-title-read-area">
               <AppSectionReadTitle
                 :state="isTextSegmentState"
-                :text="['・', `AWARD 0${currentProject.index}`]"
+                :text="['・', `${currentProject.title.full}`]"
                 :sp-animation="false"
                 :modifier="'works-section'"
               />

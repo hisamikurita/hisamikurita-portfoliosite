@@ -156,7 +156,7 @@ export default {
       // アニメーション開始
       if (this.imageTransitionState) {
         let index = this.imageTransitionIndex > this.getProjectData.length - 1 ? 0 : this.imageTransitionIndex
-        if (this.$route.name === 'award-slug') index = this.getProjectAndWinnerData.length - 1
+        if (this.$route.name === 'award-slug') index =  this.imageTransitionIndex
 
         for (let i = 0; i < this.$refs.LayoutsNormalTransitionImg.length; i++) {
           this.$gsap.set(this.$refs.LayoutsNormalTransitionImg[i], {
