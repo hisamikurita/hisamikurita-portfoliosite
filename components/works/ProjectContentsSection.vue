@@ -84,7 +84,7 @@ export default {
           for (let i = 0; i < this.observer.length; i++) {
             this.iObserver.observe(this.observer[i])
           }
-        }, 200) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+        }, 300) // アニメーションが発火しないことがあるので処理を0.3秒遅らせる
       })
     }
   },

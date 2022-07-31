@@ -230,7 +230,7 @@ export default {
           }
         )
         this.iObserverAnimation.observe(this.observe)
-      }, 300) // アニメーションが発火しないことがあるので処理を0.2秒遅らせる
+      }, 400) // アニメーションが発火しないことがあるので処理を0.4秒遅らせる
     })
   },
 

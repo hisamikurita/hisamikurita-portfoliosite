@@ -1,8 +1,6 @@
 export const state = () => ({
   projectData: {},
   contactData: {},
-  winnerData: {},
-  projectAndWinnerData: {},
   pickupData: {},
   awardData: {},
   awardDataLength: {},
@@ -12,11 +10,6 @@ export const actions = {
   async nuxtServerInit({ commit }, { app }) {
 
     const projectResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/works?limit=200`, {
-      headers: {
-        'X-MICROCMS-API-KEY': process.env.apiKey
-      }
-    })
-    const winnerResponse = await app.$axios.$get(`https://${process.env.serviceDomain}.microcms.io/api/v1/winner?limit=200`, {
       headers: {
         'X-MICROCMS-API-KEY': process.env.apiKey
       }
@@ -32,7 +25,6 @@ export const actions = {
         'X-MICROCMS-API-KEY': process.env.apiKey
       }
     })
-    const projectAndWinnerResponce = projectResponse.contents.concat(winnerResponse.contents);
     let awwwwardsLength = 0
     let cssdesignawardsLength = 0
     let csswinnerLength = 0
@@ -54,10 +46,8 @@ export const actions = {
     }
 
     commit('getProjectData', projectResponse.contents)
-    commit('getWinnerData', winnerResponse.contents)
     commit('getContactData', contactResponse.contents)
     commit('getPickupData', pickupData)
-    commit('getProjectAndWinnerData', projectAndWinnerResponce)
     commit('getAwardData', awardResponse.contents)
     commit('getAwardDataLength', awardDataLength)
   }
@@ -69,12 +59,6 @@ export const mutations = {
   },
   getContactData(state, data) {
     state.contactData = data
-  },
-  getWinnerData(state, data) {
-    state.winnerData = data
-  },
-  getProjectAndWinnerData(state, data) {
-    state.projectAndWinnerData = data
   },
   getPickupData(state, data) {
     state.pickupData = data
@@ -93,12 +77,6 @@ export const getters = {
   },
   contactData(state) {
     return state.contactData;
-  },
-  winnerData(state) {
-    return state.winnerData;
-  },
-  projectAndWinnerData(state) {
-    return state.projectAndWinnerData;
   },
   pickupData(state) {
     return state.pickupData;

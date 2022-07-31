@@ -60,8 +60,6 @@ export default {
     // works詳細ページに直アクセスした場合を考慮して、そのページのインデックスを取得する
     const projectResponse = this.$store.getters.projectData
     const index = projectResponse.findIndex((content) => content.id === this.$router.history.current.params.slug)
-    const winnerResponse = this.$store.getters.winnerData
-    const awardIndex = projectResponse.length + winnerResponse.findIndex((content) => content.id === this.$router.history.current.params.slug)
 
     // 読み込み完了後
     window.addEventListener('load', () => {
@@ -238,9 +236,6 @@ export default {
               if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/start', index)
               }
-              else if (this.$route.name === 'award-slug') {
-                this.$store.commit('image-transition/start', awardIndex)
-              }
               else if(this.$route.name === 'archive'){
                 this.$store.commit('bg-transition/start', '#000000')
               }
@@ -250,7 +245,7 @@ export default {
             }, 1680)
 
             setTimeout(() => {
-              if (this.$route.name === 'works-slug' || this.$route.name === 'award-slug') {
+              if (this.$route.name === 'works-slug') {
                 this.$store.commit('image-transition/end')
               }
               else if(this.$route.name === 'archive'){
@@ -271,9 +266,6 @@ export default {
           if (this.$route.name === 'works-slug') {
             this.$store.commit('image-transition/start', index)
           }
-          else if (this.$route.name === 'award-slug') {
-            this.$store.commit('image-transition/start', awardIndex)
-          }
           else if(this.$route.name === 'archive'){
             this.$store.commit('bg-transition/start', '#000000')
           }
@@ -284,9 +276,6 @@ export default {
 
         setTimeout(() => {
           if (this.$route.name === 'works-slug') {
-            this.$store.commit('image-transition/end')
-          }
-          else if (this.$route.name === 'award-slug') {
             this.$store.commit('image-transition/end')
           }
           else if(this.$route.name === 'archive'){

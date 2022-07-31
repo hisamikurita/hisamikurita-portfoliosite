@@ -161,19 +161,6 @@ export default {
             })
           })
         })
-      await axios
-        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/winner?limit=200`, {
-          headers: {
-            'X-MICROCMS-API-KEY': process.env.API_KEY
-          }
-        })
-        .then((res) => {
-          res.data.contents.map((content) => {
-            return generates.push({
-              route: 'award/' + content.id,
-            })
-          })
-        })
       return generates
     }
   }
