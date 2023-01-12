@@ -1,73 +1,27 @@
 <template>
   <div ref="Project" class="project">
-    <div
-      ref="ProjectBg"
-      class="project-bg"
-      :style="`background-color:${pickupEndData.siteColor.bodyContentsColor};`"
-    >
-      <span class="project-circle-bg-enter"
-        ><span ref="ProjectCircleEnter" class="project-circle-bg-element"></span
-      ></span>
+    <div ref="ProjectBg" class="project-bg" :style="`background-color:${pickupEndData.siteColor.bodyContentsColor};`">
+      <span class="project-circle-bg-enter"><span ref="ProjectCircleEnter" class="project-circle-bg-element"></span></span>
       <div class="project-inner">
         <h2 ref="ProjectLoopTitle" class="project-loop-title">
           <span class="project-loop-title-read-area">
-            <AppSectionReadTitle
-              :state="isTextSegmentState"
-              :text="['・', 'SELECTED', 'PROJECTS']"
-              :modifier="'project-section'"
-            />
+            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED', 'PROJECTS']" :modifier="'project-section'" />
           </span>
-          <span
-            class="project-loop-title-wrapper project-loop-title-wrapper-01"
-          >
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :width="1280"
-              :origin="'right'"
-              :modifier="'index-project-01'"
-            />
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :start="0.12"
-              :width="1280"
-              :origin="'left'"
-              :modifier="'index-project-02'"
-            />
-            <AppTextLoop
-              :state="isTextSegmentState"
-              :loop="isLoopTextState"
-              :rotate="$BASEROTATE.right"
-              :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
-            >
-            </AppTextLoop>
+          <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
+            <AppTextUnderline :state="isTextUnderlineState" :width="1280" :origin="'right'" :modifier="'index-project-01'" />
+            <AppTextUnderline :state="isTextUnderlineState" :start="0.12" :width="1280" :origin="'left'" :modifier="'index-project-02'" />
+            <AppLoopText :loop="isLoopTextState" :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'" />
           </span>
-          <span
-            class="project-loop-title-wrapper project-loop-title-wrapper-01"
-          >
-            <AppTextUnderline
-              :state="isTextUnderlineState"
-              :start="0.24"
-              :width="1280"
-              :origin="'right'"
-              :modifier="'index-project-02'"
-            />
-            <AppTextLoop
-              :state="isTextSegmentState"
-              :loop="isLoopTextState"
-              :loopdirection="'left'"
-              :rotate="$BASEROTATE.right"
-              :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'"
-            />
+          <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
+            <AppTextUnderline :state="isTextUnderlineState" :start="0.24" :width="1280" :origin="'right'" :modifier="'index-project-02'" />
+            <AppLoopText :loop="isLoopTextState" :direction="'left'" :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'" />
           </span>
         </h2>
         <div class="project-card-area">
           <div class="l-container">
             <div ref="projectCardAreaClip" class="project-card-area-clip">
               <div v-for="(data, index) in projectData" :key="data.id">
-                <div
-                  class="project-card-item"
-                  :class="`project-card-item-0${index}`"
-                >
+                <div class="project-card-item" :class="`project-card-item-0${index}`">
                   <AppCardBase
                     :component-name="'ProjectContents'"
                     :name="data.title.full"
@@ -136,15 +90,11 @@ export default {
     ProjectAnimationState: function () {
       switch (this.ProjectAnimationState) {
         case 'start':
-
           // 円の縮小
           this.$gsap.fromTo(
             this.$refs.ProjectCircleEnter,
             {
-              y: -(
-                window.innerHeight / 2 +
-                this.$refs.ProjectCircleEnter.clientHeight / 2
-              ),
+              y: -(window.innerHeight / 2 + this.$refs.ProjectCircleEnter.clientHeight / 2),
               scale: 0,
             },
             {
@@ -163,7 +113,7 @@ export default {
         case 'end':
           // 動きをスムーズに見せるために背景色変更の処理を遅らせる
           setTimeout(() => {
-            this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor;
+            this.$refs.ProjectBg.style.backgroundColor = this.pickupEndData.siteColor.bodyContentsColor
           }, 300)
 
           // 円の縮小
@@ -177,10 +127,7 @@ export default {
               duration: this.$SITECONFIG.baseDuration * 1.2,
               // delay: 1.0,
               ease: this.$EASING.transform,
-              y: -(
-                window.innerHeight / 2 +
-                this.$refs.ProjectCircleEnter.clientHeight / 2
-              ),
+              y: -(window.innerHeight / 2 + this.$refs.ProjectCircleEnter.clientHeight / 2),
               scale: 0.0,
             }
           )
@@ -193,10 +140,7 @@ export default {
     // 円の位置をセットする
     this.$nextTick(() => {
       this.$gsap.set(this.$refs.ProjectCircleEnter, {
-        y: -(
-          window.innerHeight / 2 +
-          this.$refs.ProjectCircleEnter.clientHeight / 2
-        ),
+        y: -(window.innerHeight / 2 + this.$refs.ProjectCircleEnter.clientHeight / 2),
       })
     })
 
