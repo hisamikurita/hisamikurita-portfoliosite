@@ -2,30 +2,12 @@
   <div ref="ContentsLoopTitleWrapper" class="contents-loop-title-wrapper">
     <div ref="ContentsLoopTitle" class="contents-loop-title">
       <span ref="ContentsLoopVideo" class="contents-loop-video">
-        <span
-          class="contents-loop-video-shadow"
-          :style="`box-shadow:0 22px 60px 0px ${currentProject.siteColor.shadowColor}`"
-        ></span>
+        <span class="contents-loop-video-shadow" :style="`box-shadow:0 22px 60px 0px ${currentProject.siteColor.shadowColor}`"></span>
         <span class="contents-loop-video-wrapper"
-          ><video
-            :poster="`/images/poster-${currentProject.id}.webp`"
-            :src="`/movie/${currentProject.id}.mp4`"
-            playsinline
-            autoplay
-            loop
-            muted
-            disablePictureInPicture
-            disableRemotePlayback
-          ></video
+          ><video :poster="`/images/poster-${currentProject.id}.webp`" :src="`/movie/${currentProject.id}.mp4`" playsinline autoplay loop muted disablePictureInPicture disableRemotePlayback></video
         ></span>
       </span>
-      <AppTextLoop
-        :state="isTextSegmentState"
-        :loop="isLoopTextState"
-        :start="-0.2"
-        :rotate="$BASEROTATE.right"
-        :text="currentProject.loopText"
-      />
+      <AppLoopText :loop="isLoopTextState" :text="currentProject.title.short" />
     </div>
     <div class="contents-loop-card">
       <AppCardBase
@@ -75,11 +57,10 @@ export default {
         if (this.hambergerMenuState) {
           this.iObserverLoopVideo.unobserve(this.$refs.ContentsLoopVideo)
           window.removeEventListener('mousemove', this.onMoseMove)
-        }
-        /**
-         * ハンバガーメニューが閉じた時
-         */
-        else if (!this.hambergerMenuState) {
+        } else if (!this.hambergerMenuState) {
+          /**
+           * ハンバガーメニューが閉じた時
+           */
           this.iObserverLoopVideo.observe(this.$refs.ContentsLoopVideo)
           window.addEventListener('mousemove', this.onMoseMove)
         }

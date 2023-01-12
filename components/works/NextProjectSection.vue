@@ -4,41 +4,14 @@
       <div class="l-container">
         <div class="next-contents">
           <div class="next-title-read-area" :style="`color:${currentProject.siteColor.allTextColor};`">
-            <AppSectionReadTitle
-              :state="isTextSegmentState"
-              :text="['・', 'NEXT', 'PROJECT']"
-              :modifier="'works-section'"
-            />
+            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'NEXT', 'PROJECT']" :modifier="'works-section'" />
           </div>
           <AppImageTransition class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
-            <span
-              ref="ContentsLoopTitleWrapper"
-              class="next-loop-title-wrapper"
-              :style="`stroke:${currentProject.siteColor.allTextColor};`"
-            >
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :color="currentProject.siteColor.allTextColor"
-                :origin="'right'"
-                :width="1280"
-                :modifier="'works-next-01'"
-              />
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :start="0.12"
-                :color="currentProject.siteColor.allTextColor"
-                :origin="'left'"
-                :width="1280"
-                :modifier="'works-next-02'"
-              />
+            <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper" :style="`stroke:${currentProject.siteColor.allTextColor};`">
+              <AppTextUnderline :state="isTextUnderlineState" :color="currentProject.siteColor.allTextColor" :origin="'right'" :width="1280" :modifier="'works-next-01'" />
+              <AppTextUnderline :state="isTextUnderlineState" :start="0.12" :color="currentProject.siteColor.allTextColor" :origin="'left'" :width="1280" :modifier="'works-next-02'" />
               <span class="next-loop-title">
-                <AppTextLoop
-                  :state="isTextSegmentState"
-                  :loop="isLoopTextState"
-                  :rotate="$BASEROTATE.right"
-                  :text="'NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT NEXT'"
-                >
-                </AppTextLoop>
+                <AppLoopText :loop="isLoopTextState" :text="'NEXT'" />
               </span>
             </span>
           </AppImageTransition>
@@ -52,7 +25,7 @@
               :text="nextProject.desc"
               :rotate="nextProject.projectNum.rotate"
               :xspeed="nextProject.projectNum.xspeed"
-              :yspeed="nextProject.projectNum.yspeed - 0.10"
+              :yspeed="nextProject.projectNum.yspeed - 0.1"
             />
           </div>
         </div>
@@ -85,35 +58,35 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-    /* loop-text-animation */
-    this.observe = this.$refs.ContentsLoopTitleWrapper
-    this.iObserverLoopText = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.isLoopTextState = 'isActive'
-          } else {
-            this.isLoopTextState = 'isNoActive'
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserverLoopText.observe(this.observe)
+      /* loop-text-animation */
+      this.observe = this.$refs.ContentsLoopTitleWrapper
+      this.iObserverLoopText = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.isLoopTextState = 'isActive'
+            } else {
+              this.isLoopTextState = 'isNoActive'
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.iObserverLoopText.observe(this.observe)
 
-    this.iObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.isTextSegmentState = 'center'
-            this.isTextUnderlineState = 'extend'
-            this.iObserver.unobserve(this.observe)
-          }
-        })
-      },
-      { rootMargin: '0%' }
-    )
-    this.iObserver.observe(this.observe)
+      this.iObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.isTextSegmentState = 'center'
+              this.isTextUnderlineState = 'extend'
+              this.iObserver.unobserve(this.observe)
+            }
+          })
+        },
+        { rootMargin: '0%' }
+      )
+      this.iObserver.observe(this.observe)
     })
   },
 
@@ -150,7 +123,7 @@ export default {
   margin: 0 0 34px 0;
 
   @include sp() {
-  margin: 0 0 36px 0;
+    margin: 0 0 36px 0;
   }
 }
 
@@ -169,7 +142,7 @@ export default {
   }
 }
 
-.next-loop-title-btn{
+.next-loop-title-btn {
   width: 100%;
 }
 
@@ -194,48 +167,48 @@ export default {
   }
 }
 
-.next-loop-card-mtrust{
+.next-loop-card-mtrust {
   @include sp() {
     top: 59%;
     left: calc(50% - #{vw_sp(350)});
   }
 }
 
-.next-loop-card-ketakuma{
-    @include sp() {
+.next-loop-card-ketakuma {
+  @include sp() {
     top: 57%;
     left: calc(50% - #{vw_sp(130)});
   }
 }
 
-.next-loop-card-redandgreen{
-    @include sp() {
+.next-loop-card-redandgreen {
+  @include sp() {
     top: 61%;
     left: calc(50% - #{vw_sp(370)});
   }
 }
 
-.next-loop-card-asovision{
-    @include sp() {
+.next-loop-card-asovision {
+  @include sp() {
     left: calc(50% - #{vw_sp(80)});
   }
 }
 
-.next-loop-card-basta{
-    @include sp() {
+.next-loop-card-basta {
+  @include sp() {
     top: 58%;
     left: calc(50% - #{vw_sp(250)});
   }
 }
 
-.next-loop-card-frontier{
-    @include sp() {
+.next-loop-card-frontier {
+  @include sp() {
     top: 61%;
     left: calc(50% - #{vw_sp(400)});
   }
 }
 
-.next-loop-card-yakudoh{
+.next-loop-card-yakudoh {
   @include sp() {
     top: 61%;
     left: calc(50% - #{vw_sp(-40)});
