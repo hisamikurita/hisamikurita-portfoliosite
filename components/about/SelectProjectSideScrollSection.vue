@@ -4,152 +4,52 @@
       <div class="project-canvas">
         <canvas ref="Canvas"></canvas>
       </div>
-      <AppCircleBg
-        ref="IntroCircleBg"
-        :state="isCircleBgState"
-        :modifier="'about-project'"
-      />
+      <AppCircleBg ref="IntroCircleBg" :state="isCircleBgState" :modifier="'about-project'" />
       <div class="project-inner">
         <div class="l-container">
           <div class="project-contents">
             <div class="project-title-read-area">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="['・', 'SELECTED ', 'PROJECT']"
-                :modifier="'about-project-section'"
-              />
+              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED ', 'PROJECT']" :modifier="'about-project-section'" />
             </div>
             <div ref="ProjectTitleWrapper" class="project-title-wrapper">
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :origin="'right'"
-                :width="1280"
-                :modifier="'about-project-01'"
-              />
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :start="0.12"
-                :origin="'left'"
-                :width="1280"
-                :modifier="'about-project-02'"
-              />
-              <div
-                ref="ProjectList"
-                class="project-list"
-                :class="{ 'is-text-animation-end': isTextAnimationState }"
-              >
-                <div
-                  ref="ProjectItemWrapperRotate"
-                  class="project-item-wrapper-rotate"
-                >
-                  <div
-                    ref="ProjectItemWrapperTranslate"
-                    class="project-item-wrapper-translate"
-                  >
-                    <div
-                      v-for="(data, index) in projectAndArchiveDatas"
-                      :key="index"
-                      ref="ProjectItem"
-                      class="project-item"
-                      @mousemove="onMouseEnter(index)"
-                      @mouseleave="onMouseLeave"
-                    >
-                      <span
-                        ref="ProjectItemCircle"
-                        class="project-item-circle"
-                      ></span>
-                      <span
-                        ref="ProjectItemWrapper"
-                        class="project-item-wraper"
-                      >
+              <AppBounceLine :state="isTextUnderlineState" :origin="'right'" :width="1280" :modifier="'about-project-01'" />
+              <AppBounceLine :state="isTextUnderlineState" :start="0.12" :origin="'left'" :width="1280" :modifier="'about-project-02'" />
+              <div ref="ProjectList" class="project-list" :class="{ 'is-text-animation-end': isTextAnimationState }">
+                <div ref="ProjectItemWrapperRotate" class="project-item-wrapper-rotate">
+                  <div ref="ProjectItemWrapperTranslate" class="project-item-wrapper-translate">
+                    <div v-for="(data, index) in projectAndArchiveDatas" :key="index" ref="ProjectItem" class="project-item" @mousemove="onMouseEnter(index)" @mouseleave="onMouseLeave">
+                      <span ref="ProjectItemCircle" class="project-item-circle"></span>
+                      <span ref="ProjectItemWrapper" class="project-item-wraper">
                         <!--アーカイブページの時-->
-                        <AppBgTransition
-                          v-if="index === projectAndArchiveData.length - 1.0"
-                          :url="`/archive`"
-                          :color="'#000000'"
-                          class="project-link"
-                          >ARCHIVE
-                        </AppBgTransition>
+                        <AppBgTransition v-if="index === projectAndArchiveData.length - 1.0" :url="`/archive`" :color="'#000000'" class="project-link">ARCHIVE </AppBgTransition>
                         <!--アーカイブページ以外の時-->
-                        <AppImageTransition
-                          v-else
-                          :url="`/works/${data.id}`"
-                          :index="index"
-                          class="project-link"
-                          >{{ data.title.full }}
-                        </AppImageTransition>
+                        <AppImageTransition v-else :url="`/works/${data.id}`" :index="index" class="project-link">{{ data.title.full }} </AppImageTransition>
                       </span>
-                      <span
-                        ref="ProjectItemImg01"
-                        class="
-                          project-item-img-wrapper project-item-img-wrapper-01
-                        "
-                      >
+                      <span ref="ProjectItemImg01" class="project-item-img-wrapper project-item-img-wrapper-01">
                         <span class="project-item-img">
                           <!--アーカイブページの時-->
-                          <picture
-                            v-if="index === projectAndArchiveData.length - 1.0"
-                          >
-                            <source
-                              :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`"
-                              media="(max-width: 767px)"
-                            />
-                            <img
-                              :src="`/images/about-sidescroll-archive-01.webp`"
-                              :width="`560`"
-                              :height="`410`"
-                              :alt="`archive`"
-                            />
+                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                            <source :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`" media="(max-width: 767px)" />
+                            <img :src="`/images/about-sidescroll-archive-01.webp`" :width="`560`" :height="`410`" :alt="`archive`" />
                           </picture>
                           <!--アーカイブページ以外の時-->
                           <picture v-else>
-                            <source
-                              :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`"
-                              media="(max-width: 767px)"
-                            />
-                            <img
-                              :src="`${data.aboutImages.img01.url}`"
-                              :width="`${data.aboutImages.img01.width}`"
-                              :height="`${data.aboutImages.img01.height}`"
-                              :alt="`${data.id}`"
-                            />
+                            <source :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`" media="(max-width: 767px)" />
+                            <img :src="`${data.aboutImages.img01.url}`" :width="`${data.aboutImages.img01.width}`" :height="`${data.aboutImages.img01.height}`" :alt="`${data.id}`" />
                           </picture>
                         </span>
                       </span>
-                      <span
-                        ref="ProjectItemImg02"
-                        class="
-                          project-item-img-wrapper project-item-img-wrapper-02
-                        "
-                      >
+                      <span ref="ProjectItemImg02" class="project-item-img-wrapper project-item-img-wrapper-02">
                         <span class="project-item-img">
                           <!--アーカイブページの時-->
-                          <picture
-                            v-if="index === projectAndArchiveData.length - 1.0"
-                          >
-                            <source
-                              :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`"
-                              media="(max-width: 767px)"
-                            />
-                            <img
-                              :src="`/images/about-sidescroll-archive-02.webp`"
-                              :width="`560`"
-                              :height="`410`"
-                              :alt="`archive`"
-                            />
+                          <picture v-if="index === projectAndArchiveData.length - 1.0">
+                            <source :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`" media="(max-width: 767px)" />
+                            <img :src="`/images/about-sidescroll-archive-02.webp`" :width="`560`" :height="`410`" :alt="`archive`" />
                           </picture>
                           <!--アーカイブページ以外の時-->
                           <picture v-else>
-                            <source
-                              :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`"
-                              media="(max-width: 767px)"
-                            />
-                            <img
-                              :src="`${data.aboutImages.img02.url}`"
-                              :width="`${data.aboutImages.img02.width}`"
-                              :height="`${data.aboutImages.img02.height}`"
-                              :alt="`${data.id}`"
-                            />
+                            <source :srcset="`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`" media="(max-width: 767px)" />
+                            <img :src="`${data.aboutImages.img02.url}`" :width="`${data.aboutImages.img02.width}`" :height="`${data.aboutImages.img02.height}`" :alt="`${data.id}`" />
                           </picture>
                         </span>
                       </span>
@@ -205,13 +105,12 @@ export default {
        * ハンバガーメニューが開いた時
        */
       if (this.hambergerMenuState) {
-        this.fixSection.pause();
+        this.fixSection.pause()
         //
       } else if (!this.hambergerMenuState) {
-      /**
-       * ハンバガーメニューが閉じた時
-       */
-
+        /**
+         * ハンバガーメニューが閉じた時
+         */
       }
     },
     imageLoaded: function () {
@@ -255,10 +154,7 @@ export default {
         ease: 'none',
         value: this.$asscroll.currentPos,
       })
-      this.particle._drawParticles(
-        this.$asscroll.currentPos,
-        tweenPosition.value
-      )
+      this.particle._drawParticles(this.$asscroll.currentPos, tweenPosition.value)
     }
 
     // パーティクルオブザーバー
@@ -304,7 +200,7 @@ export default {
     this.synchronousScroll.kill()
     this.textAnimation.kill()
     this.iObserver.unobserve(this.observe)
-    this.iObserver = null;
+    this.iObserver = null
 
     // パーティクル削除
     window.removeEventListener('resize', this.pResize)
@@ -318,11 +214,7 @@ export default {
   methods: {
     setupScrollAnimation() {
       // セクション固定 グローバル関数(fixSection)
-      this.fixSection = this.$fixSection(
-        this.$refs.ProjectWrapper,
-        this.$SITECONFIG.isTouch,
-        3500
-      )
+      this.fixSection = this.$fixSection(this.$refs.ProjectWrapper, this.$SITECONFIG.isTouch, 3500)
 
       // リストをスクロール量に応じてx軸を移動させる
       this.synchronousScroll = this.$gsap.fromTo(
@@ -331,12 +223,7 @@ export default {
           x: () => window.innerWidth - this.deveiceOffsetStart,
         },
         {
-          x: () =>
-            -(
-              this.$refs.ProjectList.clientWidth * this.deveiceOffsetRatio -
-              this.$refs.ProjectWrapper.clientWidth +
-              this.deveiceOffsetWidth
-            ),
+          x: () => -(this.$refs.ProjectList.clientWidth * this.deveiceOffsetRatio - this.$refs.ProjectWrapper.clientWidth + this.deveiceOffsetWidth),
           ease: 'none',
           scrollTrigger: {
             start: 'center center',
@@ -387,12 +274,7 @@ export default {
       this.projectAndArchiveData.push({})
     },
     onMouseEnter: function (index) {
-      if (
-        this.enterflag ||
-        this.$SITECONFIG.isTouch ||
-        !this.isTextAnimationState
-      )
-        return
+      if (this.enterflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
       this.enterflag = true
       this.leaveflag = false
       this.target = this.$refs.ProjectItem[index]
@@ -401,25 +283,18 @@ export default {
       if (this.target) this.target.classList.add('is-overlay')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          if (this.$refs.ProjectItem[i])
-            this.$refs.ProjectItem[i].classList.add('is-hover')
+          if (this.$refs.ProjectItem[i]) this.$refs.ProjectItem[i].classList.add('is-hover')
         }
       }
     },
     onMouseLeave() {
-      if (
-        this.leaveflag ||
-        this.$SITECONFIG.isTouch ||
-        !this.isTextAnimationState
-      )
-        return
+      if (this.leaveflag || this.$SITECONFIG.isTouch || !this.isTextAnimationState) return
 
       this.leaveflag = true
       if (this.target) this.target.classList.remove('is-current-hover')
       for (let i = 0; i < this.$refs.ProjectItem.length; i++) {
         if (!this.$refs.ProjectItem[i].classList.contains('is-current-hover')) {
-          if (this.$refs.ProjectItem[i])
-            this.$refs.ProjectItem[i].classList.remove('is-hover')
+          if (this.$refs.ProjectItem[i]) this.$refs.ProjectItem[i].classList.remove('is-hover')
         }
       }
       setTimeout(() => {

@@ -3,72 +3,33 @@
     <div ref="HeroBg" class="hero-bg">
       <div ref="HeroImg" class="hero-img">
         <picture>
-          <source
-            :srcset="`${currentProject.heroImg.sp.url}`"
-            type="image/webp"
-            media="(max-width: 767px)"
-          />
-          <img
-            :src="`${currentProject.heroImg.pc.url}`"
-            :width="`${currentProject.heroImg.pc.width}`"
-            :height="`${currentProject.heroImg.pc.height}`"
-            :alt="currentProject.id"
-          />
+          <source :srcset="`${currentProject.heroImg.sp.url}`" type="image/webp" media="(max-width: 767px)" />
+          <img :src="`${currentProject.heroImg.pc.url}`" :width="`${currentProject.heroImg.pc.width}`" :height="`${currentProject.heroImg.pc.height}`" :alt="currentProject.id" />
         </picture>
       </div>
       <div class="pc-only">
-        <div
-          class="hero-title"
-          :style="`color:${currentProject.siteColor.mvTextColor};`"
-        >
+        <div class="hero-title" :style="`color:${currentProject.siteColor.mvTextColor};`">
           <h1 class="hero-title-read">
             <span class="hero-title-read-area">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="['・', `WORKS 0${currentProject.index}`]"
-                :sp-animation="false"
-                :modifier="'works-section'"
-              />
+              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :sp-animation="false" :modifier="'works-section'" />
             </span>
             <span class="hero-title-wrapper-block">
-              <span
-                v-for="index of Object.keys(currentProject.detailsMainTextPc)
-                  .length - 1"
-                :key="index"
-                class="hero-title-wrapper"
-                :class="`hero-title-wrapper-0${index}`"
-              >
+              <span v-for="index of Object.keys(currentProject.detailsMainTextPc).length - 1" :key="index" class="hero-title-wrapper" :class="`hero-title-wrapper-0${index}`">
                 <AppTextSegment
                   :state="isTextSegmentState"
                   :start="index * 0.12"
-                  :rotate="
-                    index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right
-                  "
+                  :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
                   :text="`${currentProject.detailsMainTextPc['text0' + index]}`"
                   :sp-animation="false"
                 />
               </span>
             </span>
             <span class="hero-title-line">
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :start="0.72"
-                :color="currentProject.siteColor.mvTextColor"
-                :origin="'left'"
-                :sp-animation="false"
-                :width="700"
-                :modifier="'works'"
-              />
+              <AppBounceLine :state="isTextUnderlineState" :start="0.72" :color="currentProject.siteColor.mvTextColor" :origin="'left'" :sp-animation="false" :width="700" :modifier="'works'" />
             </span>
           </h1>
           <p class="hero-desc">
-            <span
-              v-for="index of Object.keys(currentProject.detailsMainDescPc)
-                .length - 1"
-              :key="index"
-              class="hero-desc-wrapper"
-              :class="`hero-desc-wrapper-0${index}`"
-            >
+            <span v-for="index of Object.keys(currentProject.detailsMainDescPc).length - 1" :key="index" class="hero-desc-wrapper" :class="`hero-desc-wrapper-0${index}`">
               <AppTextSegment
                 :state="isTextSegmentState"
                 :start="index * 0.12 + 0.84"
@@ -82,28 +43,11 @@
       </div>
       <div class="sp-only">
         <div class="hero-textarea-sp">
-          <div
-            class="hero-index-sp"
-            :style="`color:${currentProject.siteColor.mvTextColor};`"
-          >
-            <AppSectionReadTitle
-              :state="isTextSegmentState"
-              :text="['・', `WORKS 0${currentProject.index}`]"
-              :pc-animation="false"
-              :modifier="'section'"
-            />
+          <div class="hero-index-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
+            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :pc-animation="false" :modifier="'section'" />
           </div>
-          <div
-            class="hero-full-title-sp"
-            :style="`color:${currentProject.siteColor.mvTextColor};`"
-          >
-            <AppTextSegment
-              :state="isTextSegmentState"
-              :start="0.24"
-              :rotate="$BASEROTATE.right"
-              :text="currentProject.title.full"
-              :pc-animation="false"
-            />
+          <div class="hero-full-title-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
+            <AppTextSegment :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" :text="currentProject.title.full" :pc-animation="false" />
           </div>
         </div>
       </div>
@@ -114,25 +58,13 @@
           <div class="hero-title-sp-area">
             <h1 class="hero-title-sp">
               <span class="hero-title-wrapper-block-sp">
-                <span
-                  v-for="index of Object.keys(currentProject.detailsMainTextSp)
-                    .length - 1"
-                  :key="index"
-                  class="hero-title-wrapper-sp"
-                  :class="`hero-title-wrapper-sp-0${index}`"
-                >
+                <span v-for="index of Object.keys(currentProject.detailsMainTextSp).length - 1" :key="index" class="hero-title-wrapper-sp" :class="`hero-title-wrapper-sp-0${index}`">
                   {{ currentProject.detailsMainTextSp['text0' + index] }}
                 </span>
               </span>
             </h1>
             <p class="hero-desc-sp">
-              <span
-                v-for="index of Object.keys(currentProject.detailsMainDescSp)
-                  .length - 1"
-                :key="index"
-                class="hero-desc-wrapper-sp"
-                :class="`hero-desc-wrapper-sp-0${index}`"
-              >
+              <span v-for="index of Object.keys(currentProject.detailsMainDescSp).length - 1" :key="index" class="hero-desc-wrapper-sp" :class="`hero-desc-wrapper-sp-0${index}`">
                 {{ currentProject.detailsMainDescSp['text0' + index] }}
               </span>
             </p>
@@ -380,4 +312,3 @@ export default {
 }
 ///////////////////////////////////////////////////////////
 </style>
-

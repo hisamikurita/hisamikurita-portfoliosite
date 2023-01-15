@@ -5,66 +5,28 @@
         <div class="l-container">
           <h2 ref="AboutTitle" class="about-title">
             <span class="about-title-read-area">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="['・', 'ABOUT']"
-                :sp-animation="false"
-                :modifier="'section'"
-              />
+              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'ABOUT']" :sp-animation="false" :modifier="'section'" />
             </span>
             <span class="pc-only">
               <span class="about-title-wrapper about-title-wrapper-01">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :rotate="$BASEROTATE.right"
-                  :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'"
-                  :sp-animation="false"
-                />
+                <AppTextSegment :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'" :sp-animation="false" />
               </span>
               <span class="about-title-wrapper about-title-wrapper-02">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.12"
-                  :rotate="$BASEROTATE.left"
-                  :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'"
-                  :sp-animation="false"
-                />
+                <AppTextSegment :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'" :sp-animation="false" />
               </span>
               <span class="about-title-wrapper about-title-wrapper-03">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.24"
-                  :rotate="$BASEROTATE.right"
-                  text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY STREN"
-                  :sp-animation="false"
-                />
+                <AppTextSegment :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY STREN" :sp-animation="false" />
               </span>
               <span class="about-title-wrapper about-title-wrapper-04">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.36"
-                  :rotate="$BASEROTATE.left"
-                  :text="'GTH IS INSATIABLE CURIOSITY.'"
-                  :sp-animation="false"
-                />
+                <AppTextSegment :state="isTextSegmentState" :start="0.36" :rotate="$BASEROTATE.left" :text="'GTH IS INSATIABLE CURIOSITY.'" :sp-animation="false" />
               </span>
             </span>
             <span class="sp-only">
-              <span class="about-title-wrapper-sp about-title-wrapper-01-sp"
-                >IN THE SUMMER OF 22, I</span
-              >STARTED PROGRAMMING. IT WA<br />S LATER THAN MOST, BUT I THI<br />NK
-              I FOUND SOMETHING THAT I<br />WAS PASSIONATE ABOUT. I'VE B<br />EEN
-              WRITING CODE EVERY DAY<br />EVER SINCE. MY STRENGTH IS<br />INSATIABLE CURIOSITY.
+              <span class="about-title-wrapper-sp about-title-wrapper-01-sp">IN THE SUMMER OF 22, I</span>STARTED PROGRAMMING. IT WA<br />S LATER THAN MOST, BUT I THI<br />NK I FOUND SOMETHING THAT
+              I<br />WAS PASSIONATE ABOUT. I'VE B<br />EEN WRITING CODE EVERY DAY<br />EVER SINCE. MY STRENGTH IS<br />INSATIABLE CURIOSITY.
             </span>
             <span class="pc-only">
-              <AppTextUnderline
-                :state="isTextUnderlineState"
-                :start="0.6"
-                :width="1000"
-                :origin="'left'"
-                :sp-animation="false"
-                :modifier="'index-about'"
-              />
+              <AppBounceLine :state="isTextUnderlineState" :start="0.6" :width="1000" :origin="'left'" :sp-animation="false" :modifier="'index-about'" />
             </span>
             <span class="sp-only">
               <span class="about-text-underline"></span>
@@ -85,10 +47,8 @@
               />
             </span>
             <span class="sp-only"
-              >THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE
-              AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO
-              EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE ON GITHUB
-              OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span
+              >THE VISUAL EXPRESSIONS THAT I AM EXPLORING ON A DAILY BASIS ARE AVAILABLE ON CODEPEN AND GITHUB, RANGING FROM CSS ANIMATION TO EXPRESSIONS IN THREE.JS. NOT ALL OF MY WORK IS AVAILABLE
+              ON GITHUB OR CODEPEN, BUT YOU CAN FIND LINKS TO IT IN MY PORTFOLIO.</span
             >
           </p>
         </div>
