@@ -8,12 +8,12 @@
             <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED', 'PROJECTS']" :modifier="'project-section'" />
           </span>
           <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
-            <AppTextUnderline :state="isTextUnderlineState" :width="1280" :origin="'right'" :modifier="'index-project-01'" />
-            <AppTextUnderline :state="isTextUnderlineState" :start="0.12" :width="1280" :origin="'left'" :modifier="'index-project-02'" />
+            <AppBounceLine :state="isTextUnderlineState" :width="1280" :origin="'right'" :modifier="'index-project-01'" />
+            <AppBounceLine :state="isTextUnderlineState" :start="0.12" :width="1280" :origin="'left'" :modifier="'index-project-02'" />
             <AppLoopText :loop="isLoopTextState" :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'" />
           </span>
           <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
-            <AppTextUnderline :state="isTextUnderlineState" :start="0.24" :width="1280" :origin="'right'" :modifier="'index-project-02'" />
+            <AppBounceLine :state="isTextUnderlineState" :start="0.24" :width="1280" :origin="'right'" :modifier="'index-project-02'" />
             <AppLoopText :loop="isLoopTextState" :direction="'left'" :text="'MAINLY A SELECTION OF PROJECTS THAT I HAVE FOCUSED ON.'" />
           </span>
         </h2>

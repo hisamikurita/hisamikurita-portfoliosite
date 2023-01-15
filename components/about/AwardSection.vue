@@ -1,73 +1,34 @@
 <template>
   <div ref="Award" class="award">
     <div ref="AwardCardArea" class="award-card-area">
-      <div
-        v-for="award in awardData"
-        :key="award.id"
-        ref="AwardCardItem"
-        class="award-card-item"
-      >
-        <CardAwardContents
-          :group="award.group"
-          :title="award.title"
-          :rank="award.rank"
-          :date="award.date"
-          :modifier="award.modifier"
-        />
+      <div v-for="award in awardData" :key="award.id" ref="AwardCardItem" class="award-card-item">
+        <CardAwardContents :group="award.group" :title="award.title" :rank="award.rank" :date="award.date" :modifier="award.modifier" />
       </div>
     </div>
     <div class="award-bg">
       <div class="award-inner">
         <div class="l-container">
           <span class="award-title-read-area">
-            <AppSectionReadTitle
-              :state="isTextSegmentState"
-              :text="['・', 'AWARDS']"
-              :modifier="'award-section'"
-            />
+            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'AWARDS']" :modifier="'award-section'" />
           </span>
           <div class="award-list-wrapper">
             <div ref="AwardList" class="award-list">
-              <div
-                v-for="(award, index) in awardData"
-                :key="award.id"
-                ref="AwardItem"
-                class="award-item"
-                :data-id="index"
-              >
-                <AppTextUnderline
-                  :state="'expand'"
-                  :pc-animation="false"
-                  :sp-animation="false"
-                  :width="1000"
-                  :modifier="'about-award'"
-                />
+              <div v-for="(award, index) in awardData" :key="award.id" ref="AwardItem" class="award-item" :data-id="index">
+                <AppBounceLine :state="'expand'" :pc-animation="false" :sp-animation="false" :width="1000" :modifier="'about-award'" />
                 <p class="award-group">{{ award.group }}</p>
                 <p class="award-title">{{ award.title }}</p>
                 <p class="award-rank">{{ award.rank }}</p>
               </div>
               <div class="award-list-bottom-line">
-                <AppTextUnderline
-                  :state="'expand'"
-                  :pc-animation="false"
-                  :sp-animation="false"
-                  :width="1000"
-                  :modifier="'about-award-last'"
-                />
+                <AppBounceLine :state="'expand'" :pc-animation="false" :sp-animation="false" :width="1000" :modifier="'about-award-last'" />
               </div>
             </div>
           </div>
           <div class="pc-only">
             <ul class="award-total-list">
-              <li class="award-total-item">
-                AWWWARDS*{{ awardDataLength.awwwwardsTotalLength }}
-              </li>
-              <li class="award-total-item">
-                CSSDA*{{ awardDataLength.cssdesignawardsTotalLength }}
-              </li>
-              <li class="award-total-item">
-                CSSWINNER*{{ awardDataLength.csswinnerTotalLength }}
-              </li>
+              <li class="award-total-item">AWWWARDS*{{ awardDataLength.awwwwardsTotalLength }}</li>
+              <li class="award-total-item">CSSDA*{{ awardDataLength.cssdesignawardsTotalLength }}</li>
+              <li class="award-total-item">CSSWINNER*{{ awardDataLength.csswinnerTotalLength }}</li>
             </ul>
           </div>
         </div>
@@ -110,8 +71,8 @@ export default {
     this.cardHalfHeight = 160
     this.animationFlags = []
     this.isAllResetAnimation = false
-    this.mouseX = window.innerWidth / 2;
-    this.mouseY =  0;
+    this.mouseX = window.innerWidth / 2
+    this.mouseY = 0
     for (let i = 0; i < this.items.length; i++) {
       this.animationFlags.push(false)
     }
@@ -184,20 +145,15 @@ export default {
 
       const list = this.$refs.AwardList
       const rect = list.getBoundingClientRect()
-      const startPosY =
-        this.award.offsetTop + list.offsetTop - this.cardHalfHeight
+      const startPosY = this.award.offsetTop + list.offsetTop - this.cardHalfHeight
       const startPosX = rect.left - this.cardHalfWidth
       const endPosY = startPosY + rect.height
       const endPosX = startPosX + rect.width
+      // prettier-ignore
       if (this.currentY < startPosY || this.mouseX < startPosX) {
         this.allCardFadeOut()
-      } else if (
-        this.currentY >= startPosY &&
-        this.currentY < endPosY &&
-        this.mouseX >= startPosX &&
-        this.mouseX < endPosX
-      ) {
-        ;
+      } else if (this.currentY >= startPosY && this.currentY < endPosY && this.mouseX >= startPosX && this.mouseX < endPosX) {
+        ; // 何もしない
       } else {
         this.allCardFadeOut()
       }
@@ -205,8 +161,7 @@ export default {
       for (let i = 0; i < this.items.length; i++) {
         const target = this.items[i]
         const rect = target.getBoundingClientRect()
-        const startPosY =
-          this.award.offsetTop + target.offsetTop - this.cardHalfHeight
+        const startPosY = this.award.offsetTop + target.offsetTop - this.cardHalfHeight
         const startPosX = rect.left - this.cardHalfWidth
         const endPosY = startPosY + rect.height
         const endPosX = startPosX + rect.width
@@ -214,12 +169,7 @@ export default {
         if (this.currentY < startPosY || this.mouseX < startPosX) {
           this.colorFadeOut(target)
           this.cardFadeOut(i)
-        } else if (
-          this.currentY >= startPosY &&
-          this.currentY < endPosY &&
-          this.mouseX >= startPosX &&
-          this.mouseX < endPosX
-        ) {
+        } else if (this.currentY >= startPosY && this.currentY < endPosY && this.mouseX >= startPosX && this.mouseX < endPosX) {
           this.colorFadeIn(target)
           this.cardFadeIn(this.cards[i], i)
         } else {
@@ -292,8 +242,8 @@ export default {
         duration: this.$SITECONFIG.baseDuration,
         ease: this.$EASING.colorAndOpacity,
         color: '#ffffff',
-      });
-      this.$gsap.set(target,{
+      })
+      this.$gsap.set(target, {
         zIndex: 2,
       })
     },
@@ -303,7 +253,7 @@ export default {
         ease: this.$EASING.colorAndOpacity,
         color: '#828282',
       })
-      this.$gsap.set(target,{
+      this.$gsap.set(target, {
         zIndex: 1,
       })
     },
@@ -389,7 +339,7 @@ export default {
   }
 }
 
-.award-list-bottom-line{
+.award-list-bottom-line {
   display: flex;
   position: relative;
   width: 100%;
@@ -444,7 +394,7 @@ export default {
   font-family: $sixcaps;
   letter-spacing: 0.02em;
 
-    @include tab-vertical() {
+  @include tab-vertical() {
     font-size: 32px;
   }
 

@@ -3,13 +3,7 @@
     <div class="l-container">
       <div class="contents-inner">
         <div class="contents-info" :style="`stroke:${currentProject.siteColor.allTextColor};`">
-          <AppTextUnderline
-            :state="'extend'"
-            :pc-animation="false"
-            :sp-animation="false"
-            :width="1420"
-            :modifier="'works-info'"
-          />
+          <AppBounceLine :state="'extend'" :pc-animation="false" :sp-animation="false" :width="1420" :modifier="'works-info'" />
           <dl class="contents-info-client">
             <dt>CLIENT</dt>
             <dd>{{ currentProject.client }}</dd>
@@ -18,22 +12,9 @@
             {{ currentProject.freeArea }}
           </div>
         </div>
-        <div
-          v-for="(image, index) in currentProject.contentsImg"
-          :key="index"
-          ref="ContentsImgWrapper"
-          class="contents-img-wrapper"
-          :class="`contents-img-wrapper-${image.fieldId}`"
-        >
+        <div v-for="(image, index) in currentProject.contentsImg" :key="index" ref="ContentsImgWrapper" class="contents-img-wrapper" :class="`contents-img-wrapper-${image.fieldId}`">
           <picture>
-            <img
-              ref="ContentsImg"
-              class="contents-img"
-              :src="`${image.object.url}`"
-              :width="`${image.object.width}`"
-              :height="`${image.object.height}`"
-              :alt="currentProject.id"
-            />
+            <img ref="ContentsImg" class="contents-img" :src="`${image.object.url}`" :width="`${image.object.width}`" :height="`${image.object.height}`" :alt="currentProject.id" />
           </picture>
         </div>
       </div>
