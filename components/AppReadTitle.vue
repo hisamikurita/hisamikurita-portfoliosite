@@ -1,27 +1,20 @@
 <template>
-  <span
-    class="cmn-title-read-text-wrapper"
-    :class="`cmn-title-read-text-wrapper--${modifier}`"
-  >
-    <span
-      v-for="(char, index) of text"
-      :key="index"
-      class="cmn-title-read-text"
-      :class="`cmn-title-read-text-0${index}`"
-    >
-      <AppTextSegment
-        :state="state"
-        :start="start + index * 0.12"
-        :rotate="$BASEROTATE.right"
-        :text="char"
-        :sp-animation="spAnimation"
-      />
+  <span class="app-read-title" :class="`app-read-title--${modifier}`">
+    <span v-for="(char, index) of text" :key="index" class="app-read-title-wrapper" :class="`app-read-title-wrapper-0${index}`">
+      <AppTextAnimation :state="state" :start="start + index * 0.12" :rotate="$BASEROTATE.right" :text="char" :sp-animation="spAnimation" />
     </span>
   </span>
 </template>
 
 <script>
 export default {
+  /**
+   * text : 中身のテキスト、配列で渡ってくる
+   * start : 数値分アニメーションをdelayさせる
+   * modifier : 見た目を変更するクラス
+   * state : 親コンポーネントから監視されているアニメーションの状態管理用のprops
+   * spAnimation : SPでアニメーションさせるか、させないかを決める
+   * */
   props: {
     text: {
       type: Array,
@@ -47,8 +40,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.cmn-title-read-text-wrapper {
+<style lang="scss" scoped>
+.app-read-title {
   display: block;
   font-size: 12px;
   font-family: $helvetica;
@@ -66,8 +59,8 @@ export default {
 
 //modifier
 
-.cmn-title-read-text-wrapper--section {
-  & .cmn-title-read-text-00 {
+.app-read-title--section {
+  & .app-read-title-wrapper-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
@@ -86,8 +79,8 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--project-section {
-  & .cmn-title-read-text-00 {
+.app-read-title--project-section {
+  & .app-read-title-wrapper-00 {
     position: relative;
     right: -6px;
     font-size: 36px;
@@ -102,7 +95,7 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--pickup-section {
+.app-read-title--pickup-section {
   font-size: 14px;
   text-align: right;
 
@@ -110,7 +103,7 @@ export default {
     font-size: 10px;
   }
 
-  & .cmn-title-read-text-00 {
+  & .app-read-title-wrapper-00 {
     position: relative;
     left: 4px;
     font-size: 36px;
@@ -124,8 +117,8 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--contact-section {
-  & .cmn-title-read-text-00 {
+.app-read-title--contact-section {
+  & .app-read-title-wrapper-00 {
     display: block;
     margin: 0 0 6px 0;
     font-size: 36px;
@@ -145,7 +138,7 @@ export default {
     }
   }
 
-  & .cmn-title-read-text-01 {
+  & .app-read-title-wrapper-01 {
     font-size: 20px;
 
     @include tab-vertical() {
@@ -158,8 +151,8 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--award-section {
-  & .cmn-title-read-text-00 {
+.app-read-title--award-section {
+  & .app-read-title-wrapper-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
@@ -172,7 +165,7 @@ export default {
     }
   }
 
-  & .cmn-title-read-text-01 {
+  & .app-read-title-wrapper-01 {
     font-size: 14px;
 
     @include sp() {
@@ -181,10 +174,10 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--about-project-section {
+.app-read-title--about-project-section {
   color: $black;
 
-  & .cmn-title-read-text-00 {
+  & .app-read-title-wrapper-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
@@ -197,8 +190,8 @@ export default {
     }
   }
 
-  & .cmn-title-read-text-01,
-  & .cmn-title-read-text-02 {
+  & .app-read-title-wrapper-01,
+  & .app-read-title-wrapper-02 {
     font-size: 14px;
 
     @include sp() {
@@ -207,7 +200,7 @@ export default {
   }
 }
 
-.cmn-title-read-text-wrapper--works-section {
+.app-read-title--works-section {
   font-size: 14px;
 
   @include sp() {
@@ -215,7 +208,7 @@ export default {
     line-height: 1.1;
   }
 
-  & .cmn-title-read-text-00 {
+  & .app-read-title-wrapper-00 {
     font-size: 36px;
     text-indent: -2px;
     line-height: 0.79;
@@ -231,119 +224,54 @@ export default {
 
 /* stylelint-disable */
 .is-windows {
-  & .cmn-title-read-text-wrapper--section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: -8px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--pickup-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--pickup-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: 14px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--project-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--project-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       right: -14px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--contact-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--contact-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: -8px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--award-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--award-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: -8px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--about-project-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--about-project-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: -8px;
     }
   }
 
-  & .cmn-title-read-text-wrapper--works-section {
-    & .cmn-title-read-text-00 {
+  & .app-read-title--works-section {
+    & .app-read-title-wrapper-00 {
       position: relative;
       left: -8px;
     }
   }
 }
-
-// .is-android {
-//   & .cmn-title-read-text-wrapper--section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: -6px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--pickup-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: 12px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--project-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         right: -11px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--contact-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: -5px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--award-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: -4px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--about-project-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: -4px;
-//       }
-//     }
-//   }
-
-//   & .cmn-title-read-text-wrapper--works-section {
-//     & .cmn-title-read-text-00 {
-//       @include sp() {
-//         position: relative;
-//         left: -4px;
-//       }
-//     }
-//   }
-// }
 /* stylelint-enable */
 </style>

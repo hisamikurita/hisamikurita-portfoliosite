@@ -11,11 +11,11 @@
         <div class="hero-title" :style="`color:${currentProject.siteColor.mvTextColor};`">
           <h1 class="hero-title-read">
             <span class="hero-title-read-area">
-              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :sp-animation="false" :modifier="'works-section'" />
+              <AppReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :sp-animation="false" :modifier="'works-section'" />
             </span>
             <span class="hero-title-wrapper-block">
               <span v-for="index of Object.keys(currentProject.detailsMainTextPc).length - 1" :key="index" class="hero-title-wrapper" :class="`hero-title-wrapper-0${index}`">
-                <AppTextSegment
+                <AppTextAnimation
                   :state="isTextSegmentState"
                   :start="index * 0.12"
                   :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
@@ -30,7 +30,7 @@
           </h1>
           <p class="hero-desc">
             <span v-for="index of Object.keys(currentProject.detailsMainDescPc).length - 1" :key="index" class="hero-desc-wrapper" :class="`hero-desc-wrapper-0${index}`">
-              <AppTextSegment
+              <AppTextAnimation
                 :state="isTextSegmentState"
                 :start="index * 0.12 + 0.84"
                 :rotate="index % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
@@ -44,10 +44,10 @@
       <div class="sp-only">
         <div class="hero-textarea-sp">
           <div class="hero-index-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
-            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :pc-animation="false" :modifier="'section'" />
+            <AppReadTitle :state="isTextSegmentState" :text="['・', `WORKS 0${currentProject.index}`]" :pc-animation="false" :modifier="'section'" />
           </div>
           <div class="hero-full-title-sp" :style="`color:${currentProject.siteColor.mvTextColor};`">
-            <AppTextSegment :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" :text="currentProject.title.full" :pc-animation="false" />
+            <AppTextAnimation :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" :text="currentProject.title.full" :pc-animation="false" />
           </div>
         </div>
       </div>

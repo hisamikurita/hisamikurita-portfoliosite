@@ -5,20 +5,26 @@
         <div class="l-container">
           <h2 ref="AboutTitle" class="about-title">
             <span class="about-title-read-area">
-              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'ABOUT']" :sp-animation="false" :modifier="'section'" />
+              <AppReadTitle :state="isTextSegmentState" :text="['・', 'ABOUT']" :sp-animation="false" :modifier="'section'" />
             </span>
             <span class="pc-only">
               <span class="about-title-wrapper about-title-wrapper-01">
-                <AppTextSegment :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'" :sp-animation="false" />
+                <AppTextAnimation :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'IN THE SUMMER OF 22, I STARTED PROGRAMMING. IT WAS LA'" :sp-animation="false" />
               </span>
               <span class="about-title-wrapper about-title-wrapper-02">
-                <AppTextSegment :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'" :sp-animation="false" />
+                <AppTextAnimation
+                  :state="isTextSegmentState"
+                  :start="0.12"
+                  :rotate="$BASEROTATE.left"
+                  :text="'TER THAN MOST, BUT I THINK I FOUND SOMETHING THAT I WAS PASSION'"
+                  :sp-animation="false"
+                />
               </span>
               <span class="about-title-wrapper about-title-wrapper-03">
-                <AppTextSegment :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY STREN" :sp-animation="false" />
+                <AppTextAnimation :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" text="ATE ABOUT. I'VE BEEN WRITING CODE EVERY DAY EVER SINCE. MY STREN" :sp-animation="false" />
               </span>
               <span class="about-title-wrapper about-title-wrapper-04">
-                <AppTextSegment :state="isTextSegmentState" :start="0.36" :rotate="$BASEROTATE.left" :text="'GTH IS INSATIABLE CURIOSITY.'" :sp-animation="false" />
+                <AppTextAnimation :state="isTextSegmentState" :start="0.36" :rotate="$BASEROTATE.left" :text="'GTH IS INSATIABLE CURIOSITY.'" :sp-animation="false" />
               </span>
             </span>
             <span class="sp-only">
@@ -34,7 +40,7 @@
           </h2>
           <p class="about-read-text">
             <span class="pc-only">
-              <AppSectionReadTitle
+              <AppReadTitle
                 :state="isTextSegmentState"
                 :start="0.48"
                 :text="[

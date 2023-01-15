@@ -6,106 +6,46 @@
         <div class="l-container">
           <h2 class="contact-title">
             <span class="contact-title-read-area">
-              <AppSectionReadTitle
-                :state="isTextSegmentState"
-                :text="['・', 'SAY HI']"
-                :modifier="'section'"
-              />
+              <AppReadTitle :state="isTextSegmentState" :text="['・', 'SAY HI']" :modifier="'section'" />
             </span>
             <span class="pc-only">
               <span class="contact-title-wrapper contact-title-wrapper-01">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :rotate="$BASEROTATE.right"
-                  :text="'I AM FRONTEND DEVELOPER'"
-                  :sp-animation="false"
-                />
+                <AppTextAnimation :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'I AM FRONTEND DEVELOPER'" :sp-animation="false" />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-02">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.12"
-                  :rotate="$BASEROTATE.left"
-                  :text="'FOCUSED ON CREATING THINGS'"
-                  :sp-animation="false"
-                />
+                <AppTextAnimation :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'FOCUSED ON CREATING THINGS'" :sp-animation="false" />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-03">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.24"
-                  :rotate="$BASEROTATE.right"
-                  :text="'WITH INTERACTION & ANIMATION'"
-                  :sp-animation="false"
-                />
+                <AppTextAnimation :state="isTextSegmentState" :start="0.24" :rotate="$BASEROTATE.right" :text="'WITH INTERACTION & ANIMATION'" :sp-animation="false" />
               </span>
               <span class="contact-title-wrapper contact-title-wrapper-04">
-                <AppTextSegment
-                  :state="isTextSegmentState"
-                  :start="0.36"
-                  :rotate="$BASEROTATE.left"
-                  :text="'AS MY MAIN FOCUS.'"
-                  :sp-animation="false"
-                />
+                <AppTextAnimation :state="isTextSegmentState" :start="0.36" :rotate="$BASEROTATE.left" :text="'AS MY MAIN FOCUS.'" :sp-animation="false" />
               </span>
             </span>
             <span class="sp-only">
-              <span class="contact-title-wrapper contact-title-wrapper-01-sp">
-                I AM FRONTEND
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-02-sp">
-                DEVELOPER
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-03-sp">
-                FOCUSED ON
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-04-sp">
-                CREATING THINGS
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-05-sp">
-                WITH INTERACTION
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-06-sp">
-                & ANIMATION
-              </span>
-              <span class="contact-title-wrapper contact-title-wrapper-07-sp">
-                AS MY MAINN FOCUS.
-              </span>
+              <span class="contact-title-wrapper contact-title-wrapper-01-sp"> I AM FRONTEND </span>
+              <span class="contact-title-wrapper contact-title-wrapper-02-sp"> DEVELOPER </span>
+              <span class="contact-title-wrapper contact-title-wrapper-03-sp"> FOCUSED ON </span>
+              <span class="contact-title-wrapper contact-title-wrapper-04-sp"> CREATING THINGS </span>
+              <span class="contact-title-wrapper contact-title-wrapper-05-sp"> WITH INTERACTION </span>
+              <span class="contact-title-wrapper contact-title-wrapper-06-sp"> & ANIMATION </span>
+              <span class="contact-title-wrapper contact-title-wrapper-07-sp"> AS MY MAINN FOCUS. </span>
             </span>
           </h2>
           <div class="contact-info-area">
             <div class="contact-info-index-area">
               <span class="contact-info-index">
-                <AppSectionReadTitle
-                  :state="isTextSegmentState"
-                  :start="0.48"
-                  :text="['・', 'INDEX']"
-                  :modifier="'contact-section'"
-                />
+                <AppReadTitle :state="isTextSegmentState" :start="0.48" :text="['・', 'INDEX']" :modifier="'contact-section'" />
               </span>
               <ul class="contact-info-list">
-                <li
-                  v-for="(data, index) in projectData"
-                  :key="data.id"
-                  class="contact-info-item"
-                >
+                <li v-for="(data, index) in projectData" :key="data.id" class="contact-info-item">
                   <AppImageTransition :url="`works/${data.id}`" :index="index">
-                    <AppTextSegment
-                      :state="isTextSegmentState"
-                      :start="0.48 + index * 0.12"
-                      :rotate="$BASEROTATE.right"
-                      :text="data.title.full"
-                    />
+                    <AppTextAnimation :state="isTextSegmentState" :start="0.48 + index * 0.12" :rotate="$BASEROTATE.right" :text="data.title.full" />
                   </AppImageTransition>
                 </li>
                 <li class="contact-info-item">
                   <AppBgTransition :url="`archive`" color="#000000">
-                    <AppTextSegment
-                      :state="isTextSegmentState"
-                      :start="0.48 + projectData.length * 0.12"
-                      :rotate="$BASEROTATE.right"
-                      :text="'ARCHIVE'"
-                    />
+                    <AppTextAnimation :state="isTextSegmentState" :start="0.48 + projectData.length * 0.12" :rotate="$BASEROTATE.right" :text="'ARCHIVE'" />
                   </AppBgTransition>
                 </li>
               </ul>
@@ -113,13 +53,7 @@
             <div class="contact-info-name-area">
               <span class="pc-only">
                 <span class="contact-name">
-                  <AppTextSegment
-                    :state="isTextSegmentState"
-                    :start="0.48"
-                    :rotate="$BASEROTATE.right"
-                    :text="'HISAMI KURITA'"
-                    :sp-animation="false"
-                  />
+                  <AppTextAnimation :state="isTextSegmentState" :start="0.48" :rotate="$BASEROTATE.right" :text="'HISAMI KURITA'" :sp-animation="false" />
                 </span>
               </span>
               <span class="sp-only">

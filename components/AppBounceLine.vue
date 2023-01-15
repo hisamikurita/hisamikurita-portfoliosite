@@ -1,5 +1,13 @@
 <template>
-  <svg ref="svg" :style="`transform-origin:${origin};`" class="svg" :class="`svg--${modifier}`" :viewBox="`0 0 ${width} 160`" @mousemove="onMousemove" @mouseleave="onMouseLeave">
+  <svg
+    ref="svg"
+    :style="`transform-origin:${origin};`"
+    class="app-bounce-line"
+    :class="`app-bounce-line--${modifier}`"
+    :viewBox="`0 0 ${width} 160`"
+    @mousemove="onMousemove"
+    @mouseleave="onMouseLeave"
+  >
     <path fill="none" stroke-width="1" :d="`M000,80 Q ${width / 2} ${path.y}, ${width},80`" />
   </svg>
 </template>
@@ -134,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.svg {
+.app-bounce-line {
   position: absolute;
   top: 0;
   left: 0;
@@ -151,7 +159,7 @@ export default {
 
 //modifier
 
-.svg--index-hero {
+.app-bounce-line--index-hero {
   position: absolute;
   top: vw(-100);
   left: 0;
@@ -162,7 +170,7 @@ export default {
   }
 }
 
-.svg--index-about {
+.app-bounce-line--index-about {
   top: vw(190);
   left: 40px;
   width: calc(100% - 56px - 40px);
@@ -175,7 +183,7 @@ export default {
   }
 }
 
-.svg--index-project-01 {
+.app-bounce-line--index-project-01 {
   top: auto;
   bottom: vw(90);
   left: 40px;
@@ -189,7 +197,7 @@ export default {
   }
 }
 
-.svg--index-project-02 {
+.app-bounce-line--index-project-02 {
   top: auto;
   bottom: vw(-90);
   left: 40px;
@@ -203,7 +211,7 @@ export default {
   }
 }
 
-.svg--about-hero {
+.app-bounce-line--about-hero {
   top: vw(-106);
   left: 0;
   stroke: $black;
@@ -213,7 +221,7 @@ export default {
   }
 }
 
-.svg--about-award {
+.app-bounce-line--about-award {
   top: vw(-100);
   left: 0;
   width: 100%;
@@ -222,7 +230,7 @@ export default {
   transform: scaleX(1);
 }
 
-.svg--about-award-last {
+.app-bounce-line--about-award-last {
   top: vw(-100);
   left: 0;
   width: 100%;
@@ -231,7 +239,7 @@ export default {
   transform: scaleX(1);
 }
 
-.svg--about-project-01 {
+.app-bounce-line--about-project-01 {
   top: vw(-98);
   left: 0;
   width: calc(100% + 4px);
@@ -244,7 +252,7 @@ export default {
   }
 }
 
-.svg--about-project-02 {
+.app-bounce-line--about-project-02 {
   top: auto;
   bottom: vw(-98);
   left: 0;
@@ -258,13 +266,13 @@ export default {
   }
 }
 
-.svg--works {
+.app-bounce-line--works {
   top: auto;
   bottom: vmin(148);
   background-color: inherit;
 }
 
-.svg--works-next-01 {
+.app-bounce-line--works-next-01 {
   top: vw(-96);
   left: 0;
   width: calc(100%);
@@ -276,7 +284,7 @@ export default {
   }
 }
 
-.svg--works-next-02 {
+.app-bounce-line--works-next-02 {
   top: auto;
   bottom: vw(-96);
   left: 0;
@@ -289,7 +297,7 @@ export default {
   }
 }
 
-.svg--works-info {
+.app-bounce-line--works-info {
   top: vw(-110);
   left: 0;
   width: calc(100%);

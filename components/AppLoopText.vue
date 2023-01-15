@@ -1,8 +1,8 @@
 <template>
-  <span ref="root" class="root">
-    <span ref="wrapper" class="wrapper">
-      <span ref="rotate" class="rotate">
-        <span ref="translate" class="translate">
+  <span ref="root" class="app-loop-text">
+    <span ref="wrapper" class="app-loop-text-wrapper">
+      <span ref="rotate" class="app-loop-text-rotate">
+        <span ref="translate" class="app-loop-text-translate">
           <span ref="block" class="app-loop-text-block">
             {{ text }}
           </span>
@@ -249,18 +249,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.root {
+.app-loop-text {
   display: block;
   width: max-content;
   overflow: hidden;
 }
 
-.wrapper {
+.app-loop-text-wrapper {
   display: block;
   will-change: transform;
 }
 
-.translate {
+.app-loop-text-translate {
   display: flex;
   position: relative;
 }

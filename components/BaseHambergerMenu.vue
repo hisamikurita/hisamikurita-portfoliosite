@@ -11,92 +11,41 @@
     <div ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <div ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
-          <div
-            class="hambergerMenu-title-wrapper-01"
-            @click="hambergerMenuOnClose"
-          >
+          <div class="hambergerMenu-title-wrapper-01" @click="hambergerMenuOnClose">
             <AppBgTransition url="/" color="#f0efeb">
-              <AppTextSegment
-                :state="isTextSegmentState"
-                :rotate="$BASEROTATE.right"
-                :text="'HISAMIKURITA'"
-              />
+              <AppTextAnimation :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'HISAMIKURITA'" />
             </AppBgTransition>
           </div>
-          <div
-            class="hambergerMenu-title-wrapper-02"
-            @click="hambergerMenuOnClose"
-          >
+          <div class="hambergerMenu-title-wrapper-02" @click="hambergerMenuOnClose">
             <AppBgTransition url="/about" color="#f0efeb">
-              <AppTextSegment
-                :state="isTextSegmentState"
-                :start="0.12"
-                :rotate="$BASEROTATE.left"
-                :text="'ABOUT'"
-              />
+              <AppTextAnimation :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'ABOUT'" />
             </AppBgTransition>
           </div>
         </div>
         <div class="hambergerMenu-section-title">
-          <AppSectionReadTitle
-            :state="isTextSegmentState"
-            :start="0.24"
-            :text="['・', 'WORKS']"
-            :modifier="'section'"
-          />
+          <AppReadTitle :state="isTextSegmentState" :start="0.24" :text="['・', 'WORKS']" :modifier="'section'" />
         </div>
         <div>
           <ul class="hambergerMenu-list">
-            <li
-              v-for="(data, index) in projectAndArchiveDatas"
-              :key="index"
-              class="hambergerMenu-item"
-            >
-              <div
-                ref="HambergerMenuItemWrapper"
-                class="hambergerMenu-item-wrapper"
-                @click="hambergerMenuOnClose"
-              >
+            <li v-for="(data, index) in projectAndArchiveDatas" :key="index" class="hambergerMenu-item">
+              <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper" @click="hambergerMenuOnClose">
                 <!--アーカイブページの時-->
-                <AppBgTransition
-                  v-if="index === projectAndArchiveData.length - 1.0"
-                  :url="`/archive`"
-                  :color="'#000000'"
-                  class="hambergerMenu-item-link"
-                >
+                <AppBgTransition v-if="index === projectAndArchiveData.length - 1.0" :url="`/archive`" :color="'#000000'" class="hambergerMenu-item-link">
                   <span class="hambergerMenu-item-img">
                     <picture>
-                      <img
-                        :src="`/images/hambergermenu-archive.webp`"
-                        :width="`180`"
-                        :height="`180`"
-                        :alt="`archive`"
-                      />
+                      <img :src="`/images/hambergermenu-archive.webp`" :width="`180`" :height="`180`" :alt="`archive`" />
                     </picture>
                   </span>
                   <span>
                     <span class="hambergerMenu-item-title">ARCHIVE</span>
-                    <span class="hambergerMenu-item-desc">
-                      I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK
-                      I'M SUBMITTING TO CODEPEN.
-                    </span>
+                    <span class="hambergerMenu-item-desc"> I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN. </span>
                   </span>
                 </AppBgTransition>
                 <!--アーカイブページ以外の時-->
-                <AppImageTransition
-                  v-else
-                  :url="`/works/${data.id}`"
-                  :index="index"
-                  class="hambergerMenu-item-link"
-                >
+                <AppImageTransition v-else :url="`/works/${data.id}`" :index="index" class="hambergerMenu-item-link">
                   <span class="hambergerMenu-item-img">
                     <picture>
-                      <img
-                        :src="`${data.hambergerMenuImg.url}`"
-                        :width="`${data.hambergerMenuImg.width}`"
-                        :height="`${data.hambergerMenuImg.height}`"
-                        :alt="`${data.id}`"
-                      />
+                      <img :src="`${data.hambergerMenuImg.url}`" :width="`${data.hambergerMenuImg.width}`" :height="`${data.hambergerMenuImg.height}`" :alt="`${data.id}`" />
                     </picture>
                   </span>
                   <span>
@@ -112,22 +61,11 @@
         </div>
       </div>
     </div>
-    <button
-      ref="HambergerMenuBtn"
-      aria-label="hambergermenu btn"
-      class="hambergerMenu-btn"
-      @click="hambergerMenuOnClick"
-    >
+    <button ref="HambergerMenuBtn" aria-label="hambergermenu btn" class="hambergerMenu-btn" @click="hambergerMenuOnClick">
       <span ref="HambergerMenuBtnHover" class="hambergerMenu-hover">
         <span ref="hambergerMenuOpenarea" class="hambergerMenu-openarea">
-          <span
-            ref="hambergerMenuOpenareaLine01"
-            class="hambergerMenu-openarea-line hambergerMenu-openarea-line-01"
-          ></span>
-          <span
-            ref="hambergerMenuOpenareaLine02"
-            class="hambergerMenu-openarea-line hambergerMenu-openarea-line-02"
-          ></span>
+          <span ref="hambergerMenuOpenareaLine01" class="hambergerMenu-openarea-line hambergerMenu-openarea-line-01"></span>
+          <span ref="hambergerMenuOpenareaLine02" class="hambergerMenu-openarea-line hambergerMenu-openarea-line-02"></span>
         </span>
       </span>
     </button>
@@ -255,18 +193,15 @@ export default {
            */
           setTimeout(() => {
             this.isTextSegmentState = 'center'
-            this.itemLinkCenter = this.$gsap.to(
-              this.$refs.HambergerMenuItemWrapper,
-              {
-                duration: this.$SITECONFIG.baseDuration,
-                delay: 0.36,
-                ease: this.$EASING.transform,
-                stagger: {
-                  each: 0.12,
-                },
-                y: 0,
-              }
-            )
+            this.itemLinkCenter = this.$gsap.to(this.$refs.HambergerMenuItemWrapper, {
+              duration: this.$SITECONFIG.baseDuration,
+              delay: 0.36,
+              ease: this.$EASING.transform,
+              stagger: {
+                each: 0.12,
+              },
+              y: 0,
+            })
           }, 300)
         } else if (this.$SITECONFIG.isMobile) {
           /**
@@ -330,18 +265,15 @@ export default {
            */
           setTimeout(() => {
             this.isTextSegmentState = 'center'
-            this.itemLinkCenter = this.$gsap.to(
-              this.$refs.HambergerMenuItemWrapper,
-              {
-                duration: this.$SITECONFIG.baseDuration,
-                delay: 0.36,
-                ease: this.$EASING.transform,
-                stagger: {
-                  each: 0.12,
-                },
-                y: 0,
-              }
-            )
+            this.itemLinkCenter = this.$gsap.to(this.$refs.HambergerMenuItemWrapper, {
+              duration: this.$SITECONFIG.baseDuration,
+              delay: 0.36,
+              ease: this.$EASING.transform,
+              stagger: {
+                each: 0.12,
+              },
+              y: 0,
+            })
           }, 300)
         }
       } else if (!this.hambergerMenuState) {
@@ -509,31 +441,29 @@ export default {
       this.projectAndArchiveData.push({})
     },
     hambergerMenuOnClick() {
-      if(this.isOpen || this.isClose) return
+      if (this.isOpen || this.isClose) return
 
       if (!this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/open')
         this.isOpen = true
         setTimeout(() => {
           this.isOpen = false
-        }, 400);
+        }, 400)
       } else if (this.hambergerMenuState) {
         this.$store.commit('hambergerMenu/close')
         this.isClose = true
-         setTimeout(() => {
+        setTimeout(() => {
           this.isClose = false
-        }, 400);
+        }, 400)
       }
 
       // ハンバガーメニューが開いた時
       if (this.hambergerMenuState) {
-        if (this.$SITECONFIG.isTouch)
-          this.$store.commit('hambergerMenu/pickupOpen')
+        if (this.$SITECONFIG.isTouch) this.$store.commit('hambergerMenu/pickupOpen')
       }
       // ハンバガーメニューが閉じた時
       else if (!this.hambergerMenuState) {
-        if (this.$SITECONFIG.isTouch)
-          this.$store.commit('hambergerMenu/pickupClose')
+        if (this.$SITECONFIG.isTouch) this.$store.commit('hambergerMenu/pickupClose')
       }
     },
     hambergerMenuOnClose() {
@@ -743,7 +673,7 @@ export default {
 }
 
 .hambergerMenu-item-title {
-      display: block;
+  display: block;
   margin: -12px 0 20px 0;
   color: #302c1a;
   font-size: 56px;
@@ -757,7 +687,7 @@ export default {
 }
 
 .hambergerMenu-item-desc {
-      display: block;
+  display: block;
   color: #302c1a;
   font-size: 10px;
   line-height: 1.3;
@@ -803,9 +733,9 @@ export default {
   cursor: pointer;
 }
 
-.is-disable .hambergerMenu-btn{
-   pointer-events: none;
-    user-select: none;
+.is-disable .hambergerMenu-btn {
+  pointer-events: none;
+  user-select: none;
 }
 
 .hambergerMenu-hover {

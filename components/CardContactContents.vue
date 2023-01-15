@@ -11,37 +11,15 @@
     <div class="card-project-title-wrapper-03">
       <span class="pc-only">
         <a v-if="title.link" :href="title.link" target="_blank" rel="noopener" class="card-project-title-wrapper-03-link">
-          <AppTextSegment
-            :state="state"
-            :rotate="$BASEROTATE.left"
-            :text="title.text"
-            :sp-animation="false"
-          />
+          <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title.text" :sp-animation="false" />
           <span v-if="title.subtext" class="card-project-sub-title">
-            <AppTextSegment
-              :state="state"
-              :start="0.28"
-              :rotate="$BASEROTATE.left"
-              :text="title.subtext"
-              :sp-animation="false"
-            />
+            <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="title.subtext" :sp-animation="false" />
           </span>
         </a>
         <span v-else class="card-project-title-wrapper-03-link">
-          <AppTextSegment
-            :state="state"
-            :rotate="$BASEROTATE.left"
-            :text="title.text"
-            :sp-animation="false"
-          />
+          <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title.text" :sp-animation="false" />
           <span v-if="title.subtext" class="card-project-sub-title">
-            <AppTextSegment
-              :state="state"
-              :start="0.28"
-              :rotate="$BASEROTATE.left"
-              :text="title.subtext"
-              :sp-animation="false"
-            />
+            <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="title.subtext" :sp-animation="false" />
           </span>
         </span>
       </span>

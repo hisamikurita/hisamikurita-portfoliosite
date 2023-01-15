@@ -5,7 +5,7 @@
       <div class="project-inner">
         <h2 ref="ProjectLoopTitle" class="project-loop-title">
           <span class="project-loop-title-read-area">
-            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED', 'PROJECTS']" :modifier="'project-section'" />
+            <AppReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED', 'PROJECTS']" :modifier="'project-section'" />
           </span>
           <span class="project-loop-title-wrapper project-loop-title-wrapper-01">
             <AppBounceLine :state="isTextUnderlineState" :width="1280" :origin="'right'" :modifier="'index-project-01'" />
