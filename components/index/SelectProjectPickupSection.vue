@@ -1,37 +1,15 @@
 <template>
   <div ref="Pickup" class="pickup is-pickup-scene-00">
     <!--背景サークルー(侵入時の背景サークルとDOMを分ける)-->
-    <span
-      ref="PickupCircleEnter"
-      class="pickup-circle-bg-enter"
-      :class="{ 'is-enter': indexPickupState }"
-      :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"
-    ></span>
+    <span ref="PickupCircleEnter" class="pickup-circle-bg-enter" :class="{ 'is-enter': indexPickupState }" :style="`background-color:${pickupData[0].siteColor.bodyContentsColor};`"></span>
     <span class="pickup-circle-bg-area">
-      <AppCircleBg
-        :state="isCircleBgState02"
-        :modifier="'pickup-02'"
-        :color="pickupData[1].siteColor.bodyContentsColor"
-      />
-      <AppCircleBg
-        :state="isCircleBgState03"
-        :modifier="'pickup-03'"
-        :color="pickupData[2].siteColor.bodyContentsColor"
-      />
+      <AppCircleBg :state="isCircleBgState02" :modifier="'pickup-02'" :color="pickupData[1].siteColor.bodyContentsColor" />
+      <AppCircleBg :state="isCircleBgState03" :modifier="'pickup-03'" :color="pickupData[2].siteColor.bodyContentsColor" />
     </span>
     <!--シーンごとのセクションナンバー-->
     <p class="pickup-section-number">
-      <span
-        v-for="num in pickupData.length"
-        :key="num.id"
-        class="pickup-section-number-wrapper"
-        :class="'pickup-section-number-wrapper-0' + num"
-      >
-        <AppSectionReadTitle
-          :state="isTextSegmentState[num]"
-          :text="['・', 'SELECTED', 'PROJECT', '0' + num]"
-          :modifier="'pickup-section'"
-        />
+      <span v-for="num in pickupData.length" :key="num.id" class="pickup-section-number-wrapper" :class="'pickup-section-number-wrapper-0' + num">
+        <AppReadTitle :state="isTextSegmentState[num]" :text="['・', 'SELECTED', 'PROJECT', '0' + num]" :modifier="'pickup-section'" />
       </span>
     </p>
     <!--シーンごとのセクションテキスト-->
@@ -44,22 +22,11 @@
         :style="`color:${data.siteColor.allTextColor};`"
       >
         <span class="pickup-section-text-title">
-          <AppTextSegment
-            :state="isTextSegmentState[Number(index + 1)]"
-            :rotate="$BASEROTATE.right"
-            :text="data.title.full"
-          />
+          <AppTextAnimation :state="isTextSegmentState[Number(index + 1)]" :rotate="$BASEROTATE.right" :text="data.title.full" />
         </span>
         <span>
-          <span
-            v-for="tIndex of Object.keys(data.pickup.text[0]).length - 1"
-            :key="tIndex"
-          >
-            <AppTextSegment
-              :state="isTextSegmentState[index + 1]"
-              :start="tIndex * 0.12"
-              :text="`${data.pickup.text[0]['text0' + tIndex]}`"
-            />
+          <span v-for="tIndex of Object.keys(data.pickup.text[0]).length - 1" :key="tIndex">
+            <AppTextAnimation :state="isTextSegmentState[index + 1]" :start="tIndex * 0.12" :text="`${data.pickup.text[0]['text0' + tIndex]}`" />
           </span>
         </span>
       </span>
@@ -68,34 +35,15 @@
     <div class="pickup-bg">
       <div ref="PickupInner" class="pickup-inner">
         <div class="l-container">
-          <button
-            v-for="(data, index) in pickupData"
-            :key="data.id"
-            class="pickup-link"
-            :class="`pickup-link-0${index + 1}`"
-            aria-label="pickup page"
-            @click="nextPage(data)"
-          >
-          </button>
+          <button v-for="(data, index) in pickupData" :key="data.id" class="pickup-link" :class="`pickup-link-0${index + 1}`" aria-label="pickup page" @click="nextPage(data)"></button>
           <div class="pickup-clip">
             <h2 class="pickup-title">
-              <span
-                v-for="(data, index) in pickupData"
-                :key="data.id"
-                class="pickup-title-wrapper"
-                :class="`pickup-title-wrapper-0${index + 1}`"
-                :style="`color:${data.siteColor.allTextColor};`"
-              >
-                <span
-                  v-for="tIndex of Object.keys(data.pickup.title[0]).length - 1"
-                  :key="tIndex"
-                >
-                  <AppTextSegment
+              <span v-for="(data, index) in pickupData" :key="data.id" class="pickup-title-wrapper" :class="`pickup-title-wrapper-0${index + 1}`" :style="`color:${data.siteColor.allTextColor};`">
+                <span v-for="tIndex of Object.keys(data.pickup.title[0]).length - 1" :key="tIndex">
+                  <AppTextAnimation
                     :state="isTextSegmentState[Number(index + 1)]"
                     :start="tIndex * 0.12"
-                    :rotate="
-                      tIndex % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right
-                    "
+                    :rotate="tIndex % 2 != 0 ? $BASEROTATE.left : $BASEROTATE.right"
                     :text="`${data.pickup.title[0]['text0' + tIndex]}`"
                   />
                 </span>
@@ -158,22 +106,21 @@ export default {
 
   watch: {
     hambergerMenuState: function () {
-      if(this.indexPickupState){
-      if (this.hambergerMenuState) {
-        this.resetDefaultPreEvent();
+      if (this.indexPickupState) {
+        if (this.hambergerMenuState) {
+          this.resetDefaultPreEvent()
+        } else {
+          this.stopDefaultPreEvent()
+          window.removeEventListener('touchstart', preEventTouch, {
+            passive: false,
+          })
+        }
       }
-      else{
-        this.stopDefaultPreEvent()
-        window.removeEventListener('touchstart', preEventTouch, {
-              passive: false,
-            })
-      }
-      }
-    }
+    },
   },
 
   mounted() {
-    this.scrollDuartion = this.$SITECONFIG.isPc ? this.$SITECONFIG.baseDuration : this.$SITECONFIG.baseDuration * 1.2;
+    this.scrollDuartion = this.$SITECONFIG.isPc ? this.$SITECONFIG.baseDuration : this.$SITECONFIG.baseDuration * 1.2
     this.scrollBuffer = 160.0
     this.animationInterval = this.wheelInterval * (this.disableTime / 2.0)
     this.$store.commit('indexPickup/setCurrentNumber', 1.0)
@@ -184,13 +131,10 @@ export default {
   },
 
   beforeDestroy() {
-          this.$store.commit('hambergerMenu/pickupClose')
+    this.$store.commit('hambergerMenu/pickupClose')
     this.$store.commit('indexPickup/leave')
     this.$store.commit('indexPickup/setProjectAnimationState', 'end')
-    this.$store.commit(
-      'indexPickup/setCurrentNumber',
-      this.pickupSectionCurrentNum
-    )
+    this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
 
     // ページを離れる時にピックアップのアニメーションをremoveする
     this.$store.commit('indexPickup/setScene', '')
@@ -216,8 +160,7 @@ export default {
 
       if (this.$asscroll.targetPos > pickupTopPos) {
         if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight)
-        if (this.pickupToTopLeaveScrollAnimation)
-          this.pickupToTopLeaveScrollAnimation.kill()
+        if (this.pickupToTopLeaveScrollAnimation) this.pickupToTopLeaveScrollAnimation.kill()
         // 上から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToTopEnterScroll)
         // 慣性スクロールを無効にする
@@ -284,8 +227,7 @@ export default {
      * ピックアップセクションの上から離れる時
      */
     pickupToTopLeaveScroll() {
-      if (this.pickupToTopEnterScrollAnimation)
-        this.pickupToTopEnterScrollAnimation.kill()
+      if (this.pickupToTopEnterScrollAnimation) this.pickupToTopEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       if (this.$SITECONFIG.isMobile) this.$gsap.ticker.remove(this.setHeight)
@@ -360,8 +302,7 @@ export default {
       if (this.$asscroll.targetPos < pickupBottomPos) {
         if (this.hambergerMenuState || this.hambergerMenuPickupState) return
         if (this.$SITECONFIG.isMobile) this.$gsap.ticker.add(this.setHeight)
-        if (this.pickupToBottomLeaveScrollAnimation)
-          this.pickupToBottomLeaveScrollAnimation.kill()
+        if (this.pickupToBottomLeaveScrollAnimation) this.pickupToBottomLeaveScrollAnimation.kill()
         // 下から侵入する監視をストップ
         this.$gsap.ticker.remove(this.pickupToBottomEnterScroll)
         // 慣性スクロールを無効にする
@@ -422,8 +363,7 @@ export default {
      * ピックアップセクションの下に離れる時
      */
     pickupToBottomLeaveScroll() {
-      if (this.pickupToBottomEnterScrollAnimation)
-        this.pickupToBottomEnterScrollAnimation.kill()
+      if (this.pickupToBottomEnterScrollAnimation) this.pickupToBottomEnterScrollAnimation.kill()
       // タッチデバイスの時、背景固定解除
       // if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
       if (this.$SITECONFIG.isMobile) this.$gsap.ticker.remove(this.setHeight)
@@ -593,12 +533,8 @@ export default {
      * ルート要素のクラスの切り替え
      */
     pickupSceneClassToggle() {
-      this.$refs.Pickup.classList.remove(
-        `is-pickup-scene-0${this.pickupSectionOldCurrentNum}`
-      )
-      this.$refs.Pickup.classList.add(
-        `is-pickup-scene-0${this.pickupSectionCurrentNum}`
-      )
+      this.$refs.Pickup.classList.remove(`is-pickup-scene-0${this.pickupSectionOldCurrentNum}`)
+      this.$refs.Pickup.classList.add(`is-pickup-scene-0${this.pickupSectionCurrentNum}`)
     },
 
     setHeight() {
@@ -712,10 +648,7 @@ export default {
     nextPage(data) {
       this.resetDefaultPreEvent()
       this.removeSceneEvent()
-      this.$store.commit(
-        'indexPickup/setCurrentNumber',
-        this.pickupSectionCurrentNum
-      )
+      this.$store.commit('indexPickup/setCurrentNumber', this.pickupSectionCurrentNum)
       this.$store.commit('indexPickup/transition', true)
 
       setTimeout(() => {

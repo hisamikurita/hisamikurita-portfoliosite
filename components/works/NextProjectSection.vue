@@ -4,7 +4,7 @@
       <div class="l-container">
         <div class="next-contents">
           <div class="next-title-read-area" :style="`color:${currentProject.siteColor.allTextColor};`">
-            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'NEXT', 'PROJECT']" :modifier="'works-section'" />
+            <AppReadTitle :state="isTextSegmentState" :text="['・', 'NEXT', 'PROJECT']" :modifier="'works-section'" />
           </div>
           <AppImageTransition class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
             <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper" :style="`stroke:${currentProject.siteColor.allTextColor};`">

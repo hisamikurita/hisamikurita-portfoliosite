@@ -9,20 +9,9 @@
       </span>
       <span class="card-project-title-wrapper-03">
         <span class="pc-only">
-          <AppTextSegment
-            :state="state"
-            :rotate="$BASEROTATE.left"
-            :text="title"
-            :sp-animation="false"
-          />
+          <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title" :sp-animation="false" />
           <span class="card-project-sub-title">
-            <AppTextSegment
-              :state="state"
-              :start="0.28"
-              :rotate="$BASEROTATE.left"
-              :text="subtitle"
-              :sp-animation="false"
-            />
+            <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="subtitle" :sp-animation="false" />
           </span>
         </span>
         <span class="sp-only">
@@ -72,15 +61,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .card-project-link-about-hero .card-project-title-wrapper-01 {
-    color: $darkBlack;
-  }
+.card-project-link-about-hero .card-project-title-wrapper-01 {
+  color: $darkBlack;
+}
 
-  .card-project-link-about-hero .card-project-title-wrapper-02 {
-    color: $darkBlack;
-  }
+.card-project-link-about-hero .card-project-title-wrapper-02 {
+  color: $darkBlack;
+}
 
-  .card-project-link-about-hero .card-project-title-wrapper-03 {
-    color: $darkBlack;
-  }
+.card-project-link-about-hero .card-project-title-wrapper-03 {
+  color: $darkBlack;
+}
 </style>

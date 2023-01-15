@@ -9,7 +9,7 @@
       <div class="award-inner">
         <div class="l-container">
           <span class="award-title-read-area">
-            <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'AWARDS']" :modifier="'award-section'" />
+            <AppReadTitle :state="isTextSegmentState" :text="['・', 'AWARDS']" :modifier="'award-section'" />
           </span>
           <div class="award-list-wrapper">
             <div ref="AwardList" class="award-list">

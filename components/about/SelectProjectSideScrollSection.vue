@@ -9,7 +9,7 @@
         <div class="l-container">
           <div class="project-contents">
             <div class="project-title-read-area">
-              <AppSectionReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED ', 'PROJECT']" :modifier="'about-project-section'" />
+              <AppReadTitle :state="isTextSegmentState" :text="['・', 'SELECTED ', 'PROJECT']" :modifier="'about-project-section'" />
             </div>
             <div ref="ProjectTitleWrapper" class="project-title-wrapper">
               <AppBounceLine :state="isTextUnderlineState" :origin="'right'" :width="1280" :modifier="'about-project-01'" />
