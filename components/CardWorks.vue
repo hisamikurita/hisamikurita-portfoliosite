@@ -1,14 +1,14 @@
 <template>
-  <div class="app-card-article">
-    <span class="app-card-shadow" :style="`box-shadow: 0 30px 60px 0 ${shadowColor};`"></span>
-    <a :href="externalLink" target="_blank" rel="noopener" class="app-card-link">
-      <span class="app-card-inner">
-        <span class="app-card-title-wrapper-01">
-          <span class="app-card-title-wrapper-01-block"> ・ </span>
-          <span class="app-card-title-wrapper-01-block"> LIVE </span>
+  <div class="card-article">
+    <span class="card-shadow" :style="`box-shadow: 0 30px 60px 0 ${shadowColor};`"></span>
+    <a :href="externalLink" target="_blank" rel="noopener" class="card-link">
+      <span class="card-inner">
+        <span class="card-title-wrapper-01">
+          <span class="card-title-wrapper-01-block"> ・ </span>
+          <span class="card-title-wrapper-01-block"> LIVE </span>
         </span>
-        <span class="app-card-title-wrapper-02"> <span class="app-card-title-wrapper-02-block">YOU CAN SEE PROJECT NAME IS LIVE. AND IF YOU SEE IT, COME BACK HERE</span></span>
-        <span class="app-card-title-wrapper-03">
+        <span class="card-title-wrapper-02"> <span class="card-title-wrapper-02-block">YOU CAN SEE PROJECT NAME IS LIVE. AND IF YOU SEE IT, COME BACK HERE</span></span>
+        <span class="card-title-wrapper-03">
           <span class="pc-only">
             <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="'VISIT SITE'" :sp-animation="false" />
           </span>
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.app-card-article {
+.card-article {
   position: relative;
   width: 100%;
   height: 100%;
@@ -60,13 +60,13 @@ export default {
   }
 }
 
-.app-card-inner {
+.card-inner {
   display: block;
   position: relative;
   height: 100%;
 }
 
-.app-card-link {
+.card-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -74,7 +74,7 @@ export default {
   line-height: 1;
 }
 
-.app-card-title-wrapper-01 {
+.card-title-wrapper-01 {
   display: block;
   margin: 0 0 10px 0;
 
@@ -83,7 +83,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-01-block {
+.card-title-wrapper-01-block {
   display: block;
   font-size: 12px;
   font-family: $helvetica;
@@ -108,11 +108,11 @@ export default {
   }
 }
 
-.app-card-title-wrapper-02 {
+.card-title-wrapper-02 {
   font-size: 10px;
 }
 
-.app-card-title-wrapper-02-block {
+.card-title-wrapper-02-block {
   display: block;
   width: 110%;
   font-size: 11px;
@@ -128,7 +128,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-03 {
+.card-title-wrapper-03 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -142,7 +142,7 @@ export default {
   }
 }
 
-.app-card-shadow {
+.card-shadow {
   position: absolute;
   top: 0;
   left: 0;
@@ -154,7 +154,7 @@ export default {
 }
 
 /* stylelint-disable */
-.is-windows .app-card-title-wrapper-01-block {
+.is-windows .card-title-wrapper-01-block {
   &:first-of-type {
     position: relative;
     left: -8px;

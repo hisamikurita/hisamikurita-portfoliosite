@@ -1,8 +1,8 @@
 <template>
-  <div class="loading-area">
-    <span ref="Loading" class="loading">
-      <span ref="LoadingWrapper" class="loading-wrapper">
-        <span ref="LoadingBlock" class="loading-block">
+  <div ref="root" class="loading">
+    <span ref="inner" class="loading-inner">
+      <span ref="wrapper" class="loading-wrapper">
+        <span ref="block" class="loading-block">
           LOADING
           <span class="loading-dot">.</span>
           <span class="loading-dot">.</span>
@@ -21,57 +21,62 @@ export default {
     },
   },
   watch: {
-    mouseLoad: function () {
-      if(this.$SITECONFIG.isPc) return;
+    mouseLoad() {
+      if (this.$SITECONFIG.isPc) return
 
       if (this.mouseLoad) {
-        this.$refs.Loading.classList.add('is-loading')
+        this.inner.classList.add('is-loading')
 
-        this.$gsap.to(this.$refs.Loading, {
-          duration: this.$SITECONFIG.halfBaseDuration,
+        this.$gsap.to(this.inner, {
+          duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 1,
         })
         this.$gsap.fromTo(
-          this.$refs.LoadingWrapper,
+          this.wrapper,
           {
             rotate: 8,
           },
           {
-            duration: this.$SITECONFIG.halfBaseDuration,
+            duration: this.$SITECONFIG.shortDuration,
             delay: 0.2,
             ease: this.$EASING.transform,
             rotate: 0,
           }
         )
         this.$gsap.fromTo(
-          this.$refs.LoadingBlock,
+          this.block,
           {
             y: 10,
           },
           {
-            duration: this.$SITECONFIG.halfBaseDuration,
+            duration: this.$SITECONFIG.shortDuration,
             delay: 0.2,
             ease: this.$EASING.transform,
             y: 0,
           }
         )
       } else {
-        this.$refs.Loading.classList.remove('is-loading')
+        this.inner.classList.remove('is-loading')
 
-        this.$gsap.to(this.$refs.Loading, {
-          duration: this.$SITECONFIG.halfBaseDuration,
+        this.$gsap.to(this.inner, {
+          duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 0,
         })
       }
     },
   },
+  mounted() {
+    this.inner = this.$refs.inner
+    this.wrapper = this.$refs.wrapper
+    this.block = this.$refs.block
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.loading-area {
+.loading {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -81,7 +86,7 @@ export default {
   pointer-events: none;
 }
 
-.loading {
+.loading-inner {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,7 +96,7 @@ export default {
   width: 94px;
   height: 16px;
   padding: 1px 0 0 0;
-  background-color: #fff;
+  background-color: $white;
   color: #302c1a;
   font-size: 12px;
   border-radius: 8px;

@@ -1,25 +1,25 @@
 <template>
-  <div class="app-card-article">
-    <div class="app-card-inner">
-      <div class="app-card-title-wrapper-01">
-        <span v-for="(char, index) of name" :key="index" class="app-card-title-wrapper-01-block" v-text="char"></span>
+  <div class="card-article">
+    <div class="card-inner">
+      <div class="card-title-wrapper-01">
+        <span v-for="(char, index) of name" :key="index" class="card-title-wrapper-01-block" v-text="char"></span>
       </div>
-      <ul class="app-card-title-wrapper-02">
-        <li v-for="(char, index) of info" :key="index" class="app-card-title-wrapper-02-block">
+      <ul class="card-title-wrapper-02">
+        <li v-for="(char, index) of info" :key="index" class="card-title-wrapper-02-block">
           <a :href="char.link" target="_blank" rel="noopener">{{ char.text }}</a>
         </li>
       </ul>
-      <div class="app-card-title-wrapper-03">
+      <div class="card-title-wrapper-03">
         <span class="pc-only">
-          <a v-if="title.link" :href="title.link" target="_blank" rel="noopener" class="app-card-title-wrapper-03-link">
+          <a v-if="title.link" :href="title.link" target="_blank" rel="noopener" class="card-title-wrapper-03-link">
             <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title.text" :sp-animation="false" />
-            <span v-if="title.subtext" class="app-card-sub-title">
+            <span v-if="title.subtext" class="card-sub-title">
               <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="title.subtext" :sp-animation="false" />
             </span>
           </a>
-          <span v-else class="app-card-title-wrapper-03-link">
+          <span v-else class="card-title-wrapper-03-link">
             <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title.text" :sp-animation="false" />
-            <span v-if="title.subtext" class="app-card-sub-title">
+            <span v-if="title.subtext" class="card-sub-title">
               <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="title.subtext" :sp-animation="false" />
             </span>
           </span>
@@ -27,7 +27,7 @@
         <span class="sp-only">
           <a :href="title.link" target="_blank" rel="noopener">
             {{ title.text }}
-            <span v-if="title.subtext" class="app-card-sub-title">
+            <span v-if="title.subtext" class="card-sub-title">
               {{ title.subtext }}
             </span>
           </a>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-card-article {
+.card-article {
   position: relative;
   width: 100%;
   height: 100%;
@@ -85,13 +85,13 @@ export default {
   }
 }
 
-.app-card-inner {
+.card-inner {
   display: block;
   position: relative;
   height: 100%;
 }
 
-.app-card-link {
+.card-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -99,7 +99,7 @@ export default {
   line-height: 1;
 }
 
-.app-card-title-wrapper-01 {
+.card-title-wrapper-01 {
   display: block;
   margin: 0 0 60px 0;
 
@@ -108,7 +108,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-01-block {
+.card-title-wrapper-01-block {
   display: block;
   font-size: 20px;
   font-family: $helvetica;
@@ -133,7 +133,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-02-block {
+.card-title-wrapper-02-block {
   display: block;
   width: 200px;
   font-size: 12px;
@@ -147,7 +147,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-03 {
+.card-title-wrapper-03 {
   position: absolute;
   bottom: -11px;
   left: 0;
@@ -160,7 +160,7 @@ export default {
     font-size: 80px;
   }
 
-  & .app-card-sub-title {
+  & .card-sub-title {
     position: absolute;
     top: 12px;
     right: -4px;
@@ -176,7 +176,7 @@ export default {
 }
 
 /* stylelint-disable */
-.is-windows .app-card-title-wrapper-01-block {
+.is-windows .card-title-wrapper-01-block {
   &:first-of-type {
     position: relative;
     left: -8px;

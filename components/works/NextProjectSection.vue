@@ -6,7 +6,7 @@
           <div class="next-title-read-area" :style="`color:${currentProject.siteColor.allTextColor};`">
             <AppReadTitle :state="isTextSegmentState" :text="['・', 'NEXT', 'PROJECT']" :modifier="'works-section'" />
           </div>
-          <AppImageTransition class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
+          <AppPageTransitionImage class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
             <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper" :style="`stroke:${currentProject.siteColor.allTextColor};`">
               <AppBounceLine :state="isTextUnderlineState" :color="currentProject.siteColor.allTextColor" :origin="'right'" :width="1280" :modifier="'works-next-01'" />
               <AppBounceLine :state="isTextUnderlineState" :start="0.12" :color="currentProject.siteColor.allTextColor" :origin="'left'" :width="1280" :modifier="'works-next-02'" />
@@ -14,7 +14,7 @@
                 <AppLoopText :loop="isLoopTextState" :text="'NEXT'" />
               </span>
             </span>
-          </AppImageTransition>
+          </AppPageTransitionImage>
           <div class="next-loop-card" :class="`next-loop-card-${nextProject.id}`">
             <AppCard
               :id="nextProject.id"
@@ -31,7 +31,7 @@
           </div>
         </div>
         <p class="next-backbtn" :style="`color:${currentProject.siteColor.allTextColor};`">
-          <AppBgTransition url="/" color="#f0efeb">(BACK TO HOME)</AppBgTransition>
+          <AppPageTransitionBg url="/" color="#f0efeb">(BACK TO HOME)</AppPageTransitionBg>
         </p>
       </div>
     </div>

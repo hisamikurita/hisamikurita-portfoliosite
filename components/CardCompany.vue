@@ -1,23 +1,23 @@
 <template>
-  <div class="app-card-article">
-    <a :href="link" target="_blank" rel="noopener" class="app-card-link">
-      <span class="app-card-inner">
-        <span class="app-card-title-wrapper-01">
-          <span v-for="(char, index) of name" :key="index" class="app-card-title-wrapper-01-block" v-text="char"></span>
+  <div class="card-article">
+    <a :href="link" target="_blank" rel="noopener" class="card-link">
+      <span class="card-inner">
+        <span class="card-title-wrapper-01">
+          <span v-for="(char, index) of name" :key="index" class="card-title-wrapper-01-block" v-text="char"></span>
         </span>
-        <span class="app-card-title-wrapper-02">
-          <span v-for="(char, index) of desc" :key="index" class="app-card-title-wrapper-02-block" v-text="char"></span>
+        <span class="card-title-wrapper-02">
+          <span v-for="(char, index) of desc" :key="index" class="card-title-wrapper-02-block" v-text="char"></span>
         </span>
-        <span class="app-card-title-wrapper-03">
+        <span class="card-title-wrapper-03">
           <span class="pc-only">
             <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title" :sp-animation="false" />
-            <span class="app-card-sub-title">
+            <span class="card-sub-title">
               <AppTextAnimation :state="state" :start="0.28" :rotate="$BASEROTATE.left" :text="subtitle" :sp-animation="false" />
             </span>
           </span>
           <span class="sp-only">
             {{ title }}
-            <span class="app-card-sub-title">
+            <span class="card-sub-title">
               {{ subtitle }}
             </span>
           </span>
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.app-card-article {
+.card-article {
   position: relative;
   width: 100%;
   height: 100%;
@@ -84,13 +84,13 @@ export default {
   }
 }
 
-.app-card-inner {
+.card-inner {
   display: block;
   position: relative;
   height: 100%;
 }
 
-.app-card-link {
+.card-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -98,7 +98,7 @@ export default {
   line-height: 1;
 }
 
-.app-card-title-wrapper-01 {
+.card-title-wrapper-01 {
   display: block;
   margin: 0 0 60px 0;
   color: $darkBlack;
@@ -108,7 +108,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-01-block {
+.card-title-wrapper-01-block {
   display: block;
   font-size: 20px;
   font-family: $helvetica;
@@ -133,11 +133,11 @@ export default {
   }
 }
 
-.app-card-title-wrapper-02 {
+.card-title-wrapper-02 {
   color: $darkBlack;
 }
 
-.app-card-title-wrapper-02-block {
+.card-title-wrapper-02-block {
   display: block;
   width: 200px;
   font-size: 12px;
@@ -151,7 +151,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-03 {
+.card-title-wrapper-03 {
   position: absolute;
   bottom: -11px;
   left: 0;
@@ -165,7 +165,7 @@ export default {
     font-size: 80px;
   }
 
-  & .app-card-sub-title {
+  & .card-sub-title {
     position: absolute;
     top: 12px;
     right: -4px;
@@ -181,7 +181,7 @@ export default {
 }
 
 /* stylelint-disable */
-.is-windows .app-card-title-wrapper-01-block {
+.is-windows .card-title-wrapper-01-block {
   &:first-of-type {
     position: relative;
     left: -8px;

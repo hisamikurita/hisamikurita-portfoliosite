@@ -12,14 +12,14 @@
       <div ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
           <div class="hambergerMenu-title-wrapper-01" @click="hambergerMenuOnClose">
-            <AppBgTransition url="/" color="#f0efeb">
+            <AppPageTransitionBg url="/" color="#f0efeb">
               <AppTextAnimation :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'HISAMIKURITA'" />
-            </AppBgTransition>
+            </AppPageTransitionBg>
           </div>
           <div class="hambergerMenu-title-wrapper-02" @click="hambergerMenuOnClose">
-            <AppBgTransition url="/about" color="#f0efeb">
+            <AppPageTransitionBg url="/about" color="#f0efeb">
               <AppTextAnimation :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'ABOUT'" />
-            </AppBgTransition>
+            </AppPageTransitionBg>
           </div>
         </div>
         <div class="hambergerMenu-section-title">
@@ -30,7 +30,7 @@
             <li v-for="(data, index) in projectAndArchiveDatas" :key="index" class="hambergerMenu-item">
               <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper" @click="hambergerMenuOnClose">
                 <!--アーカイブページの時-->
-                <AppBgTransition v-if="index === projectAndArchiveData.length - 1.0" :url="`/archive`" :color="'#000000'" class="hambergerMenu-item-link">
+                <AppPageTransitionBg v-if="index === projectAndArchiveData.length - 1.0" :url="`/archive`" :color="'#000000'" class="hambergerMenu-item-link">
                   <span class="hambergerMenu-item-img">
                     <picture>
                       <img :src="`/images/hambergermenu-archive.webp`" :width="`180`" :height="`180`" :alt="`archive`" />
@@ -40,9 +40,9 @@
                     <span class="hambergerMenu-item-title">ARCHIVE</span>
                     <span class="hambergerMenu-item-desc"> I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN. </span>
                   </span>
-                </AppBgTransition>
+                </AppPageTransitionBg>
                 <!--アーカイブページ以外の時-->
-                <AppImageTransition v-else :url="`/works/${data.id}`" :index="index" class="hambergerMenu-item-link">
+                <AppPageTransitionImage v-else :url="`/works/${data.id}`" :index="index" class="hambergerMenu-item-link">
                   <span class="hambergerMenu-item-img">
                     <picture>
                       <img :src="`${data.hambergerMenuImg.url}`" :width="`${data.hambergerMenuImg.width}`" :height="`${data.hambergerMenuImg.height}`" :alt="`${data.id}`" />
@@ -54,7 +54,7 @@
                     </span>
                     <span class="hambergerMenu-item-desc">{{ data.desc }}</span>
                   </span>
-                </AppImageTransition>
+                </AppPageTransitionImage>
               </div>
             </li>
           </ul>

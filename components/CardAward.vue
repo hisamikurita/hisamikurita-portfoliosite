@@ -1,8 +1,8 @@
 <template>
-  <div class="app-card-award">
-    <article class="app-card-award-article" :class="'app-card-award-article-' + modifier">
-      <div class="app-card-award-inner">
-        <div class="app-card-award-title-wrapper-01">
+  <div class="card-award">
+    <article class="card-award-article" :class="'card-award-article-' + modifier">
+      <div class="card-award-inner">
+        <div class="card-award-title-wrapper-01">
           <span v-if="group === 'AWWWARDS'">
             <img src="/images/awwwards.webp" width="112" height="66" alt="AWWWARDS" />
           </span>
@@ -13,10 +13,10 @@
             <img src="/images/csswinner.webp" width="156" height="98" alt="CSS WINNER" />
           </span>
         </div>
-        <p class="app-card-award-title-wrapper-02">{{ rank }}</p>
-        <p class="app-card-award-title-wrapper-03">{{ date }}</p>
-        <h2 class="app-card-award-title-wrapper-04">{{ title }}</h2>
-        <div class="app-card-award-title-wrapper-05">
+        <p class="card-award-title-wrapper-02">{{ rank }}</p>
+        <p class="card-award-title-wrapper-03">{{ date }}</p>
+        <h2 class="card-award-title-wrapper-04">{{ title }}</h2>
+        <div class="card-award-title-wrapper-05">
           <span v-if="rank === 'HONORARABLE MENTION'">HM</span>
           <span v-else-if="rank === 'MOBILE EXELLENCE'">ME</span>
           <span v-else-if="rank === 'SITE OF THE DAY'">SOTD</span>
@@ -73,13 +73,13 @@ $cssdaLogoBottomMargin: 20px;
 $csswinnerLogo: 39px;
 $csswinnerLogoBottomMargin: 21px;
 
-.app-card-award {
+.card-award {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.app-card-award-article {
+.card-award-article {
   position: relative;
   width: 234px;
   height: 320px;
@@ -89,28 +89,28 @@ $csswinnerLogoBottomMargin: 21px;
   border-radius: 10px;
 }
 
-.app-card-award-inner {
+.card-award-inner {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.app-card-award-title-wrapper-01 {
+.card-award-title-wrapper-01 {
   display: block;
 }
 
-.app-card-award-title-wrapper-02 {
+.card-award-title-wrapper-02 {
   white-space: nowrap;
 }
 
-.app-card-award-title-wrapper-02,
-.app-card-award-title-wrapper-03 {
+.card-award-title-wrapper-02,
+.card-award-title-wrapper-03 {
   margin: 0 0 1px 0;
 }
 
-.app-card-award-title-wrapper-02,
-.app-card-award-title-wrapper-03,
-.app-card-award-title-wrapper-04 {
+.card-award-title-wrapper-02,
+.card-award-title-wrapper-03,
+.card-award-title-wrapper-04 {
   display: block;
   width: 120px;
   font-size: 12px;
@@ -118,11 +118,11 @@ $csswinnerLogoBottomMargin: 21px;
   letter-spacing: 0.02em;
 }
 
-.app-card-award-title-wrapper-04 {
+.card-award-title-wrapper-04 {
   color: $white;
 }
 
-.app-card-award-title-wrapper-05 {
+.card-award-title-wrapper-05 {
   position: absolute;
   bottom: -11px;
   left: 0;
@@ -131,141 +131,141 @@ $csswinnerLogoBottomMargin: 21px;
   font-family: 'Six Caps', sans-serif;
 }
 
-.app-card-award-article-aw-hm {
+.card-award-article-aw-hm {
   background-color: #9dd5d6;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #3b9b9e;
   }
 }
 
-.app-card-award-article-aw-me {
+.card-award-article-aw-me {
   background-color: #ec732e;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #c82015;
   }
 }
 
-.app-card-award-article-aw-sotd {
+.card-award-article-aw-sotd {
   background-color: #e53138;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #8b181b;
   }
 }
 
-.app-card-award-article-da-kds {
+.card-award-article-da-kds {
   background-color: #df6588;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #feafc9;
   }
 }
 
-.app-card-award-article-da-uiawd {
+.card-award-article-da-uiawd {
   background-color: #fab740;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #a47a35;
   }
 }
 
-.app-card-award-article-da-uxawd {
+.card-award-article-da-uxawd {
   background-color: #7aa0d0;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #576b88;
   }
 }
 
-.app-card-award-article-da-innawd {
+.card-award-article-da-innawd {
   background-color: #d66954;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #904b3d;
   }
 }
 
-.app-card-award-article-da-wotd {
+.card-award-article-da-wotd {
   background-color: #484072;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #8e8eb1;
   }
 }
 
-.app-card-award-article-cw-sotd {
+.card-award-article-cw-sotd {
   background-color: #fff;
 
-  & .app-card-award-title-wrapper-01 {
+  & .card-award-title-wrapper-01 {
     width: $csswinnerLogo;
     margin: 0 0 $csswinnerLogoBottomMargin 0;
   }
 
-  & .app-card-award-title-wrapper-04 {
+  & .card-award-title-wrapper-04 {
     color: $black;
   }
 
-  & .app-card-award-title-wrapper-02,
-  & .app-card-award-title-wrapper-03,
-  & .app-card-award-title-wrapper-05 {
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #de4246;
   }
 

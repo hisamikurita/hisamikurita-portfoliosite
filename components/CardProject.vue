@@ -1,17 +1,17 @@
 <template>
-  <div class="app-card-article">
-    <component :is="setTagName" :url="setUrl" :index="setIndex" :color="setColor" class="app-card-link">
-      <span class="app-card-inner">
-        <span class="app-card-title-wrapper-01">
-          <span class="app-card-title-wrapper-01-block"> ・ </span>
-          <span class="app-card-title-wrapper-01-block">
+  <div class="card-article">
+    <component :is="setTagName" :url="setUrl" :index="setIndex" :color="setColor" class="card-link">
+      <span class="card-inner">
+        <span class="card-title-wrapper-01">
+          <span class="card-title-wrapper-01-block"> ・ </span>
+          <span class="card-title-wrapper-01-block">
             {{ name }}
           </span>
         </span>
-        <span class="app-card-title-wrapper-02">
-          <span class="app-card-title-wrapper-02-block">{{ desc }}</span>
+        <span class="card-title-wrapper-02">
+          <span class="card-title-wrapper-02-block">{{ desc }}</span>
         </span>
-        <span class="app-card-title-wrapper-03">
+        <span class="card-title-wrapper-03">
           <span class="pc-only">
             <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="title" :sp-animation="false" />
           </span>
@@ -69,9 +69,9 @@ export default {
   computed: {
     setTagName() {
       if (this.type === 'works') {
-        return 'AppImageTransition'
+        return 'AppPageTransitionImage'
       } else if (this.type === 'archive') {
-        return 'AppBgTransition'
+        return 'AppPageTransitionBg'
       } else {
         return ''
       }
@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.app-card-article {
+.card-article {
   position: relative;
   width: 100%;
   height: 100%;
@@ -121,13 +121,13 @@ export default {
   }
 }
 
-.app-card-inner {
+.card-inner {
   display: block;
   position: relative;
   height: 100%;
 }
 
-.app-card-link {
+.card-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -135,7 +135,7 @@ export default {
   line-height: 1;
 }
 
-.app-card-title-wrapper-01 {
+.card-title-wrapper-01 {
   display: block;
   margin: 0 0 60px 0;
 
@@ -144,7 +144,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-01-block {
+.card-title-wrapper-01-block {
   display: block;
   font-size: 20px;
   font-family: $helvetica;
@@ -169,7 +169,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-02-block {
+.card-title-wrapper-02-block {
   display: block;
   width: 200px;
   font-size: 12px;
@@ -183,7 +183,7 @@ export default {
   }
 }
 
-.app-card-title-wrapper-03 {
+.card-title-wrapper-03 {
   position: absolute;
   bottom: -11px;
   left: 0;
@@ -198,7 +198,7 @@ export default {
 }
 
 /* stylelint-disable */
-.is-windows .app-card-title-wrapper-01-block {
+.is-windows .card-title-wrapper-01-block {
   &:first-of-type {
     position: relative;
     left: -8px;
