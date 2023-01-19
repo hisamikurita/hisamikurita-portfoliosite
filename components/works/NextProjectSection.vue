@@ -6,7 +6,7 @@
           <div class="next-title-read-area" :style="`color:${currentProject.siteColor.allTextColor};`">
             <AppReadTitle :state="isTextSegmentState" :text="['・', 'NEXT', 'PROJECT']" :modifier="'works-section'" />
           </div>
-          <AppImageTransition class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
+          <AppPageTransitionImage class="next-loop-title-btn" :url="`/works/${nextProject.id}`" :index="currentProject.index">
             <span ref="ContentsLoopTitleWrapper" class="next-loop-title-wrapper" :style="`stroke:${currentProject.siteColor.allTextColor};`">
               <AppBounceLine :state="isTextUnderlineState" :color="currentProject.siteColor.allTextColor" :origin="'right'" :width="1280" :modifier="'works-next-01'" />
               <AppBounceLine :state="isTextUnderlineState" :start="0.12" :color="currentProject.siteColor.allTextColor" :origin="'left'" :width="1280" :modifier="'works-next-02'" />
@@ -14,15 +14,16 @@
                 <AppLoopText :loop="isLoopTextState" :text="'NEXT'" />
               </span>
             </span>
-          </AppImageTransition>
+          </AppPageTransitionImage>
           <div class="next-loop-card" :class="`next-loop-card-${nextProject.id}`">
-            <AppCardBase
-              :component-name="'ProjectContents'"
-              :name="nextProject.title.full"
+            <AppCard
+              :id="nextProject.id"
+              :component-name="'project'"
+              :type="'works'"
               :index="currentProject.index"
+              :name="nextProject.title.full"
               :title="nextProject.title.short"
-              :link="nextProject.id"
-              :text="nextProject.desc"
+              :desc="nextProject.desc"
               :rotate="nextProject.projectNum.rotate"
               :xspeed="nextProject.projectNum.xspeed"
               :yspeed="nextProject.projectNum.yspeed - 0.1"
@@ -30,7 +31,7 @@
           </div>
         </div>
         <p class="next-backbtn" :style="`color:${currentProject.siteColor.allTextColor};`">
-          <AppBgTransition url="/" color="#f0efeb">(BACK TO HOME)</AppBgTransition>
+          <AppPageTransitionBg url="/" color="#f0efeb">(BACK TO HOME)</AppPageTransitionBg>
         </p>
       </div>
     </div>

@@ -39,14 +39,14 @@
               </span>
               <ul class="contact-info-list">
                 <li v-for="(data, index) in projectData" :key="data.id" class="contact-info-item">
-                  <AppImageTransition :url="`works/${data.id}`" :index="index">
+                  <AppPageTransitionImage :url="`works/${data.id}`" :index="index">
                     <AppTextAnimation :state="isTextSegmentState" :start="0.48 + index * 0.12" :rotate="$BASEROTATE.right" :text="data.title.full" />
-                  </AppImageTransition>
+                  </AppPageTransitionImage>
                 </li>
                 <li class="contact-info-item">
-                  <AppBgTransition :url="`archive`" color="#000000">
+                  <AppPageTransitionBg :url="`archive`" color="#000000">
                     <AppTextAnimation :state="isTextSegmentState" :start="0.48 + projectData.length * 0.12" :rotate="$BASEROTATE.right" :text="'ARCHIVE'" />
-                  </AppBgTransition>
+                  </AppPageTransitionBg>
                 </li>
               </ul>
             </div>
@@ -62,8 +62,8 @@
             </div>
           </div>
           <div class="contact-card-item-01">
-            <AppCardBase
-              :component-name="'ContactContents'"
+            <AppCard
+              :component-name="'contact'"
               :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
               :info="[
                 {
@@ -90,8 +90,8 @@
             />
           </div>
           <div class="contact-card-item-02">
-            <AppCardBase
-              :component-name="'ContactContents'"
+            <AppCard
+              :component-name="'contact'"
               :name="['・', 'CODED BY', '(HISAMI KURITA)']"
               :info="[
                 {

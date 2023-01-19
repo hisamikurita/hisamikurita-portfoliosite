@@ -1,5 +1,5 @@
 <template>
-  <div ref="CardAward" class="card-award">
+  <div class="card-award">
     <article class="card-award-article" :class="'card-award-article-' + modifier">
       <div class="card-award-inner">
         <div class="card-award-title-wrapper-01">
@@ -33,6 +33,13 @@
 
 <script>
 export default {
+  /**
+   * group : グループ(AWWWARDS/CSS DESIGN AWARDS/CSS WINNER)
+   * title : タイトル
+   * rank : ランク
+   * date : 日付
+   * modifier : 見た目を変更するクラス
+   */
   props: {
     group: {
       type: String,
@@ -54,7 +61,7 @@ export default {
       type: String,
       default: '',
     },
-  }
+  },
 }
 </script>
 
@@ -88,19 +95,22 @@ $csswinnerLogoBottomMargin: 21px;
   height: 100%;
 }
 
-.card-award-title-wrapper-01{
+.card-award-title-wrapper-01 {
   display: block;
 }
 
-.card-award-title-wrapper-02{
+.card-award-title-wrapper-02 {
   white-space: nowrap;
 }
 
-.card-award-title-wrapper-02,.card-award-title-wrapper-03{
+.card-award-title-wrapper-02,
+.card-award-title-wrapper-03 {
   margin: 0 0 1px 0;
 }
 
-.card-award-title-wrapper-02,.card-award-title-wrapper-03,.card-award-title-wrapper-04{
+.card-award-title-wrapper-02,
+.card-award-title-wrapper-03,
+.card-award-title-wrapper-04 {
   display: block;
   width: 120px;
   font-size: 12px;
@@ -108,7 +118,7 @@ $csswinnerLogoBottomMargin: 21px;
   letter-spacing: 0.02em;
 }
 
-.card-award-title-wrapper-04{
+.card-award-title-wrapper-04 {
   color: $white;
 }
 
@@ -121,128 +131,147 @@ $csswinnerLogoBottomMargin: 21px;
   font-family: 'Six Caps', sans-serif;
 }
 
-.card-award-article-aw-hm{
+.card-award-article-aw-hm {
   background-color: #9dd5d6;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #3b9b9e;
   }
 }
 
-.card-award-article-aw-me{
+.card-award-article-aw-me {
   background-color: #ec732e;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #c82015;
   }
 }
 
-.card-award-article-aw-sotd{
+.card-award-article-aw-sotd {
   background-color: #e53138;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $awwwwardsLogo;
     margin: 0 0 $awwwwardsLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #8b181b;
   }
 }
 
-.card-award-article-da-kds{
+.card-award-article-da-kds {
   background-color: #df6588;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #feafc9;
   }
 }
 
-.card-award-article-da-uiawd{
+.card-award-article-da-uiawd {
   background-color: #fab740;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #a47a35;
   }
 }
 
-.card-award-article-da-uxawd{
+.card-award-article-da-uxawd {
   background-color: #7aa0d0;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #576b88;
   }
 }
 
-.card-award-article-da-innawd{
+.card-award-article-da-innawd {
   background-color: #d66954;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #904b3d;
   }
 }
 
-.card-award-article-da-wotd{
+.card-award-article-da-wotd {
   background-color: #484072;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $cssdaLogo;
     margin: 0 0 $cssdaLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #8e8eb1;
   }
 }
 
-.card-award-article-cw-sotd{
+.card-award-article-cw-sotd {
   background-color: #fff;
 
-  & .card-award-title-wrapper-01{
+  & .card-award-title-wrapper-01 {
     width: $csswinnerLogo;
     margin: 0 0 $csswinnerLogoBottomMargin 0;
   }
 
-  & .card-award-title-wrapper-04{
+  & .card-award-title-wrapper-04 {
     color: $black;
   }
 
-  & .card-award-title-wrapper-02, & .card-award-title-wrapper-03, & .card-award-title-wrapper-05{
+  & .card-award-title-wrapper-02,
+  & .card-award-title-wrapper-03,
+  & .card-award-title-wrapper-05 {
     color: #de4246;
   }
 
-  &::before{
-    content: '';position: absolute;
+  &::before {
+    content: '';
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
@@ -252,5 +281,4 @@ $csswinnerLogoBottomMargin: 21px;
     border-radius: 10px;
   }
 }
-
 </style>

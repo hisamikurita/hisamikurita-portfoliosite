@@ -2,7 +2,7 @@
   <div ref="Award" class="award">
     <div ref="AwardCardArea" class="award-card-area">
       <div v-for="award in awardData" :key="award.id" ref="AwardCardItem" class="award-card-item">
-        <CardAwardContents :group="award.group" :title="award.title" :rank="award.rank" :date="award.date" :modifier="award.modifier" />
+        <CardAward :group="award.group" :title="award.title" :rank="award.rank" :date="award.date" :modifier="award.modifier" />
       </div>
     </div>
     <div class="award-bg">

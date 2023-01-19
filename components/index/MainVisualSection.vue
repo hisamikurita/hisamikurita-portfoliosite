@@ -72,18 +72,16 @@
           </span>
         </h1>
         <div ref="HeroCardItem" class="hero-card-item">
-          <AppCardBase
-            :component-name="'MainVisualContents'"
+          <AppCard
+            :component-name="'mv'"
             :name="['・', 'HISAMIKURITA']"
             :title="'HSMKRT'"
             :subtitle="'(ABOUT ME)'"
-            :link="'about'"
-            :text="['YOU CAN CLICK AND,', 'SHOW ABOUT ME.', 'BY THE WAY,', 'YOU CAN THROW', 'THIS CARD AWAY']"
+            :desc="['YOU CAN CLICK AND,', 'SHOW ABOUT ME.', 'BY THE WAY,', 'YOU CAN THROW', 'THIS CARD AWAY']"
             :rotate="8"
             :xspeed="0.01"
             :yspeed="0.14"
             :drag-animation="isMvCardDrag"
-            :modifier="'index-hero'"
             :view-animation="false"
           />
         </div>
