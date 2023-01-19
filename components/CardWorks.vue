@@ -51,13 +51,6 @@ export default {
   padding: 12px 13px;
   background-color: $white;
   border-radius: 7px;
-
-  @include sp() {
-    width: 212px;
-    height: 302px;
-    padding: 20px 16px;
-    border-radius: 7px;
-  }
 }
 
 .card-inner {
@@ -77,10 +70,6 @@ export default {
 .card-title-wrapper-01 {
   display: block;
   margin: 0 0 10px 0;
-
-  @include sp() {
-    margin: 0 0 40px 0;
-  }
 }
 
 .card-title-wrapper-01-block {
@@ -89,22 +78,10 @@ export default {
   font-family: $helvetica;
   line-height: 1.2;
 
-  @include sp() {
-    font-size: 17px;
-  }
-
   &:first-of-type {
     font-size: 36px;
     text-indent: -4px;
     line-height: 0.6;
-
-    @include sp() {
-      display: inline-block;
-      margin: 0 0 0 -4px;
-      font-size: 28px;
-      line-height: 0.9;
-      text-indent: 0;
-    }
   }
 }
 
@@ -121,11 +98,6 @@ export default {
   line-height: 1.4;
   transform: scale(0.82);
   transform-origin: left;
-
-  @include sp() {
-    width: 180px;
-    font-size: 10px;
-  }
 }
 
 .card-title-wrapper-03 {
@@ -135,11 +107,6 @@ export default {
   width: 100%;
   font-size: 50px;
   font-family: $sixcaps;
-
-  @include sp() {
-    bottom: -5px;
-    font-size: 80px;
-  }
 }
 
 .card-shadow {

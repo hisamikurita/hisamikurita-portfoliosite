@@ -14,7 +14,7 @@
       <CardMv v-if="componentName === 'mv'" :name="name" :title="title" :subtitle="subtitle" :desc="desc" :state="state" />
       <CardProject v-else-if="componentName === 'project'" :id="id" :type="type" :index="index" :name="name" :title="title" :desc="desc" :state="state" />
       <CardContact v-else-if="componentName === 'contact'" :name="name" :title="title" :info="info" :state="state" />
-      <CardCompany v-else-if="componentName === 'company'" :name="name" :title="title" :subtitle="subtitle" :desc="desc" :state="state" />
+      <CardCompany v-else-if="componentName === 'company'" :name="name" :title="title" :subtitle="subtitle" :link="link" :desc="desc" :state="state" />
       <CardWorks v-else-if="componentName === 'works'" :shadow-color="shadowColor" :external-link="externalLink" :state="state" />
     </div>
     <!-- intersectionObserverで監視する用の空dom -->
@@ -35,6 +35,7 @@ export default {
    * title : タイトル
    * subtitle : サブタイトル
    * externalLink : 外部リンク
+   * link : リンク
    * desc : 説明
    * info : 各種SNS
    * xspeed : X軸のパララックスの値を調整する
@@ -87,6 +88,10 @@ export default {
     },
     desc: {
       type: [Array, String],
+      default: null,
+    },
+    link: {
+      type: String,
       default: null,
     },
     info: {
