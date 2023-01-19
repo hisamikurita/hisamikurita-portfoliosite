@@ -10,14 +10,13 @@
       <AppLoopText :loop="isLoopTextState" :text="currentProject.title.short" />
     </div>
     <div class="contents-loop-card">
-      <AppCardBase
-        :component-name="'WorksLinkContents'"
+      <AppCard
+        :component-name="'works'"
         :shadow-color="currentProject.siteColor.shadowColor"
         :color="currentProject.siteColor.allTextColor"
         :external-link="currentProject.siteLink"
         :xspeed="0.04"
         :yspeed="0.04"
-        :modifier="'works-contents-external'"
       />
     </div>
   </div>

@@ -1,45 +1,18 @@
 <template>
   <div ref="MouseArea" class="mouse">
     <span ref="MouseAction" class="mouse-action"
-      ><span ref="MouseActionWrapper" class="mouse-action-wrapper"
-        ><span ref="MouseActionBlock" class="mouse-action-block"
-          >ACTION</span
-        ></span
-      ></span
+      ><span ref="MouseActionWrapper" class="mouse-action-wrapper"><span ref="MouseActionBlock" class="mouse-action-block">ACTION</span></span></span
     >
     <span ref="MouseLoading" class="mouse-loading"
       ><span ref="MouseLoadingWrapper" class="mouse-loading-wrapper"
         ><span ref="MouseLoadingBlock" class="mouse-loading-block"
-          >LOADING<span class="mouse-loading-dot">.</span
-          ><span class="mouse-loading-dot">.</span
-          ><span class="mouse-loading-dot">.</span></span
+          >LOADING<span class="mouse-loading-dot">.</span><span class="mouse-loading-dot">.</span><span class="mouse-loading-dot">.</span></span
         ></span
       ></span
     >
-    <img
-      ref="MouseImgClick"
-      src="/images/mouse-click.webp"
-      width="88"
-      height="143"
-      alt="mouse-img-click"
-      class="mouse-img-click"
-    />
-    <img
-      ref="MouseImgHold"
-      src="/images/mouse-hold.webp"
-      width="200"
-      height="170"
-      alt="mouse-img-hold"
-      class="mouse-img-hold"
-    />
-    <img
-      ref="MouseImg"
-      src="/images/mouse.webp"
-      width="191"
-      height="234"
-      alt="mouse-img"
-      class="mouse-img"
-    />
+    <img ref="MouseImgClick" src="/images/mouse-click.webp" width="88" height="143" alt="mouse-img-click" class="mouse-img-click" />
+    <img ref="MouseImgHold" src="/images/mouse-hold.webp" width="200" height="170" alt="mouse-img-hold" class="mouse-img-hold" />
+    <img ref="MouseImg" src="/images/mouse.webp" width="191" height="234" alt="mouse-img" class="mouse-img" />
   </div>
 </template>
 
@@ -109,7 +82,7 @@ export default {
       }
     },
     mouseLoad: function () {
-      if(this.$SITECONFIG.isSp) return;
+      if (this.$SITECONFIG.isSp) return
 
       if (this.mouseLoad) {
         this.$refs.MouseLoading.classList.add('is-loading')
@@ -161,9 +134,7 @@ export default {
           '.hambergerMenu-btn, .hambergerMenu-item-wrapper, .header-link,.hambergerMenu-title-wrapper-01, .hambergerMenu-title-wrapper-02, .pickup-link, .contact-info-item, .next-loop-title-wrapper, .next-backbtn, .project-item'
         )
         // ホールドできる要素を全てのコンポーネントから取得
-        this.mouseHoldTarget = document.querySelectorAll(
-          '.card-project-article, .archive'
-        )
+        this.mouseHoldTarget = document.querySelectorAll('.js-app-card-wrapper, .js-archive')
 
         // イベント付与
         setTimeout(() => {

@@ -1,32 +1,11 @@
 <template>
-  <div class="archive">
+  <div class="archive js-archive">
     <ul ref="ArchiveList" class="archive-list">
-      <li
-        v-for="(archive, index) in archives"
-        :key="index"
-        ref="ArchiveItem"
-        class="archive-item"
-        :data-pcimg="`/images/${archive.image.pc}`"
-        :data-spimg="`/images/${archive.image.sp}`"
-      >
-        <a
-          :href="`${archive.link}`"
-          class="archive-link"
-          target="_blank"
-          rel="noopener"
-        >
+      <li v-for="(archive, index) in archives" :key="index" ref="ArchiveItem" class="archive-item" :data-pcimg="`/images/${archive.image.pc}`" :data-spimg="`/images/${archive.image.sp}`">
+        <a :href="`${archive.link}`" class="archive-link" target="_blank" rel="noopener">
           <picture>
-            <source
-              :srcset="`/images/${archive.image.sp}`"
-              media="(max-width: 767px)"
-            />
-            <img
-              class="archive-img"
-              :src="`/images/${archive.image.pc}`"
-              width="440"
-              height="680"
-              :alt="`${archive.fullTitle}`"
-            />
+            <source :srcset="`/images/${archive.image.sp}`" media="(max-width: 767px)" />
+            <img class="archive-img" :src="`/images/${archive.image.pc}`" width="440" height="680" :alt="`${archive.fullTitle}`" />
           </picture>
         </a>
       </li>
@@ -258,16 +237,8 @@ export default {
     updatePosition() {
       if (this.hambergerMenuState) return
 
-      this.x.current = this.$gsap.utils.interpolate(
-        this.x.current,
-        this.x.target,
-        this.x.lerp
-      )
-      this.y.current = this.$gsap.utils.interpolate(
-        this.y.current,
-        this.y.target,
-        this.y.lerp
-      )
+      this.x.current = this.$gsap.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
+      this.y.current = this.$gsap.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
 
       if (this.save.x < this.x.current) {
         this.x.direction = 'right'
@@ -290,10 +261,7 @@ export default {
 
           if (this.x.direction === 'right' && rect.left < -rect.width) {
             this.medias[i].extra.x += this.wrapperRect.width
-          } else if (
-            this.x.direction === 'left' &&
-            window.innerWidth < rect.left
-          ) {
+          } else if (this.x.direction === 'left' && window.innerWidth < rect.left) {
             this.medias[i].extra.x -= this.wrapperRect.width
           }
 
@@ -304,21 +272,15 @@ export default {
           }
         }
 
-        this.medias[i].elm.style.transform = `translate(${
-          -this.x.current + this.medias[i].extra.x
-        }px, ${
-          -this.y.current + this.medias[i].extra.y + this.opOffset.value
-        }px)`
+        this.medias[i].elm.style.transform = `translate(${-this.x.current + this.medias[i].extra.x}px, ${-this.y.current + this.medias[i].extra.y + this.opOffset.value}px)`
       }
 
       // webgl
       this.stage.onRaf()
       this.glElements.onResize()
       for (let i = 0; i < this.medias.length; i++) {
-        const strengthX =
-          ((this.x.current - this.x.target) / window.innerWidth) * 1.8
-        const strengthY =
-          ((this.y.current - this.y.target) / window.innerWidth) * 1.8
+        const strengthX = ((this.x.current - this.x.target) / window.innerWidth) * 1.8
+        const strengthY = ((this.y.current - this.y.target) / window.innerWidth) * 1.8
         const rotateValue = (strengthX + strengthY) / 16.0
         this.meshArray[i]._setStrength(strengthX, strengthY)
         this.meshArray[i]._setRotate(rotateValue)

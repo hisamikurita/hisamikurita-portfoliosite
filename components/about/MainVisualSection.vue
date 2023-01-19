@@ -61,18 +61,17 @@
         </h1>
         <div class="pc-only">
           <div class="hero-card-item">
-            <AppCardBase
-              :component-name="'CompanyContents'"
+            <AppCard
+              :component-name="'company'"
               :name="['・', 'LIG INC']"
               :title="'LIG INC.'"
               :subtitle="'(VISIT SITE)'"
               :link="'https://liginc.co.jp'"
-              :text="['WEB PRODUCTION,', 'SYSTEM DEVELOPMENT,', 'MARKETING SUPPORT,', 'WEB CREATOR SCHOOL,', 'WERE ROLLING IT OUT.']"
+              :desc="['WEB PRODUCTION,', 'SYSTEM DEVELOPMENT,', 'MARKETING SUPPORT,', 'WEB CREATOR SCHOOL,', 'WERE ROLLING IT OUT.']"
               :rotate="8"
               :xspeed="0.01"
               :yspeed="0.14"
               :sp-animation="false"
-              :modifier="'about-hero'"
             />
           </div>
         </div>

@@ -22,31 +22,31 @@
             <div ref="projectCardAreaClip" class="project-card-area-clip">
               <div v-for="(data, index) in projectData" :key="data.id">
                 <div class="project-card-item" :class="`project-card-item-0${index}`">
-                  <AppCardBase
-                    :component-name="'ProjectContents'"
+                  <AppCard
+                    :id="data.id"
+                    :component-name="'project'"
+                    :type="'works'"
+                    :index="index"
                     :name="data.title.full"
                     :title="data.title.short"
-                    :link="data.id"
-                    :index="index"
-                    :text="data.desc"
+                    :desc="data.desc"
                     :rotate="data.projectNum.rotate"
                     :xspeed="data.projectNum.xspeed"
                     :yspeed="data.projectNum.yspeed"
-                    :modifier="'index-project'"
                   />
                 </div>
               </div>
               <div>
                 <div class="project-card-item" :class="`project-card-item-0${projectData.length}`">
-                  <AppCardBase
-                    :component-name="'ArchiveContents'"
+                  <AppCard
+                    :component-name="'project'"
+                    :type="'archive'"
                     :name="'ARCHIVE'"
                     :title="'ARCVE'"
-                    :text="`I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN.`"
+                    :desc="`I'M PUTTING TOGETHER A DYNAMIC ARCHIVE PAGE OF THE WORK I'M SUBMITTING TO CODEPEN.`"
                     :rotate="8"
                     :xspeed="0.18"
                     :yspeed="0.17"
-                    :modifier="'index-project'"
                   />
                 </div>
               </div>

@@ -16,13 +16,14 @@
             </span>
           </AppImageTransition>
           <div class="next-loop-card" :class="`next-loop-card-${nextProject.id}`">
-            <AppCardBase
-              :component-name="'ProjectContents'"
-              :name="nextProject.title.full"
+            <AppCard
+              :id="nextProject.id"
+              :component-name="'project'"
+              :type="'works'"
               :index="currentProject.index"
+              :name="nextProject.title.full"
               :title="nextProject.title.short"
-              :link="nextProject.id"
-              :text="nextProject.desc"
+              :desc="nextProject.desc"
               :rotate="nextProject.projectNum.rotate"
               :xspeed="nextProject.projectNum.xspeed"
               :yspeed="nextProject.projectNum.yspeed - 0.1"

@@ -1,0 +1,164 @@
+<template>
+  <div class="app-card-article">
+    <span class="app-card-shadow" :style="`box-shadow: 0 30px 60px 0 ${shadowColor};`"></span>
+    <a :href="externalLink" target="_blank" rel="noopener" class="app-card-link">
+      <span class="app-card-inner">
+        <span class="app-card-title-wrapper-01">
+          <span class="app-card-title-wrapper-01-block"> ・ </span>
+          <span class="app-card-title-wrapper-01-block"> LIVE </span>
+        </span>
+        <span class="app-card-title-wrapper-02"> <span class="app-card-title-wrapper-02-block">YOU CAN SEE PROJECT NAME IS LIVE. AND IF YOU SEE IT, COME BACK HERE</span></span>
+        <span class="app-card-title-wrapper-03">
+          <span class="pc-only">
+            <AppTextAnimation :state="state" :rotate="$BASEROTATE.left" :text="'VISIT SITE'" :sp-animation="false" />
+          </span>
+          <span class="sp-only"> VISIT SITE </span>
+        </span>
+      </span>
+    </a>
+  </div>
+</template>
+
+<script>
+export default {
+  /**
+   * shadowColor : 影の色
+   * externalLink : 外部リンク
+   * state : テキストアニメーションの状態を変更するprops
+   */
+  props: {
+    shadowColor: {
+      type: String,
+      default: '',
+    },
+    externalLink: {
+      type: String,
+      default: '',
+    },
+    state: {
+      type: String,
+      default: '',
+    },
+  },
+}
+</script>
+
+<style scoped lang="scss">
+.app-card-article {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 12px 13px;
+  background-color: $white;
+  border-radius: 7px;
+
+  @include sp() {
+    width: 212px;
+    height: 302px;
+    padding: 20px 16px;
+    border-radius: 7px;
+  }
+}
+
+.app-card-inner {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
+.app-card-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  line-height: 1;
+}
+
+.app-card-title-wrapper-01 {
+  display: block;
+  margin: 0 0 10px 0;
+
+  @include sp() {
+    margin: 0 0 40px 0;
+  }
+}
+
+.app-card-title-wrapper-01-block {
+  display: block;
+  font-size: 12px;
+  font-family: $helvetica;
+  line-height: 1.2;
+
+  @include sp() {
+    font-size: 17px;
+  }
+
+  &:first-of-type {
+    font-size: 36px;
+    text-indent: -4px;
+    line-height: 0.6;
+
+    @include sp() {
+      display: inline-block;
+      margin: 0 0 0 -4px;
+      font-size: 28px;
+      line-height: 0.9;
+      text-indent: 0;
+    }
+  }
+}
+
+.app-card-title-wrapper-02 {
+  font-size: 10px;
+}
+
+.app-card-title-wrapper-02-block {
+  display: block;
+  width: 110%;
+  font-size: 11px;
+  font-family: $helvetica;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  transform: scale(0.82);
+  transform-origin: left;
+
+  @include sp() {
+    width: 180px;
+    font-size: 10px;
+  }
+}
+
+.app-card-title-wrapper-03 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 50px;
+  font-family: $sixcaps;
+
+  @include sp() {
+    bottom: -5px;
+    font-size: 80px;
+  }
+}
+
+.app-card-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 30px 60px 0 #101237;
+  border-radius: 12px;
+  opacity: 0.3;
+}
+
+/* stylelint-disable */
+.is-windows .app-card-title-wrapper-01-block {
+  &:first-of-type {
+    position: relative;
+    left: -8px;
+  }
+}
+/* stylelint-enable */
+</style>

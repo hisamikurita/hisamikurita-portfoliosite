@@ -62,8 +62,8 @@
             </div>
           </div>
           <div class="contact-card-item-01">
-            <AppCardBase
-              :component-name="'ContactContents'"
+            <AppCard
+              :component-name="'contact'"
               :name="['・', 'DESIGNED BY', '(KENTO ISHIDUKA)']"
               :info="[
                 {
@@ -90,8 +90,8 @@
             />
           </div>
           <div class="contact-card-item-02">
-            <AppCardBase
-              :component-name="'ContactContents'"
+            <AppCard
+              :component-name="'contact'"
               :name="['・', 'CODED BY', '(HISAMI KURITA)']"
               :info="[
                 {
