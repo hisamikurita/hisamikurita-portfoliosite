@@ -38,12 +38,12 @@
                 <AppReadTitle :state="isTextSegmentState" :start="0.48" :text="['・', 'INDEX']" :modifier="'contact-section'" />
               </span>
               <ul class="contact-info-list">
-                <li v-for="(data, index) in projectData" :key="data.id" class="contact-info-item">
+                <li v-for="(data, index) in projectData" :key="data.id" class="contact-info-item js-click-target">
                   <AppPageTransitionImage :url="`works/${data.id}`" :index="index">
                     <AppTextAnimation :state="isTextSegmentState" :start="0.48 + index * 0.12" :rotate="$BASEROTATE.right" :text="data.title.full" />
                   </AppPageTransitionImage>
                 </li>
-                <li class="contact-info-item">
+                <li class="contact-info-item js-click-target">
                   <AppPageTransitionBg :url="`archive`" color="#000000">
                     <AppTextAnimation :state="isTextSegmentState" :start="0.48 + projectData.length * 0.12" :rotate="$BASEROTATE.right" :text="'ARCHIVE'" />
                   </AppPageTransitionBg>

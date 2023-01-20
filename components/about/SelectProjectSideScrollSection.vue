@@ -17,7 +17,14 @@
               <div ref="ProjectList" class="project-list" :class="{ 'is-text-animation-end': isTextAnimationState }">
                 <div ref="ProjectItemWrapperRotate" class="project-item-wrapper-rotate">
                   <div ref="ProjectItemWrapperTranslate" class="project-item-wrapper-translate">
-                    <div v-for="(data, index) in projectAndArchiveDatas" :key="index" ref="ProjectItem" class="project-item" @mousemove="onMouseEnter(index)" @mouseleave="onMouseLeave">
+                    <div
+                      v-for="(data, index) in projectAndArchiveDatas"
+                      :key="index"
+                      ref="ProjectItem"
+                      class="project-item js-click-target"
+                      @mousemove="onMouseEnter(index)"
+                      @mouseleave="onMouseLeave"
+                    >
                       <span ref="ProjectItemCircle" class="project-item-circle"></span>
                       <span ref="ProjectItemWrapper" class="project-item-wraper">
                         <!--アーカイブページの時-->

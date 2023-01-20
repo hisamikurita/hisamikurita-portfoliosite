@@ -2,10 +2,7 @@
   <div class="about">
     <AboutMainVisualSection />
     <AboutIntroSection />
-    <AboutAwardSection
-      :award-data="getAwardData"
-      :award-data-length="getAwardDataLength"
-    />
+    <AboutAwardSection :award-data="getAwardData" :award-data-length="getAwardDataLength" />
     <AboutSelectProjectSideScrollSection :project-data="getProjectData" />
   </div>
 </template>
@@ -44,19 +41,17 @@ export default {
   },
 
   watch: {
-    openningEnd: function () {
+    openningEnd() {
       setTimeout(() => {
-        // console.log('opend')
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
-    imageLoaded: function () {
+    imageLoaded() {
       if (this.imageLoaded) {
         // アクセス時はopenningEndが発火するので、処理を返す
         if (!this.openningEnd) return
-        // console.log('imgend')
 
         this.$store.commit('mouse/loadend')
         // スクロール可能にする
@@ -93,7 +88,7 @@ export default {
   beforeDestroy() {
     // リセット
     window.cancelAnimationFrame(this.raf)
-    this.$preDefaultEvent(false);
+    this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },

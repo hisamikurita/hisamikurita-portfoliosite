@@ -3,7 +3,7 @@
     <div
       ref="wrapper"
       :style="`color:${color}; transform: rotate(${rotate}deg);`"
-      class="app-card-wrapper js-app-card-wrapper"
+      class="app-card-wrapper js-hold-target"
       :class="`app-card-wrapper-${componentName}`"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"

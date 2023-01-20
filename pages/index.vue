@@ -5,14 +5,8 @@
       <IndexAboutSection />
     </div>
     <IndexSelectProjectPickupSection :pickup-data="getPickupData" />
-    <IndexSelectProjectCardSection
-      :project-data="getProjectData"
-      :pickup-end-data="getPickupData[2]"
-    />
-    <IndexContactSection
-      :project-data="getProjectData"
-      :contact-data="getContactData"
-    />
+    <IndexSelectProjectCardSection :project-data="getProjectData" :pickup-end-data="getPickupData[2]" />
+    <IndexContactSection :project-data="getProjectData" :contact-data="getContactData" />
   </div>
 </template>
 
@@ -47,15 +41,14 @@ export default {
   },
 
   watch: {
-    openningEnd: function () {
+    openningEnd() {
       setTimeout(() => {
-
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
-    imageLoaded: function () {
+    imageLoaded() {
       if (this.imageLoaded) {
         if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
@@ -85,7 +78,7 @@ export default {
 
   beforeDestroy() {
     // リセット
-    this.$preDefaultEvent(false);
+    this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('imageLoaded/init')
   },
