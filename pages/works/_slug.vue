@@ -1,8 +1,6 @@
 <template>
   <div class="works">
-    <!--
-      ページによって色を変更する
-    -->
+    <!-- ページによって色を変更する -->
     <div
       class="works-bg"
       :style="`
@@ -14,10 +12,7 @@
       <WorksMainVisualSection :current-project="currentProject" />
       <WorksProjectVideoSection :current-project="currentProject" />
       <WorksProjectContentsSection :current-project="currentProject" />
-      <WorksNextProjectSection
-        :current-project="currentProject"
-        :next-project="nextProject"
-      />
+      <WorksNextProjectSection :current-project="currentProject" :next-project="nextProject" />
     </div>
   </div>
 </template>
@@ -34,9 +29,7 @@ export default {
      */
     currentProject() {
       const projectResponse = this.$store.getters.projectData
-      const index = projectResponse.findIndex(
-        (content) => content.id === this.$router.history.current.params.slug
-      )
+      const index = projectResponse.findIndex((content) => content.id === this.$router.history.current.params.slug)
       const currentProject = projectResponse[index]
       currentProject.index = index + 1
 
@@ -48,9 +41,7 @@ export default {
      */
     nextProject() {
       const projectResponse = this.$store.getters.projectData
-      const index = projectResponse.findIndex(
-        (content) => content.id === this.$router.history.current.params.slug
-      )
+      const index = projectResponse.findIndex((content) => content.id === this.$router.history.current.params.slug)
       let nextProject = null
 
       if (index === projectResponse.length - 1) {
@@ -83,21 +74,20 @@ export default {
   },
 
   watch: {
-    openningEnd: function () {
+    openningEnd() {
       setTimeout(() => {
-
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
         this.$asscroll.enable({ reset: true })
       }, 1200)
     },
-    imageLoaded: function () {
+    imageLoaded() {
       if (this.imageLoaded) {
         if (!this.openningEnd) return // アクセス時はopenningEndが発火するので、処理を返す
 
         // スクロール可能にする
         if (this.$SITECONFIG.isTouch) this.$backfaceScroll(true)
-          this.$asscroll.enable({ reset: true })
+        this.$asscroll.enable({ reset: true })
       }
     },
   },
@@ -109,7 +99,7 @@ export default {
 
       // 画像の読み込みが全て完了した時
       imagesLoaded.on('always', () => {
-        setTimeout(()=>{
+        setTimeout(() => {
           // 遷移のアニメーションを終了させる
           if (this.defaultTransitionState) this.$store.commit('bg-transition/end')
           if (this.imageTransitionState) this.$store.commit('image-transition/end')
@@ -117,18 +107,18 @@ export default {
           this.$store.commit('mouse/loadend')
 
           this.$store.commit('imageLoaded/loaded')
-        },100) // worksのみ慣性スクロールがバグりがちなので、処理を0.1s遅らせる
+        }, 100) // worksのみ慣性スクロールがバグりがちなので、処理を0.1s遅らせる
 
-        setTimeout(()=>{
+        setTimeout(() => {
           if (this.indexPickupIsAnimation) this.$store.commit('indexPickup/sceneAnimationState', false)
-        },1200) // パーティクルを時間差で削除
+        }, 1200) // パーティクルを時間差で削除
       })
     })
   },
 
   beforeDestroy() {
     // リセット
-    this.$preDefaultEvent(false);
+    this.$preDefaultEvent(false)
     this.$asscroll.disable()
     this.$store.commit('indexPickup/setScene', 'init')
     this.$store.commit('imageLoaded/init')

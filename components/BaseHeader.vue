@@ -1,6 +1,6 @@
 <template>
   <div ref="HeaderLogo" class="header-logo is-top is-op">
-    <button class="header-link" @click="onClickSameUrlReload">
+    <button class="header-link js-click-target" @click="onClickSameUrlReload">
       <span
         v-for="(char, index) of name"
         :key="index"
@@ -125,9 +125,8 @@ export default {
 
       if (this.$route.name === 'index') {
         this.$router.go({ path: this.$router.currentRoute.path, force: true })
-      }
-      else {
-        this.$preDefaultEvent(true);
+      } else {
+        this.$preDefaultEvent(true)
         this.$asscroll.disable()
         this.$store.commit('bg-transition/start', '#f0efeb')
         this.$store.commit('mouse/loading')

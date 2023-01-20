@@ -35,7 +35,7 @@
     <div class="pickup-bg">
       <div ref="PickupInner" class="pickup-inner">
         <div class="l-container">
-          <button v-for="(data, index) in pickupData" :key="data.id" class="pickup-link" :class="`pickup-link-0${index + 1}`" aria-label="pickup page" @click="nextPage(data)"></button>
+          <button v-for="(data, index) in pickupData" :key="data.id" class="pickup-link js-click-target" :class="`pickup-link-0${index + 1}`" aria-label="pickup page" @click="nextPage(data)"></button>
           <div class="pickup-clip">
             <h2 class="pickup-title">
               <span v-for="(data, index) in pickupData" :key="data.id" class="pickup-title-wrapper" :class="`pickup-title-wrapper-0${index + 1}`" :style="`color:${data.siteColor.allTextColor};`">

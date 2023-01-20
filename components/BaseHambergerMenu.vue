@@ -11,12 +11,12 @@
     <div ref="HambergerMenuOverlay02" class="hambergerMenu-overlay-02">
       <div ref="HambergerMenuContents" class="hambergerMenu-contents">
         <div class="hambergerMenu-title">
-          <div class="hambergerMenu-title-wrapper-01" @click="hambergerMenuOnClose">
+          <div class="hambergerMenu-title-wrapper-01 js-click-target" @click="hambergerMenuOnClose">
             <AppPageTransitionBg url="/" color="#f0efeb">
               <AppTextAnimation :state="isTextSegmentState" :rotate="$BASEROTATE.right" :text="'HISAMIKURITA'" />
             </AppPageTransitionBg>
           </div>
-          <div class="hambergerMenu-title-wrapper-02" @click="hambergerMenuOnClose">
+          <div class="hambergerMenu-title-wrapper-02 js-click-target" @click="hambergerMenuOnClose">
             <AppPageTransitionBg url="/about" color="#f0efeb">
               <AppTextAnimation :state="isTextSegmentState" :start="0.12" :rotate="$BASEROTATE.left" :text="'ABOUT'" />
             </AppPageTransitionBg>
@@ -28,7 +28,7 @@
         <div>
           <ul class="hambergerMenu-list">
             <li v-for="(data, index) in projectAndArchiveDatas" :key="index" class="hambergerMenu-item">
-              <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper" @click="hambergerMenuOnClose">
+              <div ref="HambergerMenuItemWrapper" class="hambergerMenu-item-wrapper js-click-target" @click="hambergerMenuOnClose">
                 <!--アーカイブページの時-->
                 <AppPageTransitionBg v-if="index === projectAndArchiveData.length - 1.0" :url="`/archive`" :color="'#000000'" class="hambergerMenu-item-link">
                   <span class="hambergerMenu-item-img">
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    <button ref="HambergerMenuBtn" aria-label="hambergermenu btn" class="hambergerMenu-btn" @click="hambergerMenuOnClick">
+    <button ref="HambergerMenuBtn" aria-label="hambergermenu btn" class="hambergerMenu-btn js-click-target" @click="hambergerMenuOnClick">
       <span ref="HambergerMenuBtnHover" class="hambergerMenu-hover">
         <span ref="hambergerMenuOpenarea" class="hambergerMenu-openarea">
           <span ref="hambergerMenuOpenareaLine01" class="hambergerMenu-openarea-line hambergerMenu-openarea-line-01"></span>

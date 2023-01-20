@@ -1,5 +1,5 @@
 <template>
-  <div class="archive js-archive">
+  <div class="archive js-hold-target">
     <ul ref="ArchiveList" class="archive-list">
       <li v-for="(archive, index) in archives" :key="index" ref="ArchiveItem" class="archive-item" :data-pcimg="`/images/${archive.image.pc}`" :data-spimg="`/images/${archive.image.sp}`">
         <a :href="`${archive.link}`" class="archive-link" target="_blank" rel="noopener">
@@ -57,7 +57,7 @@ export default {
   },
 
   watch: {
-    openningEnd: function () {
+    openningEnd() {
       // update
       this.setWrapPosition()
 
@@ -75,7 +75,7 @@ export default {
         this.$asscroll.disable()
       }, 1200)
     },
-    imageLoaded: function () {
+    imageLoaded() {
       if (this.imageLoaded) {
         if (!this.openningEnd) return
 

@@ -10,9 +10,9 @@
         ></span
       ></span
     >
-    <img ref="MouseImgClick" src="/images/mouse-click.webp" width="88" height="143" alt="mouse-img-click" class="mouse-img-click" />
-    <img ref="MouseImgHold" src="/images/mouse-hold.webp" width="200" height="170" alt="mouse-img-hold" class="mouse-img-hold" />
-    <img ref="MouseImg" src="/images/mouse.webp" width="191" height="234" alt="mouse-img" class="mouse-img" />
+    <img ref="MouseImgClick" src="/images/mouse-click.webp" width="88" height="143" alt="" class="mouse-img-click" />
+    <img ref="MouseImgHold" src="/images/mouse-hold.webp" width="200" height="170" alt="" class="mouse-img-hold" />
+    <img ref="MouseImg" src="/images/mouse.webp" width="191" height="234" alt="" class="mouse-img" />
   </div>
 </template>
 
@@ -35,13 +35,13 @@ export default {
   watch: {
     mouseHover() {
       if (this.mouseHover) {
-        this.$gsap.to(this.$refs.MouseAction, {
+        this.$gsap.to(this.mouseAction, {
           duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 1,
         })
         this.$gsap.fromTo(
-          this.$refs.MouseActionWrapper,
+          this.mouseActionWrapper,
           {
             rotate: 8,
           },
@@ -53,7 +53,7 @@ export default {
           }
         )
         this.$gsap.fromTo(
-          this.$refs.MouseActionBlock,
+          this.mouseActionBlock,
           {
             y: 10,
           },
@@ -65,7 +65,7 @@ export default {
           }
         )
       } else {
-        this.$gsap.to(this.$refs.MouseAction, {
+        this.$gsap.to(this.mouseAction, {
           duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 0,
@@ -74,7 +74,7 @@ export default {
     },
     mouseDown() {
       if (this.mouseDown) {
-        this.$gsap.to(this.$refs.MouseAction, {
+        this.$gsap.to(this.mouseAction, {
           duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 0,
@@ -85,15 +85,15 @@ export default {
       if (this.$SITECONFIG.isSp) return
 
       if (this.mouseLoad) {
-        this.$refs.MouseLoading.classList.add('is-loading')
+        this.mouseLoading.classList.add('is-loading')
 
-        this.$gsap.to(this.$refs.MouseLoading, {
+        this.$gsap.to(this.mouseLoading, {
           duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 1,
         })
         this.$gsap.fromTo(
-          this.$refs.MouseLoadingWrapper,
+          this.mouseLoadingWrapper,
           {
             rotate: 8,
           },
@@ -105,7 +105,7 @@ export default {
           }
         )
         this.$gsap.fromTo(
-          this.$refs.MouseLoadingBlock,
+          this.mouseLoadingBlock,
           {
             y: 10,
           },
@@ -117,9 +117,9 @@ export default {
           }
         )
       } else {
-        this.$refs.MouseLoading.classList.remove('is-loading')
+        this.mouseLoading.classList.remove('is-loading')
 
-        this.$gsap.to(this.$refs.MouseLoading, {
+        this.$gsap.to(this.mouseLoading, {
           duration: this.$SITECONFIG.shortDuration,
           ease: this.$EASING.transform,
           scale: 0,
@@ -130,11 +130,9 @@ export default {
       // タッチイベントではない時
       if (this.$SITECONFIG.isNoTouch) {
         // クリックできる要素を全てのコンポーネントから取得
-        this.mouseClickTarget = document.querySelectorAll(
-          '.hambergerMenu-btn, .hambergerMenu-item-wrapper, .header-link,.hambergerMenu-title-wrapper-01, .hambergerMenu-title-wrapper-02, .pickup-link, .contact-info-item, .next-loop-title-wrapper, .next-backbtn, .project-item'
-        )
+        this.mouseClickTarget = document.querySelectorAll('.js-click-target')
         // ホールドできる要素を全てのコンポーネントから取得
-        this.mouseHoldTarget = document.querySelectorAll('.js-app-card-wrapper, .js-archive')
+        this.mouseHoldTarget = document.querySelectorAll('.js-hold-target')
 
         // イベント付与
         setTimeout(() => {
@@ -168,6 +166,15 @@ export default {
   },
 
   mounted() {
+    this.mouseDefault = this.$refs.MouseImg
+    this.mouseClick = this.$refs.MouseImgClick
+    this.mouseHold = this.$refs.MouseImgHold
+    this.mouseAction = this.$refs.MouseAction
+    this.mouseActionWrapper = this.$refs.MouseActionWrapper
+    this.mouseActionBlock = this.$refs.MouseActionBlock
+    this.mouseLoading = this.$refs.MouseLoading
+    this.mouseLoadingWrapper = this.$refs.MouseLoadingWrapper
+    this.mouseLoadingBlock = this.$refs.MouseLoadingBlock
     this.mouseArea = this.$refs.MouseArea
     this.mouseHalfWidth = this.mouseArea.clientWidth / 2
     this.mouseHalfHeight = this.mouseArea.clientHeight / 2
@@ -177,42 +184,42 @@ export default {
   },
   methods: {
     onMouseDown() {
-      this.$gsap.to(this.$refs.MouseImgClick, {
+      this.$gsap.to(this.mouseClick, {
         duration: 0.2,
         ease: this.$EASING.transform,
         scale: 1,
       })
-      this.$gsap.to(this.$refs.MouseImg, {
+      this.$gsap.to(this.mouseDefault, {
         duration: 0.2,
         ease: this.$EASING.transform,
         rotate: 15,
       })
     },
     onMouseUp() {
-      this.$gsap.to(this.$refs.MouseImgClick, {
+      this.$gsap.to(this.mouseClick, {
         duration: 0.2,
         ease: this.$EASING.transform,
         scale: 0,
       })
-      this.$gsap.to(this.$refs.MouseImg, {
+      this.$gsap.to(this.mouseDefault, {
         duration: 0.2,
         ease: this.$EASING.transform,
         rotate: 0,
       })
     },
     onMouseHoldDown() {
-      this.$gsap.set(this.$refs.MouseImg, {
+      this.$gsap.set(this.mouseDefault, {
         opacity: 0,
       })
-      this.$gsap.set(this.$refs.MouseImgHold, {
+      this.$gsap.set(this.mouseHold, {
         opacity: 1,
       })
     },
     onMouseHoldUp() {
-      this.$gsap.set(this.$refs.MouseImg, {
+      this.$gsap.set(this.mouseDefault, {
         opacity: 1,
       })
-      this.$gsap.set(this.$refs.MouseImgHold, {
+      this.$gsap.set(this.mouseHold, {
         opacity: 0,
       })
     },
