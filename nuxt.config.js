@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+const GAID = 'G-81R5130KR0'
+const GAcode = `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GAID}');`
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -76,6 +79,20 @@ export default {
     bodyAttrs: {
       oncontextmenu: 'return false'
     },
+    script: [
+      {
+        hid: 'GAsrc',
+        src: 'https://www.googletagmanager.com/gtag/js?id=' + GAID
+      },
+      {
+        hid: 'GAcode',
+        innerHTML: GAcode
+      }
+    ],
+    __dangerouslyDisableSanitizersByTagID: {
+      'GAsrc': ['innerHTML'],
+      'GAcode': ['innerHTML']
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
