@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-const GAID = 'G-81R5130KR0'
-const GAcode = `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GAID}');`
-
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -82,11 +79,11 @@ export default {
     script: [
       {
         hid: 'GAsrc',
-        src: 'https://www.googletagmanager.com/gtag/js?id=' + GAID
+        src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GAID}`
       },
       {
         hid: 'GAcode',
-        innerHTML: GAcode
+        innerHTML: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.GAID}');`
       }
     ],
     __dangerouslyDisableSanitizersByTagID: {
