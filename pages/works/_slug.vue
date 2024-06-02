@@ -23,6 +23,15 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'Works',
 
+  head() {
+    return {
+      title: `Hisami Kurita Portfolio | ${this.currentProject.title.full}`,
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: `Hisami Kurita Portfolio | ${this.currentProject.title.full}` },
+      ]
+    }
+  },
+
   computed: {
     /**
      * 現在のプロジェクトを取得

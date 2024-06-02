@@ -13,6 +13,15 @@ import ImagesLoaded from 'imagesloaded'
 export default {
   name: 'About',
 
+  head() {
+    return {
+      title: 'Hisami Kurita Portfolio | About',
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'Hisami Kurita Portfolio | About' },
+      ]
+    }
+  },
+
   computed: {
     getProjectData() {
       return this.$store.getters.projectData

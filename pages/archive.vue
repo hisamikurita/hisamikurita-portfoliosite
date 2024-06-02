@@ -30,6 +30,15 @@ export default {
     }
   },
 
+  head() {
+    return {
+      title: 'Hisami Kurita Portfolio | ARCHIVE',
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'Hisami Kurita Portfolio | ARCHIVE' },
+      ]
+    }
+  },
+
   computed: {
     defaultTransitionState() {
       return this.$store.getters['bg-transition/state']
